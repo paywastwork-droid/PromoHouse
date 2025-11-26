@@ -70,6 +70,7 @@
             padding: 40px 20px;
             text-align: center;
             color: white;
+            position: relative;
         }
 
         .logo {
@@ -82,10 +83,13 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
+            overflow: hidden;
         }
 
-        .logo-icon {
-            font-size: 50px;
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .banner h2 {
@@ -289,6 +293,120 @@
         .content-wrapper {
             padding-bottom: 100px;
         }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            width: 90%;
+            max-width: 400px;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            animation: modalFade 0.3s;
+        }
+
+        @keyframes modalFade {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .close-modal {
+            background: #f0f0f0;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .close-modal:hover {
+            background: #e0e0e0;
+        }
+
+        .manager-products {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .manager-product-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .manager-product-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 15px;
+            font-size: 22px;
+            color: white;
+        }
+
+        .manager-product-details {
+            flex: 1;
+        }
+
+        .manager-product-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .manager-product-price {
+            color: #29b6f6;
+            font-weight: 500;
+        }
+
+        .add-to-cart {
+            background: #4fc3f7;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background: #29b6f6;
+        }
     </style>
 </head>
 <body>
@@ -305,7 +423,7 @@
             <!-- Banner -->
             <div class="banner">
                 <div class="logo">
-                    <span class="logo-icon">🎁</span>
+                    <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" alt="Promo House Logo">
                 </div>
                 <h2>PROMO HOUSE</h2>
                 <p>For Promotional Products</p>
@@ -314,27 +432,27 @@
             <!-- Products Grid -->
             <div class="products-section">
                 <div class="products-grid">
-                    <div class="product-item">
+                    <div class="product-item" data-product="mug">
                         <div class="product-icon purple">
                             <i class="fas fa-mug-hot"></i>
                             <span class="badge">🛒</span>
                         </div>
                         <div class="product-name">Mug</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="notebook">
                         <div class="product-icon blue">
                             <i class="fas fa-book"></i>
                             <span class="badge">🛒</span>
                         </div>
                         <div class="product-name">Note book</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="pen">
                         <div class="product-icon green">
                             <i class="fas fa-pen"></i>
                         </div>
                         <div class="product-name">Pen</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="trophy">
                         <div class="product-icon pink">
                             <i class="fas fa-trophy"></i>
                         </div>
@@ -343,27 +461,27 @@
                 </div>
 
                 <div class="products-grid">
-                    <div class="product-item">
+                    <div class="product-item" data-product="mug">
                         <div class="product-icon purple">
                             <i class="fas fa-mug-hot"></i>
                             <span class="badge">🛒</span>
                         </div>
                         <div class="product-name">Mug</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="notebook">
                         <div class="product-icon blue">
                             <i class="fas fa-book"></i>
                             <span class="badge">🛒</span>
                         </div>
                         <div class="product-name">Note book</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="pen">
                         <div class="product-icon green">
                             <i class="fas fa-pen"></i>
                         </div>
                         <div class="product-name">Pen</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="trophy">
                         <div class="product-icon pink">
                             <i class="fas fa-trophy"></i>
                         </div>
@@ -372,27 +490,27 @@
                 </div>
 
                 <div class="products-grid">
-                    <div class="product-item">
+                    <div class="product-item" data-product="mug">
                         <div class="product-icon purple">
                             <i class="fas fa-mug-hot"></i>
                             <span class="badge">🛒</span>
                         </div>
                         <div class="product-name">Mug</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="notebook">
                         <div class="product-icon blue">
                             <i class="fas fa-book"></i>
                             <span class="badge">🛒</span>
                         </div>
                         <div class="product-name">Note book</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="pen">
                         <div class="product-icon green">
                             <i class="fas fa-pen"></i>
                         </div>
                         <div class="product-name">Pen</div>
                     </div>
-                    <div class="product-item">
+                    <div class="product-item" data-product="trophy">
                         <div class="product-icon pink">
                             <i class="fas fa-trophy"></i>
                         </div>
@@ -505,7 +623,101 @@
         </div>
     </div>
 
+    <!-- Modal for Manager Products -->
+    <div class="modal" id="productsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="modal-title">کاڵاکانی کەبەڕیوبەر</div>
+                <div class="close-modal">
+                    <i class="fas fa-times"></i>
+                </div>
+            </div>
+            <div class="manager-products" id="managerProductsList">
+                <!-- Products will be added here dynamically -->
+            </div>
+        </div>
+    </div>
+
     <script>
+        // Sample manager products data
+        const managerProducts = {
+            mug: [
+                { name: "مەگەکی پڕیمیۆم", price: "15,000 دینار", icon: "fa-mug-hot", color: "purple" },
+                { name: "مەگەکی کۆمپانیا", price: "12,000 دینار", icon: "fa-mug-hot", color: "purple" },
+                { name: "مەگەکی تایبەت", price: "18,000 دینار", icon: "fa-mug-hot", color: "purple" }
+            ],
+            notebook: [
+                { name: "تیترەی بازرگانی", price: "8,000 دینار", icon: "fa-book", color: "blue" },
+                { name: "تیترەی قوتابخانە", price: "5,000 دینار", icon: "fa-book", color: "blue" },
+                { name: "تیترەی تایبەت", price: "10,000 دینار", icon: "fa-book", color: "blue" }
+            ],
+            pen: [
+                { name: "پێنوسی بازرگانی", price: "3,000 دینار", icon: "fa-pen", color: "green" },
+                { name: "پێنوسی لۆگۆدار", price: "4,500 دینار", icon: "fa-pen", color: "green" },
+                { name: "پێنوسی پڕیمیۆم", price: "6,000 دینار", icon: "fa-pen", color: "green" }
+            ],
+            trophy: [
+                { name: "پێشکەوتنی ئەستێرە", price: "25,000 دینار", icon: "fa-trophy", color: "pink" },
+                { name: "پێشکەوتنی زێڕین", price: "35,000 دینار", icon: "fa-trophy", color: "pink" },
+                { name: "پێشکەوتنی کۆمپانیا", price: "20,000 دینار", icon: "fa-trophy", color: "pink" }
+            ]
+        };
+
+        // Get modal elements
+        const modal = document.getElementById('productsModal');
+        const managerProductsList = document.getElementById('managerProductsList');
+        const closeModal = document.querySelector('.close-modal');
+
+        // Function to open modal with specific products
+        function openProductsModal(productType) {
+            // Clear previous products
+            managerProductsList.innerHTML = '';
+            
+            // Add products to modal
+            if (managerProducts[productType]) {
+                managerProducts[productType].forEach(product => {
+                    const productItem = document.createElement('div');
+                    productItem.className = 'manager-product-item';
+                    
+                    productItem.innerHTML = `
+                        <div class="manager-product-icon ${product.color}">
+                            <i class="fas ${product.icon}"></i>
+                        </div>
+                        <div class="manager-product-details">
+                            <div class="manager-product-name">${product.name}</div>
+                            <div class="manager-product-price">${product.price}</div>
+                        </div>
+                        <button class="add-to-cart">زیادکردن</button>
+                    `;
+                    
+                    managerProductsList.appendChild(productItem);
+                });
+            }
+            
+            // Show modal
+            modal.style.display = 'flex';
+        }
+
+        // Add click event to product items
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.addEventListener('click', function() {
+                const productType = this.getAttribute('data-product');
+                openProductsModal(productType);
+            });
+        });
+
+        // Close modal when X is clicked
+        closeModal.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside the modal content
+        window.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
         // Add click animations
         document.querySelectorAll('.product-item, .nav-item, .bell-icon, .banner-button').forEach(item => {
             item.addEventListener('click', function() {
