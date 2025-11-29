@@ -20,10 +20,48 @@
         /* Header */
         .header { background: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; }
         .header h1 { font-size: 14px; color: #333; font-weight: 600; }
-        .bell-icon { width: 35px; height: 35px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
-        .bell-icon:hover { background: #e0e0e0; }
-        .bell-icon i { color: #555; font-size: 16px; }
-
+        .admin-button { background: #4fc3f7; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 12px; transition: all 0.3s; }
+        .admin-button:hover { background: #29b6f6; transform: translateY(-2px); }
+        
+        /* Bottom Navigation */
+        .bottom-nav { 
+            position: fixed; 
+            bottom: 0; 
+            left: 0; 
+            right: 0; 
+            background: white; 
+            display: flex; 
+            justify-content: space-around; 
+            padding: 10px 0; 
+            border-top: 1px solid #e0e0e0; 
+            z-index: 1000;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        .nav-item { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            cursor: pointer; 
+            transition: all 0.3s;
+            flex: 1;
+            padding: 5px 0;
+        }
+        .nav-item.active { 
+            color: #4fc3f7;
+        }
+        .nav-item:hover { 
+            color: #29b6f6;
+            transform: translateY(-2px);
+        }
+        .nav-icon { 
+            font-size: 18px; 
+            margin-bottom: 4px;
+        }
+        .nav-label { 
+            font-size: 11px; 
+            font-weight: 500;
+        }
+        
         /* Banner */
         .banner { background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%); padding: 25px 15px; text-align: center; color: white; position: relative; cursor: pointer; }
         .logo { width: 70px; height: 70px; background: rgba(255,255,255,0.3); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); overflow: hidden; }
@@ -40,7 +78,7 @@
         .category-item.active:hover { background: #29b6f6; }
 
         /* Products Grid */
-        .products-section { padding: 15px; }
+        .products-section { padding: 15px; padding-bottom: 70px; }
         .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px; }
         .product-item { background: white; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #f0f0f0; position: relative; }
         .product-item.new-product { border: 2px solid #ff9800; box-shadow: 0 2px 10px rgba(255, 152, 0, 0.2); }
@@ -61,87 +99,14 @@
         .price-eye:hover { background: #4fc3f7; color: white; transform: scale(1.1); }
         .price-eye i { font-size: 12px; }
 
-        /* Admin Panel */
-        .admin-panel { background: #f8f9fa; padding: 15px; margin: 15px; border-radius: 10px; border: 1px solid #e9ecef; display: none; }
-        .admin-panel.show { display: block; animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .admin-title { font-size: 16px; color: #333; margin-bottom: 12px; text-align: center; }
-        .admin-form { display: flex; flex-direction: column; gap: 8px; }
-        .admin-input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
-        .admin-select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
-        .admin-file-input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
-        .admin-button { background: #4fc3f7; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.3s; }
-        .admin-button:hover { background: #29b6f6; }
-        .admin-button.delete { background: #f44336; }
-        .admin-button.delete:hover { background: #d32f2f; }
-        .image-preview { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; margin: 8px auto; background: #f8f9fa; display: flex; align-items: center; justify-content: center; }
-        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .image-preview .placeholder-text { color: #888; font-size: 10px; text-align: center; }
-
-        /* Edit and Delete Buttons (Only in Admin Panel) */
-        .product-actions { position: absolute; top: 8px; left: 8px; display: flex; gap: 5px; z-index: 3; }
-        .edit-btn, .delete-btn { width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; font-size: 12px; }
-        .edit-btn { background: rgba(76, 175, 80, 0.9); color: white; }
-        .edit-btn:hover { background: #4caf50; transform: scale(1.1); }
-        .delete-btn { background: rgba(244, 67, 54, 0.9); color: white; }
-        .delete-btn:hover { background: #f44336; transform: scale(1.1); }
-
-        /* Loading Spinner */
-        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #4fc3f7; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 10px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Notification styles */
-        .notification { position: fixed; top: 80px; right: 15px; left: 15px; background: #4caf50; color: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000; font-size: 13px; text-align: center; animation: slideIn 0.3s ease-out; }
-        .notification.error { background: #f44336; }
-        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes slideOut { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
-
-        /* Contact Section */
-        .contact-section { background: #f8f9fa; padding: 20px 15px; margin-top: 20px; border-top: 1px solid #e9ecef; }
-        .contact-title { font-size: 16px; color: #333; margin-bottom: 15px; text-align: center; font-weight: 600; }
-        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .contact-item { background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: all 0.3s; border: 1px solid #f0f0f0; }
-        .contact-item:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .contact-icon { width: 40px; height: 40px; background: #4fc3f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
-        .contact-icon i { color: white; font-size: 18px; }
-        .contact-label { font-size: 12px; color: #666; margin-bottom: 5px; }
-        .contact-value { font-size: 14px; color: #333; font-weight: 600; }
-        
-        /* Footer */
-        .footer { background: #333; color: white; padding: 15px; text-align: center; font-size: 12px; margin-top: 20px; }
-        .footer p { margin-bottom: 5px; }
-        
-        /* Home/Pay/Location/Setting/Market/Marketplace Links */
-        .quick-links { display: flex; justify-content: space-around; padding: 15px; background: white; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
-        .quick-link { text-align: center; cursor: pointer; transition: all 0.3s; }
-        .quick-link-icon { width: 40px; height: 40px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
-        .quick-link-icon i { color: #4fc3f7; font-size: 18px; }
-        .quick-link:hover .quick-link-icon { background: #4fc3f7; }
-        .quick-link:hover .quick-link-icon i { color: white; }
-        .quick-link-label { font-size: 11px; color: #666; }
-        .quick-link:hover .quick-link-label { color: #4fc3f7; }
-
-        /* Admin Products Grid */
-        .admin-products-section { max-height: 400px; overflow-y: auto; margin-top: 15px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px; background: white; }
-        .admin-products-title { font-size: 14px; color: #333; margin-bottom: 10px; text-align: center; font-weight: 600; }
-        
-        /* Password Prompt */
-        .password-prompt { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
-        .password-container { background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center; }
-        .password-title { font-size: 16px; margin-bottom: 15px; color: #333; }
-        .password-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 15px; font-size: 14px; }
-        .password-buttons { display: flex; gap: 10px; }
-        .password-button { flex: 1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; }
-        .password-submit { background: #4fc3f7; color: white; }
-        .password-cancel { background: #f0f0f0; color: #333; }
-
-        /* Image Slider Styles - Fixed */
+        /* Image Slider Styles - Fixed for RTL */
         .image-slider { 
             position: relative; 
             width: 100%; 
             height: 100%; 
             overflow: hidden; 
             border-radius: 8px;
+            direction: ltr; /* چارەسەری کێشەی RTL */
         }
         .slider-container { 
             display: flex; 
@@ -197,7 +162,7 @@
             justify-content: center; 
             cursor: pointer; 
             transition: all 0.3s; 
-            opacity: 0; 
+            opacity: 0.7; 
             z-index: 2;
         }
         .product-image:hover .slider-arrow { 
@@ -208,14 +173,31 @@
             transform: translateY(-50%) scale(1.1);
         }
         .slider-arrow.prev { 
-            right: 6px; 
+            left: 6px; 
         }
         .slider-arrow.next { 
-            left: 6px; 
+            right: 6px; 
         }
         .slider-arrow i { 
             font-size: 14px; 
         }
+
+        /* Admin Panel */
+        .admin-panel { background: #f8f9fa; padding: 15px; margin: 15px; border-radius: 10px; border: 1px solid #e9ecef; display: none; }
+        .admin-panel.show { display: block; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .admin-title { font-size: 16px; color: #333; margin-bottom: 12px; text-align: center; }
+        .admin-form { display: flex; flex-direction: column; gap: 8px; }
+        .admin-input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+        .admin-select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+        .admin-file-input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+        .form-button { background: #4fc3f7; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.3s; }
+        .form-button:hover { background: #29b6f6; }
+        .form-button.delete { background: #f44336; }
+        .form-button.delete:hover { background: #d32f2f; }
+        .image-preview { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; margin: 8px auto; background: #f8f9fa; display: flex; align-items: center; justify-content: center; }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .image-preview .placeholder-text { color: #888; font-size: 10px; text-align: center; }
 
         /* Multiple Image Upload */
         .multiple-images-preview { 
@@ -255,46 +237,245 @@
             font-size: 10px; 
         }
 
-        /* Date Filter Section */
-        .date-filter-section {
-            background: #f8f9fa;
-            padding: 12px 15px;
-            border-bottom: 1px solid #e0e0e0;
+        /* Password Modal */
+        .password-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
             display: flex;
-            gap: 10px;
             align-items: center;
-            flex-wrap: wrap;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
         }
-        .date-filter-label {
-            font-size: 13px;
-            color: #333;
-            font-weight: 500;
+        .password-modal.show {
+            display: flex;
         }
-        .date-filter-select {
-            padding: 6px 10px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 12px;
+        .password-modal-content {
             background: white;
-            min-width: 150px;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            max-width: 90%;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
-        .date-filter-button {
+        .password-input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .password-submit {
             background: #4fc3f7;
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
+            padding: 10px 20px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 12px;
-            transition: all 0.3s;
+            font-size: 14px;
+            width: 100%;
         }
-        .date-filter-button:hover {
+        .password-submit:hover {
             background: #29b6f6;
         }
-        .date-display {
-            font-size: 11px;
+
+        /* Loading Spinner */
+        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #4fc3f7; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Notification styles */
+        .notification { position: fixed; top: 80px; right: 15px; left: 15px; background: #4caf50; color: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000; font-size: 13px; text-align: center; animation: slideIn 0.3s ease-out; }
+        .notification.error { background: #f44336; }
+        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideOut { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
+        
+        /* Page Sections */
+        .page-section {
+            display: none;
+            padding: 15px;
+            padding-bottom: 70px;
+            min-height: calc(100vh - 140px);
+        }
+        .page-section.active {
+            display: block;
+        }
+        
+        /* Payment Section */
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .payment-method {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-method:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .payment-icon {
+            width: 40px;
+            height: 40px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+        .payment-info h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .payment-info p {
+            font-size: 12px;
             color: #666;
-            margin-left: auto;
+        }
+        
+        /* Location Section */
+        .location-info {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .location-info h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+        .location-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .location-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .location-item:last-child {
+            border-bottom: none;
+        }
+        .location-icon {
+            width: 30px;
+            height: 30px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+        .location-text {
+            flex: 1;
+        }
+        .location-text strong {
+            display: block;
+            margin-bottom: 2px;
+            color: #333;
+        }
+        .location-text span {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* About Section */
+        .about-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 20px;
+        }
+        .about-content h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+            color: #333;
+            text-align: center;
+        }
+        .about-text {
+            line-height: 1.6;
+            color: #555;
+            font-size: 14px;
+            text-align: justify;
+        }
+        .about-features {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        .feature-icon {
+            color: #4fc3f7;
+            font-size: 16px;
+        }
+        
+        /* Marketplace Section */
+        .marketplace-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .stat-card {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .stat-icon {
+            width: 40px;
+            height: 40px;
+            background: #4fc3f7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            margin: 0 auto 10px;
+        }
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
         }
     </style>
 </head>
@@ -303,105 +484,231 @@
         <!-- Header -->
         <div class="header">
             <h1>PAYWAST MAJEED...</h1>
-            <div class="bell-icon" id="adminAccessBtn">
-                <i class="fas fa-user-cog"></i>
-            </div>
+            <button class="admin-button" id="adminAccessBtn">
+                <i class="fas fa-plus"></i> +
+            </button>
         </div>
 
         <div class="content-wrapper">
-            <!-- Banner -->
-            <div class="banner">
-                <div class="logo">
-                    <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" alt="Promo House Logo">
+            <!-- Home Section (Products) -->
+            <div class="page-section active" id="home-section">
+                <!-- Banner -->
+                <div class="banner">
+                    <div class="logo">
+                        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" alt="Promo House Logo">
+                    </div>
+                    <h2>PROMO HOUSE</h2>
+                    <p>For Promotional Products</p>
                 </div>
-                <h2>PROMO HOUSE</h2>
-                <p>For Promotional Products</p>
-            </div>
 
-            <!-- Date Filter Section -->
-            <div class="date-filter-section">
-                <div class="date-filter-label">ڕێکخستنی بەروار:</div>
-                <select class="date-filter-select" id="dateFilter">
-                    <option value="all">هەموو کاڵاکان</option>
-                    <option value="today">ئەمرۆ</option>
-                    <option value="yesterday">دوێنێ</option>
-                    <option value="week">ئەم هەفتەیە</option>
-                    <option value="month">ئەم مانگە</option>
-                    <option value="new">کاڵای نوێ (٧ ڕۆژ لەمەوپێش)</option>
-                </select>
-                <button class="date-filter-button" id="applyDateFilter">جێبەجێکردن</button>
-                <div class="date-display" id="dateDisplay"></div>
-            </div>
+                <!-- Category Navigation -->
+                <div class="category-nav" id="categoryNav">
+                    <div class="category-item active" data-category="all">هەموو کاڵاکان</div>
+                    <div class="category-item" data-category="clothing">جل</div>
+                    <div class="category-item" data-category="hat">کڵاو</div>
+                    <div class="category-item" data-category="mug">کووپ</div>
+                    <div class="category-item" data-category="watermelon">تەرمۆزە</div>
+                    <div class="category-item" data-category="notebook">دەفتەر</div>
+                    <div class="category-item" data-category="pen">قەلەم</div>
+                    <div class="category-item" data-category="bag">جانتا</div>
+                    <div class="category-item" data-category="crystal">کریستال</div>
+                    <div class="category-item" data-category="shield">درع</div>
+                    <div class="category-item" data-category="krikar">کریکار</div>
+                    <div class="category-item" data-category="other">شتی تر</div>
+                </div>
 
-            <!-- Category Navigation -->
-            <div class="category-nav" id="categoryNav">
-                <div class="category-item active" data-category="all">هەموو کاڵاکان</div>
-                <div class="category-item" data-category="clothing">جل</div>
-                <div class="category-item" data-category="hat">کڵاو</div>
-                <div class="category-item" data-category="mug">کووپ</div>
-                <div class="category-item" data-category="watermelon">تەرمۆزە</div>
-                <div class="category-item" data-category="notebook">دەفتەر</div>
-                <div class="category-item" data-category="pen">قەلەم</div>
-                <div class="category-item" data-category="bag">جانتا</div>
-                <div class="category-item" data-category="crystal">کریستال</div>
-                <div class="category-item" data-category="shield">درع</div>
-                <div class="category-item" data-category="krikar">کریکار</div>
-                <div class="category-item" data-category="other">شتی تر</div>
-            </div>
-
-            <!-- Products Grid -->
-            <div class="products-section">
-                <div class="products-grid" id="productsContainer">
-                    <div style="text-align: center; grid-column: 1 / -1; padding: 20px;">
-                        <div class="loading"></div>
-                        <div>کاڵاکان بار دەکرێن...</div>
+                <!-- Products Grid -->
+                <div class="products-section">
+                    <div class="products-grid" id="productsContainer">
+                        <div style="text-align: center; grid-column: 1 / -1; padding: 20px;">
+                            <div class="loading"></div>
+                            <div>کاڵاکان بار دەکرێن...</div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Quick Links (Moved to bottom) -->
-            <div class="quick-links">
-                <div class="quick-link" onclick="showNotification('بەشی ماڵەوە', 'success')">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-home"></i>
+            <!-- Pay Section -->
+            <div class="page-section" id="pay-section">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #333;">شێوازەکانی پارەدان</h2>
+                <div class="payment-methods">
+                    <div class="payment-method">
+                        <div class="payment-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>پارەی کاش</h3>
+                            <p>پارەدان کاتێک کاڵا دەگات بە دەستت</p>
+                        </div>
                     </div>
-                    <div class="quick-link-label">ماڵەوە</div>
+                    <div class="payment-method">
+                        <div class="payment-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>زیرەک</h3>
+                            <p>پارەدان لە ڕێگەی زیرەکەوە</p>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>کارتی بانکی</h3>
+                            <p>پارەدان بە کارتی بانکی</p>
+                        </div>
+                    </div>
+                    <div class="payment-method">
+                        <div class="payment-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="payment-info">
+                            <h3>وەرگرتنی بانکی</h3>
+                            <p>پارەدان لە بانکەوە</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="quick-link" onclick="showNotification('بەشی پارەدان', 'success')">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-credit-card"></i>
+            </div>
+
+            <!-- Location Section -->
+            <div class="page-section" id="location-section">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #333;">شوێنی ئێمە</h2>
+                <div class="location-info">
+                    <h3>PromoHouse</h3>
+                    <div class="location-details">
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="location-text">
+                                <strong>ناونیشان</strong>
+                                <span>سلێمانی، کوردستان</span>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="location-text">
+                                <strong>ژمارەی تەلەفۆن</strong>
+                                <span>07701922060</span>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="location-text">
+                                <strong>ئیمەیل</strong>
+                                <span>paywastwork@gmail.com</span>
+                            </div>
+                        </div>
+                        <div class="location-item">
+                            <div class="location-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="location-text">
+                                <strong>کاتەکانی کار</strong>
+                                <span>٩:٠٠ AM - ٥:٠٠ PM (هەموو ڕۆژێک)</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="quick-link-label">پارەدان</div>
                 </div>
-                <div class="quick-link" onclick="showNotification('بەشی شوێن', 'success')">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+            </div>
+
+            <!-- About Section -->
+            <div class="page-section" id="about-section">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #333;">دەربارەی ئێمە</h2>
+                <div class="about-content">
+                    <h3>PromoHouse</h3>
+                    <div class="about-text">
+                        <p>بەخێربێن بۆ PromoHouse! .</p>
+                        
+                        <p>ئامانجی ئێمە دابینکردنی باشترین کوالێتی بەرز و کاڵا بە نرخێکی گونجاوو. .</p>
                     </div>
-                    <div class="quick-link-label">شوێن</div>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>کاڵا  بە کوالێتی بەرز</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>نرخە پێشکەوتووەکان</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>گواستنەوەی خێرا</span>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <span>خزمەتگوزاری کڕیاری باش</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="quick-link" onclick="showNotification('بەشی ڕێکخستنەکان', 'success')">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-cog"></i>
+            </div>
+
+            <!-- Marketplace Section -->
+            <div class="page-section" id="marketplace-section">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #333;">بازاڕی کاڵاکان</h2>
+                <div class="marketplace-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div class="stat-number">١٢٥+</div>
+                        <div class="stat-label">جۆری کاڵا</div>
                     </div>
-                    <div class="quick-link-label">ڕێکخستن</div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-number">٥٠٠+</div>
+                        <div class="stat-label">کڕیاری دڵخۆش</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="stat-number">١٠٠٠+</div>
+                        <div class="stat-label">داواکاری تەواو</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <div class="stat-number">٥+</div>
+                        <div class="stat-label">ساڵ خزمەتگوزاری</div>
+                    </div>
                 </div>
-                <div class="quick-link" onclick="showNotification('بەشی بازار', 'success')">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="quick-link-label">بازار</div>
+                
+                <div style="margin-top: 30px; text-align: center;">
+                    <h3 style="margin-bottom: 15px; color: #333;">کاڵا پڕۆمۆشناڵەکانمان</h3>
+                    <p style="color: #666; line-height: 1.6;">ئێمە هەموو جۆرە کاڵا پڕۆمۆشناڵەکان دابین دەکەین لە جل و بەرگ و کڵاو و کووپ و قەلەم و دەفتەر و زۆر شتی تر. هەموو کاڵاکانمان دەتوانرێت دیزاینی تایبەتیان بۆ بکرێت بە ناونیشانی کۆمپانیاکەت یان لۆگۆ.</p>
                 </div>
-                <div class="quick-link" onclick="showNotification('بەشی مارکێتپڵەیس', 'success')">
-                    <div class="quick-link-icon">
-                        <i class="fas fa-shopping-bag"></i>
-                    </div>
-                    <div class="quick-link-label">مارکێتپڵەیس</div>
+            </div>
+
+            <!-- Password Modal -->
+            <div class="password-modal" id="passwordModal">
+                <div class="password-modal-content">
+                    <h3>تکایە وشەی نهێنی داخل بکە</h3>
+                    <input type="password" class="password-input" id="passwordInput" placeholder="وشەی نهێنی">
+                    <button class="password-submit" id="passwordSubmit">چوونە ژورەوە</button>
                 </div>
             </div>
 
             <!-- Admin Panel -->
             <div class="admin-panel" id="adminPanel">
-                <div class="admin-title">بەڕێوەبەری کاڵاکان</div>
+                <div class="admin-title">زیادکردنی کاڵای نوێ</div>
                 <form class="admin-form" id="adminForm">
                     <input type="text" class="admin-input" id="productName" placeholder="ناوی کاڵا" required>
                     <input type="number" class="admin-input" id="productPrice" placeholder="نرخ (دینار)" required>
@@ -427,71 +734,45 @@
                     
                     <input type="file" class="admin-file-input" id="productImages" accept="image/*" multiple>
                     
-                    <button type="submit" class="admin-button" id="submitButton">
+                    <button type="submit" class="form-button" id="submitButton">
                         <span id="submitButtonText">زیادکردنی کاڵا</span>
                     </button>
-                    <button type="button" class="admin-button delete" id="closeAdminPanel">داخستنی بەڕێوەبەر</button>
+                    <button type="button" class="form-button delete" id="closeAdminPanel">داخستن</button>
                 </form>
-
-                <!-- Admin Products Section -->
-                <div class="admin-products-section" id="adminProductsSection">
-                    <div class="admin-products-title">کاڵاکان بۆ دەستکاری و سڕینەوە</div>
-                    <div class="products-grid" id="adminProductsContainer">
-                        <!-- Products will be loaded here with edit/delete buttons -->
-                    </div>
-                </div>
-            </div>
-
-            <!-- Contact Section -->
-            <div class="contact-section">
-                <div class="contact-title">پەیوەندی</div>
-                <div class="contact-grid">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone"></i>
-                        </div>
-                        <div class="contact-label">ژمارەی مۆبایل</div>
-                        <div class="contact-value">-7701922060</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-label">ئیمەیڵ</div>
-                        <div class="contact-value">paywastwork@gmail.com</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-label">شوێن</div>
-                        <div class="contact-value">سلێمانی</div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div class="contact-label">کاتەکانی کار</div>
-                        <div class="contact-value">٩:٠٠ - ١٧:٠٠</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Footer -->
-            <div class="footer">
-                <p>پڕۆمۆ هۆس - هەموو مافەکان پارێزراون © ٢٠٢٣</p>
-                <p>پەیوەندیمان پێوەبکە: ٠٧٧٠ XXX XXXX | example@promohouse.com</p>
             </div>
         </div>
-    </div>
 
-    <div class="password-prompt" id="passwordPrompt" style="display: none;">
-        <div class="password-container">
-            <div class="password-title">تکایە وشەی نهێنی بەڕێوەبەر بنووسە</div>
-            <input type="password" class="password-input" id="adminPassword" placeholder="وشەی نهێنی">
-            <div class="password-buttons">
-                <button class="password-button password-cancel" id="cancelPassword">پاشگەزبوونەوە</button>
-                <button class="password-button password-submit" id="submitPassword">چوونە ناوەوە</button>
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="home-section">
+                <div class="nav-icon">
+                    <i class="fas fa-home"></i>
+                </div>
+                <div class="nav-label">ماڵەوە</div>
+            </div>
+            <div class="nav-item" data-page="pay-section">
+                <div class="nav-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="nav-label">پارەدان</div>
+            </div>
+            <div class="nav-item" data-page="location-section">
+                <div class="nav-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="nav-label">شوێن</div>
+            </div>
+            <div class="nav-item" data-page="about-section">
+                <div class="nav-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="nav-label">دەربارە</div>
+            </div>
+            <div class="nav-item" data-page="marketplace-section">
+                <div class="nav-icon">
+                    <i class="fas fa-store"></i>
+                </div>
+                <div class="nav-label">بازاڕ</div>
             </div>
         </div>
     </div>
@@ -518,165 +799,9 @@
 
         // Global variables
         let allProducts = [];
-        let currentEditingProductId = null;
-        const ADMIN_PASSWORD = "admin123"; // وشەی نهێنی بەڕێوەبەر
-        
-        // Helper function to get icon based on category
-        function getIcon(category) {
-            switch (category) {
-                case 'clothing': return 'fa-tshirt';
-                case 'hat': return 'fa-hat-cowboy';
-                case 'mug': return 'fa-mug-hot';
-                case 'watermelon': return 'fa-flask'; // Using a placeholder icon
-                case 'notebook': return 'fa-book';
-                case 'pen': return 'fa-pen';
-                case 'bag': return 'fa-shopping-bag';
-                case 'crystal': return 'fa-gem';
-                case 'shield': return 'fa-shield-alt';
-                case 'krikar': return 'fa-hand-holding';
-                default: return 'fa-box-open';
-            }
-        }
+        const ADMIN_PASSWORD = "1100"; // وشەی نهێنی بەڕیوەبەر
 
-        // Function to format date for display
-        function formatDate(timestamp) {
-            if (!timestamp) return 'بەرواری نەزانراو';
-            
-            const date = new Date(timestamp);
-            const now = new Date();
-            const diffTime = Math.abs(now - date);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            // If today
-            if (date.toDateString() === now.toDateString()) {
-                return 'ئەمرۆ';
-            }
-            // If yesterday
-            const yesterday = new Date(now);
-            yesterday.setDate(yesterday.getDate() - 1);
-            if (date.toDateString() === yesterday.toDateString()) {
-                return 'دوێنێ';
-            }
-            // If within this week
-            if (diffDays <= 7) {
-                return `${diffDays} ڕۆژ لەمەوپێش`;
-            }
-            
-            // Otherwise show full date
-            return date.toLocaleDateString('ku-IQ', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        // Function to show notification
-        function showNotification(message, type = 'success') {
-            let notification = document.querySelector('.notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.className = 'notification';
-                document.body.appendChild(notification);
-            }
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.style.display = 'block';
-
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-in forwards';
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                    notification.style.animation = 'slideIn 0.3s ease-out'; // Reset animation
-                }, 300);
-            }, 3000);
-        }
-
-        // Function to show USD Price
-        function showUSDPrice(priceIQD, productName) {
-            const usdPrice = (priceIQD / 1470).toFixed(2);
-            showNotification(`${productName}: ${priceIQD.toLocaleString()} دینار = نزیکەی ${usdPrice}$`, 'success');
-        }
-
-        // Function to handle category filtering
-        function filterProducts(category) {
-            const productsContainer = document.getElementById('productsContainer');
-            const products = productsContainer.querySelectorAll('.product-item');
-            
-            products.forEach(product => {
-                const productCategory = product.getAttribute('data-category');
-                if (category === 'all' || productCategory === category) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-            
-            // Update active category style
-            const categoryItems = document.querySelectorAll('.category-item');
-            categoryItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('data-category') === category) {
-                    item.classList.add('active');
-                }
-            });
-        }
-
-        // Function to filter products by date
-        function filterProductsByDate(dateFilter) {
-            const productsContainer = document.getElementById('productsContainer');
-            const products = productsContainer.querySelectorAll('.product-item');
-            const now = new Date();
-            
-            products.forEach(product => {
-                const productDateStr = product.getAttribute('data-created-date');
-                if (!productDateStr) {
-                    product.style.display = 'none';
-                    return;
-                }
-                
-                const productDate = new Date(parseInt(productDateStr));
-                let shouldShow = true;
-                
-                switch (dateFilter) {
-                    case 'today':
-                        shouldShow = productDate.toDateString() === now.toDateString();
-                        break;
-                    case 'yesterday':
-                        const yesterday = new Date(now);
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        shouldShow = productDate.toDateString() === yesterday.toDateString();
-                        break;
-                    case 'week':
-                        const weekAgo = new Date(now);
-                        weekAgo.setDate(weekAgo.getDate() - 7);
-                        shouldShow = productDate >= weekAgo;
-                        break;
-                    case 'month':
-                        const monthAgo = new Date(now);
-                        monthAgo.setMonth(monthAgo.getMonth() - 1);
-                        shouldShow = productDate >= monthAgo;
-                        break;
-                    case 'new':
-                        const sevenDaysAgo = new Date(now);
-                        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-                        shouldShow = productDate >= sevenDaysAgo;
-                        break;
-                    case 'all':
-                    default:
-                        shouldShow = true;
-                        break;
-                }
-                
-                product.style.display = shouldShow ? 'block' : 'none';
-            });
-            
-            // Update date display
-            const dateDisplay = document.getElementById('dateDisplay');
-            const filterText = document.getElementById('dateFilter').options[document.getElementById('dateFilter').selectedIndex].text;
-            dateDisplay.textContent = `فیلتەر: ${filterText}`;
-        }
-
-        // Function to create image slider for products with multiple images
+        // Function to create image slider for products with multiple images - FIXED VERSION
         function createImageSlider(images, productId) {
             const sliderId = `slider-${productId}`;
             const dots = images.map((_, index) => 
@@ -693,10 +818,10 @@
                         ${imageElements}
                     </div>
                     <button class="slider-arrow prev" onclick="slideImage('${sliderId}', -1)">
-                        <i class="fas fa-chevron-right"></i>
+                        <i class="fas fa-chevron-left"></i>
                     </button>
                     <button class="slider-arrow next" onclick="slideImage('${sliderId}', 1)">
-                        <i class="fas fa-chevron-left"></i>
+                        <i class="fas fa-chevron-right"></i>
                     </button>
                     <div class="slider-nav">
                         ${dots}
@@ -705,9 +830,9 @@
             `;
         }
 
-        // Function to handle dot click (jump to specific image)
+        // Function to handle dot click (jump to specific image) - FIXED VERSION
         function handleDotClick(event, sliderId) {
-            event.stopPropagation(); // Stop propagation to prevent opening product details
+            event.stopPropagation();
             const newIndex = parseInt(event.target.dataset.index);
             const slider = document.getElementById(sliderId);
             if (!slider) return;
@@ -715,7 +840,7 @@
             const container = slider.querySelector('.slider-container');
             const dots = slider.querySelectorAll('.slider-dot');
 
-            // Calculate the translation amount
+            // چارەسەری کێشەی RTL: بەکارهێنانی translateX بە نیشانەی ئەرێنی
             const translateValue = -newIndex * 100;
             container.style.transform = `translateX(${translateValue}%)`;
 
@@ -726,9 +851,9 @@
             slider.setAttribute('data-current-image', newIndex);
         }
 
-        // Function to handle image sliding
+        // Function to handle image sliding - FIXED VERSION
         function slideImage(sliderId, direction) {
-            event.stopPropagation(); // Stop propagation to prevent opening product details
+            event.stopPropagation();
             const slider = document.getElementById(sliderId);
             if (!slider) return;
             
@@ -750,8 +875,8 @@
                 newIndex = images.length - 1;
             }
 
-            // Calculate the translation amount
-            const translateValue = -newIndex * 100; // Each image takes up 100% of the slider width
+            // چارەسەری کێشەی RTL: بەکارهێنانی translateX بە نیشانەی ئەرێنی
+            const translateValue = -newIndex * 100;
             container.style.transform = `translateX(${translateValue}%)`;
 
             // Update dots
@@ -763,15 +888,13 @@
             slider.setAttribute('data-current-image', newIndex);
         }
         
-        // Function to handle image loading error (to prevent breaking the slider logic)
+        // Function to handle image loading error
         function handleImageError(imgElement, index, sliderId) {
             console.error('Image failed to load:', imgElement.src);
-            // In a slider, simply hide the broken image. The slider logic will still work for the others.
-            imgElement.style.display = 'none'; 
-            // If all images fail, the placeholder will be needed, but this is a more complex error handling.
+            imgElement.style.display = 'none';
         }
 
-        // Function to create product item with image slider (UPDATED)
+        // Function to create product item with image slider
         function createProductItem(product, productId) {
             const productItem = document.createElement('div');
             productItem.className = `product-item ${product.isNew ? 'new-product' : ''}`;
@@ -782,13 +905,9 @@
             const icon = getIcon(product.category);
             const usdPrice = (product.price / 1470).toFixed(2);
             
-            // Get images array or use single image
-            // Ensures `images` is an array of strings (URLs)
             const images = (product.images && Array.isArray(product.images)) ? product.images : (product.imageUrl ? [product.imageUrl] : []);
             
-            // Create image slider if multiple images, otherwise single image
             let imageContent;
-            let sliderScript = '';
             
             if (images.length > 1) {
                 imageContent = createImageSlider(images, productId);
@@ -816,13 +935,105 @@
                 </div>
             `;
             
-            // Add click handler for admin access if needed
-            productItem.addEventListener('click', () => {
-                console.log('Product clicked:', productId);
-                // Implement logic to show product details or similar action
-            });
-
             return productItem;
+        }
+
+        // Helper function to get icon based on category
+        function getIcon(category) {
+            switch (category) {
+                case 'clothing': return 'fa-tshirt';
+                case 'hat': return 'fa-hat-cowboy';
+                case 'mug': return 'fa-mug-hot';
+                case 'watermelon': return 'fa-flask';
+                case 'notebook': return 'fa-book';
+                case 'pen': return 'fa-pen';
+                case 'bag': return 'fa-shopping-bag';
+                case 'crystal': return 'fa-gem';
+                case 'shield': return 'fa-shield-alt';
+                case 'krikar': return 'fa-hand-holding';
+                default: return 'fa-box-open';
+            }
+        }
+
+        // Function to format date for display
+        function formatDate(timestamp) {
+            if (!timestamp) return 'بەرواری نەزانراو';
+            
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            if (date.toDateString() === now.toDateString()) {
+                return 'ئەمرۆ';
+            }
+            
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (date.toDateString() === yesterday.toDateString()) {
+                return 'دوێنێ';
+            }
+            
+            if (diffDays <= 7) {
+                return `${diffDays} ڕۆژ لەمەوپێش`;
+            }
+            
+            return date.toLocaleDateString('ku-IQ', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Function to show USD Price
+        function showUSDPrice(priceIQD, productName) {
+            const usdPrice = (priceIQD / 1470).toFixed(2);
+            showNotification(`${productName}: ${priceIQD.toLocaleString()} دینار = نزیکەی ${usdPrice}$`, 'success');
+        }
+
+        // Function to show notification
+        function showNotification(message, type = 'success') {
+            let notification = document.querySelector('.notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.className = 'notification';
+                document.body.appendChild(notification);
+            }
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in forwards';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.style.animation = 'slideIn 0.3s ease-out';
+                }, 300);
+            }, 3000);
+        }
+
+        // Function to handle category filtering
+        function filterProducts(category) {
+            const productsContainer = document.getElementById('productsContainer');
+            const products = productsContainer.querySelectorAll('.product-item');
+            
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                if (category === 'all' || productCategory === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+            
+            // Update active category style
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-category') === category) {
+                    item.classList.add('active');
+                }
+            });
         }
 
         // Function to load products
@@ -831,7 +1042,6 @@
             
             console.log('🔄 Starting to load products...');
 
-            // Show loading state
             productsContainer.innerHTML = `
                 <div style="text-align: center; grid-column: 1 / -1; padding: 20px;">
                     <div class="loading"></div>
@@ -839,7 +1049,6 @@
                 </div>
             `;
 
-            // Listen for products from Realtime Database
             const productsRef = database.ref('products');
             
             productsRef.on('value', (snapshot) => {
@@ -848,7 +1057,6 @@
                 const productsData = snapshot.val();
                 const productsContainer = document.getElementById('productsContainer');
                 
-                // Clear container
                 productsContainer.innerHTML = '';
                 
                 if (!productsData) {
@@ -857,15 +1065,11 @@
                         <div style="text-align: center; grid-column: 1 / -1; padding: 20px; color: #666;">
                             <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px;"></i>
                             <div>هیچ کاڵایەک بوونی نیە</div>
-                            <button onclick="addSampleProducts()" style="margin-top: 10px; padding: 8px 16px; background: #4fc3f7; color: white; border: none; border-radius: 6px; cursor: pointer;">
-                                زیادکردنی کاڵای نموونەیی
-                            </button>
                         </div>
                     `;
                     return;
                 }
                 
-                // Convert object to array
                 allProducts = Object.keys(productsData).map(productId => ({
                     id: productId,
                     ...productsData[productId]
@@ -873,27 +1077,14 @@
                 
                 console.log('🎯 Products loaded:', allProducts.length);
                 
-                // Add products to container
                 allProducts.forEach(product => {
                     const productItem = createProductItem(product, product.id);
                     productsContainer.appendChild(productItem);
                 });
 
-                // Re-filter based on current active category if any
                 const activeCategory = document.querySelector('.category-item.active');
                 if (activeCategory) {
                     filterProducts(activeCategory.getAttribute('data-category'));
-                }
-                
-                // Apply date filter if set
-                const dateFilter = document.getElementById('dateFilter').value;
-                if (dateFilter !== 'all') {
-                    filterProductsByDate(dateFilter);
-                }
-                
-                // If admin panel is open, refresh admin product list
-                if (document.getElementById('adminPanel').classList.contains('show')) {
-                    renderAdminProducts();
                 }
                 
             }, (error) => {
@@ -905,47 +1096,8 @@
                         <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 10px;"></i>
                         <div>هەڵە لە بارکردنی کاڵاکان</div>
                         <div style="font-size: 12px; margin-top: 5px;">${error.message}</div>
-                        <button onclick="loadProducts()" style="margin-top: 10px; padding: 8px 16px; background: #4fc3f7; color: white; border: none; border-radius: 6px; cursor: pointer;">
-                            هەوڵدانەوە
-                        </button>
                     </div>
                 `;
-            });
-        }
-
-        // Function to render admin products (FOR ADMIN PANEL)
-        function renderAdminProducts() {
-            const adminProductsContainer = document.getElementById('adminProductsContainer');
-            adminProductsContainer.innerHTML = '';
-            
-            allProducts.forEach(product => {
-                const productItem = createProductItem(product, product.id);
-                
-                // Add admin actions (edit/delete)
-                const actionsDiv = document.createElement('div');
-                actionsDiv.className = 'product-actions';
-
-                const editBtn = document.createElement('div');
-                editBtn.className = 'edit-btn';
-                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-                editBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    editProduct(product.id);
-                };
-
-                const deleteBtn = document.createElement('div');
-                deleteBtn.className = 'delete-btn';
-                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
-                deleteBtn.onclick = (e) => {
-                    e.stopPropagation();
-                    deleteProduct(product.id, product.images);
-                };
-
-                actionsDiv.appendChild(editBtn);
-                actionsDiv.appendChild(deleteBtn);
-                productItem.appendChild(actionsDiv);
-                
-                adminProductsContainer.appendChild(productItem);
             });
         }
 
@@ -962,67 +1114,83 @@
                 });
             });
 
-            // Date Filter Listeners
-            const dateFilter = document.getElementById('dateFilter');
-            const applyDateFilter = document.getElementById('applyDateFilter');
+            // Bottom Navigation Listeners
+            const navItems = document.querySelectorAll('.nav-item');
+            const pageSections = document.querySelectorAll('.page-section');
             
-            applyDateFilter.addEventListener('click', () => {
-                filterProductsByDate(dateFilter.value);
+            navItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const targetPage = item.getAttribute('data-page');
+                    
+                    // Update active nav item
+                    navItems.forEach(nav => nav.classList.remove('active'));
+                    item.classList.add('active');
+                    
+                    // Show target page
+                    pageSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === targetPage) {
+                            section.classList.add('active');
+                        }
+                    });
+                });
             });
 
-            // Admin Access Logic
+            // Admin Panel Logic
             const adminAccessBtn = document.getElementById('adminAccessBtn');
-            const passwordPrompt = document.getElementById('passwordPrompt');
-            const submitPassword = document.getElementById('submitPassword');
-            const cancelPassword = document.getElementById('cancelPassword');
             const adminPanel = document.getElementById('adminPanel');
             const closeAdminPanel = document.getElementById('closeAdminPanel');
-
-            let isAdmin = false;
-
-            adminAccessBtn.addEventListener('click', () => {
-                if (isAdmin) {
-                    adminPanel.classList.toggle('show');
-                    if (adminPanel.classList.contains('show')) {
-                        renderAdminProducts();
-                    }
-                } else {
-                    passwordPrompt.style.display = 'flex';
-                    document.getElementById('adminPassword').value = '';
-                }
-            });
-
-            submitPassword.addEventListener('click', () => {
-                const password = document.getElementById('adminPassword').value;
-                if (password === ADMIN_PASSWORD) {
-                    isAdmin = true;
-                    passwordPrompt.style.display = 'none';
-                    adminPanel.classList.add('show');
-                    showNotification('چوونەژوورەوەی بەڕێوەبەر سەرکەوتوو بوو', 'success');
-                    renderAdminProducts();
-                } else {
-                    showNotification('وشەی نهێنی هەڵەیە', 'error');
-                }
-            });
-
-            cancelPassword.addEventListener('click', () => {
-                passwordPrompt.style.display = 'none';
-            });
-            
-            closeAdminPanel.addEventListener('click', () => {
-                adminPanel.classList.remove('show');
-                currentEditingProductId = null;
-                document.getElementById('submitButtonText').textContent = 'زیادکردنی کاڵا';
-                document.getElementById('adminForm').reset();
-                document.getElementById('multipleImagesPreview').innerHTML = '';
-            });
-
-            // Add/Edit Product Logic
             const adminForm = document.getElementById('adminForm');
             const productImagesInput = document.getElementById('productImages');
             const multipleImagesPreview = document.getElementById('multipleImagesPreview');
-            let filesToUpload = []; // Array to hold new files
+            const passwordModal = document.getElementById('passwordModal');
+            const passwordInput = document.getElementById('passwordInput');
+            const passwordSubmit = document.getElementById('passwordSubmit');
+            let filesToUpload = [];
 
+            // Toggle admin panel with password protection
+            adminAccessBtn.addEventListener('click', () => {
+                passwordModal.classList.add('show');
+                passwordInput.focus();
+            });
+
+            // Handle password submission
+            passwordSubmit.addEventListener('click', () => {
+                const enteredPassword = passwordInput.value;
+                if (enteredPassword === ADMIN_PASSWORD) {
+                    passwordModal.classList.remove('show');
+                    adminPanel.classList.add('show');
+                    passwordInput.value = '';
+                } else {
+                    showNotification('وشەی نهێنی هەڵەیە', 'error');
+                    passwordInput.value = '';
+                    passwordInput.focus();
+                }
+            });
+
+            // Also allow Enter key to submit password
+            passwordInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    passwordSubmit.click();
+                }
+            });
+
+            // Close password modal when clicking outside
+            passwordModal.addEventListener('click', (e) => {
+                if (e.target === passwordModal) {
+                    passwordModal.classList.remove('show');
+                    passwordInput.value = '';
+                }
+            });
+
+            closeAdminPanel.addEventListener('click', () => {
+                adminPanel.classList.remove('show');
+                adminForm.reset();
+                multipleImagesPreview.innerHTML = '';
+                filesToUpload = [];
+            });
+
+            // Handle multiple image preview
             productImagesInput.addEventListener('change', (e) => {
                 filesToUpload = Array.from(e.target.files);
                 previewMultipleImages(filesToUpload);
@@ -1044,9 +1212,9 @@
                         imageItem.querySelector('.remove-image').addEventListener('click', (event) => {
                             const removeIndex = parseInt(event.currentTarget.dataset.index);
                             filesToUpload.splice(removeIndex, 1);
-                            previewMultipleImages(filesToUpload); // Re-render preview to update indices
+                            previewMultipleImages(filesToUpload);
                             if (filesToUpload.length === 0) {
-                                productImagesInput.value = ''; // Clear file input
+                                productImagesInput.value = '';
                             }
                         });
                     };
@@ -1054,9 +1222,9 @@
                 });
             }
             
+            // Handle form submission
             adminForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
-                if (!isAdmin) return showNotification('تۆ مۆڵەتی بەڕێوەبەریت نیە.', 'error');
 
                 const submitButton = document.getElementById('submitButton');
                 submitButton.disabled = true;
@@ -1070,12 +1238,6 @@
 
                 try {
                     let imageUrls = [];
-                    
-                    if (currentEditingProductId) {
-                        // Get existing images if editing
-                        const existingProduct = allProducts.find(p => p.id === currentEditingProductId);
-                        imageUrls = existingProduct.images || (existingProduct.imageUrl ? [existingProduct.imageUrl] : []);
-                    }
 
                     // Upload new files
                     for (const file of filesToUpload) {
@@ -1085,167 +1247,42 @@
                         imageUrls.push(downloadURL);
                     }
 
-                    // Remove duplicates (optional, based on your design)
-                    imageUrls = Array.from(new Set(imageUrls));
-
                     const productData = {
                         name,
                         price,
                         code,
                         category,
-                        images: imageUrls, // Store multiple images
-                        isNew: !currentEditingProductId, // New product if no ID
-                        // Add creation date - use existing date for edits, current time for new products
-                        createdAt: currentEditingProductId ? 
-                            (allProducts.find(p => p.id === currentEditingProductId)?.createdAt || Date.now()) : 
-                            Date.now()
+                        images: imageUrls,
+                        isNew: true,
+                        createdAt: Date.now()
                     };
 
-                    if (currentEditingProductId) {
-                        // Update existing product
-                        await database.ref('products/' + currentEditingProductId).update(productData);
-                        showNotification('کاڵا بە سەرکەوتوویی نوێ کرایەوە', 'success');
-                    } else {
-                        // Add new product
-                        await database.ref('products').push(productData);
-                        showNotification('کاڵا بە سەرکەوتوویی زیاد کرا', 'success');
-                    }
+                    // Add new product
+                    await database.ref('products').push(productData);
+                    showNotification('کاڵا بە سەرکەوتوویی زیاد کرا', 'success');
 
                     adminForm.reset();
-                    currentEditingProductId = null;
-                    document.getElementById('submitButtonText').textContent = 'زیادکردنی کاڵا';
                     multipleImagesPreview.innerHTML = '';
                     filesToUpload = [];
+                    adminPanel.classList.remove('show');
 
                 } catch (error) {
-                    console.error('Error adding/updating product:', error);
-                    showNotification('هەڵە لە زیادکردن/نوێکردنەوەی کاڵا: ' + error.message, 'error');
+                    console.error('Error adding product:', error);
+                    showNotification('هەڵە لە زیادکردنی کاڵا: ' + error.message, 'error');
                 } finally {
                     submitButton.disabled = false;
                     submitButton.textContent = originalText;
                 }
             });
-
-            // Delete Product Function
-            async function deleteProduct(productId, images) {
-                if (confirm('دڵنیای لە سڕینەوەی ئەم کاڵایە؟')) {
-                    try {
-                        // Delete images from storage
-                        if (images && Array.isArray(images)) {
-                            for (const url of images) {
-                                const imageRef = storage.refFromURL(url);
-                                await imageRef.delete().catch(error => {
-                                    console.warn('Failed to delete image from storage (may not exist or permission issue):', error);
-                                });
-                            }
-                        }
-
-                        // Delete product from database
-                        await database.ref('products/' + productId).remove();
-                        showNotification('کاڵا بە سەرکەوتوویی سڕایەوە', 'success');
-                    } catch (error) {
-                        console.error('Error deleting product:', error);
-                        showNotification('هەڵە لە سڕینەوەی کاڵا: ' + error.message, 'error');
-                    }
-                }
-            }
-
-            // Edit Product Function
-            function editProduct(productId) {
-                const product = allProducts.find(p => p.id === productId);
-                if (!product) return showNotification('کاڵا نەدۆزرایەوە', 'error');
-
-                currentEditingProductId = productId;
-                document.getElementById('productName').value = product.name;
-                document.getElementById('productPrice').value = product.price;
-                document.getElementById('productCode').value = product.code;
-                document.getElementById('productCategory').value = product.category;
-                document.getElementById('submitButtonText').textContent = 'نوێکردنەوەی کاڵا';
-                document.getElementById('productImages').value = ''; // Clear file input for new uploads
-                filesToUpload = []; // Clear new files array
-
-                // Show current images (URLs only - no remove functionality here for simplicity)
-                const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
-                multipleImagesPreview.innerHTML = images.map((url, index) => `
-                    <div class="multiple-image-item" title="Existing Image">
-                        <img src="${url}" alt="Existing Image ${index}">
-                        <span style="position: absolute; top: 0; left: 0; background: rgba(0,0,0,0.5); color: white; padding: 2px 4px; font-size: 8px; border-radius: 4px;">کۆن</span>
-                    </div>
-                `).join('');
-
-                document.getElementById('adminPanel').classList.add('show');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-
-            // Add Sample Products Function
-            async function addSampleProducts() {
-                const now = Date.now();
-                const oneDay = 24 * 60 * 60 * 1000;
-                
-                const sampleProducts = [
-                    { 
-                        name: 'تیشێرتی سپی', 
-                        price: 15000, 
-                        code: 'T001', 
-                        category: 'clothing', 
-                        images: [
-                            'https://via.placeholder.com/150/0000FF/FFFFFF?text=T-Shirt+Blue', 
-                            'https://via.placeholder.com/150/FF0000/FFFFFF?text=T-Shirt+Red'
-                        ], 
-                        isNew: true,
-                        createdAt: now - (2 * oneDay) // 2 days ago
-                    },
-                    { 
-                        name: 'کڵاوی ڕەش', 
-                        price: 8000, 
-                        code: 'H005', 
-                        category: 'hat', 
-                        images: [
-                            'https://via.placeholder.com/150/333333/FFFFFF?text=Black+Hat'
-                        ], 
-                        isNew: false,
-                        createdAt: now - (10 * oneDay) // 10 days ago
-                    },
-                    { 
-                        name: 'کووپی لۆگۆدار', 
-                        price: 10000, 
-                        code: 'M100', 
-                        category: 'mug', 
-                        images: [
-                            'https://via.placeholder.com/150/FFC107/333333?text=Logo+Mug', 
-                            'https://via.placeholder.com/150/03A9F4/333333?text=Logo+Mug+2', 
-                            'https://via.placeholder.com/150/4CAF50/333333?text=Logo+Mug+3'
-                        ], 
-                        isNew: true,
-                        createdAt: now // Today
-                    }
-                ];
-                
-                try {
-                    for (const product of sampleProducts) {
-                        await database.ref('products').push(product);
-                    }
-                    showNotification('کاڵا نموونەییەکان زیاد کران', 'success');
-                } catch (error) {
-                    console.error('Error adding sample products:', error);
-                    showNotification('هەڵە لە زیادکردنی کاڵای نموونەیی', 'error');
-                }
-            }
-
-            // Make functions globally available
-            window.addSampleProducts = addSampleProducts;
-            window.deleteProduct = deleteProduct;
-            window.editProduct = editProduct;
-            window.showUSDPrice = showUSDPrice;
-            window.slideImage = slideImage;
-            window.handleDotClick = handleDotClick;
-            window.handleImageError = handleImageError;
-            window.showNotification = showNotification;
-            window.filterProducts = filterProducts;
-            window.filterProductsByDate = filterProductsByDate;
-            window.formatDate = formatDate;
         });
+
+        // Make functions globally available
+        window.slideImage = slideImage;
+        window.handleDotClick = handleDotClick;
+        window.handleImageError = handleImageError;
+        window.showUSDPrice = showUSDPrice;
+        window.showNotification = showNotification;
+        window.filterProducts = filterProducts;
     </script>
 </body>
 </html>
-
