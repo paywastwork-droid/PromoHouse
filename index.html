@@ -3,409 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo House</title>
+    <title>پڕۆمۆ هۆس - کاڵاکان بەپێی جۆر</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
+
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
-            direction: rtl;
-        }
-
-        .app-container {
-            max-width: 428px;
-            margin: 0 auto;
-            background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            position: relative;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; direction: rtl; font-size: 14px; }
+        .app-container { max-width: 100%; margin: 0 auto; background: white; min-height: 100vh; position: relative; }
+        
         /* Header */
-        .header {
-            background: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #e0e0e0;
-        }
-
-        .header h1 {
-            font-size: 16px;
-            color: #333;
-            font-weight: 600;
-        }
-
-        .bell-icon {
-            width: 40px;
-            height: 40px;
-            background: #f0f0f0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .bell-icon:hover {
-            background: #e0e0e0;
-        }
-
-        .bell-icon i {
-            color: #555;
-            font-size: 18px;
-        }
+        .header { background: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; }
+        .header h1 { font-size: 14px; color: #333; font-weight: 600; }
+        .bell-icon { width: 35px; height: 35px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; }
+        .bell-icon:hover { background: #e0e0e0; }
+        .bell-icon i { color: #555; font-size: 16px; }
 
         /* Banner */
-        .banner {
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
-            padding: 40px 20px;
-            text-align: center;
-            color: white;
-            position: relative;
-        }
+        .banner { background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%); padding: 25px 15px; text-align: center; color: white; position: relative; cursor: pointer; }
+        .logo { width: 70px; height: 70px; background: rgba(255,255,255,0.3); border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); overflow: hidden; }
+        .logo img { width: 100%; height: 100%; object-fit: cover; }
+        .banner h2 { font-size: 20px; margin-bottom: 5px; font-weight: 700; }
+        .banner p { font-size: 12px; opacity: 0.95; }
 
-        .logo {
-            width: 100px;
-            height: 100px;
-            background: rgba(255,255,255,0.3);
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-        }
-
-        .logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .banner h2 {
-            font-size: 28px;
-            margin-bottom: 5px;
-            font-weight: 700;
-        }
-
-        .banner p {
-            font-size: 14px;
-            opacity: 0.95;
-        }
+        /* Category Navigation */
+        .category-nav { display: flex; overflow-x: auto; padding: 12px 15px; background: white; border-bottom: 1px solid #f0f0f0; gap: 8px; scrollbar-width: none; position: sticky; top: 59px; z-index: 99; }
+        .category-nav::-webkit-scrollbar { display: none; }
+        .category-item { flex: 0 0 auto; text-align: center; padding: 8px 16px; background: #f8f9fa; border-radius: 20px; cursor: pointer; transition: all 0.3s; border: 1px solid transparent; white-space: nowrap; font-size: 13px; font-weight: 500; }
+        .category-item.active { background: #4fc3f7; color: white; border-color: #29b6f6; box-shadow: 0 2px 8px rgba(79, 195, 247, 0.3); }
+        .category-item:hover { background: #e9ecef; transform: translateY(-2px); }
+        .category-item.active:hover { background: #29b6f6; }
 
         /* Products Grid */
-        .products-section {
-            padding: 30px 20px;
+        .products-section { padding: 15px; }
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 15px; }
+        .product-item { background: white; border-radius: 12px; padding: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #f0f0f0; position: relative; }
+        .product-item.new-product { border: 2px solid #ff9800; box-shadow: 0 2px 10px rgba(255, 152, 0, 0.2); }
+        .new-badge { position: absolute; top: -5px; left: -5px; background: #ff9800; color: white; font-size: 10px; padding: 2px 6px; border-radius: 8px; z-index: 2; }
+        .product-item:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+        .product-image { width: 100%; height: 90px; border-radius: 8px; overflow: hidden; margin-bottom: 8px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; position: relative; }
+        .product-image img { width: 100%; height: 100%; object-fit: cover; }
+        .product-image .placeholder-icon { font-size: 28px; color: #ccc; }
+        .product-info { text-align: center; }
+        .product-name { font-size: 13px; font-weight: 600; color: #333; margin-bottom: 4px; }
+        .product-price { font-size: 14px; font-weight: 700; color: #4fc3f7; }
+        .product-price-usd { font-size: 11px; color: #888; margin-top: 2px; }
+        .product-code { font-size: 10px; color: #888; margin-top: 2px; }
+        .product-date { font-size: 9px; color: #aaa; margin-top: 2px; }
+
+        /* Price Eye Icon */
+        .price-eye { position: absolute; top: 8px; right: 8px; background: rgba(255,255,255,0.9); width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 3; }
+        .price-eye:hover { background: #4fc3f7; color: white; transform: scale(1.1); }
+        .price-eye i { font-size: 12px; }
+
+        /* Admin Panel */
+        .admin-panel { background: #f8f9fa; padding: 15px; margin: 15px; border-radius: 10px; border: 1px solid #e9ecef; display: none; }
+        .admin-panel.show { display: block; animation: slideDown 0.3s ease-out; }
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+        .admin-title { font-size: 16px; color: #333; margin-bottom: 12px; text-align: center; }
+        .admin-form { display: flex; flex-direction: column; gap: 8px; }
+        .admin-input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; }
+        .admin-select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+        .admin-file-input { padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px; background: white; }
+        .admin-button { background: #4fc3f7; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-size: 13px; transition: all 0.3s; }
+        .admin-button:hover { background: #29b6f6; }
+        .admin-button.delete { background: #f44336; }
+        .admin-button.delete:hover { background: #d32f2f; }
+        .image-preview { width: 80px; height: 80px; border-radius: 8px; overflow: hidden; margin: 8px auto; background: #f8f9fa; display: flex; align-items: center; justify-content: center; }
+        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
+        .image-preview .placeholder-text { color: #888; font-size: 10px; text-align: center; }
+
+        /* Edit and Delete Buttons (Only in Admin Panel) */
+        .product-actions { position: absolute; top: 8px; left: 8px; display: flex; gap: 5px; z-index: 3; }
+        .edit-btn, .delete-btn { width: 25px; height: 25px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; font-size: 12px; }
+        .edit-btn { background: rgba(76, 175, 80, 0.9); color: white; }
+        .edit-btn:hover { background: #4caf50; transform: scale(1.1); }
+        .delete-btn { background: rgba(244, 67, 54, 0.9); color: white; }
+        .delete-btn:hover { background: #f44336; transform: scale(1.1); }
+
+        /* Loading Spinner */
+        .loading { display: inline-block; width: 20px; height: 20px; border: 3px solid #f3f3f3; border-top: 3px solid #4fc3f7; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Notification styles */
+        .notification { position: fixed; top: 80px; right: 15px; left: 15px; background: #4caf50; color: white; padding: 15px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2); z-index: 10000; font-size: 13px; text-align: center; animation: slideIn 0.3s ease-out; }
+        .notification.error { background: #f44336; }
+        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideOut { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
+
+        /* Contact Section */
+        .contact-section { background: #f8f9fa; padding: 20px 15px; margin-top: 20px; border-top: 1px solid #e9ecef; }
+        .contact-title { font-size: 16px; color: #333; margin-bottom: 15px; text-align: center; font-weight: 600; }
+        .contact-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .contact-item { background: white; border-radius: 10px; padding: 15px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.1); transition: all 0.3s; border: 1px solid #f0f0f0; }
+        .contact-item:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .contact-icon { width: 40px; height: 40px; background: #4fc3f7; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; }
+        .contact-icon i { color: white; font-size: 18px; }
+        .contact-label { font-size: 12px; color: #666; margin-bottom: 5px; }
+        .contact-value { font-size: 14px; color: #333; font-weight: 600; }
+        
+        /* Footer */
+        .footer { background: #333; color: white; padding: 15px; text-align: center; font-size: 12px; margin-top: 20px; }
+        .footer p { margin-bottom: 5px; }
+        
+        /* Home/Pay/Location/Setting/Market/Marketplace Links */
+        .quick-links { display: flex; justify-content: space-around; padding: 15px; background: white; border-top: 1px solid #e0e0e0; border-bottom: 1px solid #e0e0e0; margin-top: 20px; }
+        .quick-link { text-align: center; cursor: pointer; transition: all 0.3s; }
+        .quick-link-icon { width: 40px; height: 40px; background: #f8f9fa; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; }
+        .quick-link-icon i { color: #4fc3f7; font-size: 18px; }
+        .quick-link:hover .quick-link-icon { background: #4fc3f7; }
+        .quick-link:hover .quick-link-icon i { color: white; }
+        .quick-link-label { font-size: 11px; color: #666; }
+        .quick-link:hover .quick-link-label { color: #4fc3f7; }
+
+        /* Admin Products Grid */
+        .admin-products-section { max-height: 400px; overflow-y: auto; margin-top: 15px; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px; background: white; }
+        .admin-products-title { font-size: 14px; color: #333; margin-bottom: 10px; text-align: center; font-weight: 600; }
+        
+        /* Password Prompt */
+        .password-prompt { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .password-container { background: white; padding: 20px; border-radius: 10px; width: 300px; text-align: center; }
+        .password-title { font-size: 16px; margin-bottom: 15px; color: #333; }
+        .password-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 15px; font-size: 14px; }
+        .password-buttons { display: flex; gap: 10px; }
+        .password-button { flex: 1; padding: 10px; border: none; border-radius: 6px; cursor: pointer; }
+        .password-submit { background: #4fc3f7; color: white; }
+        .password-cancel { background: #f0f0f0; color: #333; }
+
+        /* Image Slider Styles - Fixed */
+        .image-slider { 
+            position: relative; 
+            width: 100%; 
+            height: 100%; 
+            overflow: hidden; 
+            border-radius: 8px;
+        }
+        .slider-container { 
+            display: flex; 
+            transition: transform 0.4s ease-in-out; 
+            height: 100%; 
+            width: 100%;
+        }
+        .slider-image { 
+            flex: 0 0 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
+        }
+        .slider-nav { 
+            position: absolute; 
+            bottom: 8px; 
+            left: 0; 
+            right: 0; 
+            display: flex; 
+            justify-content: center; 
+            gap: 6px; 
+            z-index: 2;
+        }
+        .slider-dot { 
+            width: 8px; 
+            height: 8px; 
+            border-radius: 50%; 
+            background: rgba(255,255,255,0.6); 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+        .slider-dot.active { 
+            background: white; 
+            transform: scale(1.3); 
+            box-shadow: 0 0 4px rgba(0,0,0,0.5);
+        }
+        .slider-dot:hover {
+            background: rgba(255,255,255,0.9);
+        }
+        .slider-arrow { 
+            position: absolute; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            background: rgba(0,0,0,0.5); 
+            color: white; 
+            border: none; 
+            width: 28px; 
+            height: 28px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            opacity: 0; 
+            z-index: 2;
+        }
+        .product-image:hover .slider-arrow { 
+            opacity: 1; 
+        }
+        .slider-arrow:hover { 
+            background: rgba(0,0,0,0.8); 
+            transform: translateY(-50%) scale(1.1);
+        }
+        .slider-arrow.prev { 
+            right: 6px; 
+        }
+        .slider-arrow.next { 
+            left: 6px; 
+        }
+        .slider-arrow i { 
+            font-size: 14px; 
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
+        /* Multiple Image Upload */
+        .multiple-images-preview { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 8px; 
+            margin: 8px 0; 
+            justify-content: center; 
+        }
+        .multiple-image-item { 
+            width: 60px; 
+            height: 60px; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            position: relative; 
+            border: 1px solid #ddd; 
+        }
+        .multiple-image-item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+        }
+        .remove-image { 
+            position: absolute; 
+            top: 2px; 
+            right: 2px; 
+            background: rgba(244,67,54,0.8); 
+            color: white; 
+            border: none; 
+            width: 16px; 
+            height: 16px; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            font-size: 10px; 
         }
 
-        .product-item {
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .product-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .product-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
+        /* Date Filter Section */
+        .date-filter-section {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e0e0;
             display: flex;
+            gap: 10px;
             align-items: center;
-            justify-content: center;
-            margin: 0 auto 10px;
-            font-size: 28px;
-            color: white;
-            position: relative;
+            flex-wrap: wrap;
         }
-
-        .product-icon.purple {
-            background: linear-gradient(135deg, #7e57c2 0%, #5e35b1 100%);
-        }
-
-        .product-icon.blue {
-            background: linear-gradient(135deg, #29b6f6 0%, #0288d1 100%);
-        }
-
-        .product-icon.green {
-            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
-        }
-
-        .product-icon.pink {
-            background: linear-gradient(135deg, #ec407a 0%, #d81b60 100%);
-        }
-
-        .product-icon .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 24px;
-            height: 24px;
-            background: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .product-name {
+        .date-filter-label {
             font-size: 13px;
-            color: #555;
-            font-weight: 500;
-        }
-
-        /* Banner Button */
-        .banner-button {
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
-            padding: 60px 20px;
-            margin: 0 20px 30px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .banner-button:hover {
-            transform: scale(1.02);
-        }
-
-        .dots {
-            text-align: center;
-            padding: 15px;
-        }
-
-        .dots span {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #ccc;
-            border-radius: 50%;
-            margin: 0 4px;
-        }
-
-        .dots span.active {
-            background: #29b6f6;
-            width: 24px;
-            border-radius: 4px;
-        }
-
-        /* Navigation Grids */
-        .nav-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            padding: 20px;
-            border-top: 1px solid #f0f0f0;
-        }
-
-        .nav-item {
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .nav-item:hover {
-            transform: translateY(-3px);
-        }
-
-        .nav-icon {
-            width: 45px;
-            height: 45px;
-            margin: 0 auto 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: #555;
-        }
-
-        .nav-item.active .nav-icon {
-            color: #29b6f6;
-        }
-
-        .nav-label {
-            font-size: 11px;
-            color: #666;
-            font-weight: 500;
-        }
-
-        .nav-item.active .nav-label {
-            color: #29b6f6;
-        }
-
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            max-width: 428px;
-            width: 100%;
-            background: white;
-            border-top: 1px solid #e0e0e0;
-            padding: 10px 0 20px;
-        }
-
-        .bottom-nav .nav-grid {
-            border-top: none;
-            padding: 0 20px;
-        }
-
-        .scan-button {
-            background: linear-gradient(135deg, #66bb6a 0%, #43a047 100%);
-            width: 55px;
-            height: 55px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 26px;
-            margin: 0 auto;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .scan-button:hover {
-            transform: scale(1.1);
-        }
-
-        .content-wrapper {
-            padding-bottom: 100px;
-        }
-
-        /* Modal Styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal-content {
-            background: white;
-            width: 90%;
-            max-width: 400px;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
-            animation: modalFade 0.3s;
-        }
-
-        @keyframes modalFade {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .modal-title {
-            font-size: 18px;
-            font-weight: 600;
             color: #333;
-        }
-
-        .close-modal {
-            background: #f0f0f0;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .close-modal:hover {
-            background: #e0e0e0;
-        }
-
-        .manager-products {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .manager-product-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #f5f5f5;
-        }
-
-        .manager-product-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-left: 15px;
-            font-size: 22px;
-            color: white;
-        }
-
-        .manager-product-details {
-            flex: 1;
-        }
-
-        .manager-product-name {
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 5px;
-        }
-
-        .manager-product-price {
-            color: #29b6f6;
             font-weight: 500;
         }
-
-        .add-to-cart {
+        .date-filter-select {
+            padding: 6px 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            background: white;
+            min-width: 150px;
+        }
+        .date-filter-button {
             background: #4fc3f7;
             color: white;
             border: none;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 6px 12px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px;
             transition: all 0.3s;
         }
-
-        .add-to-cart:hover {
+        .date-filter-button:hover {
             background: #29b6f6;
+        }
+        .date-display {
+            font-size: 11px;
+            color: #666;
+            margin-left: auto;
         }
     </style>
 </head>
@@ -414,8 +303,8 @@
         <!-- Header -->
         <div class="header">
             <h1>PAYWAST MAJEED...</h1>
-            <div class="bell-icon">
-                <i class="fas fa-bell"></i>
+            <div class="bell-icon" id="adminAccessBtn">
+                <i class="fas fa-user-cog"></i>
             </div>
         </div>
 
@@ -429,311 +318,932 @@
                 <p>For Promotional Products</p>
             </div>
 
+            <!-- Date Filter Section -->
+            <div class="date-filter-section">
+                <div class="date-filter-label">ڕێکخستنی بەروار:</div>
+                <select class="date-filter-select" id="dateFilter">
+                    <option value="all">هەموو کاڵاکان</option>
+                    <option value="today">ئەمرۆ</option>
+                    <option value="yesterday">دوێنێ</option>
+                    <option value="week">ئەم هەفتەیە</option>
+                    <option value="month">ئەم مانگە</option>
+                    <option value="new">کاڵای نوێ (٧ ڕۆژ لەمەوپێش)</option>
+                </select>
+                <button class="date-filter-button" id="applyDateFilter">جێبەجێکردن</button>
+                <div class="date-display" id="dateDisplay"></div>
+            </div>
+
+            <!-- Category Navigation -->
+            <div class="category-nav" id="categoryNav">
+                <div class="category-item active" data-category="all">هەموو کاڵاکان</div>
+                <div class="category-item" data-category="clothing">جل</div>
+                <div class="category-item" data-category="hat">کڵاو</div>
+                <div class="category-item" data-category="mug">کووپ</div>
+                <div class="category-item" data-category="watermelon">تەرمۆزە</div>
+                <div class="category-item" data-category="notebook">دەفتەر</div>
+                <div class="category-item" data-category="pen">قەلەم</div>
+                <div class="category-item" data-category="bag">جانتا</div>
+                <div class="category-item" data-category="crystal">کریستال</div>
+                <div class="category-item" data-category="shield">درع</div>
+                <div class="category-item" data-category="krikar">کریکار</div>
+                <div class="category-item" data-category="other">شتی تر</div>
+            </div>
+
             <!-- Products Grid -->
             <div class="products-section">
-                <div class="products-grid">
-                    <div class="product-item" data-product="mug">
-                        <div class="product-icon purple">
-                            <i class="fas fa-mug-hot"></i>
-                            <span class="badge">🛒</span>
-                        </div>
-                        <div class="product-name">Mug</div>
-                    </div>
-                    <div class="product-item" data-product="notebook">
-                        <div class="product-icon blue">
-                            <i class="fas fa-book"></i>
-                            <span class="badge">🛒</span>
-                        </div>
-                        <div class="product-name">Note book</div>
-                    </div>
-                    <div class="product-item" data-product="pen">
-                        <div class="product-icon green">
-                            <i class="fas fa-pen"></i>
-                        </div>
-                        <div class="product-name">Pen</div>
-                    </div>
-                    <div class="product-item" data-product="trophy">
-                        <div class="product-icon pink">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="product-name">Trophy</div>
-                    </div>
-                </div>
-
-                <div class="products-grid">
-                    <div class="product-item" data-product="mug">
-                        <div class="product-icon purple">
-                            <i class="fas fa-mug-hot"></i>
-                            <span class="badge">🛒</span>
-                        </div>
-                        <div class="product-name">Mug</div>
-                    </div>
-                    <div class="product-item" data-product="notebook">
-                        <div class="product-icon blue">
-                            <i class="fas fa-book"></i>
-                            <span class="badge">🛒</span>
-                        </div>
-                        <div class="product-name">Note book</div>
-                    </div>
-                    <div class="product-item" data-product="pen">
-                        <div class="product-icon green">
-                            <i class="fas fa-pen"></i>
-                        </div>
-                        <div class="product-name">Pen</div>
-                    </div>
-                    <div class="product-item" data-product="trophy">
-                        <div class="product-icon pink">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="product-name">Trophy</div>
-                    </div>
-                </div>
-
-                <div class="products-grid">
-                    <div class="product-item" data-product="mug">
-                        <div class="product-icon purple">
-                            <i class="fas fa-mug-hot"></i>
-                            <span class="badge">🛒</span>
-                        </div>
-                        <div class="product-name">Mug</div>
-                    </div>
-                    <div class="product-item" data-product="notebook">
-                        <div class="product-icon blue">
-                            <i class="fas fa-book"></i>
-                            <span class="badge">🛒</span>
-                        </div>
-                        <div class="product-name">Note book</div>
-                    </div>
-                    <div class="product-item" data-product="pen">
-                        <div class="product-icon green">
-                            <i class="fas fa-pen"></i>
-                        </div>
-                        <div class="product-name">Pen</div>
-                    </div>
-                    <div class="product-item" data-product="trophy">
-                        <div class="product-icon pink">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="product-name">Trophy</div>
+                <div class="products-grid" id="productsContainer">
+                    <div style="text-align: center; grid-column: 1 / -1; padding: 20px;">
+                        <div class="loading"></div>
+                        <div>کاڵاکان بار دەکرێن...</div>
                     </div>
                 </div>
             </div>
 
-            <!-- Banner Button -->
-            <div class="banner-button"></div>
-
-            <!-- Dots -->
-            <div class="dots">
-                <span class="active"></span>
-                <span></span>
-                <span></span>
-            </div>
-
-            <!-- Middle Navigation -->
-            <div class="nav-grid">
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-map-marker-alt"></i>
+            <!-- Quick Links (Moved to bottom) -->
+            <div class="quick-links">
+                <div class="quick-link" onclick="showNotification('بەشی ماڵەوە', 'success')">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-home"></i>
                     </div>
-                    <div class="nav-label">Around Me</div>
+                    <div class="quick-link-label">ماڵەوە</div>
                 </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-calendar-check"></i>
-                    </div>
-                    <div class="nav-label">Installment</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="nav-label">Store</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="nav-label">Group Saving</div>
-                </div>
-            </div>
-
-            <!-- Second Navigation Row -->
-            <div class="nav-grid">
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-file-alt"></i>
-                    </div>
-                    <div class="nav-label">Bills</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <div class="nav-label">Camera</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-share-alt"></i>
-                    </div>
-                    <div class="nav-label">Share</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-gift"></i>
-                    </div>
-                    <div class="nav-label">Offers</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <div class="nav-grid">
-                <div class="nav-item active">
-                    <div class="nav-icon">
-                        <i class="fas fa-university"></i>
-                    </div>
-                    <div class="nav-label">Account</div>
-                </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
+                <div class="quick-link" onclick="showNotification('بەشی پارەدان', 'success')">
+                    <div class="quick-link-icon">
                         <i class="fas fa-credit-card"></i>
                     </div>
-                    <div class="nav-label">Cards</div>
+                    <div class="quick-link-label">پارەدان</div>
                 </div>
-                <div class="nav-item">
-                    <div class="scan-button">
-                        <i class="fas fa-qrcode"></i>
+                <div class="quick-link" onclick="showNotification('بەشی شوێن', 'success')">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-map-marker-alt"></i>
                     </div>
-                    <div class="nav-label" style="color: #43a047;">Scan</div>
+                    <div class="quick-link-label">شوێن</div>
                 </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-concierge-bell"></i>
+                <div class="quick-link" onclick="showNotification('بەشی ڕێکخستنەکان', 'success')">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-cog"></i>
                     </div>
-                    <div class="nav-label">Services</div>
+                    <div class="quick-link-label">ڕێکخستن</div>
                 </div>
-                <div class="nav-item">
-                    <div class="nav-icon">
-                        <i class="fas fa-bars"></i>
+                <div class="quick-link" onclick="showNotification('بەشی بازار', 'success')">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-store"></i>
                     </div>
-                    <div class="nav-label">Menu</div>
+                    <div class="quick-link-label">بازار</div>
                 </div>
+                <div class="quick-link" onclick="showNotification('بەشی مارکێتپڵەیس', 'success')">
+                    <div class="quick-link-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <div class="quick-link-label">مارکێتپڵەیس</div>
+                </div>
+            </div>
+
+            <!-- Admin Panel -->
+            <div class="admin-panel" id="adminPanel">
+                <div class="admin-title">بەڕێوەبەری کاڵاکان</div>
+                <form class="admin-form" id="adminForm">
+                    <input type="text" class="admin-input" id="productName" placeholder="ناوی کاڵا" required>
+                    <input type="number" class="admin-input" id="productPrice" placeholder="نرخ (دینار)" required>
+                    <input type="text" class="admin-input" id="productCode" placeholder="کۆدی کاڵا" required>
+                    <select class="admin-select" id="productCategory" required>
+                        <option value="">هەڵبژاردنی جۆر</option>
+                        <option value="clothing">جل</option>
+                        <option value="hat">کڵاو</option>
+                        <option value="mug">کووپ</option>
+                        <option value="watermelon">تەرمۆزە</option>
+                        <option value="notebook">دەفتەر</option>
+                        <option value="pen">قەلەم</option>
+                        <option value="bag">جانتا</option>
+                        <option value="crystal">کریستال</option>
+                        <option value="shield">درع</option>
+                        <option value="krikar">کریکار</option>
+                        <option value="other">شتی تر</option>
+                    </select>
+                    
+                    <div class="multiple-images-preview" id="multipleImagesPreview">
+                        <!-- Multiple images preview will be shown here -->
+                    </div>
+                    
+                    <input type="file" class="admin-file-input" id="productImages" accept="image/*" multiple>
+                    
+                    <button type="submit" class="admin-button" id="submitButton">
+                        <span id="submitButtonText">زیادکردنی کاڵا</span>
+                    </button>
+                    <button type="button" class="admin-button delete" id="closeAdminPanel">داخستنی بەڕێوەبەر</button>
+                </form>
+
+                <!-- Admin Products Section -->
+                <div class="admin-products-section" id="adminProductsSection">
+                    <div class="admin-products-title">کاڵاکان بۆ دەستکاری و سڕینەوە</div>
+                    <div class="products-grid" id="adminProductsContainer">
+                        <!-- Products will be loaded here with edit/delete buttons -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Section -->
+            <div class="contact-section">
+                <div class="contact-title">پەیوەندی</div>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-label">ژمارەی مۆبایل</div>
+                        <div class="contact-value">٠٧٧٠ XXX XXXX</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-label">ئیمەیڵ</div>
+                        <div class="contact-value">example@promohouse.com</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-label">شوێن</div>
+                        <div class="contact-value">سلێمانی</div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-label">کاتەکانی کار</div>
+                        <div class="contact-value">٩:٠٠ - ١٧:٠٠</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer">
+                <p>پڕۆمۆ هۆس - هەموو مافەکان پارێزراون © ٢٠٢٣</p>
+                <p>پەیوەندیمان پێوەبکە: ٠٧٧٠ XXX XXXX | example@promohouse.com</p>
             </div>
         </div>
     </div>
 
-    <!-- Modal for Manager Products -->
-    <div class="modal" id="productsModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title">کاڵاکانی کەبەڕیوبەر</div>
-                <div class="close-modal">
-                    <i class="fas fa-times"></i>
-                </div>
-            </div>
-            <div class="manager-products" id="managerProductsList">
-                <!-- Products will be added here dynamically -->
+    <div class="password-prompt" id="passwordPrompt" style="display: none;">
+        <div class="password-container">
+            <div class="password-title">تکایە وشەی نهێنی بەڕێوەبەر بنووسە</div>
+            <input type="password" class="password-input" id="adminPassword" placeholder="وشەی نهێنی">
+            <div class="password-buttons">
+                <button class="password-button password-cancel" id="cancelPassword">پاشگەزبوونەوە</button>
+                <button class="password-button password-submit" id="submitPassword">چوونە ناوەوە</button>
             </div>
         </div>
     </div>
 
     <script>
-        // Sample manager products data
-        const managerProducts = {
-            mug: [
-                { name: "مەگەکی پڕیمیۆم", price: "15,000 دینار", icon: "fa-mug-hot", color: "purple" },
-                { name: "مەگەکی کۆمپانیا", price: "12,000 دینار", icon: "fa-mug-hot", color: "purple" },
-                { name: "مەگەکی تایبەت", price: "18,000 دینار", icon: "fa-mug-hot", color: "purple" }
-            ],
-            notebook: [
-                { name: "تیترەی بازرگانی", price: "8,000 دینار", icon: "fa-book", color: "blue" },
-                { name: "تیترەی قوتابخانە", price: "5,000 دینار", icon: "fa-book", color: "blue" },
-                { name: "تیترەی تایبەت", price: "10,000 دینار", icon: "fa-book", color: "blue" }
-            ],
-            pen: [
-                { name: "پێنوسی بازرگانی", price: "3,000 دینار", icon: "fa-pen", color: "green" },
-                { name: "پێنوسی لۆگۆدار", price: "4,500 دینار", icon: "fa-pen", color: "green" },
-                { name: "پێنوسی پڕیمیۆم", price: "6,000 دینار", icon: "fa-pen", color: "green" }
-            ],
-            trophy: [
-                { name: "پێشکەوتنی ئەستێرە", price: "25,000 دینار", icon: "fa-trophy", color: "pink" },
-                { name: "پێشکەوتنی زێڕین", price: "35,000 دینار", icon: "fa-trophy", color: "pink" },
-                { name: "پێشکەوتنی کۆمپانیا", price: "20,000 دینار", icon: "fa-trophy", color: "pink" }
-            ]
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyCl1EUC9r6lu9L0opp-gFst3Y7Hjk7jH-M",
+            authDomain: "promohouse-b5298.firebaseapp.com",
+            databaseURL: "https://promohouse-b5298-default-rtdb.firebaseio.com",
+            projectId: "promohouse-b5298",
+            storageBucket: "promohouse-b5298.firebasestorage.app",
+            messagingSenderId: "55413367728",
+            appId: "1:55413367728:web:c23d315d95482c0e0f2c75",
+            measurementId: "G-XRZP1J2QMG"
         };
 
-        // Get modal elements
-        const modal = document.getElementById('productsModal');
-        const managerProductsList = document.getElementById('managerProductsList');
-        const closeModal = document.querySelector('.close-modal');
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        const storage = firebase.storage();
 
-        // Function to open modal with specific products
-        function openProductsModal(productType) {
-            // Clear previous products
-            managerProductsList.innerHTML = '';
+        console.log('🔥 Firebase initialized successfully');
+
+        // Global variables
+        let allProducts = [];
+        let currentEditingProductId = null;
+        const ADMIN_PASSWORD = "admin123"; // وشەی نهێنی بەڕێوەبەر
+        
+        // Helper function to get icon based on category
+        function getIcon(category) {
+            switch (category) {
+                case 'clothing': return 'fa-tshirt';
+                case 'hat': return 'fa-hat-cowboy';
+                case 'mug': return 'fa-mug-hot';
+                case 'watermelon': return 'fa-flask'; // Using a placeholder icon
+                case 'notebook': return 'fa-book';
+                case 'pen': return 'fa-pen';
+                case 'bag': return 'fa-shopping-bag';
+                case 'crystal': return 'fa-gem';
+                case 'shield': return 'fa-shield-alt';
+                case 'krikar': return 'fa-hand-holding';
+                default: return 'fa-box-open';
+            }
+        }
+
+        // Function to format date for display
+        function formatDate(timestamp) {
+            if (!timestamp) return 'بەرواری نەزانراو';
             
-            // Add products to modal
-            if (managerProducts[productType]) {
-                managerProducts[productType].forEach(product => {
-                    const productItem = document.createElement('div');
-                    productItem.className = 'manager-product-item';
-                    
-                    productItem.innerHTML = `
-                        <div class="manager-product-icon ${product.color}">
-                            <i class="fas ${product.icon}"></i>
+            const date = new Date(timestamp);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            
+            // If today
+            if (date.toDateString() === now.toDateString()) {
+                return 'ئەمرۆ';
+            }
+            // If yesterday
+            const yesterday = new Date(now);
+            yesterday.setDate(yesterday.getDate() - 1);
+            if (date.toDateString() === yesterday.toDateString()) {
+                return 'دوێنێ';
+            }
+            // If within this week
+            if (diffDays <= 7) {
+                return `${diffDays} ڕۆژ لەمەوپێش`;
+            }
+            
+            // Otherwise show full date
+            return date.toLocaleDateString('ku-IQ', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            });
+        }
+
+        // Function to show notification
+        function showNotification(message, type = 'success') {
+            let notification = document.querySelector('.notification');
+            if (!notification) {
+                notification = document.createElement('div');
+                notification.className = 'notification';
+                document.body.appendChild(notification);
+            }
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            notification.style.display = 'block';
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-in forwards';
+                setTimeout(() => {
+                    notification.style.display = 'none';
+                    notification.style.animation = 'slideIn 0.3s ease-out'; // Reset animation
+                }, 300);
+            }, 3000);
+        }
+
+        // Function to show USD Price
+        function showUSDPrice(priceIQD, productName) {
+            const usdPrice = (priceIQD / 1470).toFixed(2);
+            showNotification(`${productName}: ${priceIQD.toLocaleString()} دینار = نزیکەی ${usdPrice}$`, 'success');
+        }
+
+        // Function to handle category filtering
+        function filterProducts(category) {
+            const productsContainer = document.getElementById('productsContainer');
+            const products = productsContainer.querySelectorAll('.product-item');
+            
+            products.forEach(product => {
+                const productCategory = product.getAttribute('data-category');
+                if (category === 'all' || productCategory === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+            
+            // Update active category style
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-category') === category) {
+                    item.classList.add('active');
+                }
+            });
+        }
+
+        // Function to filter products by date
+        function filterProductsByDate(dateFilter) {
+            const productsContainer = document.getElementById('productsContainer');
+            const products = productsContainer.querySelectorAll('.product-item');
+            const now = new Date();
+            
+            products.forEach(product => {
+                const productDateStr = product.getAttribute('data-created-date');
+                if (!productDateStr) {
+                    product.style.display = 'none';
+                    return;
+                }
+                
+                const productDate = new Date(parseInt(productDateStr));
+                let shouldShow = true;
+                
+                switch (dateFilter) {
+                    case 'today':
+                        shouldShow = productDate.toDateString() === now.toDateString();
+                        break;
+                    case 'yesterday':
+                        const yesterday = new Date(now);
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        shouldShow = productDate.toDateString() === yesterday.toDateString();
+                        break;
+                    case 'week':
+                        const weekAgo = new Date(now);
+                        weekAgo.setDate(weekAgo.getDate() - 7);
+                        shouldShow = productDate >= weekAgo;
+                        break;
+                    case 'month':
+                        const monthAgo = new Date(now);
+                        monthAgo.setMonth(monthAgo.getMonth() - 1);
+                        shouldShow = productDate >= monthAgo;
+                        break;
+                    case 'new':
+                        const sevenDaysAgo = new Date(now);
+                        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+                        shouldShow = productDate >= sevenDaysAgo;
+                        break;
+                    case 'all':
+                    default:
+                        shouldShow = true;
+                        break;
+                }
+                
+                product.style.display = shouldShow ? 'block' : 'none';
+            });
+            
+            // Update date display
+            const dateDisplay = document.getElementById('dateDisplay');
+            const filterText = document.getElementById('dateFilter').options[document.getElementById('dateFilter').selectedIndex].text;
+            dateDisplay.textContent = `فیلتەر: ${filterText}`;
+        }
+
+        // Function to create image slider for products with multiple images
+        function createImageSlider(images, productId) {
+            const sliderId = `slider-${productId}`;
+            const dots = images.map((_, index) => 
+                `<div class="slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}" onclick="handleDotClick(event, '${sliderId}')"></div>`
+            ).join('');
+            
+            const imageElements = images.map((image, index) => 
+                `<img src="${image}" alt="Product image ${index + 1}" class="slider-image" onerror="handleImageError(this, ${index}, '${sliderId}')">`
+            ).join('');
+            
+            return `
+                <div class="image-slider" id="${sliderId}" data-current-image="0">
+                    <div class="slider-container">
+                        ${imageElements}
+                    </div>
+                    <button class="slider-arrow prev" onclick="slideImage('${sliderId}', -1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <button class="slider-arrow next" onclick="slideImage('${sliderId}', 1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="slider-nav">
+                        ${dots}
+                    </div>
+                </div>
+            `;
+        }
+
+        // Function to handle dot click (jump to specific image)
+        function handleDotClick(event, sliderId) {
+            event.stopPropagation(); // Stop propagation to prevent opening product details
+            const newIndex = parseInt(event.target.dataset.index);
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
+            
+            const container = slider.querySelector('.slider-container');
+            const dots = slider.querySelectorAll('.slider-dot');
+
+            // Calculate the translation amount
+            const translateValue = -newIndex * 100;
+            container.style.transform = `translateX(${translateValue}%)`;
+
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            event.target.classList.add('active');
+
+            slider.setAttribute('data-current-image', newIndex);
+        }
+
+        // Function to handle image sliding
+        function slideImage(sliderId, direction) {
+            event.stopPropagation(); // Stop propagation to prevent opening product details
+            const slider = document.getElementById(sliderId);
+            if (!slider) return;
+            
+            const container = slider.querySelector('.slider-container');
+            const images = slider.querySelectorAll('.slider-image');
+            const dots = slider.querySelectorAll('.slider-dot');
+            
+            if (images.length <= 1) return;
+            
+            const currentActiveDot = slider.querySelector('.slider-dot.active');
+            let currentIndex = parseInt(currentActiveDot ? currentActiveDot.dataset.index : 0);
+            
+            let newIndex = currentIndex + direction;
+            
+            // Handle looping
+            if (newIndex >= images.length) {
+                newIndex = 0;
+            } else if (newIndex < 0) {
+                newIndex = images.length - 1;
+            }
+
+            // Calculate the translation amount
+            const translateValue = -newIndex * 100; // Each image takes up 100% of the slider width
+            container.style.transform = `translateX(${translateValue}%)`;
+
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (dots[newIndex]) {
+                dots[newIndex].classList.add('active');
+            }
+
+            slider.setAttribute('data-current-image', newIndex);
+        }
+        
+        // Function to handle image loading error (to prevent breaking the slider logic)
+        function handleImageError(imgElement, index, sliderId) {
+            console.error('Image failed to load:', imgElement.src);
+            // In a slider, simply hide the broken image. The slider logic will still work for the others.
+            imgElement.style.display = 'none'; 
+            // If all images fail, the placeholder will be needed, but this is a more complex error handling.
+        }
+
+        // Function to create product item with image slider (UPDATED)
+        function createProductItem(product, productId) {
+            const productItem = document.createElement('div');
+            productItem.className = `product-item ${product.isNew ? 'new-product' : ''}`;
+            productItem.setAttribute('data-category', product.category);
+            productItem.setAttribute('data-id', productId);
+            productItem.setAttribute('data-created-date', product.createdAt || '');
+
+            const icon = getIcon(product.category);
+            const usdPrice = (product.price / 1470).toFixed(2);
+            
+            // Get images array or use single image
+            // Ensures `images` is an array of strings (URLs)
+            const images = (product.images && Array.isArray(product.images)) ? product.images : (product.imageUrl ? [product.imageUrl] : []);
+            
+            // Create image slider if multiple images, otherwise single image
+            let imageContent;
+            let sliderScript = '';
+            
+            if (images.length > 1) {
+                imageContent = createImageSlider(images, productId);
+            } else if (images.length === 1) {
+                imageContent = `<img src="${images[0]}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
+            } else {
+                imageContent = `<div class="placeholder-icon"><i class="fas ${icon}"></i></div>`;
+            }
+
+            productItem.innerHTML = `
+                ${product.isNew ? '<div class="new-badge">NEW</div>' : ''}
+                <div class="price-eye" onclick="event.stopPropagation(); showUSDPrice(${product.price}, '${product.name}')">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <div class="product-image">
+                    ${imageContent}
+                    ${images.length <= 1 ? `<div class="placeholder-icon" style="${images.length === 1 ? 'display:none;' : ''}"><i class="fas ${icon}"></i></div>` : ''}
+                </div>
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">${product.price.toLocaleString()} دینار</div>
+                    <div class="product-price-usd">نزیکەی ${usdPrice}$</div>
+                    <div class="product-code">${product.code}</div>
+                    <div class="product-date">زیادکراوە: ${formatDate(product.createdAt)}</div>
+                </div>
+            `;
+            
+            // Add click handler for admin access if needed
+            productItem.addEventListener('click', () => {
+                console.log('Product clicked:', productId);
+                // Implement logic to show product details or similar action
+            });
+
+            return productItem;
+        }
+
+        // Function to load products
+        function loadProducts() {
+            const productsContainer = document.getElementById('productsContainer');
+            
+            console.log('🔄 Starting to load products...');
+
+            // Show loading state
+            productsContainer.innerHTML = `
+                <div style="text-align: center; grid-column: 1 / -1; padding: 20px;">
+                    <div class="loading"></div>
+                    <div>کاڵاکان بار دەکرێن...</div>
+                </div>
+            `;
+
+            // Listen for products from Realtime Database
+            const productsRef = database.ref('products');
+            
+            productsRef.on('value', (snapshot) => {
+                console.log('📦 Firebase data received:', snapshot.val());
+                
+                const productsData = snapshot.val();
+                const productsContainer = document.getElementById('productsContainer');
+                
+                // Clear container
+                productsContainer.innerHTML = '';
+                
+                if (!productsData) {
+                    console.log('ℹ️ No products found in database');
+                    productsContainer.innerHTML = `
+                        <div style="text-align: center; grid-column: 1 / -1; padding: 20px; color: #666;">
+                            <i class="fas fa-box-open" style="font-size: 40px; margin-bottom: 10px;"></i>
+                            <div>هیچ کاڵایەک بوونی نیە</div>
+                            <button onclick="addSampleProducts()" style="margin-top: 10px; padding: 8px 16px; background: #4fc3f7; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                                زیادکردنی کاڵای نموونەیی
+                            </button>
                         </div>
-                        <div class="manager-product-details">
-                            <div class="manager-product-name">${product.name}</div>
-                            <div class="manager-product-price">${product.price}</div>
-                        </div>
-                        <button class="add-to-cart">زیادکردن</button>
                     `;
-                    
-                    managerProductsList.appendChild(productItem);
+                    return;
+                }
+                
+                // Convert object to array
+                allProducts = Object.keys(productsData).map(productId => ({
+                    id: productId,
+                    ...productsData[productId]
+                }));
+                
+                console.log('🎯 Products loaded:', allProducts.length);
+                
+                // Add products to container
+                allProducts.forEach(product => {
+                    const productItem = createProductItem(product, product.id);
+                    productsContainer.appendChild(productItem);
+                });
+
+                // Re-filter based on current active category if any
+                const activeCategory = document.querySelector('.category-item.active');
+                if (activeCategory) {
+                    filterProducts(activeCategory.getAttribute('data-category'));
+                }
+                
+                // Apply date filter if set
+                const dateFilter = document.getElementById('dateFilter').value;
+                if (dateFilter !== 'all') {
+                    filterProductsByDate(dateFilter);
+                }
+                
+                // If admin panel is open, refresh admin product list
+                if (document.getElementById('adminPanel').classList.contains('show')) {
+                    renderAdminProducts();
+                }
+                
+            }, (error) => {
+                console.error('❌ Error loading products:', error);
+                showNotification('هەڵە لە بارکردنی کاڵاکان', 'error');
+                
+                productsContainer.innerHTML = `
+                    <div style="text-align: center; grid-column: 1 / -1; padding: 20px; color: #f44336;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 40px; margin-bottom: 10px;"></i>
+                        <div>هەڵە لە بارکردنی کاڵاکان</div>
+                        <div style="font-size: 12px; margin-top: 5px;">${error.message}</div>
+                        <button onclick="loadProducts()" style="margin-top: 10px; padding: 8px 16px; background: #4fc3f7; color: white; border: none; border-radius: 6px; cursor: pointer;">
+                            هەوڵدانەوە
+                        </button>
+                    </div>
+                `;
+            });
+        }
+
+        // Function to render admin products (FOR ADMIN PANEL)
+        function renderAdminProducts() {
+            const adminProductsContainer = document.getElementById('adminProductsContainer');
+            adminProductsContainer.innerHTML = '';
+            
+            allProducts.forEach(product => {
+                const productItem = createProductItem(product, product.id);
+                
+                // Add admin actions (edit/delete)
+                const actionsDiv = document.createElement('div');
+                actionsDiv.className = 'product-actions';
+
+                const editBtn = document.createElement('div');
+                editBtn.className = 'edit-btn';
+                editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+                editBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    editProduct(product.id);
+                };
+
+                const deleteBtn = document.createElement('div');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteProduct(product.id, product.images);
+                };
+
+                actionsDiv.appendChild(editBtn);
+                actionsDiv.appendChild(deleteBtn);
+                productItem.appendChild(actionsDiv);
+                
+                adminProductsContainer.appendChild(productItem);
+            });
+        }
+
+        // Setup Event Listeners and Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProducts();
+            
+            // Category Nav Listeners
+            const categoryItems = document.querySelectorAll('.category-item');
+            categoryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const category = item.getAttribute('data-category');
+                    filterProducts(category);
+                });
+            });
+
+            // Date Filter Listeners
+            const dateFilter = document.getElementById('dateFilter');
+            const applyDateFilter = document.getElementById('applyDateFilter');
+            
+            applyDateFilter.addEventListener('click', () => {
+                filterProductsByDate(dateFilter.value);
+            });
+
+            // Admin Access Logic
+            const adminAccessBtn = document.getElementById('adminAccessBtn');
+            const passwordPrompt = document.getElementById('passwordPrompt');
+            const submitPassword = document.getElementById('submitPassword');
+            const cancelPassword = document.getElementById('cancelPassword');
+            const adminPanel = document.getElementById('adminPanel');
+            const closeAdminPanel = document.getElementById('closeAdminPanel');
+
+            let isAdmin = false;
+
+            adminAccessBtn.addEventListener('click', () => {
+                if (isAdmin) {
+                    adminPanel.classList.toggle('show');
+                    if (adminPanel.classList.contains('show')) {
+                        renderAdminProducts();
+                    }
+                } else {
+                    passwordPrompt.style.display = 'flex';
+                    document.getElementById('adminPassword').value = '';
+                }
+            });
+
+            submitPassword.addEventListener('click', () => {
+                const password = document.getElementById('adminPassword').value;
+                if (password === ADMIN_PASSWORD) {
+                    isAdmin = true;
+                    passwordPrompt.style.display = 'none';
+                    adminPanel.classList.add('show');
+                    showNotification('چوونەژوورەوەی بەڕێوەبەر سەرکەوتوو بوو', 'success');
+                    renderAdminProducts();
+                } else {
+                    showNotification('وشەی نهێنی هەڵەیە', 'error');
+                }
+            });
+
+            cancelPassword.addEventListener('click', () => {
+                passwordPrompt.style.display = 'none';
+            });
+            
+            closeAdminPanel.addEventListener('click', () => {
+                adminPanel.classList.remove('show');
+                currentEditingProductId = null;
+                document.getElementById('submitButtonText').textContent = 'زیادکردنی کاڵا';
+                document.getElementById('adminForm').reset();
+                document.getElementById('multipleImagesPreview').innerHTML = '';
+            });
+
+            // Add/Edit Product Logic
+            const adminForm = document.getElementById('adminForm');
+            const productImagesInput = document.getElementById('productImages');
+            const multipleImagesPreview = document.getElementById('multipleImagesPreview');
+            let filesToUpload = []; // Array to hold new files
+
+            productImagesInput.addEventListener('change', (e) => {
+                filesToUpload = Array.from(e.target.files);
+                previewMultipleImages(filesToUpload);
+            });
+
+            function previewMultipleImages(files) {
+                multipleImagesPreview.innerHTML = '';
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const imageItem = document.createElement('div');
+                        imageItem.className = 'multiple-image-item';
+                        imageItem.innerHTML = `
+                            <img src="${e.target.result}" alt="Preview ${index}">
+                            <button type="button" class="remove-image" data-index="${index}"><i class="fas fa-times"></i></button>
+                        `;
+                        multipleImagesPreview.appendChild(imageItem);
+
+                        imageItem.querySelector('.remove-image').addEventListener('click', (event) => {
+                            const removeIndex = parseInt(event.currentTarget.dataset.index);
+                            filesToUpload.splice(removeIndex, 1);
+                            previewMultipleImages(filesToUpload); // Re-render preview to update indices
+                            if (filesToUpload.length === 0) {
+                                productImagesInput.value = ''; // Clear file input
+                            }
+                        });
+                    };
+                    reader.readAsDataURL(file);
                 });
             }
             
-            // Show modal
-            modal.style.display = 'flex';
-        }
+            adminForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                if (!isAdmin) return showNotification('تۆ مۆڵەتی بەڕێوەبەریت نیە.', 'error');
 
-        // Add click event to product items
-        document.querySelectorAll('.product-item').forEach(item => {
-            item.addEventListener('click', function() {
-                const productType = this.getAttribute('data-product');
-                openProductsModal(productType);
+                const submitButton = document.getElementById('submitButton');
+                submitButton.disabled = true;
+                const originalText = submitButton.textContent;
+                submitButton.innerHTML = `<span class="loading"></span> چاوەڕێبە...`;
+
+                const name = document.getElementById('productName').value;
+                const price = parseInt(document.getElementById('productPrice').value);
+                const code = document.getElementById('productCode').value;
+                const category = document.getElementById('productCategory').value;
+
+                try {
+                    let imageUrls = [];
+                    
+                    if (currentEditingProductId) {
+                        // Get existing images if editing
+                        const existingProduct = allProducts.find(p => p.id === currentEditingProductId);
+                        imageUrls = existingProduct.images || (existingProduct.imageUrl ? [existingProduct.imageUrl] : []);
+                    }
+
+                    // Upload new files
+                    for (const file of filesToUpload) {
+                        const storageRef = storage.ref(`product_images/${category}/${file.name}_${Date.now()}`);
+                        const snapshot = await storageRef.put(file);
+                        const downloadURL = await snapshot.ref.getDownloadURL();
+                        imageUrls.push(downloadURL);
+                    }
+
+                    // Remove duplicates (optional, based on your design)
+                    imageUrls = Array.from(new Set(imageUrls));
+
+                    const productData = {
+                        name,
+                        price,
+                        code,
+                        category,
+                        images: imageUrls, // Store multiple images
+                        isNew: !currentEditingProductId, // New product if no ID
+                        // Add creation date - use existing date for edits, current time for new products
+                        createdAt: currentEditingProductId ? 
+                            (allProducts.find(p => p.id === currentEditingProductId)?.createdAt || Date.now()) : 
+                            Date.now()
+                    };
+
+                    if (currentEditingProductId) {
+                        // Update existing product
+                        await database.ref('products/' + currentEditingProductId).update(productData);
+                        showNotification('کاڵا بە سەرکەوتوویی نوێ کرایەوە', 'success');
+                    } else {
+                        // Add new product
+                        await database.ref('products').push(productData);
+                        showNotification('کاڵا بە سەرکەوتوویی زیاد کرا', 'success');
+                    }
+
+                    adminForm.reset();
+                    currentEditingProductId = null;
+                    document.getElementById('submitButtonText').textContent = 'زیادکردنی کاڵا';
+                    multipleImagesPreview.innerHTML = '';
+                    filesToUpload = [];
+
+                } catch (error) {
+                    console.error('Error adding/updating product:', error);
+                    showNotification('هەڵە لە زیادکردن/نوێکردنەوەی کاڵا: ' + error.message, 'error');
+                } finally {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalText;
+                }
             });
-        });
 
-        // Close modal when X is clicked
-        closeModal.addEventListener('click', function() {
-            modal.style.display = 'none';
-        });
+            // Delete Product Function
+            async function deleteProduct(productId, images) {
+                if (confirm('دڵنیای لە سڕینەوەی ئەم کاڵایە؟')) {
+                    try {
+                        // Delete images from storage
+                        if (images && Array.isArray(images)) {
+                            for (const url of images) {
+                                const imageRef = storage.refFromURL(url);
+                                await imageRef.delete().catch(error => {
+                                    console.warn('Failed to delete image from storage (may not exist or permission issue):', error);
+                                });
+                            }
+                        }
 
-        // Close modal when clicking outside the modal content
-        window.addEventListener('click', function(event) {
-            if (event.target === modal) {
-                modal.style.display = 'none';
+                        // Delete product from database
+                        await database.ref('products/' + productId).remove();
+                        showNotification('کاڵا بە سەرکەوتوویی سڕایەوە', 'success');
+                    } catch (error) {
+                        console.error('Error deleting product:', error);
+                        showNotification('هەڵە لە سڕینەوەی کاڵا: ' + error.message, 'error');
+                    }
+                }
             }
-        });
 
-        // Add click animations
-        document.querySelectorAll('.product-item, .nav-item, .bell-icon, .banner-button').forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 150);
-            });
-        });
+            // Edit Product Function
+            function editProduct(productId) {
+                const product = allProducts.find(p => p.id === productId);
+                if (!product) return showNotification('کاڵا نەدۆزرایەوە', 'error');
 
-        // Simulate active state changes
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', function() {
-                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
-                this.classList.add('active');
-            });
+                currentEditingProductId = productId;
+                document.getElementById('productName').value = product.name;
+                document.getElementById('productPrice').value = product.price;
+                document.getElementById('productCode').value = product.code;
+                document.getElementById('productCategory').value = product.category;
+                document.getElementById('submitButtonText').textContent = 'نوێکردنەوەی کاڵا';
+                document.getElementById('productImages').value = ''; // Clear file input for new uploads
+                filesToUpload = []; // Clear new files array
+
+                // Show current images (URLs only - no remove functionality here for simplicity)
+                const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
+                multipleImagesPreview.innerHTML = images.map((url, index) => `
+                    <div class="multiple-image-item" title="Existing Image">
+                        <img src="${url}" alt="Existing Image ${index}">
+                        <span style="position: absolute; top: 0; left: 0; background: rgba(0,0,0,0.5); color: white; padding: 2px 4px; font-size: 8px; border-radius: 4px;">کۆن</span>
+                    </div>
+                `).join('');
+
+                document.getElementById('adminPanel').classList.add('show');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // Add Sample Products Function
+            async function addSampleProducts() {
+                const now = Date.now();
+                const oneDay = 24 * 60 * 60 * 1000;
+                
+                const sampleProducts = [
+                    { 
+                        name: 'تیشێرتی سپی', 
+                        price: 15000, 
+                        code: 'T001', 
+                        category: 'clothing', 
+                        images: [
+                            'https://via.placeholder.com/150/0000FF/FFFFFF?text=T-Shirt+Blue', 
+                            'https://via.placeholder.com/150/FF0000/FFFFFF?text=T-Shirt+Red'
+                        ], 
+                        isNew: true,
+                        createdAt: now - (2 * oneDay) // 2 days ago
+                    },
+                    { 
+                        name: 'کڵاوی ڕەش', 
+                        price: 8000, 
+                        code: 'H005', 
+                        category: 'hat', 
+                        images: [
+                            'https://via.placeholder.com/150/333333/FFFFFF?text=Black+Hat'
+                        ], 
+                        isNew: false,
+                        createdAt: now - (10 * oneDay) // 10 days ago
+                    },
+                    { 
+                        name: 'کووپی لۆگۆدار', 
+                        price: 10000, 
+                        code: 'M100', 
+                        category: 'mug', 
+                        images: [
+                            'https://via.placeholder.com/150/FFC107/333333?text=Logo+Mug', 
+                            'https://via.placeholder.com/150/03A9F4/333333?text=Logo+Mug+2', 
+                            'https://via.placeholder.com/150/4CAF50/333333?text=Logo+Mug+3'
+                        ], 
+                        isNew: true,
+                        createdAt: now // Today
+                    }
+                ];
+                
+                try {
+                    for (const product of sampleProducts) {
+                        await database.ref('products').push(product);
+                    }
+                    showNotification('کاڵا نموونەییەکان زیاد کران', 'success');
+                } catch (error) {
+                    console.error('Error adding sample products:', error);
+                    showNotification('هەڵە لە زیادکردنی کاڵای نموونەیی', 'error');
+                }
+            }
+
+            // Make functions globally available
+            window.addSampleProducts = addSampleProducts;
+            window.deleteProduct = deleteProduct;
+            window.editProduct = editProduct;
+            window.showUSDPrice = showUSDPrice;
+            window.slideImage = slideImage;
+            window.handleDotClick = handleDotClick;
+            window.handleImageError = handleImageError;
+            window.showNotification = showNotification;
+            window.filterProducts = filterProducts;
+            window.filterProductsByDate = filterProductsByDate;
+            window.formatDate = formatDate;
         });
     </script>
 </body>
