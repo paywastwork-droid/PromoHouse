@@ -2,93 +2,360 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <!-- ئەم meta-یانە وێبسایتەکەت دەکەنە ئەپ -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#1e40af">
+    
     <title>Promo House</title>
+    
+    <!-- ئایکۆن بۆ ئەپ -->
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg">
+    
     <style>
-        body {
-            background: #1e40af;
+        /* Reset */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        /* دەستکاری شاشە */
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            position: fixed; /* ڕێگری لە scroll کردن */
+        }
+        
+        /* Container بۆ لۆگۆ */
+        .logo-container {
+            width: 100%;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0c2461, #1e3799, #4a69bd);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            cursor: pointer;
+            position: relative;
         }
         
-        .container {
-            text-align: center;
-            color: white;
-        }
-        
+        /* خۆی لۆگۆ */
         .logo {
-            width: 200px;
-            height: 200px;
+            width: 90vw;
+            height: 90vw;
+            max-width: 300px;
+            max-height: 300px;
+            min-width: 200px;
+            min-height: 200px;
+            
             border-radius: 50%;
             object-fit: cover;
-            border: 5px solid white;
-            margin-bottom: 20px;
-            cursor: pointer;
-            transition: transform 0.3s;
+            border: 8px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 
+                0 0 40px rgba(255, 255, 255, 0.6),
+                0 0 80px rgba(255, 255, 255, 0.4),
+                0 0 120px rgba(255, 255, 255, 0.2),
+                inset 0 0 40px rgba(255, 255, 255, 0.3);
+            
+            animation: 
+                pulse 2s infinite alternate,
+                rotate 20s linear infinite;
+            
+            transition: all 0.3s ease;
+            -webkit-user-drag: none;
+            user-select: none;
         }
         
-        .logo:hover {
-            transform: scale(1.05);
+        /* ئەنیمەیشنی پەڵەوەپەڵە */
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 
+                    0 0 30px rgba(255, 255, 255, 0.6),
+                    0 0 60px rgba(255, 255, 255, 0.4),
+                    0 0 90px rgba(255, 255, 255, 0.2);
+            }
+            100% {
+                transform: scale(1.05);
+                box-shadow: 
+                    0 0 50px rgba(255, 255, 255, 0.8),
+                    0 0 100px rgba(255, 255, 255, 0.6),
+                    0 0 150px rgba(255, 255, 255, 0.4);
+            }
         }
         
-        h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+        /* ئەنیمەیشنی سوڕانەوە */
+        @keyframes rotate {
+            from { transform: rotate(0deg) scale(1); }
+            to { transform: rotate(360deg) scale(1); }
         }
         
-        p {
+        /* ئەنیمەیشنی بەکگراوند */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* نوسین لە ژێرەوە */
+        .tap-text {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Arial', sans-serif;
             font-size: 18px;
-            margin-bottom: 20px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            animation: fadeInOut 2s infinite;
+            padding: 0 20px;
+            direction: rtl;
         }
         
-        .btn {
-            background: white;
-            color: #1e40af;
-            border: none;
-            padding: 12px 30px;
-            font-size: 18px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
         
-        .btn:hover {
-            background: #3b82f6;
+        /* Loading Screen */
+        .loading {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0c2461;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+        
+        .loading.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* Notification بۆ زیادکردن بۆ هۆم سکرین */
+        .add-to-home {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.8);
             color: white;
-            transform: translateY(-3px);
+            padding: 12px 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+            z-index: 1000;
+            animation: slideUp 0.5s ease;
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        /* بۆ ئایفۆن نۆچ و پێشبڕکێ */
+        @supports (-webkit-touch-callout: none) {
+            .logo-container {
+                padding-top: env(safe-area-inset-top);
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+            
+            .logo {
+                margin-top: env(safe-area-inset-top);
+            }
+        }
+        
+        /* بۆ شاشە بچووکەکان */
+        @media (max-width: 350px) {
+            .logo {
+                width: 85vw;
+                height: 85vw;
+                border-width: 6px;
+            }
+            
+            .tap-text {
+                font-size: 16px;
+                bottom: 20px;
+            }
+        }
+        
+        /* بۆ شاشە گەورەکان */
+        @media (min-width: 768px) {
+            .logo {
+                width: 50vh;
+                height: 50vh;
+                max-width: 400px;
+                max-height: 400px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" 
-             alt="Promo House Logo" 
+    <!-- Loading Screen -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- لۆگۆ -->
+    <div class="logo-container" id="logoContainer">
+        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg"
+             alt="Promo House"
              class="logo"
-             onclick="goToMain()">
+             id="mainLogo"
+             onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=400&fit=crop&auto=format';">
         
-        <h1>پرۆمۆ هاوس</h1>
-        <p>بەرهەمەکانی تایبەت بە شێوەی ئۆنڵاین</p>
-        
-        <button class="btn" onclick="goToMain()">
-            بچۆ بۆ پەڕەی سەرەکی
-        </button>
+        <div class="tap-text" id="tapText">
+            تاپ بکە بۆ چوونە ژوورەوە
+        </div>
+    </div>
+    
+    <!-- Notification بۆ زیادکردن بۆ هۆم سکرین -->
+    <div class="add-to-home" id="addToHome">
+        ⭐ زیادم بکە بۆ هۆم سکرین
     </div>
     
     <script>
-        function goToMain() {
-            window.location.href = 'PromoHouse.html';
-        }
+        // دەستکاری load کردن
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading').classList.add('hidden');
+            }, 1500);
+        });
         
-        // Auto redirect after 5 seconds
+        // کلیک/تاپ کردن
+        document.getElementById('logoContainer').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // کاریگەری کلیک
+            const logo = document.getElementById('mainLogo');
+            const text = document.getElementById('tapText');
+            
+            logo.style.animation = 'none';
+            logo.style.transform = 'scale(0.9)';
+            text.style.opacity = '0.5';
+            
+            setTimeout(() => {
+                logo.style.animation = '';
+                logo.style.transform = '';
+            }, 200);
+            
+            // چوون بۆ پەڕەی سەرەکی
+            setTimeout(function() {
+                // لەبەرگرتنەوەی loading
+                document.getElementById('loading').classList.remove('hidden');
+                
+                // گواستنەوە بۆ PromoHouse.html
+                setTimeout(function() {
+                    window.location.href = 'PromoHouse.html';
+                }, 500);
+            }, 300);
+        });
+        
+        // Touch کاریگەری بۆ مۆبایل
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        
+        document.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+            
+            // کاریگەری تاپ
+            document.getElementById('mainLogo').style.transform = 'scale(0.95)';
+        }, { passive: true });
+        
+        document.addEventListener('touchend', function(e) {
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            
+            // گەڕاندنەوەی قەبارە
+            setTimeout(() => {
+                document.getElementById('mainLogo').style.transform = '';
+            }, 100);
+            
+            // ئەگەر تاپێکی خێرا بوو، بچۆ بۆ پەڕەی سەرەکی
+            if (touchDuration < 300) {
+                document.getElementById('logoContainer').click();
+            }
+        }, { passive: true });
+        
+        // ڕێگری لە تاپ کردن بۆ زوو دووبارە
+        let lastTapTime = 0;
+        document.addEventListener('touchend', function(e) {
+            const currentTime = Date.now();
+            if (currentTime - lastTapTime < 1000) {
+                e.preventDefault();
+            }
+            lastTapTime = currentTime;
+        }, { passive: false });
+        
+        // نمایشی Notification بۆ زیادکردن بۆ هۆم سکرین
+        window.addEventListener('load', function() {
+            // تەنها لەسەر مۆبایل و بۆرەسەری سەفاری
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream) {
+                setTimeout(function() {
+                    document.getElementById('addToHome').style.display = 'block';
+                    
+                    // لەشاردنەوەی notification پاش 5 چرکە
+                    setTimeout(function() {
+                        document.getElementById('addToHome').style.display = 'none';
+                    }, 5000);
+                }, 3000);
+            }
+        });
+        
+        // Auto-redirect پاش 10 چرکە (ئاخۆتنی)
         setTimeout(function() {
-            goToMain();
-        }, 5000);
+            console.log('Auto-redirect ئامادەیە (پاش 10 چرکە)');
+        }, 10000);
+        
+        // بەکارهێنانی Back Button
+        document.addEventListener('backbutton', function(e) {
+            e.preventDefault();
+            // هیچ ناکەین (ڕێگری لە گەڕانەوە)
+        }, false);
+        
+        // بۆ ئەندرۆید - ڕێگری لە گەڕانەوە
+        document.addEventListener('deviceready', function() {
+            document.addEventListener('backbutton', function(e) {
+                e.preventDefault();
+            }, false);
+        }, false);
+        
+        // Service Worker بۆ ئەپی موبایل (ئاخۆتنی)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js').catch(function(err) {
+                    console.log('ServiceWorker failed:', err);
+                });
+            });
+        }
     </script>
 </body>
 </html>
