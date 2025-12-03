@@ -3,1390 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پڕۆمۆ هۆس - کاڵاکان بەپێی جۆر</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-analytics-compat.js"></script>
-
+    <title>Promo House</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; direction: rtl; font-size: 14px; }
-        .app-container { max-width: 100%; margin: 0 auto; background: white; min-height: 100vh; position: relative; }
-        
-        /* Header */
-        .header { background: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e0e0e0; position: sticky; top: 0; z-index: 100; }
-        .header h1 { font-size: 14px; color: #333; font-weight: 600; }
-        .admin-button { background: #4fc3f7; color: white; border: none; padding: 8px 16px; border-radius: 20px; cursor: pointer; font-size: 12px; transition: all 0.3s; }
-        .admin-button:hover { background: #29b6f6; transform: translateY(-2px); }
-        
-        /* Bottom Navigation - UPDATED: Two rows layout with smaller buttons */
-        .bottom-nav { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            background: white; 
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            padding: 5px; 
-            border-top: 1px solid #e0e0e0; 
-            z-index: 1000;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-            height: 80px;
-            gap: 3px;
-        }
-        .nav-item { 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center;
-            cursor: pointer; 
-            transition: all 0.3s;
-            padding: 3px 0;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-        .nav-item.active { 
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%);
-            color: white;
-            box-shadow: 0 2px 5px rgba(79, 195, 247, 0.3);
-        }
-        .nav-item:hover { 
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            transform: translateY(-2px);
-        }
-        .nav-icon { 
-            font-size: 16px; 
-            margin-bottom: 3px;
-        }
-        .nav-label { 
-            font-size: 9px; 
-            font-weight: 500;
-            text-align: center;
-            line-height: 1.1;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
         
-        /* Banner */
-        .banner { background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%); padding: 20px 15px; text-align: center; color: white; position: relative; cursor: pointer; }
-        .logo { width: 60px; height: 60px; background: rgba(255,255,255,0.3); border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); overflow: hidden; }
-        .logo img { width: 100%; height: 100%; object-fit: cover; }
-        .banner h2 { font-size: 18px; margin-bottom: 4px; font-weight: 700; }
-        .banner p { font-size: 11px; opacity: 0.95; }
-
-        /* Category Navigation - UPDATED: Two rows layout with smaller buttons */
-        .category-nav { 
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            gap: 6px;
-            padding: 10px 12px; 
-            background: white; 
-            border-bottom: 1px solid #f0f0f0; 
-            position: sticky; 
-            top: 59px; 
-            z-index: 99; 
-        }
-        .category-item { 
+        body {
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
-            text-align: center; 
-            padding: 8px 4px; 
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
-            border-radius: 10px; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            border: 1px solid #e0e0e0; 
-            font-size: 11px; 
-            font-weight: 500; 
-            min-height: 60px;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
         }
-        .category-item.active { 
-            background: linear-gradient(135deg, #4fc3f7 0%, #29b6f6 100%); 
-            color: white; 
-            border-color: #29b6f6; 
-            box-shadow: 0 2px 6px rgba(79, 195, 247, 0.3); 
+        
+        .logo-container {
+            text-align: center;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
         }
-        .category-item:hover { 
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
-            transform: translateY(-2px); 
+        
+        .main-logo {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 10px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 
+                0 0 50px rgba(255, 255, 255, 0.5),
+                0 0 100px rgba(59, 130, 246, 0.4),
+                0 0 150px rgba(59, 130, 246, 0.3);
+            transition: all 0.5s ease;
         }
-        .category-item.active:hover { 
-            background: linear-gradient(135deg, #29b6f6 0%, #039be5 100%); 
+        
+        .main-logo:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: 
+                0 0 60px rgba(255, 255, 255, 0.6),
+                0 0 120px rgba(59, 130, 246, 0.5),
+                0 0 180px rgba(59, 130, 246, 0.4);
         }
-        .category-icon { 
-            font-size: 18px; 
-            margin-bottom: 4px;
+        
+        .click-text {
+            color: white;
+            margin-top: 30px;
+            font-size: 24px;
+            opacity: 0.9;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            animation: pulse 2s infinite;
         }
-
-        /* Products Grid */
-        .products-section { padding: 12px; padding-bottom: 90px; }
-        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 15px; }
-        .product-item { background: white; border-radius: 10px; padding: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; border: 1px solid #f0f0f0; position: relative; }
-        .product-item.new-product { border: 2px solid #ff9800; box-shadow: 0 2px 8px rgba(255, 152, 0, 0.2); }
-        .new-badge { position: absolute; top: -5px; left: -5px; background: #ff9800; color: white; font-size: 9px; padding: 2px 5px; border-radius: 6px; z-index: 2; }
-        .product-item:hover { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-        .product-image { width: 100%; height: 80px; border-radius: 6px; overflow: hidden; margin-bottom: 6px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; position: relative; }
-        .product-image img { width: 100%; height: 100%; object-fit: cover; }
-        .product-image .placeholder-icon { font-size: 24px; color: #ccc; }
-        .product-info { text-align: center; }
-        .product-name { font-size: 12px; font-weight: 600; color: #333; margin-bottom: 3px; }
-        .product-price { font-size: 13px; font-weight: 700; color: #4fc3f7; }
-        .product-price-usd { font-size: 10px; color: #888; margin-top: 2px; }
-        .product-code { font-size: 9px; color: #888; margin-top: 2px; }
-        .product-date { font-size: 8px; color: #aaa; margin-top: 2px; }
-
-        /* Price Eye Icon */
-        .price-eye { position: absolute; top: 6px; right: 6px; background: rgba(255,255,255,0.9); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s; z-index: 3; }
-        .price-eye:hover { background: #4fc3f7; color: white; transform: scale(1.1); }
-        .price-eye i { font-size: 11px; }
-
-        /* Image Slider Styles - Fixed for RTL */
-        .image-slider { 
-            position: relative; 
-            width: 100%; 
-            height: 100%; 
-            overflow: hidden; 
-            border-radius: 6px;
-            direction: ltr;
+        
+        .promo-text {
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 15px;
+            font-size: 18px;
         }
-        .slider-container { 
-            display: flex; 
-            transition: transform 0.4s ease-in-out; 
-            height: 100%; 
-            width: 100%;
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
         }
-        .slider-image { 
-            flex: 0 0 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            display: block;
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
-        .slider-nav { 
-            position: absolute; 
-            bottom: 6px; 
-            left: 0; 
-            right: 0; 
-            display: flex; 
-            justify-content: center; 
-            gap: 5px; 
-            z-index: 2;
-        }
-        .slider-dot { 
-            width: 6px; 
-            height: 6px; 
-            border-radius: 50%; 
-            background: rgba(255,255,255,0.6); 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            border: 1px solid rgba(0,0,0,0.2);
-        }
-        .slider-dot.active { 
-            background: white; 
-            transform: scale(1.3); 
-            box-shadow: 0 0 3px rgba(0,0,0,0.5);
-        }
-        .slider-dot:hover {
-            background: rgba(255,255,255,0.9);
-        }
-        .slider-arrow { 
-            position: absolute; 
-            top: 50%; 
-            transform: translateY(-50%); 
-            background: rgba(0,0,0,0.5); 
-            color: white; 
-            border: none; 
-            width: 24px; 
-            height: 24px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            transition: all 0.3s; 
-            opacity: 0.7; 
-            z-index: 2;
-        }
-        .product-image:hover .slider-arrow { 
-            opacity: 1; 
-        }
-        .slider-arrow:hover { 
-            background: rgba(0,0,0,0.8); 
-            transform: translateY(-50%) scale(1.1);
-        }
-        .slider-arrow.prev { 
-            left: 4px; 
-        }
-        .slider-arrow.next { 
-            right: 4px; 
-        }
-        .slider-arrow i { 
-            font-size: 12px; 
-        }
-
-        /* Admin Panel */
-        .admin-panel { background: #f8f9fa; padding: 12px; margin: 12px; border-radius: 8px; border: 1px solid #e9ecef; display: none; }
-        .admin-panel.show { display: block; animation: slideDown 0.3s ease-out; }
-        @keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        .admin-title { font-size: 15px; color: #333; margin-bottom: 10px; text-align: center; }
-        .admin-form { display: flex; flex-direction: column; gap: 6px; }
-        .admin-input { padding: 6px 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px; }
-        .admin-select { padding: 6px 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px; background: white; }
-        .admin-file-input { padding: 6px 10px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px; background: white; }
-        .form-button { background: #4fc3f7; color: white; border: none; padding: 8px; border-radius: 5px; cursor: pointer; font-size: 12px; transition: all 0.3s; }
-        .form-button:hover { background: #29b6f6; }
-        .form-button.delete { background: #f44336; }
-        .form-button.delete:hover { background: #d32f2f; }
-        .image-preview { width: 70px; height: 70px; border-radius: 6px; overflow: hidden; margin: 6px auto; background: #f8f9fa; display: flex; align-items: center; justify-content: center; }
-        .image-preview img { width: 100%; height: 100%; object-fit: cover; }
-        .image-preview .placeholder-text { color: #888; font-size: 9px; text-align: center; }
-
-        /* Multiple Image Upload */
-        .multiple-images-preview { 
-            display: flex; 
-            flex-wrap: wrap; 
-            gap: 6px; 
-            margin: 6px 0; 
-            justify-content: center; 
-        }
-        .multiple-image-item { 
-            width: 50px; 
-            height: 50px; 
-            border-radius: 5px; 
-            overflow: hidden; 
-            position: relative; 
-            border: 1px solid #ddd; 
-        }
-        .multiple-image-item img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-        .remove-image { 
-            position: absolute; 
-            top: 2px; 
-            right: 2px; 
-            background: rgba(244,67,54,0.8); 
-            color: white; 
-            border: none; 
-            width: 14px; 
-            height: 14px; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            font-size: 9px; 
-        }
-
-        /* Password Modal */
-        .password-modal {
+        
+        /* Loading animation */
+        .loader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: #1e3a8a;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             z-index: 1000;
-            display: none;
-        }
-        .password-modal.show {
-            display: flex;
-        }
-        .password-modal-content {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            width: 280px;
-            max-width: 90%;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        .password-input {
-            width: 100%;
-            padding: 8px;
-            margin: 12px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 13px;
-        }
-        .password-submit {
-            background: #4fc3f7;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 13px;
-            width: 100%;
-        }
-        .password-submit:hover {
-            background: #29b6f6;
-        }
-
-        /* Loading Spinner */
-        .loading { display: inline-block; width: 18px; height: 18px; border: 2px solid #f3f3f3; border-top: 2px solid #4fc3f7; border-radius: 50%; animation: spin 1s linear infinite; margin-right: 8px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Notification styles */
-        .notification { position: fixed; top: 70px; right: 12px; left: 12px; background: #4caf50; color: white; padding: 12px; border-radius: 6px; box-shadow: 0 3px 10px rgba(0,0,0,0.2); z-index: 10000; font-size: 12px; text-align: center; animation: slideIn 0.3s ease-out; }
-        .notification.error { background: #f44336; }
-        @keyframes slideIn { from { transform: translateY(-100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-        @keyframes slideOut { from { transform: translateY(0); opacity: 1; } to { transform: translateY(-100%); opacity: 0; } }
-        
-        /* Page Sections */
-        .page-section {
-            display: none;
-            padding: 12px;
-            padding-bottom: 90px;
-            min-height: calc(100vh - 130px);
-        }
-        .page-section.active {
-            display: block;
+            transition: opacity 0.5s ease;
         }
         
-        /* Payment Section */
-        .payment-methods {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 15px;
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
-        .payment-method {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .payment-method:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 3px 8px rgba(0,0,0,0.15);
-        }
-        .payment-icon {
-            width: 35px;
-            height: 35px;
-            background: #4fc3f7;
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.3);
+            border-top: 5px solid white;
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
-        }
-        .payment-info h3 {
-            font-size: 15px;
-            margin-bottom: 4px;
-            color: #333;
-        }
-        .payment-info p {
-            font-size: 11px;
-            color: #666;
+            animation: spin 1s linear infinite;
         }
         
-        /* Location Section */
-        .location-info {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-top: 15px;
-        }
-        .location-info h3 {
-            font-size: 15px;
-            margin-bottom: 12px;
-            color: #333;
-            text-align: center;
-        }
-        .location-details {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .location-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-        .location-item:last-child {
-            border-bottom: none;
-        }
-        .location-icon {
-            width: 28px;
-            height: 28px;
-            background: #4fc3f7;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 13px;
-        }
-        .location-text {
-            flex: 1;
-        }
-        .location-text strong {
-            display: block;
-            margin-bottom: 2px;
-            color: #333;
-        }
-        .location-text span {
-            font-size: 11px;
-            color: #666;
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
         
-        /* About Section */
-        .about-content {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            margin-top: 15px;
-        }
-        .about-content h3 {
-            font-size: 15px;
-            margin-bottom: 12px;
-            color: #333;
-            text-align: center;
-        }
-        .about-text {
-            line-height: 1.5;
-            color: #555;
-            font-size: 13px;
-            text-align: justify;
-        }
-        .about-features {
-            margin-top: 15px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .feature-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            background: #f8f9fa;
-            border-radius: 6px;
-        }
-        .feature-icon {
-            color: #4fc3f7;
-            font-size: 14px;
+        @media (max-width: 768px) {
+            .main-logo {
+                width: 250px;
+                height: 250px;
+            }
+            
+            .click-text {
+                font-size: 20px;
+            }
         }
         
-        /* Marketplace Section */
-        .marketplace-stats {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 15px;
+        @media (max-width: 480px) {
+            .main-logo {
+                width: 200px;
+                height: 200px;
+                border-width: 8px;
+            }
+            
+            .click-text {
+                font-size: 18px;
+            }
+            
+            .promo-text {
+                font-size: 16px;
+            }
         }
-        .stat-card {
-            background: white;
-            padding: 12px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        .stat-icon {
-            width: 35px;
-            height: 35px;
-            background: #4fc3f7;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 16px;
-            margin: 0 auto 8px;
-        }
-        .stat-number {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin-bottom: 4px;
-        }
-        .stat-label {
-            font-size: 11px;
-            color: #666;
-        }
-        
-        /* Additional button styles for better visual appeal */
-        .category-item:nth-child(1) { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
-        .category-item:nth-child(2) { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); }
-        .category-item:nth-child(3) { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); }
-        .category-item:nth-child(4) { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
-        .category-item:nth-child(5) { background: linear-gradient(135deg, #fbe9e7 0%, #ffccbc 100%); }
-        .category-item:nth-child(6) { background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); }
-        .category-item:nth-child(7) { background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); }
-        .category-item:nth-child(8) { background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%); }
-        .category-item:nth-child(9) { background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%); }
-        .category-item:nth-child(10) { background: linear-gradient(135deg, #e0f7fa 0%, #b2ebf2 100%); }
-        .category-item:nth-child(11) { background: linear-gradient(135deg, #f1f8e9 0%, #dcedc8 100%); }
-        .category-item:nth-child(12) { background: linear-gradient(135deg, #fffde7 0%, #fff9c4 100%); }
-        
-        .nav-item:nth-child(1) { background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); }
-        .nav-item:nth-child(2) { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); }
-        .nav-item:nth-child(3) { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); }
-        .nav-item:nth-child(4) { background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); }
-        .nav-item:nth-child(5) { background: linear-gradient(135deg, #fbe9e7 0%, #ffccbc 100%); }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <div class="header">
-            <h1>PAYWAST MAJEED...</h1>
-            <button class="admin-button" id="adminAccessBtn">
-                <i class="fas fa-plus"></i> +
-            </button>
-        </div>
-
-        <div class="content-wrapper">
-            <!-- Home Section (Products) -->
-            <div class="page-section active" id="home-section">
-                <!-- Banner -->
-                <div class="banner">
-                    <div class="logo">
-                        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" alt="Promo House Logo">
-                    </div>
-                    <h2>PROMO HOUSE</h2>
-                    <p>For Promotional Products</p>
-                </div>
-
-                <!-- Category Navigation with Icons - UPDATED: Two rows layout with smaller buttons -->
-                <div class="category-nav" id="categoryNav">
-                    <div class="category-item active" data-category="all">
-                        <i class="fas fa-th-large category-icon"></i>
-                        <span>هەموو کاڵاکان</span>
-                    </div>
-                    <div class="category-item" data-category="clothing">
-                        <i class="fas fa-tshirt category-icon"></i>
-                        <span>جل</span>
-                    </div>
-                    <div class="category-item" data-category="hat">
-                        <i class="fas fa-hat-cowboy category-icon"></i>
-                        <span>کڵاو</span>
-                    </div>
-                    <div class="category-item" data-category="mug">
-                        <i class="fas fa-mug-hot category-icon"></i>
-                        <span>کووپ</span>
-                    </div>
-                    <div class="category-item" data-category="watermelon">
-                        <i class="fas fa-flask category-icon"></i>
-                        <span>تەرمۆزە</span>
-                    </div>
-                    <div class="category-item" data-category="notebook">
-                        <i class="fas fa-book category-icon"></i>
-                        <span>دەفتەر</span>
-                    </div>
-                    <div class="category-item" data-category="pen">
-                        <i class="fas fa-pen category-icon"></i>
-                        <span>قەلەم</span>
-                    </div>
-                    <div class="category-item" data-category="bag">
-                        <i class="fas fa-shopping-bag category-icon"></i>
-                        <span>جانتا</span>
-                    </div>
-                    <div class="category-item" data-category="crystal">
-                        <i class="fas fa-gem category-icon"></i>
-                        <span>کریستال</span>
-                    </div>
-                    <div class="category-item" data-category="shield">
-                        <i class="fas fa-shield-alt category-icon"></i>
-                        <span>درع</span>
-                    </div>
-                    <div class="category-item" data-category="krikar">
-                        <i class="fas fa-hand-holding category-icon"></i>
-                        <span>کریکار</span>
-                    </div>
-                    <div class="category-item" data-category="other">
-                        <i class="fas fa-box-open category-icon"></i>
-                        <span>شتی تر</span>
-                    </div>
-                </div>
-
-                <!-- Products Grid -->
-                <div class="products-section">
-                    <div class="products-grid" id="productsContainer">
-                        <div style="text-align: center; grid-column: 1 / -1; padding: 15px;">
-                            <div class="loading"></div>
-                            <div>کاڵاکان بار دەکرێن...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Pay Section -->
-            <div class="page-section" id="pay-section">
-                <h2 style="text-align: center; margin-bottom: 15px; color: #333;">شێوازەکانی پارەدان</h2>
-                <div class="payment-methods">
-                    <div class="payment-method">
-                        <div class="payment-icon">
-                            <i class="fas fa-money-bill-wave"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>پارەی کاش</h3>
-                            <p>پارەدان کاتێک کاڵا دەگات بە دەستت</p>
-                        </div>
-                    </div>
-                    <div class="payment-method">
-                        <div class="payment-icon">
-                            <i class="fas fa-mobile-alt"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>زیرەک</h3>
-                            <p>پارەدان لە ڕێگەی زیرەکەوە</p>
-                        </div>
-                    </div>
-                    <div class="payment-method">
-                        <div class="payment-icon">
-                            <i class="fas fa-credit-card"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>کارتی بانکی</h3>
-                            <p>پارەدان بە کارتی بانکی</p>
-                        </div>
-                    </div>
-                    <div class="payment-method">
-                        <div class="payment-icon">
-                            <i class="fas fa-university"></i>
-                        </div>
-                        <div class="payment-info">
-                            <h3>وەرگرتنی بانکی</h3>
-                            <p>پارەدان لە بانکەوە</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Location Section -->
-            <div class="page-section" id="location-section">
-                <h2 style="text-align: center; margin-bottom: 15px; color: #333;">شوێنی ئێمە</h2>
-                <div class="location-info">
-                    <h3>PromoHouse</h3>
-                    <div class="location-details">
-                        <div class="location-item">
-                            <div class="location-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
-                            <div class="location-text">
-                                <strong>ناونیشان</strong>
-                                <span>سلێمانی، کوردستان</span>
-                            </div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="location-text">
-                                <strong>ژمارەی تەلەفۆن</strong>
-                                <span>07701922060</span>
-                            </div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <div class="location-text">
-                                <strong>ئیمەیل</strong>
-                                <span>paywastwork@gmail.com</span>
-                            </div>
-                        </div>
-                        <div class="location-item">
-                            <div class="location-icon">
-                                <i class="fas fa-clock"></i>
-                            </div>
-                            <div class="location-text">
-                                <strong>کاتەکانی کار</strong>
-                                <span>٩:٠٠ AM - ٥:٠٠ PM (هەموو ڕۆژێک)</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- About Section -->
-            <div class="page-section" id="about-section">
-                <h2 style="text-align: center; margin-bottom: 15px; color: #333;">دەربارەی ئێمە</h2>
-                <div class="about-content">
-                    <h3>PromoHouse</h3>
-                    <div class="about-text">
-                        <p>بەخێربێن بۆ PromoHouse! .</p>
-                        
-                        <p>ئامانجی ئێمە دابینکردنی باشترین کوالێتی بەرز و کاڵا بە نرخێکی گونجاوو. .</p>
-                    </div>
-                    
-                    <div class="about-features">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <span>کاڵا  بە کوالێتی بەرز</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <span>نرخە پێشکەوتووەکان</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <span>گواستنەوەی خێرا</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-check-circle"></i>
-                            </div>
-                            <span>خزمەتگوزاری کڕیاری باش</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Marketplace Section -->
-            <div class="page-section" id="marketplace-section">
-                <h2 style="text-align: center; margin-bottom: 15px; color: #333;">بازاڕی کاڵاکان</h2>
-                <div class="marketplace-stats">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-box-open"></i>
-                        </div>
-                        <div class="stat-number">١٢٥+</div>
-                        <div class="stat-label">جۆری کاڵا</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-number">٥٠٠+</div>
-                        <div class="stat-label">کڕیاری دڵخۆش</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-shipping-fast"></i>
-                        </div>
-                        <div class="stat-number">١٠٠٠+</div>
-                        <div class="stat-label">داواکاری تەواو</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-calendar-alt"></i>
-                        </div>
-                        <div class="stat-number">٥+</div>
-                        <div class="stat-label">ساڵ خزمەتگوزاری</div>
-                    </div>
-                </div>
-                
-                <div style="margin-top: 20px; text-align: center;">
-                    <h3 style="margin-bottom: 12px; color: #333;">کاڵا پڕۆمۆشناڵەکانمان</h3>
-                    <p style="color: #666; line-height: 1.5;">ئێمە هەموو جۆرە کاڵا پڕۆمۆشناڵەکان دابین دەکەین لە جل و بەرگ و کڵاو و کووپ و قەلەم و دەفتەر و زۆر شتی تر. هەموو کاڵاکانمان دەتوانرێت دیزاینی تایبەتیان بۆ بکرێت بە ناونیشانی کۆمپانیاکەت یان لۆگۆ.</p>
-                </div>
-            </div>
-
-            <!-- Password Modal -->
-            <div class="password-modal" id="passwordModal">
-                <div class="password-modal-content">
-                    <h3>تکایە وشەی نهێنی داخل بکە</h3>
-                    <input type="password" class="password-input" id="passwordInput" placeholder="وشەی نهێنی">
-                    <button class="password-submit" id="passwordSubmit">چوونە ژورەوە</button>
-                </div>
-            </div>
-
-            <!-- Admin Panel -->
-            <div class="admin-panel" id="adminPanel">
-                <div class="admin-title">زیادکردنی کاڵای نوێ</div>
-                <form class="admin-form" id="adminForm">
-                    <input type="text" class="admin-input" id="productName" placeholder="ناوی کاڵا" required>
-                    <input type="number" class="admin-input" id="productPrice" placeholder="نرخ (دینار)" required>
-                    <input type="text" class="admin-input" id="productCode" placeholder="کۆدی کاڵا" required>
-                    <select class="admin-select" id="productCategory" required>
-                        <option value="">هەڵبژاردنی جۆر</option>
-                        <option value="clothing">جل</option>
-                        <option value="hat">کڵاو</option>
-                        <option value="mug">کووپ</option>
-                        <option value="watermelon">تەرمۆزە</option>
-                        <option value="notebook">دەفتەر</option>
-                        <option value="pen">قەلەم</option>
-                        <option value="bag">جانتا</option>
-                        <option value="crystal">کریستال</option>
-                        <option value="shield">درع</option>
-                        <option value="krikar">کریکار</option>
-                        <option value="other">شتی تر</option>
-                    </select>
-                    
-                    <div class="multiple-images-preview" id="multipleImagesPreview">
-                        <!-- Multiple images preview will be shown here -->
-                    </div>
-                    
-                    <input type="file" class="admin-file-input" id="productImages" accept="image/*" multiple>
-                    
-                    <button type="submit" class="form-button" id="submitButton">
-                        <span id="submitButtonText">زیادکردنی کاڵا</span>
-                    </button>
-                    <button type="button" class="form-button delete" id="closeAdminPanel">داخستن</button>
-                </form>
-            </div>
-        </div>
-
-        <!-- Bottom Navigation - UPDATED: Two rows layout with smaller buttons -->
-        <div class="bottom-nav">
-            <div class="nav-item active" data-page="home-section">
-                <div class="nav-icon">
-                    <i class="fas fa-home"></i>
-                </div>
-                <div class="nav-label">ماڵەوە</div>
-            </div>
-            <div class="nav-item" data-page="pay-section">
-                <div class="nav-icon">
-                    <i class="fas fa-money-bill-wave"></i>
-                </div>
-                <div class="nav-label">پارەدان</div>
-            </div>
-            <div class="nav-item" data-page="location-section">
-                <div class="nav-icon">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
-                <div class="nav-label">شوێن</div>
-            </div>
-            <div class="nav-item" data-page="about-section">
-                <div class="nav-icon">
-                    <i class="fas fa-info-circle"></i>
-                </div>
-                <div class="nav-label">دەربارە</div>
-            </div>
-            <div class="nav-item" data-page="marketplace-section">
-                <div class="nav-icon">
-                    <i class="fas fa-store"></i>
-                </div>
-                <div class="nav-label">بازاڕ</div>
-            </div>
-        </div>
+    <!-- Loading screen -->
+    <div class="loader" id="loader">
+        <div class="spinner"></div>
     </div>
-
+    
+    <!-- Main content -->
+    <div class="logo-container" id="logoContainer">
+        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" 
+             alt="پرۆمۆ هاوس لۆگۆ" 
+             class="main-logo">
+        <div class="click-text">👆 کلیک بکە بۆ چوونە ژوورەوە</div>
+        <div class="promo-text">PROMO HOUSE - بەخێربییت</div>
+    </div>
+    
     <script>
-        // Firebase Configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyCl1EUC9r6lu9L0opp-gFst3Y7Hjk7jH-M",
-            authDomain: "promohouse-b5298.firebaseapp.com",
-            databaseURL: "https://promohouse-b5298-default-rtdb.firebaseio.com",
-            projectId: "promohouse-b5298",
-            storageBucket: "promohouse-b5298.firebasestorage.app",
-            messagingSenderId: "55413367728",
-            appId: "1:55413367728:web:c23d315d95482c0e0f2c75",
-            measurementId: "G-XRZP1J2QMG"
-        };
-
-        // Initialize Firebase
-        const app = firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const storage = firebase.storage();
-
-        console.log('🔥 Firebase initialized successfully');
-
-        // Global variables
-        let allProducts = [];
-        const ADMIN_PASSWORD = "1100"; // وشەی نهێنی بەڕیوەبەر
-
-        // Function to create image slider for products with multiple images - FIXED VERSION
-        function createImageSlider(images, productId) {
-            const sliderId = `slider-${productId}`;
-            const dots = images.map((_, index) => 
-                `<div class="slider-dot ${index === 0 ? 'active' : ''}" data-index="${index}" onclick="handleDotClick(event, '${sliderId}')"></div>`
-            ).join('');
-            
-            const imageElements = images.map((image, index) => 
-                `<img src="${image}" alt="Product image ${index + 1}" class="slider-image" onerror="handleImageError(this, ${index}, '${sliderId}')">`
-            ).join('');
-            
-            return `
-                <div class="image-slider" id="${sliderId}" data-current-image="0">
-                    <div class="slider-container">
-                        ${imageElements}
-                    </div>
-                    <button class="slider-arrow prev" onclick="slideImage('${sliderId}', -1)">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button class="slider-arrow next" onclick="slideImage('${sliderId}', 1)">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                    <div class="slider-nav">
-                        ${dots}
-                    </div>
-                </div>
-            `;
-        }
-
-        // Function to handle dot click (jump to specific image) - FIXED VERSION
-        function handleDotClick(event, sliderId) {
-            event.stopPropagation();
-            const newIndex = parseInt(event.target.dataset.index);
-            const slider = document.getElementById(sliderId);
-            if (!slider) return;
-            
-            const container = slider.querySelector('.slider-container');
-            const dots = slider.querySelectorAll('.slider-dot');
-
-            // چارەسەری کێشەی RTL: بەکارهێنانی translateX بە نیشانەی ئەرێنی
-            const translateValue = -newIndex * 100;
-            container.style.transform = `translateX(${translateValue}%)`;
-
-            // Update dots
-            dots.forEach(dot => dot.classList.remove('active'));
-            event.target.classList.add('active');
-
-            slider.setAttribute('data-current-image', newIndex);
-        }
-
-        // Function to handle image sliding - FIXED VERSION
-        function slideImage(sliderId, direction) {
-            event.stopPropagation();
-            const slider = document.getElementById(sliderId);
-            if (!slider) return;
-            
-            const container = slider.querySelector('.slider-container');
-            const images = slider.querySelectorAll('.slider-image');
-            const dots = slider.querySelectorAll('.slider-dot');
-            
-            if (images.length <= 1) return;
-            
-            const currentActiveDot = slider.querySelector('.slider-dot.active');
-            let currentIndex = parseInt(currentActiveDot ? currentActiveDot.dataset.index : 0);
-            
-            let newIndex = currentIndex + direction;
-            
-            // Handle looping
-            if (newIndex >= images.length) {
-                newIndex = 0;
-            } else if (newIndex < 0) {
-                newIndex = images.length - 1;
-            }
-
-            // چارەسەری کێشەی RTL: بەکارهێنانی translateX بە نیشانەی ئەرێنی
-            const translateValue = -newIndex * 100;
-            container.style.transform = `translateX(${translateValue}%)`;
-
-            // Update dots
-            dots.forEach(dot => dot.classList.remove('active'));
-            if (dots[newIndex]) {
-                dots[newIndex].classList.add('active');
-            }
-
-            slider.setAttribute('data-current-image', newIndex);
-        }
-        
-        // Function to handle image loading error
-        function handleImageError(imgElement, index, sliderId) {
-            console.error('Image failed to load:', imgElement.src);
-            imgElement.style.display = 'none';
-        }
-
-        // Function to create product item with image slider
-        function createProductItem(product, productId) {
-            const productItem = document.createElement('div');
-            productItem.className = `product-item ${product.isNew ? 'new-product' : ''}`;
-            productItem.setAttribute('data-category', product.category);
-            productItem.setAttribute('data-id', productId);
-            productItem.setAttribute('data-created-date', product.createdAt || '');
-
-            const icon = getIcon(product.category);
-            const usdPrice = (product.price / 1470).toFixed(2);
-            
-            const images = (product.images && Array.isArray(product.images)) ? product.images : (product.imageUrl ? [product.imageUrl] : []);
-            
-            let imageContent;
-            
-            if (images.length > 1) {
-                imageContent = createImageSlider(images, productId);
-            } else if (images.length === 1) {
-                imageContent = `<img src="${images[0]}" alt="${product.name}" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">`;
-            } else {
-                imageContent = `<div class="placeholder-icon"><i class="fas ${icon}"></i></div>`;
-            }
-
-            productItem.innerHTML = `
-                ${product.isNew ? '<div class="new-badge">NEW</div>' : ''}
-                <div class="price-eye" onclick="event.stopPropagation(); showUSDPrice(${product.price}, '${product.name}')">
-                    <i class="fas fa-eye"></i>
-                </div>
-                <div class="product-image">
-                    ${imageContent}
-                    ${images.length <= 1 ? `<div class="placeholder-icon" style="${images.length === 1 ? 'display:none;' : ''}"><i class="fas ${icon}"></i></div>` : ''}
-                </div>
-                <div class="product-info">
-                    <div class="product-name">${product.name}</div>
-                    <div class="product-price">${product.price.toLocaleString()} دینار</div>
-                    <div class="product-price-usd">نزیکەی ${usdPrice}$</div>
-                    <div class="product-code">${product.code}</div>
-                    <div class="product-date">زیادکراوە: ${formatDate(product.createdAt)}</div>
-                </div>
-            `;
-            
-            return productItem;
-        }
-
-        // Helper function to get icon based on category
-        function getIcon(category) {
-            switch (category) {
-                case 'clothing': return 'fa-tshirt';
-                case 'hat': return 'fa-hat-cowboy';
-                case 'mug': return 'fa-mug-hot';
-                case 'watermelon': return 'fa-flask';
-                case 'notebook': return 'fa-book';
-                case 'pen': return 'fa-pen';
-                case 'bag': return 'fa-shopping-bag';
-                case 'crystal': return 'fa-gem';
-                case 'shield': return 'fa-shield-alt';
-                case 'krikar': return 'fa-hand-holding';
-                default: return 'fa-box-open';
-            }
-        }
-
-        // Function to format date for display
-        function formatDate(timestamp) {
-            if (!timestamp) return 'بەرواری نەزانراو';
-            
-            const date = new Date(timestamp);
-            const now = new Date();
-            const diffTime = Math.abs(now - date);
-            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-            
-            if (date.toDateString() === now.toDateString()) {
-                return 'ئەمرۆ';
-            }
-            
-            const yesterday = new Date(now);
-            yesterday.setDate(yesterday.getDate() - 1);
-            if (date.toDateString() === yesterday.toDateString()) {
-                return 'دوێنێ';
-            }
-            
-            if (diffDays <= 7) {
-                return `${diffDays} ڕۆژ لەمەوپێش`;
-            }
-            
-            return date.toLocaleDateString('ku-IQ', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-            });
-        }
-
-        // Function to show USD Price
-        function showUSDPrice(priceIQD, productName) {
-            const usdPrice = (priceIQD / 1470).toFixed(2);
-            showNotification(`${productName}: ${priceIQD.toLocaleString()} دینار = نزیکەی ${usdPrice}$`, 'success');
-        }
-
-        // Function to show notification
-        function showNotification(message, type = 'success') {
-            let notification = document.querySelector('.notification');
-            if (!notification) {
-                notification = document.createElement('div');
-                notification.className = 'notification';
-                document.body.appendChild(notification);
-            }
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.style.display = 'block';
-
-            setTimeout(() => {
-                notification.style.animation = 'slideOut 0.3s ease-in forwards';
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                    notification.style.animation = 'slideIn 0.3s ease-out';
-                }, 300);
-            }, 3000);
-        }
-
-        // Function to handle category filtering
-        function filterProducts(category) {
-            const productsContainer = document.getElementById('productsContainer');
-            const products = productsContainer.querySelectorAll('.product-item');
-            
-            products.forEach(product => {
-                const productCategory = product.getAttribute('data-category');
-                if (category === 'all' || productCategory === category) {
-                    product.style.display = 'block';
-                } else {
-                    product.style.display = 'none';
-                }
-            });
-            
-            // Update active category style
-            const categoryItems = document.querySelectorAll('.category-item');
-            categoryItems.forEach(item => {
-                item.classList.remove('active');
-                if (item.getAttribute('data-category') === category) {
-                    item.classList.add('active');
-                }
-            });
-        }
-
-        // Function to load products
-        function loadProducts() {
-            const productsContainer = document.getElementById('productsContainer');
-            
-            console.log('🔄 Starting to load products...');
-
-            productsContainer.innerHTML = `
-                <div style="text-align: center; grid-column: 1 / -1; padding: 15px;">
-                    <div class="loading"></div>
-                    <div>کاڵاکان بار دەکرێن...</div>
-                </div>
-            `;
-
-            const productsRef = database.ref('products');
-            
-            productsRef.on('value', (snapshot) => {
-                console.log('📦 Firebase data received:', snapshot.val());
-                
-                const productsData = snapshot.val();
-                const productsContainer = document.getElementById('productsContainer');
-                
-                productsContainer.innerHTML = '';
-                
-                if (!productsData) {
-                    console.log('ℹ️ No products found in database');
-                    productsContainer.innerHTML = `
-                        <div style="text-align: center; grid-column: 1 / -1; padding: 15px; color: #666;">
-                            <i class="fas fa-box-open" style="font-size: 35px; margin-bottom: 8px;"></i>
-                            <div>هیچ کاڵایەک بوونی نیە</div>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                allProducts = Object.keys(productsData).map(productId => ({
-                    id: productId,
-                    ...productsData[productId]
-                }));
-                
-                console.log('🎯 Products loaded:', allProducts.length);
-                
-                allProducts.forEach(product => {
-                    const productItem = createProductItem(product, product.id);
-                    productsContainer.appendChild(productItem);
-                });
-
-                const activeCategory = document.querySelector('.category-item.active');
-                if (activeCategory) {
-                    filterProducts(activeCategory.getAttribute('data-category'));
-                }
-                
-            }, (error) => {
-                console.error('❌ Error loading products:', error);
-                showNotification('هەڵە لە بارکردنی کاڵاکان', 'error');
-                
-                productsContainer.innerHTML = `
-                    <div style="text-align: center; grid-column: 1 / -1; padding: 15px; color: #f44336;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 35px; margin-bottom: 8px;"></i>
-                        <div>هەڵە لە بارکردنی کاڵاکان</div>
-                        <div style="font-size: 11px; margin-top: 4px;">${error.message}</div>
-                    </div>
-                `;
-            });
-        }
-
-        // Setup Event Listeners and Initial Load
-        document.addEventListener('DOMContentLoaded', () => {
-            loadProducts();
-            
-            // Category Nav Listeners
-            const categoryItems = document.querySelectorAll('.category-item');
-            categoryItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const category = item.getAttribute('data-category');
-                    filterProducts(category);
-                });
-            });
-
-            // Bottom Navigation Listeners
-            const navItems = document.querySelectorAll('.nav-item');
-            const pageSections = document.querySelectorAll('.page-section');
-            
-            navItems.forEach(item => {
-                item.addEventListener('click', () => {
-                    const targetPage = item.getAttribute('data-page');
-                    
-                    // Update active nav item
-                    navItems.forEach(nav => nav.classList.remove('active'));
-                    item.classList.add('active');
-                    
-                    // Show target page
-                    pageSections.forEach(section => {
-                        section.classList.remove('active');
-                        if (section.id === targetPage) {
-                            section.classList.add('active');
-                        }
-                    });
-                });
-            });
-
-            // Admin Panel Logic
-            const adminAccessBtn = document.getElementById('adminAccessBtn');
-            const adminPanel = document.getElementById('adminPanel');
-            const closeAdminPanel = document.getElementById('closeAdminPanel');
-            const adminForm = document.getElementById('adminForm');
-            const productImagesInput = document.getElementById('productImages');
-            const multipleImagesPreview = document.getElementById('multipleImagesPreview');
-            const passwordModal = document.getElementById('passwordModal');
-            const passwordInput = document.getElementById('passwordInput');
-            const passwordSubmit = document.getElementById('passwordSubmit');
-            let filesToUpload = [];
-
-            // Toggle admin panel with password protection
-            adminAccessBtn.addEventListener('click', () => {
-                passwordModal.classList.add('show');
-                passwordInput.focus();
-            });
-
-            // Handle password submission
-            passwordSubmit.addEventListener('click', () => {
-                const enteredPassword = passwordInput.value;
-                if (enteredPassword === ADMIN_PASSWORD) {
-                    passwordModal.classList.remove('show');
-                    adminPanel.classList.add('show');
-                    passwordInput.value = '';
-                } else {
-                    showNotification('وشەی نهێنی هەڵەیە', 'error');
-                    passwordInput.value = '';
-                    passwordInput.focus();
-                }
-            });
-
-            // Also allow Enter key to submit password
-            passwordInput.addEventListener('keypress', (e) => {
-                if (e.key === 'Enter') {
-                    passwordSubmit.click();
-                }
-            });
-
-            // Close password modal when clicking outside
-            passwordModal.addEventListener('click', (e) => {
-                if (e.target === passwordModal) {
-                    passwordModal.classList.remove('show');
-                    passwordInput.value = '';
-                }
-            });
-
-            closeAdminPanel.addEventListener('click', () => {
-                adminPanel.classList.remove('show');
-                adminForm.reset();
-                multipleImagesPreview.innerHTML = '';
-                filesToUpload = [];
-            });
-
-            // Handle multiple image preview
-            productImagesInput.addEventListener('change', (e) => {
-                filesToUpload = Array.from(e.target.files);
-                previewMultipleImages(filesToUpload);
-            });
-
-            function previewMultipleImages(files) {
-                multipleImagesPreview.innerHTML = '';
-                files.forEach((file, index) => {
-                    const reader = new FileReader();
-                    reader.onload = (e) => {
-                        const imageItem = document.createElement('div');
-                        imageItem.className = 'multiple-image-item';
-                        imageItem.innerHTML = `
-                            <img src="${e.target.result}" alt="Preview ${index}">
-                            <button type="button" class="remove-image" data-index="${index}"><i class="fas fa-times"></i></button>
-                        `;
-                        multipleImagesPreview.appendChild(imageItem);
-
-                        imageItem.querySelector('.remove-image').addEventListener('click', (event) => {
-                            const removeIndex = parseInt(event.currentTarget.dataset.index);
-                            filesToUpload.splice(removeIndex, 1);
-                            previewMultipleImages(filesToUpload);
-                            if (filesToUpload.length === 0) {
-                                productImagesInput.value = '';
-                            }
-                        });
-                    };
-                    reader.readAsDataURL(file);
-                });
-            }
-            
-            // Handle form submission
-            adminForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-
-                const submitButton = document.getElementById('submitButton');
-                submitButton.disabled = true;
-                const originalText = submitButton.textContent;
-                submitButton.innerHTML = `<span class="loading"></span> چاوەڕێبە...`;
-
-                const name = document.getElementById('productName').value;
-                const price = parseInt(document.getElementById('productPrice').value);
-                const code = document.getElementById('productCode').value;
-                const category = document.getElementById('productCategory').value;
-
-                try {
-                    let imageUrls = [];
-
-                    // Upload new files
-                    for (const file of filesToUpload) {
-                        const storageRef = storage.ref(`product_images/${category}/${file.name}_${Date.now()}`);
-                        const snapshot = await storageRef.put(file);
-                        const downloadURL = await snapshot.ref.getDownloadURL();
-                        imageUrls.push(downloadURL);
-                    }
-
-                    const productData = {
-                        name,
-                        price,
-                        code,
-                        category,
-                        images: imageUrls,
-                        isNew: true,
-                        createdAt: Date.now()
-                    };
-
-                    // Add new product
-                    await database.ref('products').push(productData);
-                    showNotification('کاڵا بە سەرکەوتوویی زیاد کرا', 'success');
-
-                    adminForm.reset();
-                    multipleImagesPreview.innerHTML = '';
-                    filesToUpload = [];
-                    adminPanel.classList.remove('show');
-
-                } catch (error) {
-                    console.error('Error adding product:', error);
-                    showNotification('هەڵە لە زیادکردنی کاڵا: ' + error.message, 'error');
-                } finally {
-                    submitButton.disabled = false;
-                    submitButton.textContent = originalText;
-                }
-            });
+        // Hide loader when page is loaded
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1000);
         });
-
-        // Make functions globally available
-        window.slideImage = slideImage;
-        window.handleDotClick = handleDotClick;
-        window.handleImageError = handleImageError;
-        window.showUSDPrice = showUSDPrice;
-        window.showNotification = showNotification;
-        window.filterProducts = filterProducts;
+        
+        // Click to go to main page
+        document.getElementById('logoContainer').addEventListener('click', function() {
+            // Add click effect
+            this.style.opacity = '0.8';
+            this.style.transform = 'scale(0.95)';
+            
+            // Show loader again
+            document.getElementById('loader').classList.remove('hidden');
+            
+            // Go to main page after delay
+            setTimeout(function() {
+                window.location.href = 'PROHS.html';
+            }, 800);
+        });
+        
+        // Add keyboard support (Enter or Space)
+        document.addEventListener('keydown', function(e) {
+            if (e.code === 'Enter' || e.code === 'Space') {
+                document.getElementById('logoContainer').click();
+            }
+        });
+        
+        // Add touch feedback for mobile
+        document.getElementById('logoContainer').addEventListener('touchstart', function() {
+            this.style.transform = 'scale(0.95)';
+        });
+        
+        document.getElementById('logoContainer').addEventListener('touchend', function() {
+            this.style.transform = 'scale(1)';
+        });
     </script>
 </body>
 </html>
