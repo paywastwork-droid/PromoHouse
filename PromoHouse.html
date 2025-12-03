@@ -60,27 +60,27 @@
             transition: transform 0.5s ease-in-out;
         }
         
-        /* ئایکۆنەکان - رەنگی شین وەک فیسبوک (#1877F2) */
+        /* ئایکۆنەکان - رەنگی شین، باکگراوندی light gray */
         .icon-container {
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 12px;
-            background: white;
-            box-shadow: 0 2px 8px rgba(24, 119, 242, 0.15);
-            border: 1.5px solid #1877F2;
+            background: #f3f4f6; /* light gray */
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border: 1.5px solid #e5e7eb; /* border light gray */
             width: 50px;
             height: 50px;
         }
         
         .icon-container:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
             transition: all 0.3s ease;
         }
         
         .icon-container svg {
-            stroke: #1877F2;
+            stroke: #374151; /* dark gray for icons */
             width: 24px;
             height: 24px;
         }
@@ -121,12 +121,11 @@
             justify-content: center;
             width: 100%;
             min-height: 100px;
-            background: white; /* باکگراوندی ڕەساسی */
+            background: white;
             border-radius: 16px;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             padding: 15px 10px;
-            border: 1px solid #e5e7eb;
         }
         
         .horizontal-icon-item:hover {
@@ -206,7 +205,7 @@
         .phone-number {
             font-size: 1.5rem;
             font-weight: bold;
-            color: #1877F2;
+            color: #3b82f6;
             margin: 1rem 0;
             direction: ltr;
             text-align: center;
@@ -238,12 +237,12 @@
         }
         
         .message-btn {
-            background: #1877F2;
+            background: #3b82f6;
             color: white;
         }
         
         .message-btn:hover {
-            background: #166fe5;
+            background: #1d4ed8;
         }
         
         .close-btn {
@@ -305,8 +304,7 @@
             overflow: hidden;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease;
-            background: white; /* باکگراوندی ڕەساسی */
-            border: 1px solid #e5e7eb;
+            background: white;
         }
         
         .product-image-card:hover {
@@ -335,7 +333,7 @@
         .product-info p {
             font-size: 16px;
             font-weight: bold;
-            color: #1877F2; /* ڕەنگی شین وەک فیسبوک */
+            color: #3b82f6;
         }
         
         /* فۆرمی زیادکردنی کالا */
@@ -368,8 +366,8 @@
         
         .form-group input:focus, .form-group select:focus {
             outline: none;
-            border-color: #1877F2;
-            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.1);
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
         
         .form-row {
@@ -407,12 +405,12 @@
         }
         
         .file-input-label:hover {
-            border-color: #1877F2;
+            border-color: #3b82f6;
             background: #eff6ff;
         }
         
         .submit-btn {
-            background: #1877F2;
+            background: #3b82f6;
             color: white;
             padding: 12px 24px;
             border: none;
@@ -425,7 +423,7 @@
         }
         
         .submit-btn:hover {
-            background: #166fe5;
+            background: #2563eb;
         }
         
         .submit-btn:disabled {
@@ -438,7 +436,7 @@
             width: 20px;
             height: 20px;
             border: 3px solid #f3f3f3;
-            border-top: 3px solid #1877F2;
+            border-top: 3px solid #3b82f6;
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin-right: 10px;
@@ -478,7 +476,7 @@
         }
         
         .products-table th {
-            background: #1877F2;
+            background: #3b82f6;
             color: white;
             padding: 12px;
             text-align: right;
@@ -517,7 +515,7 @@
         }
         
         .table-edit-btn {
-            background: #1877F2;
+            background: #3b82f6;
             color: white;
         }
         
@@ -595,7 +593,11 @@
     <!-- Header -->
     <div class="bg-white shadow-sm p-4 flex justify-between items-center">
         <button id="adminPanelBtn" class="bg-blue-600 text-white px-6 py-2 rounded-full text-xl font-bold hover:bg-blue-700 transition-colors">
-            ++
+   
+++         
+
+
+
         </button>
         <div class="flex items-center gap-3">
             <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" 
@@ -612,14 +614,14 @@
                  alt="پرۆمۆ هاوس لۆگۆ" 
                  class="w-full h-full rounded-full">
         </div>
-        <h2 class="text-white text-3xl font-bold mb-2">PROMO HOUSE</h2>
-        <p class="text-white text-lg opacity-90">بەرهەمەکانی تایبەت بە شێوەی ئۆنڵاین</p>
+        <h2 class="text-white text-3xl font-bold mb-2">Promo House</h2>
+        <p class="text-white text-lg opacity-90"></p>
     </div>
 
     <div class="container mx-auto px-4 py-8">
         <!-- 1. Product Cards - ئایکۆنەکان بە 2 ڕیز -->
         <div class="mb-8">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center">بەرهەمەکان</h3>
+            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center"></h3>
             
             <div class="horizontal-icons">
                 <!-- ڕیز ١ -->
@@ -627,7 +629,7 @@
                     <!-- Mug -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
                                 <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
                                 <line x1="6" y1="1" x2="6" y2="4"></line>
@@ -641,7 +643,7 @@
                     <!-- Bag -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                                 <line x1="3" y1="6" x2="21" y2="6"></line>
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -653,7 +655,7 @@
                     <!-- Pencil -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="18" y1="2" x2="22" y2="6"></line>
                                 <path d="M7.5 20.5L19 9l-4-4L3.5 16.5 2 22l5.5-1.5z"></path>
                             </svg>
@@ -664,14 +666,14 @@
                     <!-- Package -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="16.5" y1="9.4" x2="7.5" y2="4.2"></line>
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">پاکەت</h4>
+                        <h4 class="text-sm font-semibold text-gray-800">دەفتەر</h4>
                     </div>
                 </div>
                 
@@ -680,17 +682,17 @@
                     <!-- Shield -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">پارێزگاری</h4>
+                        <h4 class="text-sm font-semibold text-gray-800">هەمووکاڵاکان</h4>
                     </div>
 
                     <!-- Book -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
                                 <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
                             </svg>
@@ -701,27 +703,23 @@
                     <!-- Box -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
                                 <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
                                 <line x1="12" y1="22.08" x2="12" y2="12"></line>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">بۆکس</h4>
+                        <h4 class="text-sm font-semibold text-gray-800">تەرمۆزە</h4>
                     </div>
 
-                    <!-- All Products -->
+                    <!-- Facebook -->
                     <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="20 12 20 22 4 22 4 12"></polyline>
-                                <rect x="2" y="7" width="20" height="5"></rect>
-                                <line x1="12" y1="22" x2="12" y2="7"></line>
-                                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
-                                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">هەموو بەرهەمەکان</h4>
+                        <h4 class="text-sm font-semibold text-gray-800">کرێکار</h4>
                     </div>
                 </div>
             </div>
@@ -731,13 +729,26 @@
         <div class="mb-8">
             <div class="image-slider mb-4">
                 <div id="imageSlider" class="flex h-full">
-                    <!-- وینەکان داینامیکی زیاد دەکرێن -->
+                    <!-- وینەکان لە بنەڕەتدا دانراون بە لینکە نوێیەکان -->
+                    <div class="min-w-full">
+                        <img src="https://drive.google.com/uc?export=view&id=1k6njV29MC18Y7vepyWKFs2Tsgew0Eq-J" 
+                             alt="پرۆمۆ هاوس 1" 
+                             class="w-full h-full"
+                             onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&h=300&fit=crop'">
+                    </div>
+                    <div class="min-w-full">
+                        <img src="https://drive.google.com/uc?export=view&id=1lwzVzDJeqzrj7LO7J5XTDG9XgSyBrMCl" 
+                             alt="پرۆمۆ هاوس 2" 
+                             class="w-full h-full"
+                             onerror="this.src='https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&h=300&fit=crop'">
+                    </div>
                 </div>
             </div>
             
             <!-- Image Dots -->
             <div class="flex justify-center gap-2" id="sliderDots">
-                <!-- دۆتەکان داینامیکی زیاد دەکرێن -->
+                <button data-index="0" class="image-slider-dot w-3 h-3 rounded-full bg-blue-600"></button>
+                <button data-index="1" class="image-slider-dot w-3 h-3 rounded-full bg-gray-300"></button>
             </div>
         </div>
 
@@ -841,104 +852,101 @@
             </div>
         </div>
 
-        <!-- 4. Product Images Grid - کالاکانی ئێمە -->
+        <!-- 4. Product Images Grid -  -->
         <div class="mb-8" id="mainProductsSection">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800 text-center">کالاکانی ئێمە</h3>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800 text-center"></h3>
             
             <div class="product-images-grid" id="productsContainer">
                 <!-- کالاکان داینامیکی زیاد دەکرێن -->
             </div>
         </div>
 
-        <!-- 5. Action Buttons Row - پەیوەندیمان پێوە بکە -->
+        <!-- 5. Action Buttons Row -  -->
         <div class="mb-8">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center">پەیوەندیمان پێوە بکە</h3>
+            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center"></h3>
             
-            <!-- بەشی پەیوەندی - دابەشی 2 ڕیز (هەر ڕیزێک 3 دوگمە) -->
-            <div class="mb-8">
-                <!-- ڕیز ١ -->
-                <div class="grid grid-cols-3 gap-3 md:gap-6 mb-3 md:mb-6">
-                    <!-- CALL NOW -->
-                    <div id="callNowBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                        <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
-                            <div class="icon-container mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-sm md:text-base font-semibold text-gray-800">CALL NOW</h4>
+            <!-- ڕیز ١ -->
+            <div class="grid grid-cols-3 gap-3 md:gap-6 mb-3 md:mb-6">
+                <!--  -->
+                <div id="callNowBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
+                        <div class="icon-container mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
                         </div>
-                    </div>
-
-                    <!-- SEND MESSAGE -->
-                    <div id="sendMessageBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                        <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
-                            <div class="icon-container mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </div>
-                            <h4 class="text-sm md:text-base font-semibold text-gray-800">SEND MESSAGE</h4>
-                        </div>
-                    </div>
-
-                    <!-- LOCATION -->
-                    <div id="locationBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                        <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
-                            <div class="icon-container mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                    <circle cx="12" cy="10" r="3"></circle>
-                                </svg>
-                            </div>
-                            <h4 class="text-sm md:text-base font-semibold text-gray-800">LOCATION</h4>
-                        </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
                     </div>
                 </div>
 
-                <!-- ڕیز ٢ -->
-                <div class="grid grid-cols-3 gap-3 md:gap-6">
-                    <!-- CATALOG -->
-                    <div id="catalogBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                        <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
-                            <div class="icon-container mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                    <polyline points="14 2 14 8 20 8"></polyline>
-                                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                                    <polyline points="10 9 9 9 8 9"></polyline>
-                                </svg>
-                            </div>
-                            <h4 class="text-sm md:text-base font-semibold text-gray-800">CATALOG</h4>
+                <!--  -->
+                <div id="sendMessageBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
+                        <div class="icon-container mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                            </svg>
                         </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
                     </div>
+                </div>
 
-                    <!-- WITH PRICE -->
-                    <div id="withPriceBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                        <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
-                            <div class="icon-container mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <line x1="12" y1="1" x2="12" y2="23"></line>
-                                    <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-                                </svg>
-                            </div>
-                            <h4 class="text-sm md:text-base font-semibold text-gray-800">WITH PRICE</h4>
+                <!--  -->
+                <div id="locationBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
+                        <div class="icon-container mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                <circle cx="12" cy="10" r="3"></circle>
+                            </svg>
                         </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
                     </div>
+                </div>
+            </div>
 
-                    <!-- FIB -->
-                    <div id="fibBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
-                        <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
-                            <div class="icon-container mb-3">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1877F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-                                    <line x1="1" y1="10" x2="23" y2="10"></line>
-                                </svg>
-                            </div>
-                            <h4 class="text-sm md:text-base font-semibold text-gray-800">FIB</h4>
+            <!-- ڕیز ٢ -->
+            <div class="grid grid-cols-3 gap-3 md:gap-6">
+                <!-- -->
+                <div id="catalogBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
+                        <div class="icon-container mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
                         </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div id="withPriceBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
+                        <div class="icon-container mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="1" x2="12" y2="23"></line>
+                                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                    </div>
+                </div>
+
+                <!--  -->
+                <div id="fibBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
+                    <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
+                        <div class="icon-container mb-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                        </div>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
                     </div>
                 </div>
             </div>
@@ -967,7 +975,7 @@
     <!-- Admin Panel Modal -->
     <div id="adminPanelModal" class="modal">
         <div class="modal-content">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">++</h3>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">بەشی بەڕێوەبەری</h3>
             
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <button id="addNewProductBtn" class="action-button bg-blue-600 hover:bg-blue-700">
@@ -1074,19 +1082,6 @@
         </div>
     </div>
 
-    <!-- PDF Viewer Modal -->
-    <div id="pdfViewerModal" class="modal">
-        <div class="modal-content" style="width: 90%; max-width: 800px;">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center" id="pdfTitle">بینینی فایل</h3>
-            
-            <div class="pdf-viewer-container" style="width: 100%; height: 500px;">
-                <iframe id="pdfIframe" src="" style="width: 100%; height: 100%; border: none; border-radius: 10px;"></iframe>
-            </div>
-            
-            <button id="closePdfViewerBtn" class="close-btn action-button mt-4">داخستن</button>
-        </div>
-    </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // چەککردنی Firebase
@@ -1144,8 +1139,8 @@
                     return;
                 }
                 
-                // نمایشی ٣ کالای کۆتایی بە ڕیزبەندی کاتی (نوێترین لە سەرەوە)
-                const recentProducts = products.slice(-3).reverse();
+                // نمایشی ٣ کالای کۆتایی - بێ دوگمەکانی دەستکاری/سڕینەوە
+                const recentProducts = products.slice(-3);
                 
                 recentProducts.forEach((product, index) => {
                     const productHTML = `
@@ -1320,41 +1315,20 @@
                 
                 if (!sliderContainer || !dotsContainer) return;
                 
-                sliderContainer.innerHTML = '';
-                dotsContainer.innerHTML = '';
-                
-                if (!productsData) {
-                    // وینەی بنچینەیی
-                    const defaultSlides = [
-                        { 
-                            image: "https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/CATALOGE/promo.jpg", 
-                            alt: "کاتالۆگی پرۆمۆ هاوس",
-                            title: "کاتالۆگی تایبەت"
-                        },
-                        { 
-                            image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&h=300&fit=crop", 
-                            alt: "جل",
-                            title: "جلە نوێکان"
-                        },
-                        { 
-                            image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&h=300&fit=crop", 
-                            alt: "کڵاو",
-                            title: "کڵاوە نوێکان"
-                        },
-                        { 
-                            image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&h=300&fit=crop", 
-                            alt: "کوپ",
-                            title: "کوپە نوێکان"
-                        }
-                    ];
+                // ئەگەر بەرهەم هەیە و دەمانەوێت لە کۆدەکە بەکاربهێنین
+                if (productsData && Object.keys(productsData).length > 0) {
+                    sliderContainer.innerHTML = '';
+                    dotsContainer.innerHTML = '';
                     
-                    defaultSlides.forEach((slide, index) => {
+                    const products = Object.values(productsData);
+                    
+                    // Use product images for slides (up to 4)
+                    const slides = products.slice(-4);
+                    
+                    slides.forEach((product, index) => {
                         sliderContainer.innerHTML += `
-                            <div class="min-w-full relative">
-                                <img src="${slide.image}" alt="${slide.alt}" class="w-full h-full object-cover">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                                    <h4 class="text-white text-lg font-bold">${slide.title}</h4>
-                                </div>
+                            <div class="min-w-full">
+                                <img src="${product.imageUrl || product.image}" alt="${product.name}" class="w-full h-full">
                             </div>
                         `;
                         
@@ -1362,91 +1336,9 @@
                             <button data-index="${index}" class="image-slider-dot w-3 h-3 rounded-full ${index === 0 ? 'bg-blue-600' : 'bg-gray-300'}"></button>
                         `;
                     });
-                } else {
-                    const products = Object.values(productsData);
-                    
-                    if (products.length === 0) {
-                        // وینەی بنچینەیی
-                        const defaultSlides = [
-                            { 
-                                image: "https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/CATALOGE/promo.jpg", 
-                                alt: "کاتالۆگی پرۆمۆ هاوس",
-                                title: "کاتالۆگی تایبەت"
-                            },
-                            { 
-                                image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&h=300&fit=crop", 
-                                alt: "جل",
-                                title: "جلە نوێکان"
-                            },
-                            { 
-                                image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&h=300&fit=crop", 
-                                alt: "کڵاو",
-                                title: "کڵاوە نوێکان"
-                            },
-                            { 
-                                image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=800&h=300&fit=crop", 
-                                alt: "کوپ",
-                                title: "کوپە نوێکان"
-                            }
-                        ];
-                        
-                        defaultSlides.forEach((slide, index) => {
-                            sliderContainer.innerHTML += `
-                                <div class="min-w-full relative">
-                                    <img src="${slide.image}" alt="${slide.alt}" class="w-full h-full object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                                        <h4 class="text-white text-lg font-bold">${slide.title}</h4>
-                                    </div>
-                                </div>
-                            `;
-                            
-                            dotsContainer.innerHTML += `
-                                <button data-index="${index}" class="image-slider-dot w-3 h-3 rounded-full ${index === 0 ? 'bg-blue-600' : 'bg-gray-300'}"></button>
-                            `;
-                        });
-                    } else {
-                        // زیادکردنی وینەی کاتالۆگ لە سەرەتا
-                        const catalogSlide = {
-                            image: "https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/CATALOGE/promo.jpg",
-                            alt: "کاتالۆگی پرۆمۆ هاوس",
-                            title: "کاتالۆگی تایبەت"
-                        };
-                        
-                        sliderContainer.innerHTML += `
-                            <div class="min-w-full relative">
-                                <img src="${catalogSlide.image}" alt="${catalogSlide.alt}" class="w-full h-full object-cover">
-                                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                                    <h4 class="text-white text-lg font-bold">${catalogSlide.title}</h4>
-                                </div>
-                            </div>
-                        `;
-                        
-                        dotsContainer.innerHTML += `
-                            <button data-index="0" class="image-slider-dot w-3 h-3 rounded-full bg-blue-600"></button>
-                        `;
-                        
-                        // وەرگرتنی کۆتا ٣ کالا بۆ سلایدەر (کۆتاییترین لە سەرەوە)
-                        const recentProducts = products.slice(-3).reverse();
-                        
-                        recentProducts.forEach((product, index) => {
-                            sliderContainer.innerHTML += `
-                                <div class="min-w-full relative">
-                                    <img src="${product.imageUrl || product.image}" alt="${product.name}" class="w-full h-full object-cover">
-                                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                                        <h4 class="text-white text-lg font-bold">${product.name}</h4>
-                                        <p class="text-white">${product.price} دینار</p>
-                                    </div>
-                                </div>
-                            `;
-                            
-                            dotsContainer.innerHTML += `
-                                <button data-index="${index + 1}" class="image-slider-dot w-3 h-3 rounded-full bg-gray-300"></button>
-                            `;
-                        });
-                    }
                 }
                 
-                // چالاککردنی سلایدەر
+                // Initialize slider functionality
                 initImageSlider();
             }
             
@@ -1829,48 +1721,21 @@
                 });
             }
             
-            // PDF Viewer Modal
-            const pdfViewerModal = document.getElementById('pdfViewerModal');
-            const closePdfViewerBtn = document.getElementById('closePdfViewerBtn');
-            const pdfIframe = document.getElementById('pdfIframe');
-            const pdfTitle = document.getElementById('pdfTitle');
-            
-            if (closePdfViewerBtn && pdfViewerModal) {
-                closePdfViewerBtn.addEventListener('click', function() {
-                    pdfViewerModal.style.display = 'none';
-                    pdfIframe.src = '';
-                });
-            }
-            
-            // WITH PRICE - Google Drive PDF
+            // WITH PRICE - Open Google Drive link
             const withPriceBtn = document.getElementById('withPriceBtn');
             if (withPriceBtn) {
                 withPriceBtn.addEventListener('click', function() {
-                    // لینکی گووگڵ درایڤ بۆ WITH PRICE
                     const withPriceUrl = "https://drive.google.com/file/d/1oKTUGbKy1ivYps1HRZZK6k4rbhb-hFgc/view?usp=drive_link";
-                    
-                    // گۆڕینی بۆ شێوازی پیشاندان
-                    const previewUrl = withPriceUrl.replace('/view?usp=drive_link', '/preview');
-                    
-                    pdfTitle.textContent = "بەرهەمەکان بە نرخ";
-                    pdfIframe.src = previewUrl;
-                    pdfViewerModal.style.display = 'flex';
+                    window.open(withPriceUrl, '_blank');
                 });
             }
             
-            // CATALOG - Google Drive PDF
+            // CATALOG - Open Google Drive link
             const catalogBtn = document.getElementById('catalogBtn');
             if (catalogBtn) {
                 catalogBtn.addEventListener('click', function() {
-                    // لینکی گووگڵ درایڤ بۆ CATALOG
                     const catalogUrl = "https://drive.google.com/file/d/1ctwhTLfIlaz3l_wJq3DO6XGXDs43L3bQ/view?usp=drive_link";
-                    
-                    // گۆڕینی بۆ شێوازی پیشاندان
-                    const previewUrl = catalogUrl.replace('/view?usp=drive_link', '/preview');
-                    
-                    pdfTitle.textContent = "کاتالۆگی بەرهەمەکان";
-                    pdfIframe.src = previewUrl;
-                    pdfViewerModal.style.display = 'flex';
+                    window.open(catalogUrl, '_blank');
                 });
             }
             
@@ -1918,10 +1783,6 @@
                 }
                 if (event.target === loginModal) {
                     loginModal.style.display = 'none';
-                }
-                if (event.target === pdfViewerModal) {
-                    pdfViewerModal.style.display = 'none';
-                    pdfIframe.src = '';
                 }
             });
             
