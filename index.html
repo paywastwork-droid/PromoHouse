@@ -12,9 +12,12 @@
     
     <title>Promo House</title>
     
-    <!-- لینکی ڕاستی لۆگۆ - چاککراوە -->
-    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg?v=1">
-    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg?v=1">
+    <!-- لینکی لۆگۆ - گۆڕدراوە بۆ کارکردنی باشتر -->
+    <link rel="icon" type="image/jpeg" href="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg">
+    <link rel="apple-touch-icon" href="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg">
+    
+    <!-- Manifest بۆ PWA -->
+    <link rel="manifest" id="manifest-placeholder">
     
     <style>
         /* Reset هەموو شتێک */
@@ -62,7 +65,7 @@
             z-index: 1;
         }
         
-        /* لۆگۆی سەرەکی - چاککراوە */
+        /* لۆگۆی سەرەکی */
         .promo-logo {
             width: 85vw;
             height: 85vw;
@@ -92,7 +95,6 @@
             backface-visibility: hidden;
             transform: translateZ(0);
             
-            /* چاککردنەوەی زیاتر بۆ مۆبایل */
             image-rendering: -webkit-optimize-contrast;
             image-rendering: crisp-edges;
         }
@@ -161,7 +163,7 @@
             animation: fadeInOut 1.5s ease-in-out infinite;
         }
         
-        /* Error Image - بۆ ئەگەر وێنە بارنەبوو */
+        /* Error Image */
         .logo-error {
             display: none;
             text-align: center;
@@ -241,7 +243,7 @@
             50% { opacity: 1; }
         }
         
-        /* بۆ تاچ کرین */
+        /* بۆ تاچ سکرین */
         @media (hover: none) and (pointer: coarse) {
             .promo-logo:active {
                 transform: scale(0.95) !important;
@@ -307,21 +309,6 @@
                 font-size: 18px;
             }
         }
-        
-        /* بۆ تاریک مۆد */
-        @media (prefers-color-scheme: dark) {
-            .app-container {
-                background: 
-                    radial-gradient(circle at 20% 20%, #0f172a 0%, transparent 40%),
-                    radial-gradient(circle at 80% 80%, #1e40af 0%, transparent 40%),
-                    linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e40af 100%);
-            }
-        }
-        
-        /* بۆ performance باشتر */
-        .will-change {
-            will-change: transform, opacity, box-shadow;
-        }
     </style>
 </head>
 <body>
@@ -333,10 +320,11 @@
     
     <!-- Main App -->
     <div class="app-container" id="appContainer">
-        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg?v=1"
+        <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg"
              alt="Promo House"
-             class="promo-logo will-change"
+             class="promo-logo"
              id="mainLogo"
+             crossorigin="anonymous"
              onerror="handleLogoError()">
         
         <div class="logo-error" id="logoError">
@@ -344,15 +332,45 @@
             <p>تکایە دڵنیابەرەوە کە ئینتەرنێت هەیە</p>
         </div>
         
-        <div class="tap-instruction will-change" id="tapInstruction">
+        <div class="tap-instruction" id="tapInstruction">
             تاپ بکە بۆ چوونە ژوورەوە
         </div>
     </div>
     
     <script>
-        // لینکەکانی لۆگۆ - زیاتر لە یەک ئاڵتەرنەتیڤ
+        // دروستکردنی manifest.json بە شێوەی داینامیک
+        const manifestData = {
+            "name": "Promo House - داشبۆرد",
+            "short_name": "PromoHouse",
+            "description": "بەرهەمەکانی تایبەت بە شێوەی ئۆنڵاین",
+            "start_url": "./PromoHouse.html",
+            "display": "standalone",
+            "background_color": "#0f172a",
+            "theme_color": "#1e40af",
+            "orientation": "portrait",
+            "icons": [
+                {
+                    "src": "https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg",
+                    "sizes": "192x192",
+                    "type": "image/jpeg",
+                    "purpose": "any maskable"
+                },
+                {
+                    "src": "https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg",
+                    "sizes": "512x512",
+                    "type": "image/jpeg",
+                    "purpose": "any maskable"
+                }
+            ]
+        };
+        
+        // دروستکردنی Blob URL بۆ manifest
+        const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+        const manifestURL = URL.createObjectURL(manifestBlob);
+        document.getElementById('manifest-placeholder').setAttribute('href', manifestURL);
+        
+        // لینکەکانی لۆگۆ
         const logoUrls = [
-            'https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg?v=1',
             'https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg',
             'https://via.placeholder.com/400x400/3b82f6/ffffff?text=PROMO+HOUSE'
         ];
@@ -369,11 +387,9 @@
             currentLogoIndex++;
             
             if (currentLogoIndex < logoUrls.length) {
-                // هەوڵدان بۆ لینکی دواتر
                 console.log('هەوڵدان بۆ لینکی دواتر:', logoUrls[currentLogoIndex]);
                 logo.src = logoUrls[currentLogoIndex];
             } else {
-                // نیشاندانی هەڵە دوای هەموو هەوڵێک
                 logo.style.display = 'none';
                 logoError.classList.add('show');
             }
@@ -385,10 +401,11 @@
         const mainLogo = document.getElementById('mainLogo');
         const tapInstruction = document.getElementById('tapInstruction');
         
-        // Preload لۆگۆ پێش هەمو شتێک
+        // Preload لۆگۆ
         function preloadLogo() {
             return new Promise((resolve, reject) => {
                 const img = new Image();
+                img.crossOrigin = "anonymous";
                 let attempts = 0;
                 
                 function tryLoad() {
@@ -400,13 +417,21 @@
                     img.src = logoUrls[attempts];
                     
                     img.onload = function() {
-                        console.log('✅ لۆگۆ بە سەرکەوتوویی بارکرا لە:', logoUrls[attempts]);
+                        console.log('✅ لۆگۆ بە سەرکەوتوویی بارکرا');
                         mainLogo.src = logoUrls[attempts];
+                        
+                        // تۆمارکردنی لۆگۆ لە cache بۆ کاتی ئایندە
+                        if ('caches' in window) {
+                            caches.open('promo-house-v1').then(cache => {
+                                cache.add(logoUrls[attempts]);
+                            });
+                        }
+                        
                         resolve();
                     };
                     
                     img.onerror = function() {
-                        console.log('⚠️ کێشە لە بارکردنی لۆگۆ لە:', logoUrls[attempts]);
+                        console.log('⚠️ کێشە لە بارکردنی لۆگۆ، هەوڵدانەوە...');
                         attempts++;
                         tryLoad();
                     };
@@ -420,14 +445,12 @@
         window.addEventListener('load', async function() {
             try {
                 await preloadLogo();
-                // لادانی preloader
                 setTimeout(() => {
                     preloader.classList.add('hidden');
                     appContainer.style.opacity = '1';
                 }, 800);
             } catch (error) {
                 console.error('❌ هەڵە لە بارکردنی لۆگۆ:', error);
-                // لادانی preloader تەنانەت ئەگەر لۆگۆش بارنەبوو
                 setTimeout(() => {
                     preloader.classList.add('hidden');
                     appContainer.style.opacity = '1';
@@ -442,26 +465,22 @@
             if (isClicking) return;
             isClicking = true;
             
-            // کاریگەری کلیک
             mainLogo.style.animation = 'none';
             mainLogo.style.transform = 'scale(0.9) rotate(180deg)';
             mainLogo.style.filter = 'brightness(0.8)';
             tapInstruction.style.opacity = '0.3';
             
-            // نمایشی loading
             preloader.classList.remove('hidden');
             preloader.style.opacity = '1';
             
-            // گواستنەوە بۆ پەڕەی سەرەکی
             setTimeout(() => {
                 window.location.href = 'PromoHouse.html';
             }, 800);
         }
         
-        // Event listeners بۆ کلیک
+        // Event listeners
         appContainer.addEventListener('click', goToMainPage);
         
-        // Event listeners بۆ تاپ (موبایل)
         let touchStartTime = 0;
         
         appContainer.addEventListener('touchstart', function(e) {
@@ -475,33 +494,23 @@
             const touchDuration = Date.now() - touchStartTime;
             mainLogo.style.transform = '';
             
-            if (touchDuration < 500) { // تاپی خێرا
+            if (touchDuration < 500) {
                 goToMainPage();
             }
         }, { passive: false });
         
-        // بۆ کیبۆرد (ئەگەر بەکارهێنەرێک بەکەمپیوتەرە)
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
                 goToMainPage();
             }
         });
         
-        // پشکنینی پەڕەی سەرەکی
-        fetch('PromoHouse.html')
-            .then(response => {
-                if (!response.ok) {
-                    console.warn('⚠️ PromoHouse.html بوونی نییە');
-                }
-            })
-            .catch(error => {
-                console.error('❌ هەڵە لە پشکنینی پەڕە:', error);
-            });
-        
-        // بۆ performance باشتر
-        if ('requestIdleCallback' in window) {
-            requestIdleCallback(() => {
-                appContainer.classList.add('will-change');
+        // Service Worker بۆ کارکردن بەبێ ئینتەرنێت
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(() => {
+                console.log('✅ Service Worker تۆمارکرا');
+            }).catch(err => {
+                console.log('❌ کێشە لە Service Worker:', err);
             });
         }
     </script>
