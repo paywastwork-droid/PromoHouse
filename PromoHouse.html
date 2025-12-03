@@ -65,44 +65,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
+            border-radius: 12px;
             background: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
-            border: 2px solid #3b82f6;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.15);
+            border: 1.5px solid #3b82f6;
+            width: 50px;
+            height: 50px;
         }
         
         .icon-container:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
             transition: all 0.3s ease;
         }
         
         .icon-container svg {
             stroke: #3b82f6;
-        }
-
-        @media (max-width: 640px) {
-            .icon-container {
-                width: 50px;
-                height: 50px;
-            }
-            
-            .icon-container svg {
-                width: 28px;
-                height: 28px;
-            }
-        }
-
-        @media (min-width: 641px) {
-            .icon-container {
-                width: 70px;
-                height: 70px;
-            }
-            
-            .icon-container svg {
-                width: 36px;
-                height: 36px;
-            }
+            width: 24px;
+            height: 24px;
         }
 
         /* سلایدەری وینە - باریک و بەرزی مناسب */
@@ -119,32 +99,83 @@
             object-fit: cover;
         }
         
-        /* ئایکۆنەکانی سەرەوە بە پانی */
+        /* ئایکۆنەکانی سەرەوە بە 2 ڕیز */
         .horizontal-icons {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column;
             gap: 16px;
             margin-bottom: 20px;
         }
         
+        .icon-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            justify-items: center;
+        }
+        
         .horizontal-icon-item {
-            flex: 0 0 auto;
-            width: calc(25% - 12px);
-            min-width: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            min-height: 100px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            padding: 15px 10px;
+        }
+        
+        .horizontal-icon-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
         }
         
         @media (max-width: 768px) {
+            .icon-container {
+                width: 45px;
+                height: 45px;
+                border-radius: 10px;
+            }
+            
+            .icon-container svg {
+                width: 22px;
+                height: 22px;
+            }
+            
             .horizontal-icon-item {
-                width: calc(33.333% - 11px);
-                min-width: 110px;
+                min-height: 90px;
+                padding: 12px 8px;
+                border-radius: 14px;
+            }
+            
+            .icon-row {
+                gap: 10px;
             }
         }
         
         @media (max-width: 480px) {
+            .icon-container {
+                width: 40px;
+                height: 40px;
+                border-radius: 8px;
+            }
+            
+            .icon-container svg {
+                width: 20px;
+                height: 20px;
+            }
+            
             .horizontal-icon-item {
-                width: calc(50% - 8px);
-                min-width: 100px;
+                min-height: 85px;
+                padding: 10px 6px;
+                border-radius: 12px;
+            }
+            
+            .icon-row {
+                gap: 8px;
             }
         }
         
@@ -433,30 +464,6 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         
-        /* ئایکۆنی نوسین */
-        .write-icon {
-            position: fixed;
-            left: 20px;
-            bottom: 20px;
-            background: #3b82f6;
-            color: white;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-            cursor: pointer;
-            z-index: 100;
-            transition: all 0.3s;
-        }
-        
-        .write-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
-        }
-        
         /* بەشی بینینی هەموو کالاکان */
         .products-table {
             width: 100%;
@@ -547,13 +554,6 @@
                 grid-template-columns: 1fr;
             }
             
-            .write-icon {
-                left: 15px;
-                bottom: 15px;
-                width: 50px;
-                height: 50px;
-            }
-            
             .products-table {
                 font-size: 12px;
             }
@@ -615,14 +615,15 @@
     </div>
 
     <div class="container mx-auto px-4 py-8">
-        <!-- 1. Product Cards - ئایکۆنەکان بە پانی -->
+        <!-- 1. Product Cards - ئایکۆنەکان بە 2 ڕیز -->
         <div class="mb-8">
             <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center">بەرهەمەکان</h3>
             
             <div class="horizontal-icons">
-                <!-- Mug -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                <!-- ڕیز ١ -->
+                <div class="icon-row mb-3">
+                    <!-- Mug -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
@@ -634,11 +635,9 @@
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800">کوپ</h4>
                     </div>
-                </div>
 
-                <!-- Bag -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                    <!-- Bag -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
@@ -648,11 +647,9 @@
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800">جانتا</h4>
                     </div>
-                </div>
 
-                <!-- Pencil -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                    <!-- Pencil -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="18" y1="2" x2="22" y2="6"></line>
@@ -661,11 +658,9 @@
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800">پێنووس</h4>
                     </div>
-                </div>
 
-                <!-- Package -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                    <!-- Package -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="16.5" y1="9.4" x2="7.5" y2="4.2"></line>
@@ -677,10 +672,11 @@
                         <h4 class="text-sm font-semibold text-gray-800">پاکەت</h4>
                     </div>
                 </div>
-
-                <!-- Shield -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                
+                <!-- ڕیز ٢ -->
+                <div class="icon-row">
+                    <!-- Shield -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
@@ -688,11 +684,9 @@
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800">پارێزگاری</h4>
                     </div>
-                </div>
 
-                <!-- Book -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                    <!-- Book -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
@@ -701,11 +695,9 @@
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800">کتێب</h4>
                     </div>
-                </div>
 
-                <!-- Box -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                    <!-- Box -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
@@ -715,11 +707,9 @@
                         </div>
                         <h4 class="text-sm font-semibold text-gray-800">بۆکس</h4>
                     </div>
-                </div>
 
-                <!-- All Products -->
-                <div class="horizontal-icon-item bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="relative p-4 flex flex-col items-center justify-center">
+                    <!-- All Products -->
+                    <div class="horizontal-icon-item">
                         <div class="icon-container mb-3">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <polyline points="20 12 20 22 4 22 4 12"></polyline>
@@ -1759,20 +1749,20 @@
                 });
             }
             
-            // WITH PRICE - Open Google Drive link
+            // WITH PRICE - Open PDF from GitHub
             const withPriceBtn = document.getElementById('withPriceBtn');
             if (withPriceBtn) {
                 withPriceBtn.addEventListener('click', function() {
-                    const withPriceUrl = "https://drive.google.com/file/d/1oKTUGbKy1ivYps1HRZZK6k4rbhb-hFgc/view?usp=drive_link";
+                    const withPriceUrl = "https://github.com/paywastwork-droid/PromoHouse/raw/main/WITH%20PRICE/promohouse%20wprice.pdf";
                     window.open(withPriceUrl, '_blank');
                 });
             }
             
-            // CATALOG - Open Google Drive link
+            // CATALOG - Open HTML from GitHub
             const catalogBtn = document.getElementById('catalogBtn');
             if (catalogBtn) {
                 catalogBtn.addEventListener('click', function() {
-                    const catalogUrl = "https://drive.google.com/file/d/1ctwhTLfIlaz3l_wJq3DO6XGXDs43L3bQ/view?usp=drive_link";
+                    const catalogUrl = "https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/CATALOGE/PromoHouse.HTML";
                     window.open(catalogUrl, '_blank');
                 });
             }
