@@ -3,196 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Promo House - دەستپێک</title>
+    <title>Promo House</title>
     <style>
-        * {
+        body {
+            background: #1e40af;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui;
-            cursor: pointer;
-            overflow: hidden;
+            font-family: Arial, sans-serif;
         }
         
-        .logo-wrapper {
+        .container {
             text-align: center;
-            animation: fadeIn 1s ease;
+            color: white;
         }
         
-        .main-logo {
-            width: 300px;
-            height: 300px;
+        .logo {
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             object-fit: cover;
-            border: 8px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 
-                0 0 30px rgba(255, 255, 255, 0.6),
-                0 0 60px rgba(59, 130, 246, 0.5),
-                0 0 90px rgba(59, 130, 246, 0.3);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 5px solid white;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
         
-        .main-logo:hover {
-            transform: scale(1.08) rotate(5deg);
-            border-color: white;
-            box-shadow: 
-                0 0 40px rgba(255, 255, 255, 0.8),
-                0 0 80px rgba(59, 130, 246, 0.6),
-                0 0 120px rgba(59, 130, 246, 0.4);
+        .logo:hover {
+            transform: scale(1.05);
         }
         
-        .click-hint {
-            color: white;
-            margin-top: 30px;
-            font-size: 22px;
-            font-weight: 600;
-            text-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-            opacity: 0.9;
-            animation: bounce 2s infinite;
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
         }
         
-        .promo-text {
-            color: rgba(255, 255, 255, 0.75);
-            margin-top: 15px;
+        p {
             font-size: 18px;
-            max-width: 400px;
-            line-height: 1.5;
+            margin-bottom: 20px;
         }
         
-        .loading {
-            display: none;
-            margin-top: 20px;
-            color: rgba(255, 255, 255, 0.9);
+        .btn {
+            background: white;
+            color: #1e40af;
+            border: none;
+            padding: 12px 30px;
+            font-size: 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
         }
         
-        .loader {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s linear infinite;
-            margin-right: 10px;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        @media (max-width: 768px) {
-            .main-logo {
-                width: 250px;
-                height: 250px;
-            }
-            
-            .click-hint {
-                font-size: 20px;
-            }
-            
-            .promo-text {
-                font-size: 16px;
-                padding: 0 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .main-logo {
-                width: 200px;
-                height: 200px;
-            }
-            
-            .click-hint {
-                font-size: 18px;
-            }
-            
-            .promo-text {
-                font-size: 15px;
-            }
+        .btn:hover {
+            background: #3b82f6;
+            color: white;
+            transform: translateY(-3px);
         }
     </style>
 </head>
-<body onclick="goToMainPage()">
-    <div class="logo-wrapper" id="logoWrapper">
+<body>
+    <div class="container">
         <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" 
-             alt="پرۆمۆ هاوس لۆگۆ" 
-             class="main-logo"
-             id="mainLogo">
+             alt="Promo House Logo" 
+             class="logo"
+             onclick="goToMain()">
         
-        <div class="click-hint" id="clickHint">
-            👆 کلیک بکە بۆ چوونە ژوورەوە
-        </div>
+        <h1>پرۆمۆ هاوس</h1>
+        <p>بەرهەمەکانی تایبەت بە شێوەی ئۆنڵاین</p>
         
-        <div class="promo-text">
-            PROMO HOUSE - بەرهەمەکانی تایبەت بە شێوەی ئۆنڵاین
-        </div>
-        
-        <div class="loading" id="loading">
-            <div class="loader"></div>
-            چاوەڕوانە... بەرەو پرۆمۆ هاوس دەچین
-        </div>
+        <button class="btn" onclick="goToMain()">
+            بچۆ بۆ پەڕەی سەرەکی
+        </button>
     </div>
     
     <script>
-        function goToMainPage() {
-            // Show loading
-            document.getElementById('clickHint').style.display = 'none';
-            document.getElementById('loading').style.display = 'block';
-            document.getElementById('mainLogo').style.opacity = '0.7';
-            
-            // Add click effect
-            document.getElementById('logoWrapper').style.animation = 'fadeIn 0.5s ease reverse forwards';
-            
-            // Go to PromoHouse.html after delay
-            setTimeout(function() {
-                window.location.href = 'PromoHouse.html';
-            }, 600);
+        function goToMain() {
+            window.location.href = 'PromoHouse.html';
         }
         
-        // Keyboard support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-                goToMainPage();
-            }
-        });
-        
-        // Touch feedback for mobile
-        let isTouching = false;
-        
-        document.addEventListener('touchstart', function() {
-            isTouching = true;
-            document.getElementById('mainLogo').style.transform = 'scale(0.95)';
-        });
-        
-        document.addEventListener('touchend', function() {
-            if (isTouching) {
-                document.getElementById('mainLogo').style.transform = 'scale(1)';
-                isTouching = false;
-            }
-        });
-        
-        // Auto-redirect after 10 seconds (optional)
+        // Auto redirect after 5 seconds
         setTimeout(function() {
-            console.log('Auto-redirect available');
-        }, 10000);
+            goToMain();
+        }, 5000);
     </script>
 </body>
 </html>
