@@ -87,30 +87,37 @@
 
         /* سلایدەری وینە - باریک و بەرزی مناسب */
         .image-slider {
-            height: 140px;
+            height: 180px;
             overflow: hidden;
             border-radius: 16px;
             position: relative;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
         }
         
         .image-slider img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .image-slider img:hover {
+            transform: scale(1.05);
         }
         
         /* ئایکۆنەکانی سەرەوە بە 2 ڕیز */
         .horizontal-icons {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
             margin-bottom: 20px;
         }
         
         .icon-row {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
             justify-items: center;
         }
         
@@ -120,62 +127,117 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            min-height: 100px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            min-height: 90px;
+            background: #f3f4f6; /* light gray background */
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
             transition: all 0.3s ease;
-            padding: 15px 10px;
+            padding: 12px 6px;
+            cursor: pointer;
+            border: 1px solid #e5e7eb;
         }
         
         .horizontal-icon-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: #e5e7eb;
+        }
+        
+        .horizontal-icon-item.active {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .horizontal-icon-item.active .icon-container {
+            background: white;
+        }
+        
+        .horizontal-icon-item.active .icon-container svg {
+            stroke: #3b82f6;
+        }
+        
+        .horizontal-icon-item.active h4 {
+            color: white;
+        }
+        
+        @media (max-width: 1024px) {
+            .icon-row {
+                grid-template-columns: repeat(6, 1fr);
+            }
         }
         
         @media (max-width: 768px) {
+            .horizontal-icons {
+                margin-bottom: 15px;
+            }
+            
             .icon-container {
-                width: 45px;
-                height: 45px;
+                width: 36px;
+                height: 36px;
                 border-radius: 10px;
             }
             
             .icon-container svg {
-                width: 22px;
-                height: 22px;
+                width: 18px;
+                height: 18px;
             }
             
             .horizontal-icon-item {
-                min-height: 90px;
-                padding: 12px 8px;
-                border-radius: 14px;
+                min-height: 70px;
+                padding: 8px 4px;
+                border-radius: 10px;
             }
             
             .icon-row {
-                gap: 10px;
+                gap: 6px;
+                grid-template-columns: repeat(6, 1fr);
+                margin-bottom: 8px;
+            }
+            
+            .horizontal-icon-item h4 {
+                font-size: 10px;
+                margin-top: 4px;
+                line-height: 1.2;
+                text-align: center;
+            }
+            
+            .image-slider {
+                height: 150px;
             }
         }
         
         @media (max-width: 480px) {
             .icon-container {
-                width: 40px;
-                height: 40px;
+                width: 32px;
+                height: 32px;
                 border-radius: 8px;
             }
             
             .icon-container svg {
-                width: 20px;
-                height: 20px;
+                width: 16px;
+                height: 16px;
             }
             
             .horizontal-icon-item {
-                min-height: 85px;
-                padding: 10px 6px;
-                border-radius: 12px;
+                min-height: 65px;
+                padding: 6px 3px;
+                border-radius: 8px;
             }
             
             .icon-row {
-                gap: 8px;
+                gap: 4px;
+                grid-template-columns: repeat(6, 1fr);
+            }
+            
+            .horizontal-icon-item h4 {
+                font-size: 9px;
+                margin-top: 3px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            .icon-row {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
         
@@ -338,7 +400,15 @@
         
         /* فۆرمی زیادکردنی کالا */
         .add-product-form {
-            background: white;
+            background: #f3f4f6; /* Light gray background */
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .add-slider-form {
+            background: #f3f4f6; /* Light gray background */
             border-radius: 16px;
             padding: 20px;
             margin-bottom: 20px;
@@ -362,6 +432,7 @@
             border: 1px solid #d1d5db;
             border-radius: 8px;
             font-size: 16px;
+            background: white;
         }
         
         .form-group input:focus, .form-group select:focus {
@@ -524,9 +595,19 @@
             color: white;
         }
         
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+            .grid.grid-cols-3 {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            #callNowBtn, #sendMessageBtn, #locationBtn,
+            #catalogBtn, #withPriceBtn, #fibBtn {
+                padding: 12px 8px;
+            }
+            
             .image-slider {
-                height: 120px;
+                height: 150px;
+                border-radius: 15px;
             }
             
             .product-images-grid {
@@ -587,17 +668,80 @@
                 font-size: 13px;
             }
         }
+        
+        /* کاتیگۆرییەکان بۆ کرێکار */
+        .category-item {
+            transition: all 0.3s ease;
+        }
+        
+        .category-item:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* باکگراوندی گشتی بە light gray */
+        body {
+            background-color: #f3f4f6 !important;
+        }
+        
+        /* بۆردەری بەشی بەڕێوەبەری */
+        .admin-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .admin-button {
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .admin-button:hover {
+            background: #2563eb;
+            transform: translateY(-2px);
+        }
+        
+        /* سلایدەری تایبەت بۆ وینەکان */
+        .custom-slider {
+            position: relative;
+        }
+        
+        .slider-actions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            display: flex;
+            gap: 5px;
+        }
+        
+        .slider-action-btn {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .slider-action-btn:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
-<body class="min-h-screen bg-gray-50" dir="rtl">
+<body class="min-h-screen" dir="rtl">
     <!-- Header -->
     <div class="bg-white shadow-sm p-4 flex justify-between items-center">
         <button id="adminPanelBtn" class="bg-blue-600 text-white px-6 py-2 rounded-full text-xl font-bold hover:bg-blue-700 transition-colors">
-   
-++         
-
-
-
+            بەڕێوەبەری
         </button>
         <div class="flex items-center gap-3">
             <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" 
@@ -615,20 +759,20 @@
                  class="w-full h-full rounded-full">
         </div>
         <h2 class="text-white text-3xl font-bold mb-2">Promo House</h2>
-        <p class="text-white text-lg opacity-90"></p>
+        <p class="text-white text-lg opacity-90">نەخشاندنەی هەموو جۆرە کەل و پەلی بەرهەم هێنان</p>
     </div>
 
     <div class="container mx-auto px-4 py-8">
-        <!-- 1. Product Cards - ئایکۆنەکان بە 2 ڕیز -->
+        <!-- 1. Product Cards - ئایکۆنەکان بە 2 ڕیز (٦ دانە لە هەر ڕیزێک) -->
         <div class="mb-8">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center"></h3>
+            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center">کاتیگۆرییەکان</h3>
             
             <div class="horizontal-icons">
-                <!-- ڕیز ١ -->
-                <div class="icon-row mb-3">
-                    <!-- Mug -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                <!-- ڕیز ١ - ٦ دانە -->
+                <div class="icon-row mb-2">
+                    <!-- کوپ -->
+                    <div class="horizontal-icon-item category-item" data-category="کوپ" onclick="filterProductsByCategory('کوپ')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
                                 <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
@@ -637,99 +781,151 @@
                                 <line x1="14" y1="1" x2="14" y2="4"></line>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">کوپ</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">کوپ</h4>
                     </div>
 
-                    <!-- Bag -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- جانتا -->
+                    <div class="horizontal-icon-item category-item" data-category="جانتا" onclick="filterProductsByCategory('جانتا')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                                 <line x1="3" y1="6" x2="21" y2="6"></line>
                                 <path d="M16 10a4 4 0 0 1-8 0"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">جانتا</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">جانتا</h4>
                     </div>
 
-                    <!-- Pencil -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- پێنووس -->
+                    <div class="horizontal-icon-item category-item" data-category="پێنووس" onclick="filterProductsByCategory('پێنووس')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="18" y1="2" x2="22" y2="6"></line>
                                 <path d="M7.5 20.5L19 9l-4-4L3.5 16.5 2 22l5.5-1.5z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">پێنووس</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">پێنووس</h4>
                     </div>
 
-                    <!-- Package -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- دەفتەر -->
+                    <div class="horizontal-icon-item category-item" data-category="دەفتەر" onclick="filterProductsByCategory('دەفتەر')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="16.5" y1="9.4" x2="7.5" y2="4.2"></line>
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">دەفتەر</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">دەفتەر</h4>
+                    </div>
+
+                    <!-- جل -->
+                    <div class="horizontal-icon-item category-item" data-category="جل" onclick="filterProductsByCategory('جل')">
+                        <div class="icon-container mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="6" cy="6" r="3"></circle>
+                                <circle cx="18" cy="6" r="3"></circle>
+                                <path d="M6 9v12"></path>
+                                <path d="M18 9v12"></path>
+                                <path d="M9 6h6"></path>
+                                <path d="M9 21h6"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">جل</h4>
+                    </div>
+
+                    <!-- کڵاو -->
+                    <div class="horizontal-icon-item category-item" data-category="کڵاو" onclick="filterProductsByCategory('کڵاو')">
+                        <div class="icon-container mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12a10 10 0 1 0 20 0 10 10 0 1 0-20 0"></path>
+                                <path d="M12 2v7.5"></path>
+                                <path d="M12 2a10 10 0 1 0 0 20 10 10 0 1 0 0-20"></path>
+                            </svg>
+                        </div>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">کڵاو</h4>
                     </div>
                 </div>
                 
-                <!-- ڕیز ٢ -->
+                <!-- ڕیز ٢ - ٦ دانە -->
                 <div class="icon-row">
-                    <!-- Shield -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- جوانکاری -->
+                    <div class="horizontal-icon-item category-item" data-category="جوانکاری" onclick="filterProductsByCategory('جوانکاری')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">هەمووکاڵاکان</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">جوانکاری</h4>
                     </div>
 
-                    <!-- Book -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- کەل و پەل -->
+                    <div class="horizontal-icon-item category-item" data-category="کەل و پەل" onclick="filterProductsByCategory('کەل و پەل')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">کتێب</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">کەل وپەل</h4>
                     </div>
 
-                    <!-- Box -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- تەرمۆزە -->
+                    <div class="horizontal-icon-item category-item" data-category="تەرمۆزە" onclick="filterProductsByCategory('تەرمۆزە')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="3" y1="9" x2="21" y2="9"></line>
+                                <line x1="9" y1="21" x2="9" y2="9"></line>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">تەرمۆزە</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">تەرمۆزە</h4>
                     </div>
 
-                    <!-- Facebook -->
-                    <div class="horizontal-icon-item">
-                        <div class="icon-container mb-3">
+                    <!-- کرێکار -->
+                    <div class="horizontal-icon-item category-item" data-category="کرێکار" onclick="filterProductsByCategory('کرێکار')">
+                        <div class="icon-container mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="9" cy="7" r="4"></circle>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm font-semibold text-gray-800">کرێکار</h4>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">کرێکار</h4>
+                    </div>
+
+                    <!-- هەمووکاڵاکان -->
+                    <div class="horizontal-icon-item category-item" data-category="هەمووکاڵاکان" onclick="showAllProducts()">
+                        <div class="icon-container mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="14" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                            </svg>
+                        </div>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">هەمووکاڵاکان</h4>
+                    </div>
+
+                    <!-- شتی تر -->
+                    <div class="horizontal-icon-item category-item" data-category="شتی تر" onclick="showAddProductForm('شتی تر')">
+                        <div class="icon-container mb-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                            </svg>
+                        </div>
+                        <h4 class="text-sm font-semibold text-gray-800 text-center">شتی تر</h4>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- 2. Image Slider - سلایدەری وینە -->
+        <!-- 2. Image Slider - سلایدەری وینە (تایبەت بە وینەکانی دیزاین) -->
         <div class="mb-8">
-            <div class="image-slider mb-4">
+            <div class="image-slider mb-4 custom-slider" id="customSlider">
                 <div id="imageSlider" class="flex h-full">
-                    <!-- وینەکان لە بنەڕەتدا دانراون بە لینکە نوێیەکان -->
+                    <!-- وینەکان لە Firebase دێن -->
                     <div class="min-w-full">
                         <img src="https://drive.google.com/uc?export=view&id=1k6njV29MC18Y7vepyWKFs2Tsgew0Eq-J" 
                              alt="پرۆمۆ هاوس 1" 
@@ -742,6 +938,25 @@
                              class="w-full h-full"
                              onerror="this.src='https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&h=300&fit=crop'">
                     </div>
+                </div>
+                
+                <!-- دوگمەی زیادکردنی وینە (تەنها بۆ بەڕێوەبەر) -->
+                <div class="slider-actions" id="sliderActions" style="display: none;">
+                    <button onclick="showAddSliderImageForm()" class="slider-action-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        زیادکردنی وینە
+                    </button>
+                    <button onclick="manageSliderImages()" class="slider-action-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                        بەڕێوەبردنی وینەکان
+                    </button>
                 </div>
             </div>
             
@@ -780,14 +995,17 @@
                     <label for="productCategory">جۆری کالا:</label>
                     <select id="productCategory" required>
                         <option value="">جۆری کالا هەڵبژێرە</option>
-                        <option value="جل">جل</option>
-                        <option value="کڵاو">کڵاو</option>
                         <option value="کوپ">کوپ</option>
                         <option value="جانتا">جانتا</option>
                         <option value="پێنووس">پێنووس</option>
-                        <option value="پاکەت">پاکەت</option>
-                        <option value="کتێب">کتێب</option>
-                        <option value="بۆکس">بۆکس</option>
+                        <option value="دەفتەر">دەفتەر</option>
+                        <option value="جل">جل</option>
+                        <option value="کڵاو">کڵاو</option>
+                        <option value="جوانکاری">جوانکاری</option>
+                        <option value="کەل و پەل">کەل و پەل</option>
+                        <option value="تەرمۆزە">تەرمۆزە</option>
+                        <option value="کرێکار">کرێکار</option>
+                        <option value="شتی تر">شتی تر</option>
                     </select>
                 </div>
                 
@@ -824,6 +1042,61 @@
             </form>
         </div>
 
+        <!-- فۆرمی زیادکردنی وینەی سلاید -->
+        <div class="add-slider-form" id="addSliderForm" style="display: none;">
+            <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">زیادکردنی وینەی سلاید</h3>
+            
+            <form id="sliderImageForm">
+                <input type="hidden" id="sliderImageId" value="">
+                
+                <div class="form-group">
+                    <label for="sliderImageName">ناوی وێنە:</label>
+                    <input type="text" id="sliderImageName" placeholder="وەک: بانەری ١، دیزاینی نوێ..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sliderImageOrder">ڕێزی وێنە:</label>
+                    <input type="number" id="sliderImageOrder" placeholder="وەک: ١، ٢، ٣..." min="1" required>
+                    <p class="text-xs text-gray-500 mt-1">وێنەی ڕێزی ١ یەکەم وێنەیە کە لە سلایدەکەدا دەردەکەوێت</p>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sliderImageFile">وێنەی سلاید:</label>
+                    <div class="file-input-container">
+                        <input type="file" id="sliderImageFile" accept="image/*" class="file-input" required>
+                        <label for="sliderImageFile" class="file-input-label" id="sliderFileInputLabel">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                                <line x1="16" y1="5" x2="22" y2="5"></line>
+                                <line x1="19" y1="2" x2="19" y2="8"></line>
+                                <circle cx="9" cy="9" r="2"></circle>
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                            </svg>
+                            <span>وێنەی سلاید هەڵبژێرە</span>
+                        </label>
+                    </div>
+                    <div id="sliderFileName" class="text-sm text-gray-500 mt-2"></div>
+                    <div id="sliderCurrentImage" class="mt-2" style="display: none;">
+                        <img id="sliderCurrentImagePreview" src="" alt="وێنەی ئێستا" class="w-20 h-20 object-cover rounded-lg">
+                        <p class="text-xs text-gray-500 mt-1">وێنەی ئێستا</p>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitSliderBtn">
+                    <span id="submitSliderText">زیادکردنی وینەی سلاید</span>
+                    <div id="submitSliderSpinner" class="loading-spinner" style="display: none;"></div>
+                </button>
+                
+                <button type="button" id="cancelSliderEditBtn" class="submit-btn bg-gray-500 hover:bg-gray-600 mt-2" style="display: none;">
+                    هەڵوەشاندنەوە
+                </button>
+                
+                <button type="button" onclick="backToMain()" class="submit-btn bg-gray-400 hover:bg-gray-500 mt-2">
+                    گەڕانەوە
+                </button>
+            </form>
+        </div>
+
         <!-- 4. بەشی بینینی هەموو کالاکان -->
         <div id="allProductsSection" style="display: none;">
             <div class="flex justify-between items-center mb-4">
@@ -852,22 +1125,22 @@
             </div>
         </div>
 
-        <!-- 4. Product Images Grid -  -->
+        <!-- 4. Product Images Grid - کالاکان -->
         <div class="mb-8" id="mainProductsSection">
-            <h3 class="text-2xl font-bold mb-4 text-gray-800 text-center"></h3>
+            <h3 class="text-2xl font-bold mb-4 text-gray-800 text-center" id="productsTitle">کالاکانی دوایین</h3>
             
             <div class="product-images-grid" id="productsContainer">
                 <!-- کالاکان داینامیکی زیاد دەکرێن -->
             </div>
         </div>
 
-        <!-- 5. Action Buttons Row -  -->
+        <!-- 5. Action Buttons Row - دوگمەکان -->
         <div class="mb-8">
-            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center"></h3>
+            <h3 class="text-2xl font-bold mb-6 text-gray-800 text-center">پەیوەندی و خزمەتگوزاری</h3>
             
             <!-- ڕیز ١ -->
             <div class="grid grid-cols-3 gap-3 md:gap-6 mb-3 md:mb-6">
-                <!--  -->
+                <!-- پەیوەندیم پێوە بکە -->
                 <div id="callNowBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
                         <div class="icon-container mb-3">
@@ -875,11 +1148,11 @@
                                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800">پەیوەندیم پێوە بکە</h4>
                     </div>
                 </div>
 
-                <!--  -->
+                <!-- نامەی پی -->
                 <div id="sendMessageBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
                         <div class="icon-container mb-3">
@@ -888,11 +1161,11 @@
                                 <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800">نامەی پی</h4>
                     </div>
                 </div>
 
-                <!--  -->
+                <!-- ناونیشان -->
                 <div id="locationBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
                         <div class="icon-container mb-3">
@@ -901,14 +1174,14 @@
                                 <circle cx="12" cy="10" r="3"></circle>
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800">ناونیشان</h4>
                     </div>
                 </div>
             </div>
 
             <!-- ڕیز ٢ -->
             <div class="grid grid-cols-3 gap-3 md:gap-6">
-                <!-- -->
+                <!-- کاتالۆگ -->
                 <div id="catalogBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
                         <div class="icon-container mb-3">
@@ -920,11 +1193,11 @@
                                 <polyline points="10 9 9 9 8 9"></polyline>
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800">کاتالۆگ</h4>
                     </div>
                 </div>
 
-                <!--  -->
+                <!-- نرخەکان -->
                 <div id="withPriceBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
                         <div class="icon-container mb-3">
@@ -933,11 +1206,11 @@
                                 <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800">نرخەکان</h4>
                     </div>
                 </div>
 
-                <!--  -->
+                <!-- پارە ناردن -->
                 <div id="fibBtn" class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 cursor-pointer">
                     <div class="relative p-4 md:p-6 flex flex-col items-center justify-center">
                         <div class="icon-container mb-3">
@@ -946,7 +1219,7 @@
                                 <line x1="1" y1="10" x2="23" y2="10"></line>
                             </svg>
                         </div>
-                        <h4 class="text-sm md:text-base font-semibold text-gray-800"></h4>
+                        <h4 class="text-sm md:text-base font-semibold text-gray-800">پارە ناردن</h4>
                     </div>
                 </div>
             </div>
@@ -977,48 +1250,24 @@
         <div class="modal-content">
             <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">بەشی بەڕێوەبەری</h3>
             
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <button id="addNewProductBtn" class="action-button bg-blue-600 hover:bg-blue-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 8px;">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                    زیادکردنی بەرهەم
-                </button>
-                
-                <button id="viewProductsBtn" class="action-button bg-green-600 hover:bg-green-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 8px;">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <line x1="3" y1="9" x2="21" y2="9"></line>
-                        <line x1="9" y1="21" y2="9"></line>
-                    </svg>
-                    بینینی بەرهەمەکان
-                </button>
-                
-                <button id="editProductsBtn" class="action-button bg-yellow-600 hover:bg-yellow-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 8px;">
-                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-                    </svg>
-                    دەستکاری بەرهەم
-                </button>
-                
-                <button id="deleteProductsBtn" class="action-button bg-red-600 hover:bg-red-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 8px;">
-                        <polyline points="3 6 5 6 21 6"></polyline>
-                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                    </svg>
-                    سڕینەوەی بەرهەم
-                </button>
+            <div class="admin-buttons mb-6">
+                <button id="addNewProductBtn" class="admin-button">زیادکردنی کالا</button>
+                <button id="viewProductsBtn" class="admin-button">بینینی کالاکان</button>
+                <button id="editProductsBtn" class="admin-button">دەستکاری کالا</button>
+                <button id="deleteProductsBtn" class="admin-button">سڕینەوەی کالا</button>
+                <button onclick="showAddSliderImageForm()" class="admin-button">زیادکردنی وینەی سلاید</button>
+                <button onclick="manageSliderImages()" class="admin-button">بەڕێوەبردنی وینەکانی سلاید</button>
             </div>
             
             <div class="bg-gray-100 p-4 rounded-lg mb-4">
                 <h4 class="font-bold mb-2">ڕێنمایی:</h4>
                 <ul class="text-sm text-gray-700 list-disc pr-4">
-                    <li>زیادکردنی بەرهەم: فۆرمی زیادکردنی بەرهەم دەکاتەوە</li>
-                    <li>بینینی بەرهەمەکان: هەموو بەرهەمەکان پیشان دەدات</li>
-                    <li>دەستکاری بەرهەم: ئەتوانیت بەرهەمەکان دەستکاری بکەیت</li>
-                    <li>سڕینەوەی بەرهەم: بەرهەمەکان سڕینەوە</li>
+                    <li>زیادکردنی کالا: فۆرمی زیادکردنی کالا دەکاتەوە</li>
+                    <li>بینینی کالاکان: هەموو کالاکان پیشان دەدات</li>
+                    <li>دەستکاری کالا: ئەتوانیت کالاکان دەستکاری بکەیت</li>
+                    <li>سڕینەوەی کالا: کالاکان سڕینەوە</li>
+                    <li>زیادکردنی وینەی سلاید: وینەی نوێ بۆ سلاید زیاد دەکات</li>
+                    <li>بەڕێوەبردنی وینەکانی سلاید: وینەکانی سلاید بەڕێوەدەبات</li>
                 </ul>
             </div>
             
@@ -1087,8 +1336,12 @@
             // چەککردنی Firebase
             let firebaseInitialized = false;
             let currentEditingProductId = null;
+            let currentEditingSliderId = null;
             let isAdminLoggedIn = false;
             const ADMIN_PASSWORD = "admin123";
+            let globalProductsData = null;
+            let globalSliderData = null;
+            let currentCategory = null;
             
             // چاوەڕوانی بۆ چالاککردنی Firebase
             const checkFirebase = setInterval(() => {
@@ -1097,6 +1350,7 @@
                     firebaseInitialized = true;
                     console.log("Firebase is ready!");
                     loadProductsFromFirebase();
+                    loadSliderImagesFromFirebase();
                 }
             }, 100);
             
@@ -1111,8 +1365,8 @@
                     const productsRef = firebase.ref(firebase.db, 'products');
                     firebase.onValue(productsRef, (snapshot) => {
                         const productsData = snapshot.val();
+                        globalProductsData = productsData;
                         displayProducts(productsData);
-                        updateImageSlider(productsData);
                         displayAllProducts(productsData);
                     });
                 } catch (error) {
@@ -1120,9 +1374,30 @@
                 }
             }
             
+            // فەنکشن بۆ بارکردنی وینەکانی سلاید لە Firebase
+            function loadSliderImagesFromFirebase() {
+                if (!firebaseInitialized) {
+                    console.log("Firebase not initialized yet");
+                    return;
+                }
+                
+                try {
+                    const sliderRef = firebase.ref(firebase.db, 'sliderImages');
+                    firebase.onValue(sliderRef, (snapshot) => {
+                        const sliderData = snapshot.val();
+                        globalSliderData = sliderData;
+                        updateSlider(sliderData);
+                    });
+                } catch (error) {
+                    console.error("Error loading slider images:", error);
+                }
+            }
+            
             // فەنکشن بۆ نیشاندانی کالاکان لە سەرەکی - بێ دوگمەی دەستکاری/سڕینەوە
-            function displayProducts(productsData) {
+            function displayProducts(productsData, category = null) {
                 const container = document.getElementById('productsContainer');
+                const title = document.getElementById('productsTitle');
+                
                 if (!container) return;
                 
                 container.innerHTML = '';
@@ -1132,14 +1407,27 @@
                     return;
                 }
                 
-                const products = Object.values(productsData);
+                let products = Object.values(productsData);
+                
+                // فیلتەرکردن بەپێی کاتیگۆری
+                if (category && category !== 'هەمووکاڵاکان') {
+                    products = products.filter(product => product.category === category);
+                    title.textContent = `کالاکانی ${category}`;
+                } else {
+                    title.textContent = 'کالاکانی دوایین';
+                }
                 
                 if (products.length === 0) {
-                    container.innerHTML = '<p class="text-gray-500 text-center col-span-3">هیچ کالایەک بوونی نیە</p>';
+                    container.innerHTML = `
+                        <div class="col-span-3 text-center py-8">
+                            <p class="text-gray-500 mb-4">هیچ کالایەک بوونی نیە لەم کاتیگۆرییە</p>
+                            ${isAdminLoggedIn ? '<button onclick="showAddProductForm()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">زیادکردنی کالا</button>' : ''}
+                        </div>
+                    `;
                     return;
                 }
                 
-                // نمایشی ٣ کالای کۆتایی - بێ دوگمەکانی دەستکاری/سڕینەوە
+                // نمایشی کالاکان - لە کاتیگۆرییەکەدا ٣ کالای کۆتایی نیشان بدە
                 const recentProducts = products.slice(-3);
                 
                 recentProducts.forEach((product, index) => {
@@ -1150,11 +1438,107 @@
                                 <h4>${product.name}</h4>
                                 <p>${product.price} دینار</p>
                                 <small class="text-gray-500">نزیکەی $${product.priceUSD}</small>
+                                ${product.category ? `<small class="text-gray-400 block mt-1">${product.category}</small>` : ''}
                             </div>
                         </div>
                     `;
                     container.innerHTML += productHTML;
                 });
+            }
+            
+            // فەنکشن بۆ نوێکردنەوەی سلایدەر
+            function updateSlider(sliderData) {
+                const sliderContainer = document.getElementById('imageSlider');
+                const dotsContainer = document.getElementById('sliderDots');
+                
+                if (!sliderContainer || !dotsContainer) return;
+                
+                sliderContainer.innerHTML = '';
+                dotsContainer.innerHTML = '';
+                
+                if (!sliderData || Object.keys(sliderData).length === 0) {
+                    // ئەگەر هیچ وینەیەک نییە، وینەی بنەڕەتی پیشان بدە
+                    sliderContainer.innerHTML = `
+                        <div class="min-w-full">
+                            <img src="https://drive.google.com/uc?export=view&id=1k6njV29MC18Y7vepyWKFs2Tsgew0Eq-J" 
+                                 alt="پرۆمۆ هاوس 1" 
+                                 class="w-full h-full"
+                                 onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=800&h=300&fit=crop'">
+                        </div>
+                        <div class="min-w-full">
+                            <img src="https://drive.google.com/uc?export=view&id=1lwzVzDJeqzrj7LO7J5XTDG9XgSyBrMCl" 
+                                 alt="پرۆمۆ هاوس 2" 
+                                 class="w-full h-full"
+                                 onerror="this.src='https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&h=300&fit=crop'">
+                        </div>
+                    `;
+                    dotsContainer.innerHTML = `
+                        <button data-index="0" class="image-slider-dot w-3 h-3 rounded-full bg-blue-600"></button>
+                        <button data-index="1" class="image-slider-dot w-3 h-3 rounded-full bg-gray-300"></button>
+                    `;
+                } else {
+                    // وەرگرتنی وینەکان و ڕێزبەندییان بەپێی order
+                    const sliderImages = Object.values(sliderData);
+                    sliderImages.sort((a, b) => (a.order || 0) - (b.order || 0));
+                    
+                    // زیادکردنی وینەکان بۆ سلایدەر
+                    sliderImages.forEach((image, index) => {
+                        sliderContainer.innerHTML += `
+                            <div class="min-w-full">
+                                <img src="${image.imageUrl}" alt="${image.name || 'سلاید'}" class="w-full h-full">
+                            </div>
+                        `;
+                        
+                        dotsContainer.innerHTML += `
+                            <button data-index="${index}" class="image-slider-dot w-3 h-3 rounded-full ${index === 0 ? 'bg-blue-600' : 'bg-gray-300'}"></button>
+                        `;
+                    });
+                }
+                
+                // چالاککردنی سلایدەر
+                initSlider();
+            }
+            
+            // فەنکشن بۆ چالاککردنی سلایدەر
+            function initSlider() {
+                let currentSlide = 0;
+                const slider = document.getElementById('imageSlider');
+                const dots = document.querySelectorAll('.image-slider-dot');
+                
+                function updateSliderPosition() {
+                    if (slider) {
+                        slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    }
+                    
+                    // نوێکردنەوەی دۆتەکان
+                    dots.forEach((dot, index) => {
+                        if (index === currentSlide) {
+                            dot.classList.remove('bg-gray-300');
+                            dot.classList.add('bg-blue-600');
+                        } else {
+                            dot.classList.remove('bg-blue-600');
+                            dot.classList.add('bg-gray-300');
+                        }
+                    });
+                }
+                
+                // دۆتەکان بۆ گواستنەوە
+                dots.forEach(dot => {
+                    dot.addEventListener('click', function() {
+                        currentSlide = parseInt(this.getAttribute('data-index'));
+                        updateSliderPosition();
+                    });
+                });
+                
+                // ئۆتۆ ساید هەر ٤ چرکە جارێک
+                setInterval(() => {
+                    if (dots.length > 0) {
+                        currentSlide = (currentSlide + 1) % dots.length;
+                        updateSliderPosition();
+                    }
+                }, 4000);
+                
+                updateSliderPosition();
             }
             
             // فەنکشن بۆ نیشاندانی هەموو کالاکان لە خشتە - لە بەشی بەڕێوەبەری
@@ -1296,8 +1680,9 @@
                         
                         // کردنەوەی فۆرم و دانانی بەشەکانی تر
                         document.getElementById('allProductsSection').style.display = 'none';
-                        document.getElementById('mainProductsSection').style.display = 'block';
+                        document.getElementById('mainProductsSection').style.display = 'none';
                         document.getElementById('addProductForm').style.display = 'block';
+                        document.getElementById('addSliderForm').style.display = 'none';
                         
                         // گەڕاندنە سەرەوەی فۆرم
                         document.getElementById('addProductForm').scrollIntoView({ behavior: 'smooth' });
@@ -1308,81 +1693,138 @@
                 });
             };
             
-            // فەنکشن بۆ نوێکردنەوەی سلایدەری وینە
-            function updateImageSlider(productsData) {
-                const sliderContainer = document.getElementById('imageSlider');
-                const dotsContainer = document.getElementById('sliderDots');
+            // فەنکشن بۆ فیلتەرکردنی کالاکان بەپێی کاتیگۆری
+            window.filterProductsByCategory = function(category) {
+                currentCategory = category;
                 
-                if (!sliderContainer || !dotsContainer) return;
-                
-                // ئەگەر بەرهەم هەیە و دەمانەوێت لە کۆدەکە بەکاربهێنین
-                if (productsData && Object.keys(productsData).length > 0) {
-                    sliderContainer.innerHTML = '';
-                    dotsContainer.innerHTML = '';
-                    
-                    const products = Object.values(productsData);
-                    
-                    // Use product images for slides (up to 4)
-                    const slides = products.slice(-4);
-                    
-                    slides.forEach((product, index) => {
-                        sliderContainer.innerHTML += `
-                            <div class="min-w-full">
-                                <img src="${product.imageUrl || product.image}" alt="${product.name}" class="w-full h-full">
-                            </div>
-                        `;
-                        
-                        dotsContainer.innerHTML += `
-                            <button data-index="${index}" class="image-slider-dot w-3 h-3 rounded-full ${index === 0 ? 'bg-blue-600' : 'bg-gray-300'}"></button>
-                        `;
-                    });
-                }
-                
-                // Initialize slider functionality
-                initImageSlider();
-            }
-            
-            // فەنکشن بۆ چالاککردنی سلایدەری وینە
-            function initImageSlider() {
-                let currentImageSlide = 0;
-                const imageSlider = document.getElementById('imageSlider');
-                const imageSliderDots = document.querySelectorAll('.image-slider-dot');
-                
-                function updateImageSliderPosition() {
-                    if (imageSlider) {
-                        imageSlider.style.transform = `translateX(-${currentImageSlide * 100}%)`;
+                // چالاککردنی کاتیگۆری
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-category') === category) {
+                        item.classList.add('active');
                     }
-                    
-                    // Update image slider dots
-                    imageSliderDots.forEach((dot, index) => {
-                        if (index === currentImageSlide) {
-                            dot.classList.remove('bg-gray-300');
-                            dot.classList.add('bg-blue-600');
-                        } else {
-                            dot.classList.remove('bg-blue-600');
-                            dot.classList.add('bg-gray-300');
-                        }
-                    });
-                }
-                
-                // Image slider dots navigation
-                imageSliderDots.forEach(dot => {
-                    dot.addEventListener('click', function() {
-                        currentImageSlide = parseInt(this.getAttribute('data-index'));
-                        updateImageSliderPosition();
-                    });
                 });
                 
-                // Auto slide images every 4 seconds
-                setInterval(() => {
-                    if (imageSliderDots.length > 0) {
-                        currentImageSlide = (currentImageSlide + 1) % imageSliderDots.length;
-                        updateImageSliderPosition();
-                    }
-                }, 4000);
+                // نیشاندانی کالاکانی کاتیگۆری
+                displayProducts(globalProductsData, category);
                 
-                updateImageSliderPosition();
-            }
+                // دانانی بەشەکانی تر
+                document.getElementById('allProductsSection').style.display = 'none';
+                document.getElementById('addProductForm').style.display = 'none';
+                document.getElementById('addSliderForm').style.display = 'none';
+                document.getElementById('mainProductsSection').style.display = 'block';
+            };
+            
+            // فەنکشن بۆ نیشاندانی هەموو کالاکان
+            window.showAllProducts = function() {
+                currentCategory = null;
+                
+                // چالاککردنی کاتیگۆری
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-category') === 'هەمووکاڵاکان') {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // نیشاندانی هەموو کالاکان
+                displayProducts(globalProductsData, 'هەمووکاڵاکان');
+                
+                // دانانی بەشەکانی تر
+                document.getElementById('allProductsSection').style.display = 'none';
+                document.getElementById('addProductForm').style.display = 'none';
+                document.getElementById('addSliderForm').style.display = 'none';
+                document.getElementById('mainProductsSection').style.display = 'block';
+            };
+            
+            // فەنکشن بۆ نیشاندانی فۆرمی زیادکردنی کالا
+            window.showAddProductForm = function(category = null) {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت کالا زیاد بکات!");
+                    showLoginModal();
+                    return;
+                }
+                
+                resetProductForm();
+                
+                if (category) {
+                    document.getElementById('productCategory').value = category;
+                    document.getElementById('formTitle').textContent = `زیادکردنی کالای ${category}`;
+                }
+                
+                // کردنەوەی فۆرم و دانانی بەشەکانی تر
+                document.getElementById('allProductsSection').style.display = 'none';
+                document.getElementById('mainProductsSection').style.display = 'none';
+                document.getElementById('addSliderForm').style.display = 'none';
+                document.getElementById('addProductForm').style.display = 'block';
+                
+                // چالاککردنی کاتیگۆری
+                document.querySelectorAll('.category-item').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-category') === category) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // گەڕاندنە سەرەوەی فۆرم
+                document.getElementById('addProductForm').scrollIntoView({ behavior: 'smooth' });
+            };
+            
+            // فەنکشن بۆ نیشاندانی فۆرمی زیادکردنی وینەی سلاید
+            window.showAddSliderImageForm = function() {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت وینەی سلاید زیاد بکات!");
+                    showLoginModal();
+                    return;
+                }
+                
+                resetSliderForm();
+                
+                // کردنەوەی فۆرم و دانانی بەشەکانی تر
+                document.getElementById('allProductsSection').style.display = 'none';
+                document.getElementById('mainProductsSection').style.display = 'none';
+                document.getElementById('addProductForm').style.display = 'none';
+                document.getElementById('addSliderForm').style.display = 'block';
+                
+                // گەڕاندنە سەرەوەی فۆرم
+                document.getElementById('addSliderForm').scrollIntoView({ behavior: 'smooth' });
+            };
+            
+            // فەنکشن بۆ بەڕێوەبردنی وینەکانی سلاید
+            window.manageSliderImages = function() {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت وینەکانی سلاید بەڕێوەبات!");
+                    showLoginModal();
+                    return;
+                }
+                
+                // نیشاندانی لیستی وینەکانی سلاید
+                if (!globalSliderData || Object.keys(globalSliderData).length === 0) {
+                    alert("هیچ وینەیەک نییە لە سلایدەکەدا!");
+                    return;
+                }
+                
+                let message = "وینەکانی سلاید:\n\n";
+                const sliderImages = Object.values(globalSliderData);
+                sliderImages.sort((a, b) => (a.order || 0) - (b.order || 0));
+                
+                sliderImages.forEach((image, index) => {
+                    message += `${index + 1}. ${image.name || 'بێ ناو'}\n`;
+                });
+                
+                message += "\nدەتوانیت وینە نوێکان زیاد بکەیت یان پەنجەرەی بەڕێوەبەری بەکاربهێنیت بۆ دەستکاری.";
+                alert(message);
+            };
+            
+            // فەنکشن بۆ گەڕانەوە بۆ پەڕەی سەرەکی
+            window.backToMain = function() {
+                document.getElementById('addSliderForm').style.display = 'none';
+                if (currentCategory) {
+                    filterProductsByCategory(currentCategory);
+                } else {
+                    showAllProducts();
+                }
+            };
             
             // فۆرمی زیادکردنی/دەستکاری کالا
             const addProductForm = document.getElementById('addProductForm');
@@ -1395,7 +1837,18 @@
             const submitSpinner = document.getElementById('submitSpinner');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
             
-            // فەنکشن بۆ دووبارە دانانەوەی فۆرم
+            // فۆرمی زیادکردنی وینەی سلاید
+            const addSliderForm = document.getElementById('addSliderForm');
+            const sliderImageForm = document.getElementById('sliderImageForm');
+            const sliderFileInput = document.getElementById('sliderImageFile');
+            const sliderFileInputLabel = document.getElementById('sliderFileInputLabel');
+            const sliderFileName = document.getElementById('sliderFileName');
+            const submitSliderBtn = document.getElementById('submitSliderBtn');
+            const submitSliderText = document.getElementById('submitSliderText');
+            const submitSliderSpinner = document.getElementById('submitSliderSpinner');
+            const cancelSliderEditBtn = document.getElementById('cancelSliderEditBtn');
+            
+            // فەنکشن بۆ دووبارە دانانەوەی فۆرمی کالا
             function resetProductForm() {
                 document.getElementById('productId').value = '';
                 document.getElementById('formTitle').textContent = 'زیادکردنی کالای نوێ';
@@ -1418,11 +1871,52 @@
                 currentEditingProductId = null;
             }
             
-            // دوگمەی هەڵوەشاندنەوەی دەستکاری
+            // فەنکشن بۆ دووبارە دانانەوەی فۆرمی وینەی سلاید
+            function resetSliderForm() {
+                document.getElementById('sliderImageId').value = '';
+                document.getElementById('sliderImageName').value = '';
+                document.getElementById('sliderImageOrder').value = '';
+                document.getElementById('cancelSliderEditBtn').style.display = 'none';
+                document.getElementById('sliderCurrentImage').style.display = 'none';
+                document.getElementById('sliderImageFile').setAttribute('required', 'required');
+                sliderImageForm.reset();
+                sliderFileName.textContent = '';
+                sliderFileInputLabel.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                        <line x1="16" y1="5" x2="22" y2="5"></line>
+                        <line x1="19" y1="2" x2="19" y2="8"></line>
+                        <circle cx="9" cy="9" r="2"></circle>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                    </svg>
+                    <span>وێنەی سلاید هەڵبژێرە</span>
+                `;
+                currentEditingSliderId = null;
+            }
+            
+            // دوگمەی هەڵوەشاندنەوەی دەستکاری کالا
             if (cancelEditBtn) {
                 cancelEditBtn.addEventListener('click', function() {
                     resetProductForm();
                     addProductForm.style.display = 'none';
+                    if (currentCategory) {
+                        filterProductsByCategory(currentCategory);
+                    } else {
+                        showAllProducts();
+                    }
+                });
+            }
+            
+            // دوگمەی هەڵوەشاندنەوەی دەستکاری وینەی سلاید
+            if (cancelSliderEditBtn) {
+                cancelSliderEditBtn.addEventListener('click', function() {
+                    resetSliderForm();
+                    addSliderForm.style.display = 'none';
+                    if (currentCategory) {
+                        filterProductsByCategory(currentCategory);
+                    } else {
+                        showAllProducts();
+                    }
                 });
             }
             
@@ -1463,6 +1957,8 @@
                         if (adminPanelBtn) {
                             adminPanelBtn.textContent = 'بەڕێوەبەر ✅';
                         }
+                        // نیشاندانی دوگمەی زیادکردنی وینەی سلاید
+                        document.getElementById('sliderActions').style.display = 'flex';
                     } else {
                         alert("وشەی نهێنی هەڵەە!");
                     }
@@ -1497,9 +1993,7 @@
             if (addNewProductBtn) {
                 addNewProductBtn.addEventListener('click', function() {
                     adminPanelModal.style.display = 'none';
-                    resetProductForm();
-                    addProductForm.style.display = 'block';
-                    addProductForm.scrollIntoView({ behavior: 'smooth' });
+                    showAddProductForm();
                 });
             }
             
@@ -1510,6 +2004,7 @@
                     document.getElementById('allProductsSection').style.display = 'block';
                     document.getElementById('mainProductsSection').style.display = 'none';
                     document.getElementById('addProductForm').style.display = 'none';
+                    document.getElementById('addSliderForm').style.display = 'none';
                 });
             }
             
@@ -1520,6 +2015,7 @@
                     document.getElementById('allProductsSection').style.display = 'block';
                     document.getElementById('mainProductsSection').style.display = 'none';
                     document.getElementById('addProductForm').style.display = 'none';
+                    document.getElementById('addSliderForm').style.display = 'none';
                 });
             }
             
@@ -1530,6 +2026,7 @@
                     document.getElementById('allProductsSection').style.display = 'block';
                     document.getElementById('mainProductsSection').style.display = 'none';
                     document.getElementById('addProductForm').style.display = 'none';
+                    document.getElementById('addSliderForm').style.display = 'none';
                 });
             }
             
@@ -1537,11 +2034,15 @@
             if (backToHomeBtn) {
                 backToHomeBtn.addEventListener('click', function() {
                     document.getElementById('allProductsSection').style.display = 'none';
-                    document.getElementById('mainProductsSection').style.display = 'block';
+                    if (currentCategory) {
+                        filterProductsByCategory(currentCategory);
+                    } else {
+                        showAllProducts();
+                    }
                 });
             }
             
-            // فایل ئینپوت
+            // فایل ئینپوتی کالا
             if (fileInput) {
                 fileInput.addEventListener('change', function(e) {
                     const file = e.target.files[0];
@@ -1558,7 +2059,24 @@
                 });
             }
             
-            // فۆرم
+            // فایل ئینپوتی وینەی سلاید
+            if (sliderFileInput) {
+                sliderFileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        sliderFileName.textContent = `فایل: ${file.name}`;
+                        sliderFileInputLabel.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                            <span>فایل هەڵبژێردرا</span>
+                        `;
+                    }
+                });
+            }
+            
+            // فۆرمی کالا
             if (productForm) {
                 productForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -1665,8 +2183,12 @@
                         
                         // 5. داخستنی فۆرم و گەڕانەوە بۆ پەڕەی سەرەکی
                         addProductForm.style.display = 'none';
-                        document.getElementById('mainProductsSection').style.display = 'block';
-                        document.getElementById('allProductsSection').style.display = 'none';
+                        
+                        if (category && category !== 'شتی تر') {
+                            filterProductsByCategory(category);
+                        } else {
+                            showAllProducts();
+                        }
                         
                         alert(productId ? 'کالا بە سەرکەوتوویی نوێ کرایەوە!' : 'کالا بە سەرکەوتوویی زیاد کرا!');
                         
@@ -1678,6 +2200,125 @@
                         submitBtn.disabled = false;
                         submitText.textContent = "زیادکردنی کالا";
                         submitSpinner.style.display = 'none';
+                    }
+                });
+            }
+            
+            // فۆرمی وینەی سلاید
+            if (sliderImageForm) {
+                sliderImageForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    
+                    if (!isAdminLoggedIn) {
+                        alert("تەنها بەڕێوەبەر دەتوانێت وینەی سلاید زیاد بکات!");
+                        showLoginModal();
+                        return;
+                    }
+                    
+                    if (!firebaseInitialized) {
+                        alert("Firebase چالاک نەکراوە! تکایە چاوەڕوان بکە یان پەڕەکە ریفڕێش بکە.");
+                        return;
+                    }
+                    
+                    const sliderImageId = document.getElementById('sliderImageId').value;
+                    const name = document.getElementById('sliderImageName').value;
+                    const order = document.getElementById('sliderImageOrder').value;
+                    const imageFile = document.getElementById('sliderImageFile').files[0];
+                    
+                    if (!sliderImageId && !imageFile) {
+                        alert("تکایە وێنەی سلاید هەڵبژێرە!");
+                        return;
+                    }
+                    
+                    // چالاککردنی loading state
+                    submitSliderBtn.disabled = true;
+                    submitSliderText.textContent = sliderImageId ? "نوێکردنەوەی وینە..." : "وینە زیاد دەکرێت...";
+                    submitSliderSpinner.style.display = 'inline-block';
+                    
+                    try {
+                        let imageUrl = '';
+                        
+                        // ئەگەر وێنەی نوێ هەیە
+                        if (imageFile) {
+                            // 1. وێنە بەریتە سەر Firebase Storage
+                            const storageReference = firebase.storageRef(firebase.storage, 'sliderImages/' + Date.now() + '_' + imageFile.name);
+                            await firebase.uploadBytes(storageReference, imageFile);
+                            
+                            // 2. وەرگرتنی لینکی وێنە
+                            imageUrl = await firebase.getDownloadURL(storageReference);
+                            
+                            // ئەگەر دەستکاری دەکرێت و وێنەی کۆن هەیە، وێنەی کۆن بسڕەوە
+                            if (sliderImageId && document.getElementById('sliderCurrentImagePreview').src) {
+                                try {
+                                    const oldImageUrl = document.getElementById('sliderCurrentImagePreview').src;
+                                    const oldImagePath = decodeURIComponent(oldImageUrl.split('/o/')[1].split('?')[0]);
+                                    const oldImageRef = firebase.storageRef(firebase.storage, oldImagePath);
+                                    await firebase.deleteObject(oldImageRef);
+                                } catch (deleteError) {
+                                    console.warn("نەتوانرا وێنەی کۆن بسڕدرێتەوە:", deleteError);
+                                }
+                            }
+                        } else if (sliderImageId) {
+                            // ئەگەر وێنەی نوێ نییە بەڵام دەستکاری دەکرێت، وێنەی کۆن بەکاربهێنە
+                            imageUrl = document.getElementById('sliderCurrentImagePreview').src;
+                        }
+                        
+                        // 3. تۆمارکردنی وینە لە Firebase Database
+                        let sliderRef;
+                        if (sliderImageId) {
+                            // نوێکردنەوەی وینە
+                            sliderRef = firebase.ref(firebase.db, 'sliderImages/' + sliderImageId);
+                        } else {
+                            // زیادکردنی وینەی نوێ
+                            const sliderImagesRef = firebase.ref(firebase.db, 'sliderImages');
+                            sliderRef = firebase.push(sliderImagesRef);
+                        }
+                        
+                        const sliderData = {
+                            name: name,
+                            order: parseInt(order) || 1,
+                            updatedAt: new Date().toISOString()
+                        };
+                        
+                        if (imageUrl) {
+                            sliderData.imageUrl = imageUrl;
+                        }
+                        
+                        if (!sliderImageId) {
+                            sliderData.createdAt = new Date().toISOString();
+                        }
+                        
+                        await firebase.set(sliderRef, sliderData);
+                        
+                        // 4. پاککردنەوەی فۆرم
+                        resetSliderForm();
+                        sliderImageForm.reset();
+                        sliderFileName.textContent = '';
+                        sliderFileInputLabel.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                                <line x1="16" y1="5" x2="22" y2="5"></line>
+                                <line x1="19" y1="2" x2="19" y2="8"></line>
+                                <circle cx="9" cy="9" r="2"></circle>
+                                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                            </svg>
+                            <span>وێنەی سلاید هەڵبژێرە</span>
+                        `;
+                        
+                        // 5. داخستنی فۆرم و گەڕانەوە بۆ پەڕەی سەرەکی
+                        addSliderForm.style.display = 'none';
+                        showAllProducts();
+                        
+                        alert(sliderImageId ? 'وینە بە سەرکەوتوویی نوێ کرایەوە!' : 'وینە بە سەرکەوتوویی زیاد کرا!');
+                        
+                    } catch (error) {
+                        console.error("Error adding/updating slider image:", error);
+                        alert("هەڵە لە زیادکردنی/نوێکردنەوەی وینە: " + error.message);
+                    } finally {
+                        // لادانی loading state
+                        submitSliderBtn.disabled = false;
+                        submitSliderText.textContent = "زیادکردنی وینەی سلاید";
+                        submitSliderSpinner.style.display = 'none';
                     }
                 });
             }
@@ -1808,16 +2449,22 @@
             setTimeout(() => {
                 if (firebaseInitialized) {
                     loadProductsFromFirebase();
+                    loadSliderImagesFromFirebase();
                 } else {
                     // نمایشی کالای بنەڕەتی
                     const defaultProducts = [
-                        { name: "جل", price: "55", priceUSD: "0.04", image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop" },
-                        { name: "کڵاو", price: "23", priceUSD: "0.02", image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=400&h=300&fit=crop" },
-                        { name: "کوپ", price: "45", priceUSD: "0.03", image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=300&fit=crop" }
+                        { name: "جل", price: "55", priceUSD: "0.04", category: "جل", image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop" },
+                        { name: "کڵاو", price: "23", priceUSD: "0.02", category: "کڵاو", image: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=400&h=300&fit=crop" },
+                        { name: "کوپ", price: "45", priceUSD: "0.03", category: "کوپ", image: "https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&h=300&fit=crop" }
                     ];
                     
-                    displayProducts(defaultProducts);
-                    updateImageSlider({});
+                    const productsObj = {};
+                    defaultProducts.forEach((product, index) => {
+                        productsObj[`product${index}`] = product;
+                    });
+                    
+                    globalProductsData = productsObj;
+                    displayProducts(globalProductsData);
                 }
             }, 2000);
         });
