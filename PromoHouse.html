@@ -56,44 +56,53 @@
             font-family: 'Noto Sans Arabic', sans-serif;
         }
         
-        /* ئایکۆنەکان - رەنگی شینی کاڵ */
+        /* ئایکۆنەکان - رەنگی گرادیانتی شین و سنووری سپی وەک کۆدی یەکەم */
         .icon-container {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
-            background: ; /* شینی کاڵ */
-#dbeafe           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            border: 1.5px solid #bfdbfe; /* border شینی کاڵتر */
-            width: 50px;
-            height: 50px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%);
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+            border: 8px solid #bdc3c7;
+            width: 55px;
+            height: 55px;
+            transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .icon-container:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s ease;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.4);
         }
         
         .icon-container svg {
-            stroke: #1e40af; /* شینی تۆختر بۆ ئایکۆنەکان */
-            width: 24px;
-            height: 24px;
+            stroke: white; /* سپی وەک کۆدی یەکەم */
+            width: 28px;
+            height: 28px;
         }
 
-        /* پاشبنەمای شینی کاڵ بۆ هەموو ئایکۆنەکانی سەرەوە */
+        /* پاشبنەمای گرادیانتی شین بۆ هەموو ئایکۆنەکانی سەرەوە */
         .horizontal-icons .icon-container {
-            background: #dbeafe !important; /* شینی کاڵ */
+            background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%) !important;
+            border: 8px solid #bdc3c7 !important;
+            border-radius: 8px !important;
+            width: 55px !important;
+            height: 55px !important;
         }
         
-        /* پاشبنەمای شینی کاڵ بۆ دوگمەکانی کردار */
+        /* پاشبنەمای گرادیانتی شین بۆ دوگمەکانی کردار */
         #callNowBtn .icon-container,
         #sendMessageBtn .icon-container,
         #locationBtn .icon-container,
         #catalogBtn .icon-container,
         #withPriceBtn .icon-container,
         #fibBtn .icon-container {
-            background: #dbeafe !important; /* شینی کاڵ */
+            background: linear-gradient(135deg, #2196F3 0%, #00BCD4 100%) !important;
+            border: 8px solid #bdc3c7 !important;
+            border-radius: 8px !important;
+            width: 55px !important;
+            height: 55px !important;
         }
 
         /* بەشی ڕیکلامی دووێنە (جێی سلایدەر) */
@@ -185,24 +194,22 @@
             justify-content: center;
             width: 100%;
             min-height: 90px;
-            background: #dbeafe; /* شینی کاڵ */
+            background: transparent; /* پاشبنەمای بێ رنگ */
             border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: none; /* سێبەر نەما */
             transition: all 0.3s ease;
             padding: 12px 6px;
             cursor: pointer;
-            border: 1px solid #bfdbfe;
+            border: none; /* سنوور نەما */
         }
         
         .horizontal-icon-item:hover {
             transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            background: #93c5fd;
+            background: transparent; /* پاشبنەمای بێ رنگ */
         }
         
         .horizontal-icon-item.active {
-            background: #3b82f6;
-            color: white;
+            background: transparent; /* پاشبنەمای بێ رنگ */
         }
         
         .horizontal-icon-item.active .icon-container {
@@ -235,19 +242,19 @@
             }
             
             .icon-container {
-                width: 36px;
-                height: 36px;
-                border-radius: 10px;
+                width: 50px;
+                height: 50px;
+                border-radius: 8px;
             }
             
             .icon-container svg {
-                width: 18px;
-                height: 18px;
+                width: 24px;
+                height: 24px;
             }
             
             .horizontal-icon-item {
-                min-height: 70px;
-                padding: 8px 4px;
+                min-height: 80px;
+                padding: 10px 4px;
                 border-radius: 10px;
             }
             
@@ -277,19 +284,19 @@
         
         @media (max-width: 480px) {
             .icon-container {
-                width: 32px;
-                height: 32px;
+                width: 45px;
+                height: 45px;
                 border-radius: 8px;
             }
             
             .icon-container svg {
-                width: 16px;
-                height: 16px;
+                width: 22px;
+                height: 22px;
             }
             
             .horizontal-icon-item {
-                min-height: 65px;
-                padding: 6px 3px;
+                min-height: 75px;
+                padding: 8px 3px;
                 border-radius: 8px;
             }
             
