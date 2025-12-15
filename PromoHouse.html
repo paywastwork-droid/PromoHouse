@@ -533,30 +533,20 @@
         }
         
         /* ستایلەکانی ٦ کاتیگۆرییەکە */
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr) !important;
-            gap: 10px;
-            padding: 0 5px;
-            justify-items: center;
-        }
-        
-        .category-item-under {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            min-height: 85px;
-            background: #fef2f2 !important;
-            border-radius: 12px;
-            box-shadow: none;
-            transition: all 0.3s ease;
-            padding: 10px 5px;
-            cursor: pointer;
-            border: none;
-            text-align: center;
-        }
+     /* هاوشێوەی سەرەوە بۆ هەموو کاتیگۆرییەکان */
+.categories-grid {
+    display: flex !important;  /* گۆڕین بۆ flex لە جیاتی grid */
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0 2px;
+    justify-content: center;
+}
+
+.category-item-under {
+    flex: 1;
+    min-width: calc(16.666% - 6px);  /* 6 دانە لە هێڵێکدا */
+    max-width: calc(16.666% - 6px);
+}
         
         .category-item-under:hover {
             transform: translateY(-5px);
@@ -1530,7 +1520,7 @@
                         </div>
 
                         <!-- نامە -->
-                        <div class="horizontal-icon-item" onclick="openMessage()">
+                        
                             <div class="icon-container mb-1">
                                 <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" alt="نامە">
                             </div>
