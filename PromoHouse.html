@@ -255,57 +255,65 @@
             padding: 20px;
         }
         
-     /* ئایکۆنەکانی سەرەوە بە 2 ڕیز */
-.horizontal-icons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 20px;
-    padding: 0 8px;
-}
-
-.icon-row {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 10px;
-    justify-items: center;
-}      
-        /* ڕیز ٢ - خزمەتگوزارییەکان (پارەدان، کاتالۆگ...) */
-        .icon-row:nth-child(2) {
-            grid-template-columns: repeat(6, 1fr) !important;
-            gap: 4px;
-            justify-items: center;
+        /* دوگمەی بەڕێوەبەر بۆ بانەری ڕیکلام */
+        .promo-admin-actions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+            display: none;
         }
 
-.horizontal-icon-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    min-height: 95px;
-    background: #fef2f2 !important;
-    border-radius: 10px;
-    box-shadow: none;
-    transition: all 0.3s ease;
-    padding: 12px 6px;
-    cursor: pointer;
-    border: 1px solid #fee2e2;
-}
-/* ڕیز 2 - خزمەتگوزارییەکان (پارەدان، کاتالۆگ...) */
-.icon-row:nth-child(2) {
-    grid-template-columns: repeat(6, 1fr) !important;
-    gap: 10px;
-    justify-items: center;
-}
+        .promo-admin-btn {
+            background: rgba(255, 255, 255, 0.9);
+            color: #00BFFF;
+            border: 2px solid #00BFFF;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
 
-.icon-row:nth-child(2) .horizontal-icon-item {
-    min-height: 95px;
-    padding: 12px 6px;
-    border-radius: 10px;
-    background: #f0f9ff !important;
-    border: 1px solid #e0f2fe;
-}
+        .promo-admin-btn:hover {
+            background: #00BFFF;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        /* ئایکۆنەکانی سەرەوە بە 2 ڕیز */
+        .horizontal-icons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .icon-row {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            justify-items: center;
+        }
+        
+        /* ستایلەکانی خزمەتگوزارییەکان */
+        .icon-row .horizontal-icon-item {
+            min-height: 70px;
+            padding: 6px 3px;
+            border-radius: 10px;
+            background: #f0f9ff !important;
+            border: 1px solid #e0f2fe;
+        }
+
+        .icon-row .horizontal-icon-item:hover {
+            transform: translateY(-3px);
+            background: #e0f2fe !important;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+        }
         
         .horizontal-icon-item {
             display: flex;
@@ -910,22 +918,6 @@
                 font-size: 8px !important;
             }
             
-            .grid.grid-cols-3 {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 10px;
-            }
-            
-            #callNowBtn, #sendMessageBtn, #locationBtn,
-            #catalogBtn, #withPriceBtn, #fibBtn {
-                padding: 10px 6px;
-            }
-            
-            .promo-banner-section {
-                height: 140px;
-                border-radius: 15px;
-                margin-bottom: 10px;
-            }
-            
             .two-column-products {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
@@ -993,10 +985,6 @@
             
             .two-column-product-price {
                 font-size: 11px;
-            }
-            
-            .grid.grid-cols-3 {
-                gap: 6px;
             }
         }
         
@@ -1114,215 +1102,85 @@
             border: none;
         }
         
-        /* ستایلەکانی مینۆ (١٢ کاتیگۆری) */
+        /* ستایلەکانی مینۆ (١٢ کاتیگۆری) */ 
         .menu-categories-grid {
             display: grid;
-            grid-template-columns: repeat(6, 1fr) !important;
+            grid-template-columns: repeat(6, 1fr);
             gap: 10px;
-            padding: 0 5px;
-            justify-items: center;
             margin-bottom: 20px;
         }
-        
+
         .menu-category-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 100%;
-            min-height: 80px;
-            background: white !important;
-            border-radius: 12px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            padding: 10px 5px;
+            padding: 8px;
             cursor: pointer;
-            border: 2px solid #e5e7eb;
+            border: 1px solid #bae6fd;
+            transition: all 0.3s ease;
             text-align: center;
         }
-        
-        .menu-category-item:hover {
-            transform: translateY(-5px);
-            background: #f0f9ff !important;
-            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+
+        .menu-category-item:hover,
+        .menu-category-item.active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,191,255,0.2);
             border-color: #38bdf8;
         }
-        
+
         .menu-category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #00BFFF 0%, #1DA1F2 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 8px;
-            background: linear-gradient(135deg, #00BFFF 0%, #1DA1F2 100%) !important;
-            box-shadow: 0 3px 10px rgba(0, 191, 255, 0.4) !important;
-            border: 6px solid #D3D3D3 !important;
-            width: 50px;
-            height: 50px;
-            margin-bottom: 8px;
-            transition: all 0.3s ease;
+            margin-bottom: 6px;
         }
-        
+
         .menu-category-icon img {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             filter: brightness(0) invert(1);
         }
-        
-        .menu-category-item:hover .menu-category-icon {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.5) !important;
-        }
-        
-        .menu-category-text {
-            font-size: 10px !important;
-            font-weight: 600;
-            color: #334155;
-            text-align: center;
-            line-height: 1.2;
-        }
-        /* وەڵامدانەوەی پانەکارییەکان بۆ شاشەی بچووک */
-@media (max-width: 768px) {
-    .icon-row:nth-child(1) {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-    
-    .icon-row:nth-child(1) .horizontal-icon-item {
-        flex: 0 0 calc(33.333% - 8px);
-        min-width: 0;
-    }
-    
-    .promo-banner-section {
-        height: 150px;
-        padding: 15px;
-    }
-    
-    .promo-banner-title {
-        font-size: 1.3rem;
-    }
-    
-    .promo-banner-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .discount-badge {
-        font-size: 1.1rem;
-        padding: 6px 15px;
-    }
-}
 
-@media (max-width: 480px) {
-    .icon-row:nth-child(1) .horizontal-icon-item {
-        flex: 0 0 calc(50% - 8px);
-    }
-    
-    .promo-banner-section {
-        height: 130px;
-        padding: 10px;
-    }
-    
-    .promo-banner-title {
-        font-size: 1.1rem;
-    }
-    
-    .promo-banner-subtitle {
-        font-size: 0.8rem;
-    }
-    
-    .discount-badge {
-        font-size: 1rem;
-        padding: 5px 12px;
-    }
-}
+        .menu-category-text {
+            font-size: 10px;
+            font-weight: 600;
+            color: #0c4a6e;
+        }
+
+        /* Responsive - tablets */
         @media (max-width: 768px) {
             .menu-categories-grid {
-                grid-template-columns: repeat(4, 1fr) !important;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
             }
-        }/* ===== Mobile Unified Categories ===== */
-/* ===== FIX: Unified Top Categories (Mobile Only) ===== */
-@media (max-width: 480px) {
+        }
 
-  /* هەموو بەشەکە */
-  .horizontal-icons {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-    padding: 6px !important;
-    background: #ffffff !important;
-    border-radius: 14px !important;
-  }
-
-  /* هەردوو ڕیز = یەک grid */
-  .horizontal-icons .icon-row {
-    display: grid !important;
-    grid-template-columns: repeat(6, 1fr) !important;
-    gap: 4px !important;
-    justify-items: center !important;
-  }
-
-  /* هەردوو ڕیز = یەک ستایل */
-  .horizontal-icons .horizontal-icon-item,
-  .horizontal-icons .icon-row:nth-child(2) .horizontal-icon-item {
-    min-height: 56px !important;
-    padding: 4px 2px !important;
-    border-radius: 10px !important;
-    background: #ffffff !important;
-    border: 1px solid #e5e7eb !important;
-    box-shadow: none !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  /* ئایکۆن */
-  .horizontal-icons .icon-container {
-    width: 34px !important;
-    height: 34px !important;
-    border-radius: 8px !important;
-    border: 3px solid #d1d5db !important;
-    background: linear-gradient(135deg,#00BFFF,#1DA1F2) !important;
-    box-shadow: none !important;
-  }
-
-  .horizontal-icons .icon-container img {
-    width: 15px !important;
-    height: 15px !important;
-  }
-
-  /* نوسین */
-  .horizontal-icons .horizontal-icon-item span {
-    font-size: 8px !important;
-    font-weight: 600 !important;
-    margin-top: 3px !important;
-    color: #374151 !important;
-    text-align: center !important;
-    line-height: 1.1 !important;
-  }
-
-  /* active */
-  .horizontal-icons .horizontal-icon-item.active {
-    background: #f0f9ff !important;
-    border-color: #00BFFF !important;
-  }
-
-  .horizontal-icons .horizontal-icon-item.active span {
-    color: #00BFFF !important;
-  }
-}
-
-
-  .horizontal-icon-item.active .icon-container {
-    background: #fff;
-    border-color: #00BFFF;
-  }
-
-  .horizontal-icon-item.active img {
-    filter: none;
-  }
-}
+        /* Responsive - mobile */
+        @media (max-width: 480px) {
+            .menu-categories-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 6px;
+            }
+            .menu-category-icon {
+                width: 35px;
+                height: 35px;
+            }
+            .menu-category-icon img {
+                width: 18px;
+                height: 18px;
+            }
+            .menu-category-text {
+                font-size: 9px;
+            }
+        }
 
     </style>
 </head>
@@ -1437,65 +1295,14 @@
                 <h3 class="text-xl font-bold mb-4 text-gray-800 text-center"></h3>
                 
                 <div class="horizontal-icons">
-                    <!-- ڕیز ١ - ٦ دانە: کاتیگۆرییە ئەسڵیەکان -->
-                    <div class="icon-row mb-1">
-                        <!-- کوپ -->
-                        <div class="horizontal-icon-item menu-category-item" data-category="کوپ" onclick="showProductsForCategory('کوپ')">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=26399&format=png&color=000000" alt="کوپ">
-                            </div>
-                            <span class="text-xs font-medium mt-1">کوپ</span>
-                        </div>
-
-                        <!-- جانتا -->
-                        <div class="horizontal-icon-item menu-category-item" data-category="جانتا" onclick="showProductsForCategory('جانتا')">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=21821&format=png&color=000000" alt="جانتا">
-                            </div>
-                            <span class="text-xs font-medium mt-1">جانتا</span>
-                        </div>
-
-                        <!-- پێنووس -->
-                        <div class="horizontal-icon-item menu-category-item" data-category="پێنووس" onclick="showProductsForCategory('پێنووس')">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=INMLqlnkosRi&format=png&color=000000" alt="پێنووس">
-                            </div>
-                            <span class="text-xs font-medium mt-1">پێنووس</span>
-                        </div>
-
-                        <!-- دەفتەر -->
-                        <div class="horizontal-icon-item menu-category-item" data-category="دەفتەر" onclick="showProductsForCategory('دەفتەر')">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=lWpgOhnjmqiV&format=png&color=000000" alt="دەفتەr">
-                            </div>
-                            <span class="text-xs font-medium mt-1">دەفتەر</span>
-                        </div>
-
-                        <!-- جل -->
-                        <div class="horizontal-icon-item menu-category-item" data-category="جل" onclick="showProductsForCategory('جل')">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=Sf2N9R3FTW8V&format=png&color=000000" alt="جل">
-                            </div>
-                            <span class="text-xs font-medium mt-1">جل</span>
-                        </div>
-
-                        <!-- کڵاو -->
-                        <div class="horizontal-icon-item menu-category-item" data-category="کڵاو" onclick="showProductsForCategory('کڵاو')">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=69370&format=png&color=000000" alt="کڵاو">
-                            </div>
-                            <span class="text-xs font-medium mt-1">کڵاو</span>
-                        </div>
-                    </div>
-                    
-                    <!-- ڕیز ٢ - ٦ دانە: خزمەتگوزارییەکان -->
+                    <!-- ڕیز ١ - خزمەتگوزارییەکان -->
                     <div class="icon-row">
-                        <!-- پارەدان -->
-                        <div class="horizontal-icon-item" onclick="document.getElementById('fibModal').style.display='flex'">
+                        <!-- پەیوەندی -->
+                        <div class="horizontal-icon-item" onclick="openContact()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/color/96/000000/bank-card-back-side.png" alt="پارەدان">
+                                <img src="https://img.icons8.com/color/96/000000/phone.png" alt="پەیوەندی">
                             </div>
-                            <span class="text-xs font-medium mt-1">پارەدان</span>
+                            <span class="text-xs font-medium mt-1">پەیوەندی</span>
                         </div>
 
                         <!-- کاتالۆگ -->
@@ -1506,22 +1313,6 @@
                             <span class="text-xs font-medium mt-1">کاتالۆگ</span>
                         </div>
 
-                        <!-- ناونیشان -->
-                        <div class="horizontal-icon-item" onclick="openLocation()">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/color/96/000000/map-pin.png" alt="ناونیشان">
-                            </div>
-                            <span class="text-xs font-medium mt-1">ناونیشان</span>
-                        </div>
-
-                        <!-- پەیوەندی -->
-                        <div class="horizontal-icon-item" onclick="openContact()">
-                            <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/color/96/000000/phone.png" alt="پەیوەندی">
-                            </div>
-                            <span class="text-xs font-medium mt-1">پەیوەندی</span>
-                        </div>
-
                         <!-- نرخەکان -->
                         <div class="horizontal-icon-item" onclick="openPricing()">
                             <div class="icon-container mb-1">
@@ -1530,42 +1321,50 @@
                             <span class="text-xs font-medium mt-1">نرخەکان</span>
                         </div>
 
-                        <!-- نامە -->
-                        <div class="horizontal-icon-item" onclick="openMessage()">
+                        <!-- ناونیشان -->
+                        <div class="horizontal-icon-item" onclick="openLocation()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/color/96/000000/speech-bubble.png" alt="نامە">
+                                <img src="https://img.icons8.com/color/96/000000/map-pin.png" alt="ناونیشان">
                             </div>
-                            <span class="text-xs font-medium mt-1">نامە</span>
+                            <span class="text-xs font-medium mt-1">ناونیشان</span>
+                        </div>
+
+                        <!-- پارەدان -->
+                        <div class="horizontal-icon-item" onclick="document.getElementById('fibModal').style.display='flex'">
+                            <div class="icon-container mb-1">
+                                <img src="https://img.icons8.com/color/96/000000/bank-card-back-side.png" alt="پارەدان">
+                            </div>
+                            <span class="text-xs font-medium mt-1">پارەدان</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-        <!-- 2. سلایدەر (ڕیکلام) -->
-<div class="mb-4">
-    <div class="promo-banner-section" id="promoBanner">
-        <!-- دوگمەی بەڕێوەبەر -->
-        <div class="promo-admin-actions" id="promoAdminActions" style="display: none;">
-            <button onclick="showAddPromoForm()" class="promo-admin-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-                گۆڕینی ڕیکلام
-            </button>
-        </div>
-        
-        <!-- وێنەی ڕیکلام -->
-        <img id="promoBannerImage" src="" alt="بانەری ڕیکلام" class="promo-banner-image" ="display: none;">
-        
-        <!-- ناوەڕۆکی ڕیکلام -->
-        <div class="promo-banner-content">
-            <div id="promoBannerTitle" class="promo-banner-title">کاتیگۆریە سەرەکیەکان: کوب، جانتا، پێینووس، جل، کڵاو</div>
-            <div id="promoBannerSubtitle" class="promo-banner-subtitle">کۆمەڵێک جۆری جیاواز بە نرخێکی گونجاو</div>
-            <div id="promoBannerDiscount" class="discount-badge">داشکاندن تایبەت!</div>
-        </div>
-    </div>
-</div>
+            <!-- 2. سلایدەر (ڕیکلام) -->
+            <div class="mb-4">
+                <div class="promo-banner-section" id="promoBanner">
+                    <!-- دوگمەی بەڕێوەبەر -->
+                    <div class="promo-admin-actions" id="promoAdminActions" style="display: none;">
+                        <button onclick="showAddPromoForm()" class="promo-admin-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            گۆڕینی ڕیکلام
+                        </button>
+                    </div>
+                    
+                    <!-- وێنەی ڕیکلام -->
+                    <img id="promoBannerImage" src="" alt="بانەری ڕیکلام" class="promo-banner-image" style="display: none;">
+                    
+                    <!-- ناوەڕۆکی ڕیکلام -->
+                    <div class="promo-banner-content">
+                        <div id="promoBannerTitle" class="promo-banner-title">ڕێگایەکی سەرنجڕاکێش بۆ کڕین!</div>
+                        <div id="promoBannerSubtitle" class="promo-banner-subtitle">کاڵا جیاوازەکان بە نرخی خۆش بەردەستن</div>
+                        <div id="promoBannerDiscount" class="discount-badge">داشکاندن هەیە!</div>
+                    </div>
+                </div>
+            </div>
 
             <!-- 3. وێنەی کالاکان بە دوو سانیە -->
             <div class="mb-4" id="mainProductsSection">
@@ -1576,9 +1375,9 @@
                 </div>
             </div>
 
-            <!-- 4. کاتیگۆرییەکانی خوارەوە (پانی) - ٦ کاتیگۆری -->
+            <!-- 4. کاتیگۆریەکانی خوارەوە (پانی) - ٦ کاتیگۆری -->
             <div class="bottom-categories-pani" id="bottomCategoriesPaniSection">
-                <div class="bottom-categories-pani-title">کاتیگۆرییەکانی تر</div>
+                <div class="bottom-categories-pani-title">کاتیگۆریەکانی تر</div>
                 <div class="categories-grid-pani">
                     <!-- کاتیگۆرییەکان داینامیکی زیاد دەکرێن -->
                 </div>
@@ -1597,7 +1396,7 @@
                     
                     <div class="form-group">
                         <label for="customerPhone">ژمارەی مۆبایل:</label>
-                        <input type="tel" id="customerPhone" placeholder="٠٧٧٠ ١٩٢ ٢٠٦٠" required>
+                        <input type="tel" id="customerPhone" placeholder="0770" required>
                     </div>
                     
                     <div class="form-group">
@@ -1749,7 +1548,7 @@
                             <option value="کوپ">کوپ</option>
                             <option value="جانتا">جانتا</option>
                             <option value="پێنووس">پێنووس</option>
-                            <option value="دەفتەr">دەفتەر</option>
+                            <option value="دەفتەر">دەفتەر</option>
                             <option value="جل">جل</option>
                             <option value="کڵاو">کڵاو</option>
                             <option value="جوانکاری">جوانکاری</option>
@@ -1890,7 +1689,6 @@
                     </table>
                 </div>
             </div>
-
           
 
     <!-- Bottom Navigation - دوگمەکانی خوارەوە -->
@@ -2109,181 +1907,184 @@
         </div>
     </div>
 
-    <!-- Orders Page (مینۆ) -->
-    <div id="ordersPage" class="modal">
-        <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">مینۆ - ١٢ کاتیگۆرییەکانی کالاکان</h3>
+<!-- Orders Page (مینۆ) - بە ١٢ کاتیگۆری درستی -->
+<div id="ordersPage" class="modal">
+    <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">مینۆ - ١٢ کاتیگۆرییەکانی کالاکان</h3>
+        
+        <!-- ١٢ کاتیگۆری لە مینۆ - دوو ڕیز ٦ ٦ -->
+        <div class="menu-categories-grid" id="menuCategoriesGrid">
+            <!-- ڕیزی یەکەم - ٦ کاتیگۆری -->
             
-            <!-- ١٢ کاتیگۆری لە مینۆ -->
-            <div class="menu-categories-grid" id="menuCategoriesGrid">
-                <!-- کوپ -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کوپ')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=26399&format=png&color=000000" alt="کوپ">
-                    </div>
-                    <span class="menu-category-text">کوپ</span>
+            <!-- کوپ -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کوپ')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=26399&format=png&color=000000" alt="کوپ">
                 </div>
-                
-                <!-- جانتا -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('جانتا')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=21821&format=png&color=000000" alt="جانتا">
-                    </div>
-                    <span class="menu-category-text">جانتا</span>
-                </div>
-                
-                <!-- پێنووس -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('پێنووس')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=INMLqlnkosRi&format=png&color=000000" alt="پێنووس">
-                    </div>
-                    <span class="menu-category-text">پێنووس</span>
-                </div>
-                
-                <!-- دەفتەر -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('دەفتەر')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=lWpgOhnjmqiV&format=png&color=000000" alt="دەفتەر">
-                    </div>
-                    <span class="menu-category-text">دەفتەر</span>
-                </div>
-                
-                <!-- جل -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('جل')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=Sf2N9R3FTW8V&format=png&color=000000" alt="جل">
-                    </div>
-                    <span class="menu-category-text">جل</span>
-                </div>
-                
-                <!-- کڵاو -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کڵاو')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=69370&format=png&color=000000" alt="کڵاو">
-                    </div>
-                    <span class="menu-category-text">کڵاو</span>
-                </div>
-                
-                <!-- تەرمۆزە -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('تەرمۆزە')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=RaIfhU5CV80w&format=png&color=000000" alt="تەرمۆزە">
-                    </div>
-                    <span class="menu-category-text">تەرمۆزە</span>
-                </div>
-                
-                <!-- کرێکار -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کرێکار')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=ZTEYS2dDdsgY&format=png&color=000000" alt="کرێکار">
-                    </div>
-                    <span class="menu-category-text">کرێکار</span>
-                </div>
-                
-                <!-- شتی تر -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('شتی تر')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=000000" alt="شتی تر">
-                    </div>
-                    <span class="menu-category-text">شتی تر</span>
-                </div>
-                
-                <!-- جوانکاری -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('جوانکاری')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=2ZmdP6dei3i3&format=png&color=000000" alt="جوانکاری">
-                    </div>
-                    <span class="menu-category-text">جوانکاری</span>
-                </div>
-                
-                <!-- کەل و پەل -->
-                <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کەل و پەل')">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=8LbaJ1j48pyk&format=png&color=000000" alt="کەل و پەل">
-                    </div>
-                    <span class="menu-category-text">کەل و پەل</span>
-                </div>
-                
-                <!-- هەموو کاڵاکان -->
-                <div class="menu-category-item active" onclick="showAllProductsForMenu()">
-                    <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/?size=100&id=wBXGNMWgFzHn&format=png&color=000000" alt="هەموو کاڵاکان">
-                    </div>
-                    <span class="menu-category-text">هەموو کالاکان</span>
-                </div>
+                <span class="menu-category-text">کوپ</span>
             </div>
             
-            <!-- کالاکانی کاتیگۆرییەکە -->
-            <div id="menuProductsContainer" style="display: none;">
-                <h4 class="font-bold mb-3 text-gray-700" id="menuProductsTitle">کالاکانی <span id="menuCategoryName"></span></h4>
-                <div class="two-column-products mb-6" id="menuProductsList">
-                    <!-- کالاکان داینامیکی زیاد دەکرێن -->
+            <!-- جانتا -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('جانتا')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=21821&format=png&color=000000" alt="جانتا">
                 </div>
-                <button onclick="backToMenuCategories()" class="submit-btn bg-gray-500 hover:bg-gray-600 w-full">
-                    گەڕانەوە بۆ کاتیگۆرییەکان
+                <span class="menu-category-text">جانتا</span>
+            </div>
+            
+            <!-- پێنووس -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('پێنووس')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=INMLqlnkosRi&format=png&color=000000" alt="پێنووس">
+                </div>
+                <span class="menu-category-text">پێنووس</span>
+            </div>
+            
+            <!-- دەفتەر -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('دەفتەر')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=lWpgOhnjmqiV&format=png&color=000000" alt="دەفتەر">
+                </div>
+                <span class="menu-category-text">دەفتەر</span>
+            </div>
+            
+            <!-- جل -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('جل')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=Sf2N9R3FTW8V&format=png&color=000000" alt="جل">
+                </div>
+                <span class="menu-category-text">جل</span>
+            </div>
+            
+            <!-- کڵاو -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کڵاو')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=69370&format=png&color=000000" alt="کڵاو">
+                </div>
+                <span class="menu-category-text">کڵاو</span>
+            </div>
+            
+            <!-- ڕیزی دووەم - ٦ کاتیگۆری -->
+            
+            <!-- جوانکاری -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('جوانکاری')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=2ZmdP6dei3i3&format=png&color=000000" alt="جوانکاری">
+                </div>
+                <span class="menu-category-text">جوانکاری</span>
+            </div>
+            
+            <!-- کەل و پەل -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کەل و پەل')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=8LbaJ1j48pyk&format=png&color=000000" alt="کەل و پەل">
+                </div>
+                <span class="menu-category-text">کەل و پەل</span>
+            </div>
+            
+            <!-- تەرمۆزە -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('تەرمۆزە')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=RaIfhU5CV80w&format=png&color=000000" alt="تەرمۆزە">
+                </div>
+                <span class="menu-category-text">تەرمۆزە</span>
+            </div>
+            
+            <!-- کرێکار -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('کرێکار')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=ZTEYS2dDdsgY&format=png&color=000000" alt="کرێکار">
+                </div>
+                <span class="menu-category-text">کرێکار</span>
+            </div>
+            
+            <!-- شتی تر -->
+            <div class="menu-category-item" onclick="showProductsForCategoryInMenu('شتی تر')">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=36389&format=png&color=000000" alt="شتی تر">
+                </div>
+                <span class="menu-category-text">شتی تر</span>
+            </div>
+            
+            <!-- هەموو کاڵاکان -->
+            <div class="menu-category-item active" onclick="showAllProductsForMenu()">
+                <div class="menu-category-icon">
+                    <img src="https://img.icons8.com/?size=100&id=wBXGNMWgFzHn&format=png&color=000000" alt="هەموو کاڵاکان">
+                </div>
+                <span class="menu-category-text">هەموو کالاکان</span>
+            </div>
+        </div>
+        
+        <!-- کالاکانی کاتیگۆرییەکە -->
+        <div id="menuProductsContainer" style="display: none;">
+            <h4 class="font-bold mb-3 text-gray-700" id="menuProductsTitle">کالاکانی <span id="menuCategoryName"></span></h4>
+            <div class="two-column-products mb-6" id="menuProductsList">
+                <!-- کالاکان داینامیکی زیاد دەکرێن -->
+            </div>
+            <button onclick="backToMenuCategories()" class="submit-btn bg-gray-500 hover:bg-gray-600 w-full">
+                گەڕانەوە بۆ کاتیگۆرییەکان
+            </button>
+        </div>
+        
+        <!-- فۆرمی داواکاری کاتێک کالا هەڵبژێردرا -->
+        <div id="orderFormSection" style="display: none;">
+            <h4 class="font-bold mb-3 text-gray-700" id="orderFormTitle">داواکاری کالا</h4>
+            <form id="orderForm" class="mb-4">
+                <input type="hidden" id="selectedProductName" value="">
+                <input type="hidden" id="selectedProductPrice" value="">
+                
+                <div class="form-group">
+                    <label for="orderCustomerName">ناوی کڕیار:</label>
+                    <input type="text" id="orderCustomerName" placeholder="ناوەکەت بنووسە" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="orderPhoneNumber">ژمارەی تەلەفۆن:</label>
+                    <input type="tel" id="orderPhoneNumber" placeholder="٠٧٧٠ ١٩٢ ٢٠٦٠" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="orderQuantity">ژمارەی کالا:</label>
+                    <input type="number" id="orderQuantity" placeholder="ژمارە" min="1" value="1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="orderNotes">تێبینی:</label>
+                    <textarea id="orderNotes" placeholder="تێبینییەکانی تر..." rows="2"></textarea>
+                </div>
+                
+                <div class="flex gap-2">
+                    <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 flex-1" id="submitOrderBtn">
+                        <span id="submitOrderText">ناردنی داواکاری</span>
+                        <div id="submitOrderSpinner" class="loading-spinner" style="display: none;"></div>
+                    </button>
+                    <button type="button" onclick="backToMenuProducts()" class="submit-btn bg-gray-500 hover:bg-gray-600">
+                        گەڕانەوە
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- بەشی بینینی داواکارییەکان (تەنها بۆ بەڕێوەبەر) -->
+        <div id="adminOrdersSection" style="display: none; margin-top: 20px;">
+            <h4 class="font-bold mb-3 text-gray-700 border-b pb-2">داواکارییەکان</h4>
+            <div id="ordersList" class="bg-gray-50 p-3 rounded-lg max-h-60 overflow-y-auto">
+                <!-- داواکارییەکان دێنە ئێرە -->
+            </div>
+            
+            <div class="flex gap-2 mt-3">
+                <button onclick="markAllOrdersAsRead()" class="submit-btn bg-blue-600 hover:bg-blue-700 flex-1">
+                    نیشانەکردن وەک خوێندراوە
+                </button>
+                <button onclick="deleteAllOrders()" class="submit-btn bg-red-600 hover:bg-red-700 flex-1">
+                    سڕینەوەی هەموو
                 </button>
             </div>
-            
-            <!-- یان کاتێک کالا هەڵبژێردرا -->
-            <div id="orderFormSection" style="display: none;">
-                <h4 class="font-bold mb-3 text-gray-700" id="orderFormTitle">داواکاری کالا</h4>
-                <form id="orderForm" class="mb-4">
-                    <input type="hidden" id="selectedProductName" value="">
-                    <input type="hidden" id="selectedProductPrice" value="">
-                    
-                    <div class="form-group">
-                        <label for="orderCustomerName">ناوی کڕیار:</label>
-                        <input type="text" id="orderCustomerName" placeholder="ناوەکەت بنووسە" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="orderPhoneNumber">ژمارەی تەلەفۆن:</label>
-                        <input type="tel" id="orderPhoneNumber" placeholder="٠٧٧٠ ١٩٢ ٢٠٦٠" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="orderQuantity">ژمارەی کالا:</label>
-                        <input type="number" id="orderQuantity" placeholder="ژمارە" min="1" value="1" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="orderNotes">تێبینی:</label>
-                        <textarea id="orderNotes" placeholder="تێبینییەکانی تر..." rows="2"></textarea>
-                    </div>
-                    
-                    <div class="flex gap-2">
-                        <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 flex-1" id="submitOrderBtn">
-                            <span id="submitOrderText">ناردنی داواکاری</span>
-                            <div id="submitOrderSpinner" class="loading-spinner" style="display: none;"></div>
-                        </button>
-                        <button type="button" onclick="backToMenuProducts()" class="submit-btn bg-gray-500 hover:bg-gray-600">
-                            گەڕانەوە
-                        </button>
-                    </div>
-                </form>
-            </div>
-            
-            <!-- بەشی بینینی داواکارییەکان (تەنها بۆ بەڕێوەبەر) -->
-            <div id="adminOrdersSection" style="display: none; margin-top: 20px;">
-                <h4 class="font-bold mb-3 text-gray-700 border-b pb-2">داواکارییەکان</h4>
-                <div id="ordersList" class="bg-gray-50 p-3 rounded-lg max-h-60 overflow-y-auto">
-                    <!-- داواکارییەکان دێنە ئێرە -->
-                </div>
-                
-                <div class="flex gap-2 mt-3">
-                    <button onclick="markAllOrdersAsRead()" class="submit-btn bg-blue-600 hover:bg-blue-700 flex-1">
-                        نیشانەکردن وەک خوێندراوە
-                    </button>
-                    <button onclick="deleteAllOrders()" class="submit-btn bg-red-600 hover:bg-red-700 flex-1">
-                        سڕینەوەی هەموو
-                    </button>
-                </div>
-            </div>
-            
-            <button id="closeOrdersBtn" class="close-btn action-button w-full mt-4">گەڕانەوە</button>
         </div>
+        
+        <button id="closeOrdersBtn" class="close-btn action-button w-full mt-4">گەڕانەوە</button>
     </div>
-
+</div>
     <!-- Approval Management Modal -->
     <div id="approvalModal" class="modal">
         <div class="modal-content" style="max-width: 800px; max-height: 90vh;">
@@ -3391,14 +3192,6 @@
             window.showProductsForCategory = function(category) {
                 currentCategory = category;
                 
-                // چالاککردنی کاتیگۆرییەکانی سەرەوە
-                document.querySelectorAll('.menu-category-item').forEach(item => {
-                    item.classList.remove('active');
-                    if (item.getAttribute('data-category') === category) {
-                        item.classList.add('active');
-                    }
-                });
-                
                 displayProducts(globalProductsData, category);
                 
                 document.getElementById('allProductsSection').style.display = 'none';
@@ -3447,7 +3240,7 @@
 
             window.openLocation = function() {
                 // کردنەوەی ناونیشان لە گووگڵ مەپس
-                const googleMapsUrl = "https://www.google.com/maps/place/PromoHouse,+Sulaymaniyah,+Sulaymaniyah+Governorate,+46020/@35.5863784,45.4066421,16z/data=!4m6!3m5!1s0x40002d43b52a1ec5:0x4e15bca6a560211!8m2!3d35.5863784!4d45.4066421!16s%2Fg%2F11mrwjfxtf?g_ep=Eg1tbF8yMDI5MTExNV8wIOC7DCoASAJQAg%3D%3D";
+                const googleMapsUrl = "https://www.google.com/maps/place/PromoHouse,+Sulaymaniyah,+Sulaymaniyah+Governorate,+46020/@35.5863784,45.4066421,16z/data=!4m6!3m5!1s0x40002d43b52a1ec5:0x4e15bca6a560211!8m2!3d35.5863784!4d45.4066421!16s%2Fg%2F11mrwjfxtf?g_ep=Eg1tbF8yMDI9MTExNV8wIOC7DCoASAJQAg%3D%3D";
                 window.open(googleMapsUrl, '_blank');
             };
 
@@ -4696,7 +4489,7 @@
                 }
             }
             
-            // چاککردنی کاتیگۆریەکانی خوارەوە
+            // فەنکشن بۆ نیشاندانی کاتیگۆریەکانی خوارەوە (پانی)
             function displayBottomCategories() {
                 const categories = [
                     { name: 'تەرمۆزە', icon: 'https://img.icons8.com/color/96/000000/watermelon.png' },
