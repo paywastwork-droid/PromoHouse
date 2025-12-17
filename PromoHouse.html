@@ -108,20 +108,51 @@
             font-weight: 600;
             color: #0c4a6e;
         }
-        
-        @media (max-width: 768px) {
-            .menu-categories-grid {
-                grid-template-columns: repeat(4, 1fr);
-                gap: 8px;
-            }
-        }
+        /* ئەمە زیاد بکە لە سەرەتای CSS */
+html, body {
+    background-color: white !important;
+    background: white !important;
+}
 
-        @media (max-width: 480px) {
-            .menu-categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 6px;
-            }
-        }
+/* ئەمە وا بەجێ بهێڵە (کۆدەکەی تۆ بۆ مینۆ) */
+@media (max-width: 768px) {
+    .menu-categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+}
+      @media (max-width: 768px) {
+    /* پاشبنەما بە رەساسی ڕۆناک */
+    html, body {
+        background-color: #f3f4f6 !important; /* light gray */
+        background: #f3f4f6 !important;
+    }
+    
+    .menu-categories-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    html, body {
+        background-color: #f3f4f6 !important; /* light gray */
+        background: #f3f4f6 !important;
+    }
+    
+    .menu-categories-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+}
+
         
         /* ستایلەکانی خزمەتگوزارییەکان */
         .icon-container {
@@ -915,6 +946,7 @@
             box-shadow: 0 8px 25px rgba(56, 189, 248, 0.4);
         }
 
+
         @keyframes logoFloat {
             0%, 100% { transform: translateY(0) rotate(0deg); }
             25% { transform: translateY(-5px) rotate(1deg); }
@@ -987,6 +1019,22 @@
                             </svg>
                             <span class="admin-dashboard-text">پەسەندکردنەکان</span>
                             <span id="approvalBadge" class="notification-badge" style="position: static; margin-top: 5px; display: none;">0</span>
+                        </div>
+                        
+                        <div class="admin-dashboard-btn" onclick="showSellerProductsView()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="admin-dashboard-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            <span class="admin-dashboard-text">کالای فرۆشیار</span>
+                            <span id="sellerProductsBadge" class="notification-badge" style="position: static; margin-top: 5px; display: none;">0</span>
+                        </div>
+                        
+                        <div class="admin-dashboard-btn" onclick="showCustomerRequestsView()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="admin-dashboard-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span class="admin-dashboard-text">داواکاری کڕیار</span>
+                            <span id="customerRequestsBadge" class="notification-badge" style="position: static; margin-top: 5px; display: none;">0</span>
                         </div>
                         
                         <div class="admin-dashboard-btn" onclick="showOrdersManager()">
@@ -1605,15 +1653,7 @@
                     </div>
                 </div>
             </div>
-            
-            <div class="flex gap-2">
-                <button onclick="callPhone('07717858787')" class="submit-btn bg-green-600 hover:bg-green-700 flex-1">
-                    پەیوەندی تەلەفۆنی
-                </button>
-                <button onclick="sendEmail()" class="submit-btn bg-blue-600 hover:bg-blue-700 flex-1">
-                    ناردنی ئیمەیڵ
-                </button>
-            </div>
+      
             
             <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
         </div>
@@ -1622,7 +1662,7 @@
     <!-- Orders Page (مینۆ) -->
     <div id="ordersPage" class="modal">
         <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">مینۆ - ١٢ کاتیگۆرییەکانی کالاکان</h3>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center"> کالاکان</h3>
             
             <div class="menu-categories-grid" id="menuCategoriesGrid">
                 <!-- کوپ -->
@@ -1823,16 +1863,81 @@
                 </div>
             </div>
             
-            <div class="flex gap-2 mt-4">
-                <button onclick="markAllAsApproved()" class="submit-btn bg-green-600 hover:bg-green-700 flex-1">
-                    پەسەندکردنی هەموو
+       
+            
+            <button onclick="closeApprovalModal()" class="close-btn action-button w-full mt-3">
+                داخستن
+            </button>
+        </div>
+    </div>
+
+    <!-- فۆرمی بینینی کالای فرۆشیار -->
+    <div id="sellerProductsView" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px; max-height: 90vh;">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">کالاکانی فرۆشیار</h3>
+            
+            <div class="tabs flex mb-4 border-b">
+                <button class="tab-btn active px-4 py-2 border-b-2 border-blue-500 font-bold" onclick="showSellerProductsTab('pending')">
+                    بۆ پەسەندکردن (نوێ: <span id="sellerPendingCount">0</span>)
                 </button>
-                <button onclick="deleteAllPending()" class="submit-btn bg-red-600 hover:bg-red-700 flex-1">
-                    ڕەتکردنەوەی هەموو
+                <button class="tab-btn px-4 py-2" onclick="showSellerProductsTab('approved')">
+                    پەسەندکراوەکان
+                </button>
+                <button class="tab-btn px-4 py-2" onclick="showSellerProductsTab('rejected')">
+                    ڕەتکراوەکان
                 </button>
             </div>
             
-            <button onclick="closeApprovalModal()" class="close-btn action-button w-full mt-3">
+            <div id="sellerPendingList" class="tab-content space-y-3 max-h-60 overflow-y-auto">
+                <!-- کالاکانی بۆ پەسەندکردن لێرە دێن -->
+            </div>
+            
+            <div id="sellerApprovedList" class="tab-content space-y-3 max-h-60 overflow-y-auto" style="display: none;">
+                <!-- کالاکانی پەسەندکراو لێرە دێن -->
+            </div>
+            
+            <div id="sellerRejectedList" class="tab-content space-y-3 max-h-60 overflow-y-auto" style="display: none;">
+                <!-- کالاکانی ڕەتکراو لێرە دێن -->
+            </div>
+            
+            <button onclick="closeSellerProductsView()" class="close-btn action-button w-full mt-3">
+                داخستن
+            </button>
+        </div>
+    </div>
+
+    <!-- فۆرمی بینینی داواکاری فرۆشیار -->
+    <div id="customerRequestsView" class="modal" style="display: none;">
+        <div class="modal-content" style="max-width: 800px; max-height: 90vh;">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">داواکاریەکانی کڕیار</h3>
+            
+            <div class="tabs flex mb-4 border-b">
+                <button class="tab-btn active px-4 py-2 border-b-2 border-blue-500 font-bold" onclick="showCustomerRequestsTab('pending')">
+                    بۆ پەسەندکردن (نوێ: <span id="requestsPendingCount">0</span>)
+                </button>
+                <button class="tab-btn px-4 py-2" onclick="showCustomerRequestsTab('approved')">
+                    پەسەندکراوەکان
+                </button>
+                <button class="tab-btn px-4 py-2" onclick="showCustomerRequestsTab('rejected')">
+                    ڕەتکراوەکان
+                </button>
+            </div>
+            
+            <div id="customerPendingList" class="tab-content space-y-3 max-h-60 overflow-y-auto">
+                <!-- داواکاریەکانی بۆ پەسەندکردن لێرە دێن -->
+            </div>
+            
+            <div id="customerApprovedList" class="tab-content space-y-3 max-h-60 overflow-y-auto" style="display: none;">
+                <!-- داواکاریەکانی پەسەندکراو لێرە دێن -->
+            </div>
+            
+            <div id="customerRejectedList" class="tab-content space-y-3 max-h-60 overflow-y-auto" style="display: none;">
+                <!-- داواکاریەکانی ڕەتکراو لێرە دێن -->
+            </div>
+            
+          
+            
+            <button onclick="closeCustomerRequestsView()" class="close-btn action-button w-full mt-3">
                 داخستن
             </button>
         </div>
@@ -2141,6 +2246,29 @@
                 }
                 
                 showAddPromoForm();
+            };
+            
+            // فەنکشنەکانی نوێ بۆ بینینی کالای فرۆشیار و داواکاری فرۆشیار
+            window.showSellerProductsView = function() {
+                if (!isAdminLoggedIn) {
+                    showLoginModal();
+                    return;
+                }
+                
+                document.getElementById('sellerProductsView').style.display = 'flex';
+                showSellerProductsTab('pending');
+                loadSellerProductsForView();
+            };
+
+            window.showCustomerRequestsView = function() {
+                if (!isAdminLoggedIn) {
+                    showLoginModal();
+                    return;
+                }
+                
+                document.getElementById('customerRequestsView').style.display = 'flex';
+                showCustomerRequestsTab('pending');
+                loadCustomerRequestsForView();
             };
             
             // فەنکشن بۆ کرانەوەی داشبۆردی بەڕێوەبەر
@@ -4184,6 +4312,12 @@
                 if (event.target === document.getElementById('approvalModal')) {
                     document.getElementById('approvalModal').style.display = 'none';
                 }
+                if (event.target === document.getElementById('sellerProductsView')) {
+                    document.getElementById('sellerProductsView').style.display = 'none';
+                }
+                if (event.target === document.getElementById('customerRequestsView')) {
+                    document.getElementById('customerRequestsView').style.display = 'none';
+                }
             });
             
             // WhatsApp button in modal
@@ -4511,6 +4645,579 @@
                 }
             }
             
+            // فەنکشنەکانی نوێ بۆ بینینی کالای فرۆشیار
+            
+            function closeSellerProductsView() {
+                document.getElementById('sellerProductsView').style.display = 'none';
+            }
+
+            function showSellerProductsTab(tab) {
+                // لادانی چالاکی لە هەموو تابەکان
+                const tabBtns = document.querySelectorAll('#sellerProductsView .tab-btn');
+                if (tabBtns) {
+                    tabBtns.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.remove('border-b-2', 'border-blue-500');
+                    });
+                }
+                
+                // لادانی بینین لە هەموو تابەکان
+                const tabContents = ['sellerPendingList', 'sellerApprovedList', 'sellerRejectedList'];
+                tabContents.forEach(content => {
+                    document.getElementById(content).style.display = 'none';
+                });
+                
+                // چالاککردنی تابەکەی دیاریکراو
+                let activeBtn = null;
+                if (tab === 'pending') activeBtn = tabBtns[0];
+                else if (tab === 'approved') activeBtn = tabBtns[1];
+                else if (tab === 'rejected') activeBtn = tabBtns[2];
+                
+                if (activeBtn) {
+                    activeBtn.classList.add('active');
+                    activeBtn.classList.add('border-b-2', 'border-blue-500');
+                }
+                
+                // نیشاندانی تابەکە
+                document.getElementById(`seller${tab.charAt(0).toUpperCase() + tab.slice(1)}List`).style.display = 'block';
+            }
+
+            async function loadSellerProductsForView() {
+                try {
+                    const productsRef = firebase.ref(firebase.db, 'sellerProducts');
+                    const snapshot = await firebase.get(productsRef);
+                    const productsData = snapshot.val();
+                    
+                    if (!productsData) {
+                        updateSellerProductsLists([], [], []);
+                        return;
+                    }
+                    
+                    const pendingProducts = [];
+                    const approvedProducts = [];
+                    const rejectedProducts = [];
+                    
+                    Object.keys(productsData).forEach(productId => {
+                        const product = productsData[productId];
+                        product.id = productId;
+                        
+                        if (!product.reviewed) {
+                            pendingProducts.push(product);
+                        } else if (product.status === 'approved') {
+                            approvedProducts.push(product);
+                        } else if (product.status === 'rejected') {
+                            rejectedProducts.push(product);
+                        }
+                    });
+                    
+                    updateSellerProductsLists(pendingProducts, approvedProducts, rejectedProducts);
+                    
+                } catch (error) {
+                    console.error("Error loading seller products for view:", error);
+                }
+            }
+
+            function updateSellerProductsLists(pending, approved, rejected) {
+                // نوێکردنەوەی ژمارەکان
+                document.getElementById('sellerPendingCount').textContent = pending.length;
+                
+                // دروستکردنی لیستی بۆ پەسەندکردن
+                const pendingList = document.getElementById('sellerPendingList');
+                pendingList.innerHTML = '';
+                
+                if (pending.length === 0) {
+                    pendingList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ کالایەک بۆ پەسەندکردن نیە</p>';
+                } else {
+                    pending.forEach(product => {
+                        const firstImage = product.images && product.images.length > 0 ? product.images[0] : '';
+                        const productHTML = `
+                            <div class="bg-white p-4 rounded-lg border border-yellow-300 bg-yellow-50">
+                                <div class="flex gap-4">
+                                    ${firstImage ? `
+                                        <div class="flex-shrink-0">
+                                            <img src="${firstImage}" alt="${product.name}" 
+                                                 class="w-24 h-24 object-cover rounded-lg">
+                                        </div>
+                                    ` : ''}
+                                    
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <strong>${product.name}</strong>
+                                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded">بۆ پەسەندکردن</span>
+                                        </div>
+                                        
+                                        <p class="text-sm text-gray-600"><strong>نرخ:</strong> ${product.price} دینار ($${product.priceUSD})</p>
+                                        <p class="text-sm text-gray-600"><strong>جۆر:</strong> ${product.category}</p>
+                                        ${product.description ? `<p class="text-sm text-gray-600"><strong>ڕونکردنەوە:</strong> ${product.description}</p>` : ''}
+                                        <p class="text-sm text-gray-500 mt-1">${new Date(product.createdAt).toLocaleString('ku')}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-2">
+                                        <button onclick="approveSellerProduct('${product.id}')" 
+                                                class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+                                            پەسەندکردن
+                                        </button>
+                                        <button onclick="rejectSellerProduct('${product.id}')" 
+                                                class="text-xs bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600">
+                                            ڕەتکردنەوە
+                                        </button>
+                                        <button onclick="deleteSellerProduct('${product.id}')" 
+                                                class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                            سڕینەوە
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        pendingList.innerHTML += productHTML;
+                    });
+                }
+                
+                // دروستکردنی لیستی پەسەندکراوەکان
+                const approvedList = document.getElementById('sellerApprovedList');
+                approvedList.innerHTML = '';
+                
+                if (approved.length === 0) {
+                    approvedList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ کالایەکی پەسەندکراو نیە</p>';
+                } else {
+                    approved.forEach(product => {
+                        const firstImage = product.images && product.images.length > 0 ? product.images[0] : '';
+                        const productHTML = `
+                            <div class="bg-white p-4 rounded-lg border border-green-300 bg-green-50">
+                                <div class="flex gap-4">
+                                    ${firstImage ? `
+                                        <div class="flex-shrink-0">
+                                            <img src="${firstImage}" alt="${product.name}" 
+                                                 class="w-24 h-24 object-cover rounded-lg">
+                                        </div>
+                                    ` : ''}
+                                    
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <strong>${product.name}</strong>
+                                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded">پەسەندکراوە</span>
+                                        </div>
+                                        
+                                        <p class="text-sm text-gray-600"><strong>نرخ:</strong> ${product.price} دینار ($${product.priceUSD})</p>
+                                        <p class="text-sm text-gray-600"><strong>جۆر:</strong> ${product.category}</p>
+                                        ${product.description ? `<p class="text-sm text-gray-600"><strong>ڕونکردنەوە:</strong> ${product.description}</p>` : ''}
+                                        <p class="text-sm text-gray-500 mt-1">پەسەندکراوە لە ${new Date(product.reviewedAt).toLocaleString('ku')}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-2">
+                                        <button onclick="deleteSellerProduct('${product.id}')" 
+                                                class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                            سڕینەوە
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        approvedList.innerHTML += productHTML;
+                    });
+                }
+                
+                // دروستکردنی لیستی ڕەتکراوەکان
+                const rejectedList = document.getElementById('sellerRejectedList');
+                rejectedList.innerHTML = '';
+                
+                if (rejected.length === 0) {
+                    rejectedList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ کالایەکی ڕەتکراو نیە</p>';
+                } else {
+                    rejected.forEach(product => {
+                        const firstImage = product.images && product.images.length > 0 ? product.images[0] : '';
+                        const productHTML = `
+                            <div class="bg-white p-4 rounded-lg border border-red-300 bg-red-50">
+                                <div class="flex gap-4">
+                                    ${firstImage ? `
+                                        <div class="flex-shrink-0">
+                                            <img src="${firstImage}" alt="${product.name}" 
+                                                 class="w-24 h-24 object-cover rounded-lg">
+                                        </div>
+                                    ` : ''}
+                                    
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <strong>${product.name}</strong>
+                                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">ڕەتکراوە</span>
+                                        </div>
+                                        
+                                        <p class="text-sm text-gray-600"><strong>نرخ:</strong> ${product.price} دینار ($${product.priceUSD})</p>
+                                        <p class="text-sm text-gray-600"><strong>جۆر:</strong> ${product.category}</p>
+                                        ${product.description ? `<p class="text-sm text-gray-600"><strong>ڕونکردنەوە:</strong> ${product.description}</p>` : ''}
+                                        <p class="text-sm text-gray-500 mt-1">ڕەتکرایەوە لە ${new Date(product.reviewedAt).toLocaleString('ku')}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-2">
+                                        <button onclick="deleteSellerProduct('${product.id}')" 
+                                                class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                            سڕینەوە
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        rejectedList.innerHTML += productHTML;
+                    });
+                }
+                
+                // نوێکردنەوەی بادجەکان
+                const sellerProductsBadge = document.getElementById('sellerProductsBadge');
+                if (sellerProductsBadge) {
+                    if (pending.length > 0) {
+                        sellerProductsBadge.textContent = pending.length;
+                        sellerProductsBadge.style.display = 'inline-block';
+                    } else {
+                        sellerProductsBadge.style.display = 'none';
+                    }
+                }
+            }
+            
+            // فەنکشنەکانی نوێ بۆ بینینی داواکاری فرۆشیار
+            
+            function closeCustomerRequestsView() {
+                document.getElementById('customerRequestsView').style.display = 'none';
+            }
+
+            function showCustomerRequestsTab(tab) {
+                // لادانی چالاکی لە هەموو تابەکان
+                const tabBtns = document.querySelectorAll('#customerRequestsView .tab-btn');
+                if (tabBtns) {
+                    tabBtns.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.remove('border-b-2', 'border-blue-500');
+                    });
+                }
+                
+                // لادانی بینین لە هەموو تابەکان
+                const tabContents = ['customerPendingList', 'customerApprovedList', 'customerRejectedList'];
+                tabContents.forEach(content => {
+                    document.getElementById(content).style.display = 'none';
+                });
+                
+                // چالاککردنی تابەکەی دیاریکراو
+                let activeBtn = null;
+                if (tab === 'pending') activeBtn = tabBtns[0];
+                else if (tab === 'approved') activeBtn = tabBtns[1];
+                else if (tab === 'rejected') activeBtn = tabBtns[2];
+                
+                if (activeBtn) {
+                    activeBtn.classList.add('active');
+                    activeBtn.classList.add('border-b-2', 'border-blue-500');
+                }
+                
+                // نیشاندانی تابەکە
+                document.getElementById(`customer${tab.charAt(0).toUpperCase() + tab.slice(1)}List`).style.display = 'block';
+            }
+
+            async function loadCustomerRequestsForView() {
+                try {
+                    const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+                    const snapshot = await firebase.get(requestsRef);
+                    const requestsData = snapshot.val();
+                    
+                    if (!requestsData) {
+                        updateCustomerRequestsLists([], [], []);
+                        return;
+                    }
+                    
+                    const pendingRequests = [];
+                    const approvedRequests = [];
+                    const rejectedRequests = [];
+                    
+                    Object.keys(requestsData).forEach(requestId => {
+                        const request = requestsData[requestId];
+                        request.id = requestId;
+                        
+                        if (!request.reviewed) {
+                            pendingRequests.push(request);
+                        } else if (request.status === 'approved') {
+                            approvedRequests.push(request);
+                        } else if (request.status === 'rejected') {
+                            rejectedRequests.push(request);
+                        }
+                    });
+                    
+                    updateCustomerRequestsLists(pendingRequests, approvedRequests, rejectedRequests);
+                    
+                } catch (error) {
+                    console.error("Error loading customer requests for view:", error);
+                }
+            }
+
+            function updateCustomerRequestsLists(pending, approved, rejected) {
+                // نوێکردنەوەی ژمارەکان
+                document.getElementById('requestsPendingCount').textContent = pending.length;
+                
+                // دروستکردنی لیستی بۆ پەسەندکردن
+                const pendingList = document.getElementById('customerPendingList');
+                pendingList.innerHTML = '';
+                
+                if (pending.length === 0) {
+                    pendingList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەک بۆ پەسەندکردن نیە</p>';
+                } else {
+                    pending.forEach(request => {
+                        const requestHTML = `
+                            <div class="bg-white p-4 rounded-lg border border-yellow-300 bg-yellow-50">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <strong>${request.productName || 'ناونەزانراو'}</strong>
+                                            <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded">بۆ پەسەندکردن</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                                        ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                                        <p class="text-sm text-gray-500 mt-1">${new Date(request.timestamp || Date.now()).toLocaleString('ku')}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-2 ml-4">
+                                        <button onclick="approveCustomerRequest('${request.id}')" 
+                                                class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+                                            پەسەندکردن
+                                        </button>
+                                        <button onclick="rejectCustomerRequest('${request.id}')" 
+                                                class="text-xs bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600">
+                                            ڕەتکردنەوە
+                                        </button>
+                                        <button onclick="deleteCustomerRequest('${request.id}')" 
+                                                class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                            سڕینەوە
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        pendingList.innerHTML += requestHTML;
+                    });
+                }
+                
+                // دروستکردنی لیستی پەسەندکراوەکان
+                const approvedList = document.getElementById('customerApprovedList');
+                approvedList.innerHTML = '';
+                
+                if (approved.length === 0) {
+                    approvedList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەکی پەسەندکراو نیە</p>';
+                } else {
+                    approved.forEach(request => {
+                        const requestHTML = `
+                            <div class="bg-white p-4 rounded-lg border border-green-300 bg-green-50">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <strong>${request.productName || 'ناونەزانراو'}</strong>
+                                            <span class="bg-green-500 text-white text-xs px-2 py-1 rounded">پەسەندکراوە</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                                        ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                                        <p class="text-sm text-gray-500 mt-1">پەسەندکراوە لە ${new Date(request.reviewedAt).toLocaleString('ku')}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-2 ml-4">
+                                        <button onclick="deleteCustomerRequest('${request.id}')" 
+                                                class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                            سڕینەوە
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        approvedList.innerHTML += requestHTML;
+                    });
+                }
+                
+                // دروستکردنی لیستی ڕەتکراوەکان
+                const rejectedList = document.getElementById('customerRejectedList');
+                rejectedList.innerHTML = '';
+                
+                if (rejected.length === 0) {
+                    rejectedList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەکی ڕەتکراو نیە</p>';
+                } else {
+                    rejected.forEach(request => {
+                        const requestHTML = `
+                            <div class="bg-white p-4 rounded-lg border border-red-300 bg-red-50">
+                                <div class="flex justify-between items-start">
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <strong>${request.productName || 'ناونەزانراو'}</strong>
+                                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded">ڕەتکراوە</span>
+                                        </div>
+                                        <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                                        ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                                        <p class="text-sm text-gray-500 mt-1">ڕەتکرایەوە لە ${new Date(request.reviewedAt).toLocaleString('ku')}</p>
+                                    </div>
+                                    
+                                    <div class="flex flex-col gap-2 ml-4">
+                                        <button onclick="deleteCustomerRequest('${request.id}')" 
+                                                class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                            سڕینەوە
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        rejectedList.innerHTML += requestHTML;
+                    });
+                }
+                
+                // نوێکردنەوەی بادجەکان
+                const customerRequestsBadge = document.getElementById('customerRequestsBadge');
+                if (customerRequestsBadge) {
+                    if (pending.length > 0) {
+                        customerRequestsBadge.textContent = pending.length;
+                        customerRequestsBadge.style.display = 'inline-block';
+                    } else {
+                        customerRequestsBadge.style.display = 'none';
+                    }
+                }
+            }
+            
+            // فەنکشنەکانی نوێ بۆ پەسەندکردن و سڕینەوەی داواکارییەکان
+            async function approveCustomerRequest(requestId) {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت!");
+                    return;
+                }
+                
+                try {
+                    const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+                    await firebase.update(requestRef, {
+                        reviewed: true,
+                        status: 'approved',
+                        reviewedAt: new Date().toISOString(),
+                        reviewedBy: 'admin'
+                    });
+                    
+                    alert("✅ داواکاری پەسەندکرا!");
+                    loadCustomerRequestsForView();
+                    updateNotificationBadge();
+                } catch (error) {
+                    console.error("Error approving customer request:", error);
+                    alert("❌ هەڵە لە پەسەندکردنی داواکاری!");
+                }
+            }
+
+            async function rejectCustomerRequest(requestId) {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت!");
+                    return;
+                }
+                
+                if (!confirm("دڵنیایت کە دەتەوێت ئەم داواکاری ڕەت بکەیتەوە؟")) {
+                    return;
+                }
+                
+                try {
+                    const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+                    await firebase.update(requestRef, {
+                        reviewed: true,
+                        status: 'rejected',
+                        reviewedAt: new Date().toISOString(),
+                        reviewedBy: 'admin'
+                    });
+                    
+                    alert("✅ داواکاری ڕەتکرایەوە!");
+                    loadCustomerRequestsForView();
+                    updateNotificationBadge();
+                } catch (error) {
+                    console.error("Error rejecting customer request:", error);
+                    alert("❌ هەڵە لە ڕەتکردنەوەی داواکاری!");
+                }
+            }
+
+            async function deleteCustomerRequest(requestId) {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت!");
+                    return;
+                }
+                
+                if (!confirm("دڵنیایت کە دەتەوێت ئەم داواکاری بسڕیتەوە؟")) {
+                    return;
+                }
+                
+                try {
+                    const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+                    await firebase.remove(requestRef);
+                    
+                    alert("✅ داواکاری سڕدرایەوە!");
+                    loadCustomerRequestsForView();
+                    updateNotificationBadge();
+                } catch (error) {
+                    console.error("Error deleting customer request:", error);
+                    alert("❌ هەڵە لە سڕینەوەی داواکاری!");
+                }
+            }
+
+            async function approveAllCustomerRequests() {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت!");
+                    return;
+                }
+                
+                if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکان پەسەند بکەیت؟")) {
+                    return;
+                }
+                
+                try {
+                    const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+                    const snapshot = await firebase.get(requestsRef);
+                    const requests = snapshot.val();
+                    
+                    if (requests) {
+                        const updates = {};
+                        Object.keys(requests).forEach(requestId => {
+                            if (!requests[requestId].reviewed) {
+                                updates[`customerRequests/${requestId}/reviewed`] = true;
+                                updates[`customerRequests/${requestId}/status`] = 'approved';
+                                updates[`customerRequests/${requestId}/reviewedAt`] = new Date().toISOString();
+                                updates[`customerRequests/${requestId}/reviewedBy`] = 'admin';
+                            }
+                        });
+                        
+                        if (Object.keys(updates).length > 0) {
+                            await firebase.update(firebase.ref(firebase.db), updates);
+                            alert("✅ هەموو داواکارییەکان پەسەندکران!");
+                            loadCustomerRequestsForView();
+                            updateNotificationBadge();
+                        }
+                    }
+                } catch (error) {
+                    console.error("Error approving all customer requests:", error);
+                    alert("❌ هەڵە لە پەسەندکردنی هەموو داواکارییەکان!");
+                }
+            }
+
+            async function deleteAllCustomerRequests() {
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت!");
+                    return;
+                }
+                
+                if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکان بسڕیتەوە؟")) {
+                    return;
+                }
+                
+                try {
+                    const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+                    await firebase.remove(requestsRef);
+                    
+                    alert("✅ هەموو داواکارییەکان سڕانەوە!");
+                    loadCustomerRequestsForView();
+                    updateNotificationBadge();
+                } catch (error) {
+                    console.error("Error deleting all customer requests:", error);
+                    alert("❌ هەڵە لە سڕینەوەی هەموو داواکارییەکان!");
+                }
+            }
+            
             // Load initial data
             setTimeout(() => {
                 if (firebaseInitialized) {
@@ -4579,6 +5286,724 @@
             // چالاککردنی دوگمەی ماڵ بە شێوەی بنەڕەتی
             showHomePage();
         });
+// لە ناو مۆدیولەکەدا ئەم دێڕانە زیاد بکە بۆ ئەوەی فەنکشنەکان بناسرێن
+window.approveOrder = async (orderId) => {
+    const orderRef = ref(db, 'orders/' + orderId);
+    await update(orderRef, { status: 'پەسەندکراو' });
+    alert('داواکارییەکە پەسەندکرا');
+};
+
+window.rejectOrder = async (orderId) => {
+    const orderRef = ref(db, 'orders/' + orderId);
+    await update(orderRef, { status: 'ڕەتکرایەوە' });
+    alert('داواکارییەکە ڕەتکرایەوە');
+};
+window.approveAllOrders = async () => {
+    const ordersRef = ref(db, 'orders');
+    const snapshot = await get(ordersRef);
+    if (snapshot.exists()) {
+        const updates = {};
+        Object.keys(snapshot.val()).forEach(key => {
+            updates[`${key}/status`] = 'پەسەندکراو';
+        });
+        await update(ordersRef, updates);
+        alert('هەموو داواکارییەکان پەسەندکران');
+    }
+};
+
+window.deleteAllOrders = async () => {
+    if(confirm('دڵنیای لە سڕینەوەی هەموو داواکارییەکان؟')) {
+        await remove(ref(db, 'orders'));
+        alert('هەموو داواکارییەکان سڕدرانەوە');
+    }
+};
+window.closeModal = (modalId) => {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        modal.classList.add('hidden');
+    }
+};
+// ئەم فەنکشانە زیاد بکە بۆ سکریپتەکەت (لە ناوەڕۆکی <script>)
+
+// فەنکشنەکانی تابی پەسەندکردنەکان
+window.showTab = function(tabId) {
+    // لادانی چالاکی لە هەموو تابەکان
+    const tabBtns = document.querySelectorAll('#approvalModal .tab-btn');
+    if (tabBtns) {
+        tabBtns.forEach(btn => {
+            btn.classList.remove('active');
+            btn.classList.remove('border-b-2', 'border-blue-500');
+            btn.style.borderBottom = 'none';
+        });
+    }
+    
+    // لادانی بینین لە هەموو تابەکان
+    const tabContents = document.querySelectorAll('#approvalModal .tab-content');
+    if (tabContents) {
+        tabContents.forEach(content => {
+            content.style.display = 'none';
+        });
+    }
+    
+    // نیشاندانی تابەکەی دیاریکراو
+    const activeTab = document.getElementById(tabId);
+    if (activeTab) {
+        activeTab.style.display = 'block';
+    }
+    
+    // چالاککردنی دوگمەکە
+    const activeBtn = Array.from(document.querySelectorAll('#approvalModal .tab-btn')).find(
+        btn => btn.onclick && btn.onclick.toString().includes(tabId)
+    );
+    
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.classList.add('border-b-2', 'border-blue-500');
+    }
+};
+
+// فەنکشن بۆ داخستنی مۆدالی پەسەندکردنەکان
+window.closeApprovalModal = function() {
+    document.getElementById('approvalModal').style.display = 'none';
+};
+
+// فەنکشن بۆ داخستنی بینینی کالای فرۆشیار
+window.closeSellerProductsView = function() {
+    document.getElementById('sellerProductsView').style.display = 'none';
+};
+
+// فەنکشن بۆ داخستنی بینینی داواکاری فرۆشیار
+window.closeCustomerRequestsView = function() {
+    document.getElementById('customerRequestsView').style.display = 'none';
+};
+
+// فەنکشنەکانی تابەکان بۆ بینینی کالای فرۆشیار
+window.showSellerProductsTab = function(tab) {
+    // لادانی چالاکی لە هەموو تابەکان
+    const tabBtns = document.querySelectorAll('#sellerProductsView .tab-btn');
+    if (tabBtns) {
+        tabBtns.forEach(btn => {
+            btn.classList.remove('active');
+            btn.classList.remove('border-b-2', 'border-blue-500');
+        });
+    }
+    
+    // لادانی بینین لە هەموو تابەکان
+    const tabContents = ['sellerPendingList', 'sellerApprovedList', 'sellerRejectedList'];
+    tabContents.forEach(content => {
+        document.getElementById(content).style.display = 'none';
+    });
+    
+    // چالاککردنی تابەکەی دیاریکراو
+    let activeBtn = null;
+    if (tab === 'pending') activeBtn = tabBtns[0];
+    else if (tab === 'approved') activeBtn = tabBtns[1];
+    else if (tab === 'rejected') activeBtn = tabBtns[2];
+    
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.classList.add('border-b-2', 'border-blue-500');
+    }
+    
+    // نیشاندانی تابەکە
+    document.getElementById(`seller${tab.charAt(0).toUpperCase() + tab.slice(1)}List`).style.display = 'block';
+    
+    // بارکردنی کالاکان بۆ تابەکە
+    loadSellerProductsForTab(tab);
+};
+
+// فەنکشنەکانی تابەکان بۆ بینینی داواکاری فرۆشیار
+window.showCustomerRequestsTab = function(tab) {
+    // لادانی چالاکی لە هەموو تابەکان
+    const tabBtns = document.querySelectorAll('#customerRequestsView .tab-btn');
+    if (tabBtns) {
+        tabBtns.forEach(btn => {
+            btn.classList.remove('active');
+            btn.classList.remove('border-b-2', 'border-blue-500');
+        });
+    }
+    
+    // لادانی بینین لە هەموو تابەکان
+    const tabContents = ['customerPendingList', 'customerApprovedList', 'customerRejectedList'];
+    tabContents.forEach(content => {
+        document.getElementById(content).style.display = 'none';
+    });
+    
+    // چالاککردنی تابەکەی دیاریکراو
+    let activeBtn = null;
+    if (tab === 'pending') activeBtn = tabBtns[0];
+    else if (tab === 'approved') activeBtn = tabBtns[1];
+    else if (tab === 'rejected') activeBtn = tabBtns[2];
+    
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.classList.add('border-b-2', 'border-blue-500');
+    }
+    
+    // نیشاندانی تابەکە
+    document.getElementById(`customer${tab.charAt(0).toUpperCase() + tab.slice(1)}List`).style.display = 'block';
+    
+    // بارکردنی داواکارییەکان بۆ تابەکە
+    loadCustomerRequestsForTab(tab);
+};
+
+// فەنکشن بۆ بارکردنی کالاکانی فرۆشیار بۆ تابەکان
+async function loadSellerProductsForTab(tab) {
+    try {
+        const productsRef = firebase.ref(firebase.db, 'sellerProducts');
+        const snapshot = await firebase.get(productsRef);
+        const productsData = snapshot.val();
+        
+        const containerId = `seller${tab.charAt(0).toUpperCase() + tab.slice(1)}List`;
+        const container = document.getElementById(containerId);
+        
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (!productsData) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ کالایەک نیە</p>';
+            return;
+        }
+        
+        let filteredProducts = [];
+        
+        // فیلتەرکردن بەپێی ستاتوس
+        Object.keys(productsData).forEach(productId => {
+            const product = productsData[productId];
+            product.id = productId;
+            
+            if (tab === 'pending' && !product.reviewed) {
+                filteredProducts.push(product);
+            } else if (tab === 'approved' && product.status === 'approved') {
+                filteredProducts.push(product);
+            } else if (tab === 'rejected' && product.status === 'rejected') {
+                filteredProducts.push(product);
+            }
+        });
+        
+        if (filteredProducts.length === 0) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ کالایەک نیە</p>';
+            return;
+        }
+        
+        // دروستکردنی لیست
+        filteredProducts.forEach(product => {
+            const firstImage = product.images && product.images.length > 0 ? product.images[0] : '';
+            const statusClass = tab === 'pending' ? 'bg-yellow-50 border-yellow-300' : 
+                              tab === 'approved' ? 'bg-green-50 border-green-300' : 
+                              'bg-red-50 border-red-300';
+            const statusText = tab === 'pending' ? 'بۆ پەسەندکردن' : 
+                             tab === 'approved' ? 'پەسەندکراوە' : 'ڕەتکراوە';
+            const statusColor = tab === 'pending' ? 'yellow' : 
+                              tab === 'approved' ? 'green' : 'red';
+            
+            const productHTML = `
+                <div class="bg-white p-4 rounded-lg border ${statusClass}">
+                    <div class="flex gap-4">
+                        ${firstImage ? `
+                            <div class="flex-shrink-0">
+                                <img src="${firstImage}" alt="${product.name}" 
+                                     class="w-24 h-24 object-cover rounded-lg">
+                            </div>
+                        ` : ''}
+                        
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <strong>${product.name}</strong>
+                                <span class="bg-${statusColor}-500 text-white text-xs px-2 py-1 rounded">${statusText}</span>
+                            </div>
+                            
+                            <p class="text-sm text-gray-600"><strong>نرخ:</strong> ${product.price} دینار ($${product.priceUSD})</p>
+                            <p class="text-sm text-gray-600"><strong>جۆر:</strong> ${product.category}</p>
+                            ${product.description ? `<p class="text-sm text-gray-600"><strong>ڕونکردنەوە:</strong> ${product.description}</p>` : ''}
+                            <p class="text-sm text-gray-500 mt-1">
+                                ${tab === 'pending' ? 
+                                    `دروستکراوە لە ${new Date(product.createdAt).toLocaleString('ku')}` :
+                                    `پەسەندکراوە لە ${new Date(product.reviewedAt).toLocaleString('ku')}`
+                                }
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-2">
+                            ${tab === 'pending' ? `
+                                <button onclick="approveSellerProduct('${product.id}')" 
+                                        class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+                                    پەسەندکردن
+                                </button>
+                                <button onclick="rejectSellerProduct('${product.id}')" 
+                                        class="text-xs bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600">
+                                    ڕەتکردنەوە
+                                </button>
+                            ` : ''}
+                            <button onclick="deleteSellerProduct('${product.id}')" 
+                                    class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                سڕینەوە
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += productHTML;
+        });
+        
+    } catch (error) {
+        console.error("Error loading seller products for tab:", error);
+        const container = document.getElementById(`seller${tab.charAt(0).toUpperCase() + tab.slice(1)}List`);
+        if (container) {
+            container.innerHTML = '<p class="text-red-500 text-center py-4">هەڵە لە بارکردنی کالاکان</p>';
+        }
+    }
+}
+
+// فەنکشن بۆ بارکردنی داواکارییەکان بۆ تابەکان
+async function loadCustomerRequestsForTab(tab) {
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        const snapshot = await firebase.get(requestsRef);
+        const requestsData = snapshot.val();
+        
+        const containerId = `customer${tab.charAt(0).toUpperCase() + tab.slice(1)}List`;
+        const container = document.getElementById(containerId);
+        
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (!requestsData) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەک نیە</p>';
+            return;
+        }
+        
+        let filteredRequests = [];
+        
+        // فیلتەرکردن بەپێی ستاتوس
+        Object.keys(requestsData).forEach(requestId => {
+            const request = requestsData[requestId];
+            request.id = requestId;
+            
+            if (tab === 'pending' && !request.reviewed) {
+                filteredRequests.push(request);
+            } else if (tab === 'approved' && request.status === 'approved') {
+                filteredRequests.push(request);
+            } else if (tab === 'rejected' && request.status === 'rejected') {
+                filteredRequests.push(request);
+            }
+        });
+        
+        if (filteredRequests.length === 0) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەک نیە</p>';
+            return;
+        }
+        
+        // دروستکردنی لیست
+        filteredRequests.forEach(request => {
+            const statusClass = tab === 'pending' ? 'bg-yellow-50 border-yellow-300' : 
+                              tab === 'approved' ? 'bg-green-50 border-green-300' : 
+                              'bg-red-50 border-red-300';
+            const statusText = tab === 'pending' ? 'بۆ پەسەندکردن' : 
+                             tab === 'approved' ? 'پەسەندکراوە' : 'ڕەتکراوە';
+            const statusColor = tab === 'pending' ? 'yellow' : 
+                              tab === 'approved' ? 'green' : 'red';
+            
+            const requestHTML = `
+                <div class="bg-white p-4 rounded-lg border ${statusClass}">
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-2 mb-2">
+                                <strong>${request.productName || 'ناونەزانراو'}</strong>
+                                <span class="bg-${statusColor}-500 text-white text-xs px-2 py-1 rounded">${statusText}</span>
+                            </div>
+                            <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                            <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                            <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                            <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                            ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                            <p class="text-sm text-gray-500 mt-1">
+                                ${tab === 'pending' ? 
+                                    `نێردراوە لە ${new Date(request.timestamp || Date.now()).toLocaleString('ku')}` :
+                                    `پەسەندکراوە لە ${new Date(request.reviewedAt).toLocaleString('ku')}`
+                                }
+                            </p>
+                        </div>
+                        
+                        <div class="flex flex-col gap-2 ml-4">
+                            ${tab === 'pending' ? `
+                                <button onclick="approveCustomerRequest('${request.id}')" 
+                                        class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+                                    پەسەندکردن
+                                </button>
+                                <button onclick="rejectCustomerRequest('${request.id}')" 
+                                        class="text-xs bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600">
+                                    ڕەتکردنەوە
+                                </button>
+                            ` : ''}
+                            <button onclick="deleteCustomerRequest('${request.id}')" 
+                                    class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                سڕینەوە
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += requestHTML;
+        });
+        
+    } catch (error) {
+        console.error("Error loading customer requests for tab:", error);
+        const container = document.getElementById(`customer${tab.charAt(0).toUpperCase() + tab.slice(1)}List`);
+        if (container) {
+            container.innerHTML = '<p class="text-red-500 text-center py-4">هەڵە لە بارکردنی داواکارییەکان</p>';
+        }
+    }
+}
+
+// فەنکشنەکانی کارکردن بە داواکارییەکان
+window.approveCustomerRequest = async function(requestId) {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    try {
+        const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+        await firebase.update(requestRef, {
+            reviewed: true,
+            status: 'approved',
+            reviewedAt: new Date().toISOString(),
+            reviewedBy: 'admin'
+        });
+        
+        alert("✅ داواکاری پەسەندکرا!");
+        loadCustomerRequestsForTab('pending');
+        loadCustomerRequestsForTab('approved');
+        updateNotificationBadge();
+    } catch (error) {
+        console.error("Error approving customer request:", error);
+        alert("❌ هەڵە لە پەسەندکردنی داواکاری!");
+    }
+};
+
+window.rejectCustomerRequest = async function(requestId) {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت ئەم داواکاری ڕەت بکەیتەوە؟")) {
+        return;
+    }
+    
+    try {
+        const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+        await firebase.update(requestRef, {
+            reviewed: true,
+            status: 'rejected',
+            reviewedAt: new Date().toISOString(),
+            reviewedBy: 'admin'
+        });
+        
+        alert("✅ داواکاری ڕەتکرایەوە!");
+        loadCustomerRequestsForTab('pending');
+        loadCustomerRequestsForTab('rejected');
+        updateNotificationBadge();
+    } catch (error) {
+        console.error("Error rejecting customer request:", error);
+        alert("❌ هەڵە لە ڕەتکردنەوەی داواکاری!");
+    }
+};
+
+window.deleteCustomerRequest = async function(requestId) {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت ئەم داواکاری بسڕیتەوە؟")) {
+        return;
+    }
+    
+    try {
+        const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+        await firebase.remove(requestRef);
+        
+        alert("✅ داواکاری سڕدرایەوە!");
+        loadCustomerRequestsForTab('pending');
+        loadCustomerRequestsForTab('approved');
+        loadCustomerRequestsForTab('rejected');
+        updateNotificationBadge();
+    } catch (error) {
+        console.error("Error deleting customer request:", error);
+        alert("❌ هەڵە لە سڕینەوەی داواکاری!");
+    }
+};
+
+// فەنکشن بۆ پەسەندکردنی هەموو داواکارییەکان
+window.approveAllCustomerRequests = async function() {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکان پەسەند بکەیت؟")) {
+        return;
+    }
+    
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        const snapshot = await firebase.get(requestsRef);
+        const requests = snapshot.val();
+        
+        if (requests) {
+            const updates = {};
+            Object.keys(requests).forEach(requestId => {
+                if (!requests[requestId].reviewed) {
+                    updates[`customerRequests/${requestId}/reviewed`] = true;
+                    updates[`customerRequests/${requestId}/status`] = 'approved';
+                    updates[`customerRequests/${requestId}/reviewedAt`] = new Date().toISOString();
+                    updates[`customerRequests/${requestId}/reviewedBy`] = 'admin';
+                }
+            });
+            
+            if (Object.keys(updates).length > 0) {
+                await firebase.update(firebase.ref(firebase.db), updates);
+                alert("✅ هەموو داواکارییەکان پەسەندکران!");
+                loadCustomerRequestsForTab('pending');
+                loadCustomerRequestsForTab('approved');
+                updateNotificationBadge();
+            } else {
+                alert("هیچ داواکارییەکی نوێ نیە بۆ پەسەندکردن!");
+            }
+        }
+    } catch (error) {
+        console.error("Error approving all customer requests:", error);
+        alert("❌ هەڵە لە پەسەندکردنی هەموو داواکارییەکان!");
+    }
+};
+
+// فەنکشن بۆ سڕینەوەی هەموو داواکارییەکان
+window.deleteAllCustomerRequests = async function() {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکان بسڕیتەوە؟")) {
+        return;
+    }
+    
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        await firebase.remove(requestsRef);
+        
+        alert("✅ هەموو داواکارییەکان سڕانەوە!");
+        loadCustomerRequestsForTab('pending');
+        loadCustomerRequestsForTab('approved');
+        loadCustomerRequestsForTab('rejected');
+        updateNotificationBadge();
+    } catch (error) {
+        console.error("Error deleting all customer requests:", error);
+        alert("❌ هەڵە لە سڕینەوەی هەموو داواکارییەکان!");
+    }
+};
+
+// فەنکشنەکانی کارکردن بە کالاکانی فرۆشیار (ئەمە لە کۆدی ئەسڵیدا هەبوو، بەڵام بە شێوەیەکی گشتی دەیکەمەوە)
+window.approveSellerProduct = async function(productId) {
+    // کۆدی پەسەندکردنی کالای فرۆشیار
+    // ئەم کۆدە لە کۆدی ئەسڵیدا هەیە
+};
+
+window.rejectSellerProduct = async function(productId) {
+    // کۆدی ڕەتکردنەوەی کالای فرۆشیار
+    // ئەم کۆدە لە کۆدی ئەسڵیدا هەیە
+};
+
+window.deleteSellerProduct = async function(productId) {
+    // کۆدی سڕینەوەی کالای فرۆشیار
+    // ئەم کۆدە لە کۆدی ئەسڵیدا هەیە
+};
+
+// فەنکشن بۆ پەسەندکردنی هەموو لە مۆدالی پەسەندکردنەکان
+window.markAllAsApproved = async function() {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکان پەسەند بکەیت؟")) {
+        return;
+    }
+    
+    try {
+        // پەسەندکردنی هەموو داواکارییەکانی کڕیار
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        const requestsSnapshot = await firebase.get(requestsRef);
+        const requests = requestsSnapshot.val();
+        
+        if (requests) {
+            const updates = {};
+            Object.keys(requests).forEach(requestId => {
+                if (!requests[requestId].reviewed) {
+                    updates[`customerRequests/${requestId}/reviewed`] = true;
+                    updates[`customerRequests/${requestId}/status`] = 'approved';
+                    updates[`customerRequests/${requestId}/reviewedAt`] = new Date().toISOString();
+                    updates[`customerRequests/${requestId}/reviewedBy`] = 'admin';
+                }
+            });
+            
+            if (Object.keys(updates).length > 0) {
+                await firebase.update(firebase.ref(firebase.db), updates);
+                alert("✅ هەموو داواکارییەکان پەسەندکران!");
+                loadCustomerRequests();
+                updateNotificationBadge();
+            }
+        }
+        
+    } catch (error) {
+        console.error("Error marking all as approved:", error);
+        alert("❌ هەڵە لە پەسەندکردنی هەموو داواکارییەکان!");
+    }
+};
+
+// فەنکشن بۆ ڕەتکردنەوەی هەموو لە مۆدالی پەسەندکردنەکان
+window.deleteAllPending = async function() {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکانی نوێ بسڕیتەوە؟")) {
+        return;
+    }
+    
+    try {
+        // سڕینەوەی هەموو داواکارییەکانی کڕیار
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        const requestsSnapshot = await firebase.get(requestsRef);
+        const requests = requestsSnapshot.val();
+        
+        if (requests) {
+            for (const requestId of Object.keys(requests)) {
+                if (!requests[requestId].reviewed) {
+                    await firebase.remove(firebase.ref(firebase.db, `customerRequests/${requestId}`));
+                }
+            }
+        }
+        
+        // سڕینەوەی هەموو کالاکانی فرۆشیار
+        const productsRef = firebase.ref(firebase.db, 'sellerProducts');
+        const productsSnapshot = await firebase.get(productsRef);
+        const products = productsSnapshot.val();
+        
+        if (products) {
+            for (const productId of Object.keys(products)) {
+                const product = products[productId];
+                if (!product.reviewed) {
+                    // سڕینەوەی وێنەکان
+                    if (product.images && Array.isArray(product.images)) {
+                        for (const imageUrl of product.images) {
+                            try {
+                                const imagePath = decodeURIComponent(imageUrl.split('/o/')[1].split('?')[0]);
+                                const imageRef = firebase.storageRef(firebase.storage, imagePath);
+                                await firebase.deleteObject(imageRef);
+                            } catch (storageError) {
+                                console.warn("نەتوانرا وێنە بسڕدرێتەوە:", storageError);
+                            }
+                        }
+                    }
+                    
+                    await firebase.remove(firebase.ref(firebase.db, `sellerProducts/${productId}`));
+                }
+            }
+        }
+        
+        alert("✅ هەموو داواکارییەکانی نوێ سڕانەوە!");
+        loadCustomerRequests();
+        loadSellerProducts();
+        updateNotificationBadge();
+        
+    } catch (error) {
+        console.error("Error deleting all pending:", error);
+        alert("❌ هەڵە لە سڕینەوەی هەموو داواکارییەکان!");
+    }
+};
+
+// فەنکشن بۆ بارکردنی داواکارییەکان (بۆ مۆدالی پەسەندکردنەکان)
+async function loadCustomerRequests() {
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        const snapshot = await firebase.get(requestsRef);
+        const requestsData = snapshot.val();
+        
+        const container = document.getElementById('customerRequestsList');
+        const countElement = document.getElementById('approvalNewCustomerRequestsCount');
+        
+        if (!requestsData) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەک نیە</p>';
+            if (countElement) countElement.textContent = '0';
+            return;
+        }
+        
+        let newCount = 0;
+        container.innerHTML = '';
+        
+        Object.keys(requestsData).forEach(requestId => {
+            const request = requestsData[requestId];
+            
+            if (!request.reviewed) {
+                newCount++;
+                
+                const requestHTML = `
+                    <div class="bg-white p-4 rounded-lg border border-yellow-300 bg-yellow-50 mb-3">
+                        <div class="flex justify-between items-start">
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <strong>${request.productName || 'ناونەزانراو'}</strong>
+                                    <span class="bg-yellow-500 text-white text-xs px-2 py-1 rounded">نوێ</span>
+                                </div>
+                                <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                                <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                                <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                                <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                                ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                                <p class="text-sm text-gray-500 mt-1">${new Date(request.timestamp || Date.now()).toLocaleString('ku')}</p>
+                            </div>
+                            
+                            <div class="flex flex-col gap-2 ml-4">
+                                <button onclick="approveRequest('${requestId}', 'customerRequests')" 
+                                        class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
+                                    پەسەندکردن
+                                </button>
+                                <button onclick="rejectRequest('${requestId}', 'customerRequests')" 
+                                        class="text-xs bg-red-500 text-white px-3 py-2 rounded hover:bg-red-600">
+                                    ڕەتکردنەوە
+                                </button>
+                                <button onclick="deleteRequest('${requestId}', 'customerRequests')" 
+                                        class="text-xs bg-gray-500 text-white px-3 py-2 rounded hover:bg-gray-600">
+                                    سڕینەوە
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += requestHTML;
+            }
+        });
+        
+        if (countElement) countElement.textContent = newCount;
+        
+        if (newCount === 0) {
+            container.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەکی نوێ نیە</p>';
+        }
+        
+    } catch (error) {
+        console.error("Error loading customer requests:", error);
+        const container = document.getElementById('customerRequestsList');
+        if (container) {
+            container.innerHTML = '<p class="text-red-500 text-center py-4">هەڵە لە بارکردنی داواکارییەکان</p>';
+        }
+    }
+}
     </script>
 </body>
 </html>
