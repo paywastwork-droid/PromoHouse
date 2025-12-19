@@ -62,7 +62,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
- background: linear-gradient(135deg, #54a9eb 0%, #39C7F7 100%) !important;
+  background: linear-gradient(135deg, #54a9eb 0%,#39C7F7 100%) !important;
             box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4) !important;
             border: 8px solid #ffffff  !important;
             width: 55px;
@@ -96,13 +96,13 @@
             min-height: 70px;
             padding: 6px 3px;
             border-radius: 10px;
-            background: #ffffff  !important;
+            background:  #ffffff !important;
             border: 1px solid #e0f2fe;
         }
 
         .icon-row .horizontal-icon-item:hover {
             transform: translateY(-3px);
-            background: #ffffff  !important;
+            background:  #ffffff !important;
             box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
         }
         
@@ -113,7 +113,7 @@
             justify-content: center;
             width: 100%;
             min-height: 80px;
-            background: #09BEE8!important;
+            background:  #ffffff !important;
             border-radius: 12px;
             box-shadow: none;
             transition: all 0.3s ease;
@@ -124,11 +124,11 @@
         
         .horizontal-icon-item:hover {
             transform: translateY(-3px);
-            background: #09BEE8 !important;
+            background:  #ffffff  !important;
         }
         
         .horizontal-icon-item.active {
-            background:#09BEE8 !important;
+            background: #fecaca !important;
         }
         
         
@@ -311,13 +311,7 @@
             text-align: center;
             padding: 20px;
         }
-        /* ئەم کۆدە وێنەکە ناچار دەکات تەواوی چوارچێوەکە بگرێتەوە بەبێ تێکچوونی ڕەهەندەکانی */
-#bannerSlider img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* ئەمە گرنگترین بەشە بۆ ئەوەی وێنەکە پڕ بێت */
-    display: block;
-}
+        
         .promo-banner-content {
             max-width: 800px;
             z-index: 2;
@@ -859,7 +853,78 @@
             50% { transform: translateY(-10px) rotate(-1deg); }
             75% { transform: translateY(-5px) rotate(1deg); }
         }
-        
+        /* بانەری ڕیکلام */
+/* بانەری ڕیکلام */
+.promo-banner-section {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    background-color: #ffffff !important; /* 👈 سپی */
+    background-image: none !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+/* وێنە (ئەگەر هەبێت) */
+/* وێنەی بانەر */
+.promo-banner-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 👈 ناوەراست ڕاستەوخۆ */
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    z-index: 1;
+    opacity: 0.9;
+    padding: 20px;
+}
+
+
+/* ناوەڕۆکی نووسین */
+.promo-banner-content {
+    position: absolute;
+    bottom: 20px;   /* 👇 خوارەوە */
+    left: 20px;     /* 👈 چەپ */
+    text-align: left;
+    z-index: 2;
+    max-width: 70%;
+}
+
+/* سەردێر */
+.promo-banner-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 6px;
+}
+
+/* ژێردێر */
+.promo-banner-subtitle {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* داشکاندن */
+.discount-badge {
+    display: inline-block;
+    background: #dc2626;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+/* دوگمەی ئەدمین */
+.promo-admin-actions {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 10;
+}
+
         /* ستایل بۆ ١٢ کاتیگۆرییەکەی مینۆ */
         .menu-categories-grid {
             display: grid;
@@ -1073,7 +1138,7 @@
                         <!-- کاتەلۆگ -->
                         <div class="horizontal-icon-item" onclick="openCatalog()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=119&format=png&color=000000" alt="کەتەلۆگ">
+                                <img src="https://img.icons8.com/?size=100&id=ppzgZZaVxbD5&format=png&color=000000" alt="کەتەلۆگ">
                             </div>
                             <span class="text-xs font-medium mt-1">کەتەلۆگ</span>
                         </div>
@@ -1081,7 +1146,7 @@
                         <!-- نرخەکان -->
                         <div class="horizontal-icon-item" onclick="openPricing()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=2971&format=png&color=000000" alt="نرخەکان">
+                                <img src="https://img.icons8.com/?size=100&id=2735&format=png&color=000000" alt="نرخەکان">
                             </div>
                             <span class="text-xs font-medium mt-1">نرخەکان</span>
                         </div>
@@ -1105,19 +1170,12 @@
                 </div>
             </div>
 
-        <!-- بانەری ڕێکلام -->
-       <!-- بانەری ڕێکلام -->
+            <!-- بانەری ڕیکلام -->
             <div class="mb-4">
-                <div class="promo-banner-section relative overflow-hidden rounded-xl h-48 md:h-64 bg-white" id="promoBanner">
-                    
-                    <!-- وێنە بە شێوەی پاشبنەما (تەواوی بانەر پڕ دەکات) -->
-                    <img id="promoBannerImage" src="" alt="ڕیکلام" 
-                         class="absolute inset-0 w-full h-full object-cover z-0" 
-                         style="display: none;">
-
-                    <!-- دوگمەی بەڕێوەبەر بۆ گۆڕینی ڕیکلام -->
-                    <div class="promo-admin-actions absolute top-2 left-2 z-20" id="promoAdminActions" style="display: none;">
-                        <button onclick="showAddPromoForm()" class="promo-admin-btn bg-black/50 text-white p-2 rounded m-2 backdrop-blur-sm">
+                <div class="promo-banner-section" id="promoBanner">
+                    <!-- دوگمەی بەڕێوەبەر -->
+                    <div class="promo-admin-actions" id="promoAdminActions" style="display: none;">
+                        <button onclick="showAddPromoForm()" class="promo-admin-btn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                 <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -1125,21 +1183,22 @@
                             گۆڕینی ڕیکلام
                         </button>
                     </div>
-
-                    <!-- نوسینەکان لەسەر وێنە -->
-                    <div class="absolute top-0 right-0 z-10 p-6 flex flex-col justify-start items-end h-full text-right">
-                        <h2 id="promoBannerTitle" class="text-2xl font-bold text-white drop-shadow-lg mt-4">ڕێگایەکی سەرنجڕاکێش بۆ کڕین!</h2>
-                        <p id="promoBannerSubtitle" class="mt-2 text-white drop-shadow-lg">کاڵا جیاوازەکان بە نرخی گونجاو بەردەستن</p>
-                        <div class="mt-4">
-                            <span id="promoBannerDiscount" class="inline-block px-4 py-2 bg-white text-blue-600 rounded-full font-bold shadow-lg">داشکاندن هەیە!</span>
-                        </div>
+                    
+                    <!-- وێنەی ڕیکلام -->
+                    <img id="promoBannerImage" src="" alt="بانەری ڕیکلام" class="promo-banner-image" style="display: none;">
+                    
+                    <!-- ناوەڕۆکی ڕیکلام -->
+                    <div class="promo-banner-content">
+                        <div id="promoBannerTitle" class="promo-banner-title">ڕێگایەکی سەرنجڕاکێش بۆ کڕین!</div>
+                        <div id="promoBannerSubtitle" class="promo-banner-subtitle">کاڵا جیاوازەکان بە نرخی گونجاو بەردەستن</div>
+                        <div id="promoBannerDiscount" class="discount-badge">داشکاندن هەیە!</div>
                     </div>
                 </div>
             </div>
 
             <!-- کالاکان بە دوو سانیە -->
             <div class="mb-4" id="mainProductsSection">
-                <h3 class="text-xl font-bold mb-3 text-gray-800 text-center" id="productsTitle"></h3>
+                <h3 class="text-xl font-bold mb-3 text-gray-800 text-center" id="productsTitle">هەموو کالاکان</h3>
                 
                 <div class="two-column-products" id="productsContainer">
                     <!-- کالاکان داینامیکی زیاد دەکرێن -->
@@ -1428,7 +1487,7 @@
             <!-- بەشی بینینی هەموو کالاکان -->
             <div id="allProductsSection" style="display: none;">
                 <div class="flex justify-between items-center mb-4">
-                    <h3 class="text-2xl font-bold text-gray-800"></h3>
+                    <h3 class="text-2xl font-bold text-gray-800">هەموو کالاکان</h3>
                     <button id="backToHomeBtn" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
                         گەڕانەوە بۆ داشبۆرد
                     </button>
@@ -1536,10 +1595,10 @@
         <p class="text-gray-600 mb-2">ژمارەی مۆبایل:</p>
         
         <a href="tel:+9647701922060" class="phone-number" id="phoneNumber" style="text-decoration: none; color: inherit; display: block; margin-bottom: 10px;">
-            +964 770 192 2060
+            964 770 192 2060
         </a>
 
-        <p class="text-gray-500 text-sm mb-4">پەیوەندی کردن بەم ژمارەیەوە</p>
+        <p class="text-gray-500 text-sm mb-4">ئەم ژمارەیە دەتوانیت ئێستا پەیوەندی بکەیت</p>
         
         <div class="action-buttons">
             <a href="tel:+9647701922060" style="text-decoration: none; flex: 1;">
@@ -1572,7 +1631,7 @@
     <!-- FIB Payment Modal -->
     <div id="fibModal" class="modal">
         <div class="modal-content">
-            <h3 class="text-xl font-bold text-gray-800 mb-4"></h3>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">پارە ناردن بە بارکۆد</h3>
             <p class="text-gray-600 mb-2">بارکۆدی QR بۆ پارە ناردن:</p>
             
             <div class="qrcode-container">
@@ -1581,9 +1640,7 @@
             
            
             
-            <button id="copyAccountBtn" class="copy-btn" style="background-color: #09BEE8 !important; color: white; border: none; border-radius: 8px; padding: 10px;">
-    لەبەرکردنی ژمارەی حساب
-</button>
+            <button id="copyAccountBtn" class="copy-btn">لەبەرکردنی ژمارەی حساب</button>
             <button id="closeFibModalBtn" class="close-btn action-button mt-2">داخستن</button>
         </div>
     </div>
@@ -1658,7 +1715,7 @@
         </a>
 
         <!-- PromoHouse Page QR -->
-        <a href="https://promo-house.vercel.app/" target="_blank">
+        <a href="https://www.promohouseeiraq.com" target="_blank">
             <img
                 src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code%20(logo).png"
                 alt="QR PromoHouse"
@@ -1769,12 +1826,12 @@
                     <span class="menu-category-text">شتی تر</span>
                 </div>
                 
-                <!-- -->
-                <div class="menu-category-item active" onclick="openCategoryForm('')">
+                <!-- هەموو کاڵاکان -->
+                <div class="menu-category-item active" onclick="openCategoryForm('هەمووکاڵاکان')">
                     <div class="menu-category-icon">
-                        <img src="https://img.icons8.com/color/96/000000/all.png" alt="">
+                        <img src="https://img.icons8.com/color/96/000000/all.png" alt="هەموو کاڵاکان">
                     </div>
-                    <span class="menu-category-text"></span>
+                    <span class="menu-category-text">هەموو کالاکان</span>
                 </div>
             </div>
             
@@ -5549,6 +5606,35 @@ window.addEventListener('click', function(event) {
     }
 });
 
+// Event Listener بۆ دوگمەکانی داخستن کاتێک DOM تەواو بار دەکرێت
+document.addEventListener('DOMContentLoaded', function() {
+    // چاککردنی دوگمەی داخستنی sellerProductsView
+    const sellerProductsView = document.getElementById('sellerProductsView');
+    if (sellerProductsView) {
+        const closeBtn = sellerProductsView.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeSellerProductsView);
+        }
+    }
+    
+    // چاککردنی دوگمەی داخستنی customerRequestsView
+    const customerRequestsView = document.getElementById('customerRequestsView');
+    if (customerRequestsView) {
+        const closeBtn = customerRequestsView.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeCustomerRequestsView);
+        }
+    }
+    
+    // چاککردنی دوگمەی داخستنی approvalModal
+    const approvalModalElement = document.getElementById('approvalModal');
+    if (approvalModalElement) {
+        const closeBtn = approvalModalElement.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeApprovalModal);
+        }
+    }
+});
 
 // ========== کۆتایی چاککردنی Event Listener ==========
     </script>
