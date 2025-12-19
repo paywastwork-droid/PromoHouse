@@ -62,7 +62,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-  background: linear-gradient(135deg, #54a9eb 0%, #2481cc 100%) !important;
+ background: linear-gradient(135deg, #54a9eb 0%, #2481cc 100%) !important;
             box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4) !important;
             border: 8px solid #ffffff  !important;
             width: 55px;
@@ -96,7 +96,7 @@
             min-height: 70px;
             padding: 6px 3px;
             border-radius: 10px;
-            background: #f0f9ff !important;
+            background: #ffffff  !important;
             border: 1px solid #e0f2fe;
         }
 
@@ -1560,27 +1560,18 @@
     <!-- FIB Payment Modal -->
     <div id="fibModal" class="modal">
         <div class="modal-content">
-            <h3 class="text-xl font-bold text-gray-800 mb-4">پارە ناردن بە بارکۆد</h3>
+            <h3 class="text-xl font-bold text-gray-800 mb-4"></h3>
             <p class="text-gray-600 mb-2">بارکۆدی QR بۆ پارە ناردن:</p>
             
             <div class="qrcode-container">
                 <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/LOGO-BARCODEFIBPROMO/fib-barcode-promo.png" alt="QR Code" class="qrcode-img">
             </div>
             
-            <div class="bank-details">
-                <h4 class="font-bold mb-2">زانیارییەکانی بانک:</h4>
-                <div class="bank-info">
-                    <strong>ناوی بانک:</strong> FIB
-                </div>
-                <div class="bank-info">
-                    <strong>ژمارەی حساب:</strong> 1234-5678-9012-3456
-                </div>
-                <div class="bank-info">
-                    <strong>ناوی خاوەن حساب:</strong> PROMO HOUSE
-                </div>
-            </div>
+           
             
-            <button id="copyAccountBtn" class="copy-btn">لەبەرکردنی ژمارەی حساب</button>
+            <button id="copyAccountBtn" class="copy-btn" style="background-color: #09BEE8 !important; color: white; border: none; border-radius: 8px; padding: 10px;">
+    لەبەرکردنی ژمارەی حساب
+</button>
             <button id="closeFibModalBtn" class="close-btn action-button mt-2">داخستن</button>
         </div>
     </div>
@@ -5580,3 +5571,4 @@ document.addEventListener('DOMContentLoaded', function() {
     </script>
 </body>
 </html>
+
