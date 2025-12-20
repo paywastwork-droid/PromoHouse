@@ -92,13 +92,14 @@
             justify-items: center;
         }
         
-        .icon-row .horizontal-icon-item {
-            min-height: 70px;
-            padding: 6px 3px;
-            border-radius: 10px;
-            background:  #ffffff !important;
-            border: 1px solid #e0f2fe;
-        }
+     .icon-row .horizontal-icon-item {
+    min-height: 70px;
+    padding: 6px 3px;
+    border-radius: 10px;
+    background: #ffffff !important;
+    border: 0.5px solid #e0f2fe; /* خەتی سپی نازکتر */
+}
+
 
         .icon-row .horizontal-icon-item:hover {
             transform: translateY(-3px);
@@ -295,73 +296,136 @@
             margin-right: 6px;
         }
         
-        /* بانەری ڕیکلام */
-        .promo-banner-section {
-            height: 180px;
-            overflow: hidden;
-            border-radius: 20px;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, #9ca3af 0%, #d1d5db 100%) !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 20px;
-        }
-        
-        .promo-banner-content {
-            max-width: 800px;
-            z-index: 2;
-            position: relative;
-        }
-        
-        .promo-banner-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .promo-banner-subtitle {
-            font-size: 1.1rem;
-            opacity: 0.95;
-            margin-bottom: 15px;
-        }
-        
-        .discount-badge {
-            display: inline-block;
-            background: #dc2626;
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.5rem;
-            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.5);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .promo-banner-image {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            opacity: 0.8;
-            z-index: 1;
-            padding: 20px;
-        }
-        
+ /* بانەری ڕیکلام - وەک سلایدەر */
+.promo-banner-section {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    background: white;
+    margin: 20px 0;
+}
+
+/* وێنەی بانەر - لە ناوەڕاست و بچووکتر */
+.promo-banner-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 80%;
+    max-height: 80%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    z-index: 1;
+}
+
+/* ناوەڕۆکی نووسین */
+.promo-banner-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
+    padding: 15px;
+    color: white;
+    direction: rtl;
+    z-index: 2;
+}
+
+/* سەردێر */
+.promo-banner-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 6px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+/* ژێردێر */
+.promo-banner-subtitle {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+/* داشکاندن */
+.discount-badge {
+    display: inline-block;
+    background: #dc2626;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(220,38,38,0.4);
+}
+
+/* بۆ مۆبایل */
+@media (max-width: 768px) {
+    .promo-banner-section {
+        height: 250px;
+        border-radius: 12px;
+    }
+    
+    .promo-banner-image {
+        max-width: 100%; /* فوڵ بۆ مۆبایل */
+        max-height: 100%;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* پڕکردنەوەی تەواو */
+    }
+    
+    .promo-banner-content {
+        padding: 12px;
+    }
+    
+    .promo-banner-title {
+        font-size: 1.3rem;
+    }
+    
+    .promo-banner-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .discount-badge {
+        font-size: 0.9rem;
+        padding: 5px 14px;
+    }
+}
+
+/* بۆ لاپتۆپ و شاشەی گەورە */
+@media (min-width: 1024px) {
+    .promo-banner-section {
+        height: 350px;
+        border-radius: 18px;
+    }
+    
+    .promo-banner-image {
+        max-width: 85%; /* ئاسایی بۆ لاپتۆپ */
+        max-height: 85%;
+    }
+    
+    .promo-banner-content {
+        padding: 20px;
+    }
+    
+    .promo-banner-title {
+        font-size: 1.8rem;
+    }
+    
+    .promo-banner-subtitle {
+        font-size: 1.1rem;
+    }
+}
+    
+    .promo-banner-subtitle {
+        font-size: 1.1rem;
+    }
+}
         .promo-admin-actions {
             position: absolute;
             top: 10px;
@@ -853,42 +917,37 @@
             50% { transform: translateY(-10px) rotate(-1deg); }
             75% { transform: translateY(-5px) rotate(1deg); }
         }
-        /* بانەری ڕیکلام */
-/* بانەری ڕیکلام */
+/* بانەری ڕیکلام - فوڵ */
 .promo-banner-section {
     height: 180px;
     position: relative;
     overflow: hidden;
     border-radius: 20px;
-    background-color: #ffffff !important; /* 👈 سپی */
-    background-image: none !important;
+    background-color: #f5f5f5;
     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
 }
 
-/* وێنە (ئەگەر هەبێت) */
-/* وێنەی بانەر */
+/* وێنەی بانەر - لە ناوەڕاست بە شێوەیەکی جوان */
 .promo-banner-image {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* 👈 ناوەراست ڕاستەوخۆ */
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    right: 0;
+    transform: translateY(-50%); /* لە ناوەڕاستی ستوونی */
+    width: 50%;
+    height: 100%;
+    object-fit: cover; /* گونجاندنی خۆکار */
     z-index: 1;
-    opacity: 0.9;
-    padding: 20px;
 }
-
 
 /* ناوەڕۆکی نووسین */
 .promo-banner-content {
     position: absolute;
-    bottom: 20px;   /* 👇 خوارەوە */
-    left: 20px;     /* 👈 چەپ */
+    bottom: 20px;
+    left: 20px;
     text-align: left;
     z-index: 2;
     max-width: 70%;
+    display: none; /* شاردنەوەی نووسین */
 }
 
 /* سەردێر */
@@ -897,6 +956,7 @@
     font-weight: bold;
     color: #222;
     margin-bottom: 6px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 /* ژێردێر */
@@ -904,6 +964,7 @@
     font-size: 1rem;
     color: #555;
     margin-bottom: 10px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* داشکاندن */
@@ -915,8 +976,69 @@
     border-radius: 50px;
     font-weight: bold;
     font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(220,38,38,0.3);
 }
 
+/* بۆ مۆبایل */
+@media (max-width: 768px) {
+    .promo-banner-section {
+        height: 180px;
+        border-radius: 15px;
+    }
+    
+    .promo-banner-image {
+        width: 100%; /* تەواوی پانی */
+        height: 100%; /* پڕی تەواوی بانەر */
+        top: 0;
+        right: 0;
+        transform: none;
+        padding: 0; /* بەبێ بۆشایی */
+        object-fit: cover; /* پڕکردنەوەی تەواو */
+    }
+    
+    .promo-banner-content {
+        bottom: 15px;
+        left: 15px;
+        max-width: 90%;
+        background: rgba(255, 255, 255, 0.9); /* پاشبنەمای سپی */
+        padding: 10px 15px;
+        border-radius: 10px;
+    }
+    
+    .promo-banner-title {
+        font-size: 1.3rem;
+    }
+    
+    .promo-banner-subtitle {
+        font-size: 0.9rem;
+    }
+    
+    .discount-badge {
+        font-size: 0.9rem;
+        padding: 5px 14px;
+    }
+}
+
+/* بۆ لاپتۆپ و شاشەی گەورە */
+@media (min-width: 1024px) {
+    .promo-banner-section {
+        height: 220px;
+        border-radius: 25px;
+    }
+    
+    .promo-banner-content {
+        bottom: 30px;
+        left: 30px;
+    }
+    
+    .promo-banner-title {
+        font-size: 1.8rem;
+    }
+    
+    .promo-banner-subtitle {
+        font-size: 1.1rem;
+    }
+}
 /* دوگمەی ئەدمین */
 .promo-admin-actions {
     position: absolute;
@@ -926,73 +1048,65 @@
 }
 
         /* ستایل بۆ ١٢ کاتیگۆرییەکەی مینۆ */
-        .menu-categories-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
+    
+.menu-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* ٤ دانە لە هەر ریز */
+    gap: 10px;
+    margin-bottom: 20px;
+}
 
-        .menu-category-item {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 8px;
-            cursor: pointer;
-            border: 1px solid #bae6fd;
-            transition: all 0.3s ease;
-            text-align: center;
-            min-height: 90px;
-        }
+/* هەر کاتیگۆری */
+.menu-category-item {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    cursor: pointer;
+    border: 1px solid #bae6fd;
+    transition: all 0.3s ease;
+    text-align: center;
+    min-height: 90px;
+}
 
-        .menu-category-item:hover,
-        .menu-category-item.active {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,191,255,0.2);
-            border-color: #38bdf8;
-            background: #f0f9ff;
-        }
+.menu-category-item:hover,
+.menu-category-item.active {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,191,255,0.2);
+    border-color: #38bdf8;
+    background: #f0f9ff;
+}
 
-        .menu-category-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, #00BFFF 0%, #1DA1F2 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
-        }
+.menu-category-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, #00BFFF 0%, #1DA1F2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
 
-        .menu-category-icon img {
-            width: 22px;
-            height: 22px;
-            filter: brightness(0) invert(1);
-        }
+.menu-category-icon img {
+    width: 22px;
+    height: 22px;
+    filter: brightness(0) invert(1);
+}
 
-        .menu-category-text {
-            font-size: 11px;
-            font-weight: 600;
-            color: #0c4a6e;
-            line-height: 1.3;
-        }
-        
-        @media (max-width: 768px) {
-            .menu-categories-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-        }
+.menu-category-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: #0c4a6e;
+    line-height: 1.3;
+}
 
-        @media (max-width: 480px) {
-            .menu-categories-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 6px;
-            }
+/* ❌ media ـەکان سڕاوە بۆ ئەوەی هەمیشە ٣ ریز بمێنێت */
+
         }
     </style>
 </head>
@@ -1138,7 +1252,7 @@
                         <!-- کاتەلۆگ -->
                         <div class="horizontal-icon-item" onclick="openCatalog()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=ppzgZZaVxbD5&format=png&color=000000" alt="کەتەلۆگ">
+                                <img src="https://img.icons8.com/?size=100&id=hd7JprS7cF64&format=png&color=000000" alt="کەتەلۆگ">
                             </div>
                             <span class="text-xs font-medium mt-1">کەتەلۆگ</span>
                         </div>
@@ -1189,8 +1303,8 @@
                     
                     <!-- ناوەڕۆکی ڕیکلام -->
                     <div class="promo-banner-content">
-                        <div id="promoBannerTitle" class="promo-banner-title">ڕێگایەکی سەرنجڕاکێش بۆ کڕین!</div>
-                        <div id="promoBannerSubtitle" class="promo-banner-subtitle">کاڵا جیاوازەکان بە نرخی گونجاو بەردەستن</div>
+                        <div id="promoBannerTitle" class="promo-banner-title"></div>
+                        <div id="promoBannerSubtitle" class="promo-banner-subtitle"></div>
                         <div id="promoBannerDiscount" class="discount-badge">داشکاندن هەیە!</div>
                     </div>
                 </div>
