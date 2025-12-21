@@ -407,6 +407,10 @@
             align-items: center;
         }
 
+        .image-zoom-modal.active {
+            display: flex;
+        }
+
         .zoom-image-container {
             position: relative;
             max-width: 90%;
@@ -1067,9 +1071,10 @@
             color: #0c4a6e;
             line-height: 1.3;
         }
-.product-card img {
-        cursor: zoom-in; /* نیشاندانی نیشانەی زووم کاتێک ماوس دەچێتە سەر وێنەکە */
-    }
+        
+        .product-card img {
+            cursor: zoom-in;
+        }
     </style>
 </head>
 <body class="min-h-screen" dir="rtl">
@@ -2097,6 +2102,12 @@
         </div>
     </div>
 
+    <!-- مۆدالی سادە بۆ زۆم کردنی وێنە (بەکاردێت کاتێک کلیک لەسەر وێنەی کالاکان دەکرێت) -->
+    <div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black bg-opacity-90 flex items-center justify-center p-4" onclick="closeImageModal()">
+        <button class="absolute top-5 right-5 text-white text-4xl">&times;</button>
+        <img id="modalImage" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform duration-300" src="" alt="Zoomed view">
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // چەککردنی Firebase
@@ -2218,10 +2229,6 @@
                 document.getElementById('mainProductsSection').style.display = 'block';
                 document.getElementById('servicesSection').style.display = 'block';
                 
-               // لە ناو فەنکشنی دروستکردنی کارتەکان، ئەم شێوازە بەکاربهێنە بۆ وێنەکان:
-productImage.onclick = () => openImageModal(productImage.src);
-// یان ئەگەر بە HTML string دەینووسیت:
-// <img src="${url}" onclick="openImageModal(this.src)" class="cursor-pointer" />
                 document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
                 
                 closeAllModals();
@@ -3207,7 +3214,7 @@ productImage.onclick = () => openImageModal(productImage.src);
             
             // ========== فەنکشنەکانی زۆم کردنی وێنە ==========
             
-            // فەنکشن بۆ کردنەوەی وێنە بە زۆم
+            // فەنکشن بۆ کردنەوەی وێنە بە زۆم (بۆ مۆدالی پێشکەوتوو)
             window.openImageZoom = function(imageSrc, imagesArray, startIndex = 0) {
                 zoomImages = imagesArray || [imageSrc];
                 currentZoomIndex = startIndex;
@@ -3219,6 +3226,7 @@ productImage.onclick = () => openImageModal(productImage.src);
                 if (zoomImages.length > 0) {
                     zoomedImage.src = zoomImages[currentZoomIndex];
                     zoomCounter.textContent = `${currentZoomIndex + 1}/${zoomImages.length}`;
+                    zoomModal.classList.add('active');
                     zoomModal.style.display = 'flex';
                     
                     // قفڵکردنی هاتوچۆی پەڕەکە
@@ -3226,9 +3234,10 @@ productImage.onclick = () => openImageModal(productImage.src);
                 }
             };
 
-            // فەنکشن بۆ داخستنی زۆم
+            // فەنکشن بۆ داخستنی زۆم (مۆدالی پێشکەوتوو)
             window.closeImageZoom = function() {
                 const zoomModal = document.getElementById('imageZoomModal');
+                zoomModal.classList.remove('active');
                 zoomModal.style.display = 'none';
                 zoomImages = [];
                 currentZoomIndex = 0;
@@ -3237,7 +3246,7 @@ productImage.onclick = () => openImageModal(productImage.src);
                 document.body.style.overflow = 'auto';
             };
 
-            // فەنکشن بۆ گۆڕینی وێنە لە زۆم
+            // فەنکشن بۆ گۆڕینی وێنە لە زۆم (مۆدالی پێشکەوتوو)
             window.changeZoomImage = function(direction) {
                 if (zoomImages.length <= 1) return;
                 
@@ -3256,13 +3265,33 @@ productImage.onclick = () => openImageModal(productImage.src);
                 zoomCounter.textContent = `${currentZoomIndex + 1}/${zoomImages.length}`;
             };
 
+            // فەنکشنەکانی سادە بۆ زۆم کردنی وێنە (مۆدالی سادە)
+            window.openImageModal = function(src) {
+                const modal = document.getElementById('imageModal');
+                const modalImg = document.getElementById('modalImage');
+                if (modal && modalImg) {
+                    modal.classList.remove('hidden');
+                    modalImg.src = src;
+                    document.body.style.overflow = 'hidden'; 
+                }
+            }
+
+            window.closeImageModal = function() {
+                const modal = document.getElementById('imageModal');
+                if (modal) {
+                    modal.classList.add('hidden');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+
             // Event Listener بۆ داخستنی زۆم بە کلیک لەسەر Escape
             document.addEventListener('keydown', function(event) {
                 if (event.key === 'Escape') {
                     closeImageZoom();
+                    closeImageModal();
                 }
                 
-                // هاتوچۆ بە هاوکاری Arrow Keys
+                // هاتوچۆ بە هاوکاری Arrow Keys بۆ مۆدالی پێشکەوتوو
                 if (document.getElementById('imageZoomModal').style.display === 'flex') {
                     if (event.key === 'ArrowLeft') {
                         changeZoomImage(-1);
@@ -3276,6 +3305,12 @@ productImage.onclick = () => openImageModal(productImage.src);
             document.getElementById('imageZoomModal')?.addEventListener('click', function(event) {
                 if (event.target === this) {
                     closeImageZoom();
+                }
+            });
+
+            document.getElementById('imageModal')?.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeImageModal();
                 }
             });
             
@@ -3371,10 +3406,10 @@ productImage.onclick = () => openImageModal(productImage.src);
                                 <img src="${firstImage}" 
                                      alt="${product.name}" 
                                      class="product-image-clickable"
-                                     onclick="openImageZoom(this.src, ${JSON.stringify(images)}, 0)"
+                                     onclick="openImageModal('${firstImage}')"
                                      onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
                                 ${images.length > 1 ? `
-                                    <div class="image-counter" onclick="openImageZoom('${firstImage}', ${JSON.stringify(images)}, 0); event.stopPropagation();">${images.length} وێنە</div>
+                                    <div class="image-counter" onclick="openImageModal('${firstImage}'); event.stopPropagation();">${images.length} وێنە</div>
                                 ` : ''}
                             </div>
                             <div class="two-column-product-info">
@@ -3477,18 +3512,16 @@ productImage.onclick = () => openImageModal(productImage.src);
                     const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
                     const firstImage = images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop';
                     
-      const imagesJson = JSON.stringify(images).replace(/'/g, "\\'");
-                    
                     const productHTML = `
                         <div class="two-column-product-card" data-product-index="${index}">
                             <div class="product-image-container">
                                 <img src="${firstImage}" 
                                      alt="${product.name}" 
                                      class="product-image-clickable"
-                                     onclick="event.stopPropagation(); openImageZoom('${firstImage}', '${imagesJson}', 0)"
+                                     onclick="event.stopPropagation(); openImageModal('${firstImage}')"
                                      onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
                                 ${images.length > 1 ? `
-                                    <div class="image-counter" onclick="event.stopPropagation(); openImageZoom('${firstImage}', '${imagesJson}', 0);">${images.length} وێنە</div>
+                                    <div class="image-counter" onclick="event.stopPropagation(); openImageModal('${firstImage}');">${images.length} وێنە</div>
                                 ` : ''}
                             </div>
                             <div class="two-column-product-info">
@@ -5333,42 +5366,6 @@ productImage.onclick = () => openImageModal(productImage.src);
             // چالاککردنی دوگمەی ماڵ بە شێوەی بنەڕەتی
             showHomePage();
         });
-// فەرمانی کردنەوەی وێنەکە بە گەورەیی
-window.openImageModal = function(src) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    modal.classList.remove('hidden');
-    modalImg.src = src;
-    document.body.style.overflow = 'hidden'; // بۆ ئەوەی پەیجەکە جوڵەی نەمێنێت لەکاتی زووم
-}
-
-// فەرمانی داخستنی مۆدێڵەکە
-window.closeImageModal = function() {
-    const modal = document.getElementById('imageModal');
-    modal.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-}
-window.openImageModal = function(src) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImage');
-    if (modal && modalImg) {
-        modal.classList.remove('hidden');
-        modalImg.src = src;
-        document.body.style.overflow = 'hidden'; 
-    }
-}
-
-window.closeImageModal = function() {
-    const modal = document.getElementById('imageModal');
-    if (modal) {
-        modal.classList.add('hidden');
-        document.body.style.overflow = 'auto';
-    }
-}
     </script>
-<div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black bg-opacity-90 flex items-center justify-center p-4" onclick="closeImageModal()">
-    <button class="absolute top-5 right-5 text-white text-4xl">&times;</button>
-    <img id="modalImage" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform duration-300" src="" alt="Zoomed view">
-</div>
 </body>
 </html>
