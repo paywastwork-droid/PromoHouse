@@ -56,21 +56,20 @@
             font-family: 'Noto Sans Arabic', sans-serif;
         }
         
-     /* ستایلەکانی خزمەتگوزارییەکان */
+        /* ستایلەکانی خزمەتگوزارییەکان */
         .icon-container {
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-  background: linear-gradient(135deg, #54a9eb 0%,#39C7F7 100%) !important;
-            box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4) !important;
-            border: 8px solid #ffffff  !important;
+            background: linear-gradient(135deg, #54a9eb 0%,#39C7F7 100%) !important;
+            box-shadow: 0 5px 8px rgba(0, 191, 255, 0.4) !important;
+            border: 3px solid #ffffff !important;
             width: 55px;
             height: 55px;
             transition: all 0.3s ease;
             cursor: pointer;
         }
-  
         
         .icon-container img {
             width: 28px;
@@ -92,19 +91,18 @@
             justify-items: center;
         }
         
-     .icon-row .horizontal-icon-item {
-    min-height: 70px;
-    padding: 6px 3px;
-    border-radius: 10px;
-    background: #ffffff !important;
-    border: 0.5px solid #e0f2fe; /* خەتی سپی نازکتر */
-}
-
+        .icon-row .horizontal-icon-item {
+            min-height: 40px;
+            padding: 6px 3px;
+            border-radius: 0.5px;
+            background: #ffffff !important;
+            border: 0.5px solid #e0f2fe;
+        }
 
         .icon-row .horizontal-icon-item:hover {
             transform: translateY(-3px);
             background:  #ffffff !important;
-            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.2);
+            box-shadow: 0 4px 6px rgba(56, 189, 248, 0.2);
         }
         
         .horizontal-icon-item {
@@ -115,7 +113,7 @@
             width: 100%;
             min-height: 80px;
             background:  #ffffff !important;
-            border-radius: 12px;
+            border-radius: 6px;
             box-shadow: none;
             transition: all 0.3s ease;
             padding: 8px 4px;
@@ -125,13 +123,12 @@
         
         .horizontal-icon-item:hover {
             transform: translateY(-3px);
-            background:  #ffffff  !important;
+            background:  #ffffff !important;
         }
         
         .horizontal-icon-item.active {
             background: #fecaca !important;
         }
-        
         
         /* دوگمەکانی خوارەوە */
         .bottom-nav {
@@ -240,12 +237,12 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
+            cursor: zoom-in;
             transition: transform 0.3s ease;
         }
         
         .product-image-clickable:hover {
-            transform: scale(1.03);
+            transform: scale(1.02);
         }
         
         .image-counter {
@@ -296,163 +293,251 @@
             margin-right: 6px;
         }
         
- /* بانەری ڕیکلام - وەک سلایدەر */
-.promo-banner-section {
-    position: relative;
-    width: 100%;
-    height: 300px;
-    border-radius: 15px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-    background: white;
-    margin: 20px 0;
-}
-
-/* وێنەی بانەر - لە ناوەڕاست و بچووکتر */
-.promo-banner-image {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 80%;
-    max-height: 80%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    z-index: 1;
-}
-
-/* ناوەڕۆکی نووسین */
-.promo-banner-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 0%, transparent 100%);
-    padding: 15px;
-    color: white;
-    direction: rtl;
-    z-index: 2;
-}
-
-/* سەردێر */
-.promo-banner-title {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: white;
-    margin-bottom: 6px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-}
-
-/* ژێردێر */
-.promo-banner-subtitle {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 10px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
-}
-
-/* داشکاندن */
-.discount-badge {
-    display: inline-block;
-    background: #dc2626;
-    color: white;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(220,38,38,0.4);
-}
-
-/* بۆ مۆبایل */
-@media (max-width: 768px) {
-    .promo-banner-section {
-        height: 250px;
-        border-radius: 12px;
-    }
-    
-    .promo-banner-image {
-        max-width: 100%; /* فوڵ بۆ مۆبایل */
-        max-height: 100%;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* پڕکردنەوەی تەواو */
-    }
-    
-    .promo-banner-content {
-        padding: 12px;
-    }
-    
-    .promo-banner-title {
-        font-size: 1.3rem;
-    }
-    
-    .promo-banner-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .discount-badge {
-        font-size: 0.9rem;
-        padding: 5px 14px;
-    }
-}
-
-/* بۆ لاپتۆپ و شاشەی گەورە */
-@media (min-width: 1024px) {
-    .promo-banner-section {
-        height: 350px;
-        border-radius: 18px;
-    }
-    
-    .promo-banner-image {
-        max-width: 85%; /* ئاسایی بۆ لاپتۆپ */
-        max-height: 85%;
-    }
-    
-    .promo-banner-content {
-        padding: 20px;
-    }
-    
-    .promo-banner-title {
-        font-size: 1.8rem;
-    }
-    
-    .promo-banner-subtitle {
-        font-size: 1.1rem;
-    }
-}
-    
-    .promo-banner-subtitle {
-        font-size: 1.1rem;
-    }
-}
-        .promo-admin-actions {
+        /* ستایلە نوێیەکان بۆ بانەری فرە وێنەیی */
+        .promo-banner-section {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            background-color: #f5f5f5;
+        }
+        
+        /* کانتێینەری وێنەکانی بانەر */
+        .promo-images-container {
             position: absolute;
-            top: 10px;
-            left: 10px;
-            z-index: 10;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        
+        .promo-image-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            object-fit: cover;
+        }
+        
+        .promo-image-slide.active {
+            opacity: 1;
+        }
+        
+        /* نیشاندەرەکانی سلایدەر */
+        .promo-slideshow-indicators {
+            position: absolute;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 3;
+        }
+        
+        .promo-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .promo-indicator.active {
+            background-color: #00BFFF;
+            transform: scale(1.2);
+        }
+        
+        /* ناوەڕۆکی نووسین */
+        .promo-banner-content {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            text-align: left;
+            z-index: 2;
+            max-width: 70%;
+        }
+        
+        /* سەردێر */
+        .promo-banner-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 4px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        /* ژێردێر */
+        .promo-banner-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 8px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        /* داشکاندن */
+        .discount-badge {
+            display: inline-block;
+            background: #dc2626;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 8px rgba(220,38,38,0.4);
+        }
+        
+        /* مۆدالی زۆم کردنی وێنە */
+        .image-zoom-modal {
             display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
         }
 
-        .promo-admin-btn {
-            background: rgba(255, 255, 255, 0.9);
-            color: #00BFFF;
-            border: 2px solid #00BFFF;
-            padding: 6px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: bold;
+        .zoom-image-container {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+        }
+
+        .zoom-image {
+            width: 100%;
+            height: auto;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        .close-zoom-btn {
+            position: absolute;
+            top: -40px;
+            right: -10px;
+            background: #dc2626;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 5px;
-            transition: all 0.3s ease;
+            justify-content: center;
+            z-index: 2001;
         }
 
-        .promo-admin-btn:hover {
-            background: #00BFFF;
+        .zoom-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.3);
             color: white;
-            transform: scale(1.05);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2001;
+            transition: background 0.3s;
+        }
+
+        .zoom-nav-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .zoom-prev-btn {
+            left: 20px;
+        }
+
+        .zoom-next-btn {
+            right: 20px;
+        }
+
+        .zoom-image-counter {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        
+        /* بۆ مۆبایل */
+        @media (max-width: 768px) {
+            .promo-banner-section {
+                height: 160px;
+                border-radius: 12px;
+            }
+            
+            .promo-banner-content {
+                bottom: 15px;
+                left: 15px;
+                max-width: 85%;
+            }
+            
+            .promo-banner-title {
+                font-size: 1rem;
+            }
+            
+            .promo-banner-subtitle {
+                font-size: 0.8rem;
+            }
+            
+            .discount-badge {
+                font-size: 0.8rem;
+                padding: 3px 10px;
+            }
+            
+            .promo-indicator {
+                width: 10px;
+                height: 10px;
+            }
+        }
+        
+        /* بۆ لاپتۆپ و شاشەی گەورە */
+        @media (min-width: 1024px) {
+            .promo-banner-section {
+                height: 200px;
+                border-radius: 18px;
+            }
+            
+            .promo-banner-content {
+                bottom: 25px;
+                left: 25px;
+            }
+            
+            .promo-banner-title {
+                font-size: 1.4rem;
+            }
+            
+            .promo-banner-subtitle {
+                font-size: 1rem;
+            }
+            
+            .discount-badge {
+                font-size: 1rem;
+                padding: 5px 14px;
+            }
         }
         
         /* داشبۆردی بەڕێوەبەر */
@@ -917,197 +1002,74 @@
             50% { transform: translateY(-10px) rotate(-1deg); }
             75% { transform: translateY(-5px) rotate(1deg); }
         }
-/* بانەری ڕیکلام - فوڵ */
-.promo-banner-section {
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-    border-radius: 20px;
-    background-color: #f5f5f5;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-/* وێنەی بانەر - لە ناوەڕاست بە شێوەیەکی جوان */
-.promo-banner-image {
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%); /* لە ناوەڕاستی ستوونی */
-    width: 50%;
-    height: 100%;
-    object-fit: cover; /* گونجاندنی خۆکار */
-    z-index: 1;
-}
-
-/* ناوەڕۆکی نووسین */
-.promo-banner-content {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    text-align: left;
-    z-index: 2;
-    max-width: 70%;
-    display: none; /* شاردنەوەی نووسین */
-}
-
-/* سەردێر */
-.promo-banner-title {
-    font-size: 1.6rem;
-    font-weight: bold;
-    color: #222;
-    margin-bottom: 6px;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-/* ژێردێر */
-.promo-banner-subtitle {
-    font-size: 1rem;
-    color: #555;
-    margin-bottom: 10px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-}
-
-/* داشکاندن */
-.discount-badge {
-    display: inline-block;
-    background: #dc2626;
-    color: white;
-    padding: 6px 16px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1rem;
-    box-shadow: 0 2px 8px rgba(220,38,38,0.3);
-}
-
-/* بۆ مۆبایل */
-@media (max-width: 768px) {
-    .promo-banner-section {
-        height: 180px;
-        border-radius: 15px;
-    }
-    
-    .promo-banner-image {
-        width: 100%; /* تەواوی پانی */
-        height: 100%; /* پڕی تەواوی بانەر */
-        top: 0;
-        right: 0;
-        transform: none;
-        padding: 0; /* بەبێ بۆشایی */
-        object-fit: cover; /* پڕکردنەوەی تەواو */
-    }
-    
-    .promo-banner-content {
-        bottom: 15px;
-        left: 15px;
-        max-width: 90%;
-        background: rgba(255, 255, 255, 0.9); /* پاشبنەمای سپی */
-        padding: 10px 15px;
-        border-radius: 10px;
-    }
-    
-    .promo-banner-title {
-        font-size: 1.3rem;
-    }
-    
-    .promo-banner-subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .discount-badge {
-        font-size: 0.9rem;
-        padding: 5px 14px;
-    }
-}
-
-/* بۆ لاپتۆپ و شاشەی گەورە */
-@media (min-width: 1024px) {
-    .promo-banner-section {
-        height: 220px;
-        border-radius: 25px;
-    }
-    
-    .promo-banner-content {
-        bottom: 30px;
-        left: 30px;
-    }
-    
-    .promo-banner-title {
-        font-size: 1.8rem;
-    }
-    
-    .promo-banner-subtitle {
-        font-size: 1.1rem;
-    }
-}
-/* دوگمەی ئەدمین */
-.promo-admin-actions {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 10;
-}
+        
+        /* دوگمەی ئەدمین */
+        .promo-admin-actions {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 10;
+        }
 
         /* ستایل بۆ ١٢ کاتیگۆرییەکەی مینۆ */
-    
-.menu-categories-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr); /* ٤ دانە لە هەر ریز */
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-/* هەر کاتیگۆری */
-.menu-category-item {
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 8px;
-    cursor: pointer;
-    border: 1px solid #bae6fd;
-    transition: all 0.3s ease;
-    text-align: center;
-    min-height: 90px;
-}
-
-.menu-category-item:hover,
-.menu-category-item.active {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0,191,255,0.2);
-    border-color: #38bdf8;
-    background: #f0f9ff;
-}
-
-.menu-category-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 6px;
-    background: linear-gradient(135deg, #00BFFF 0%, #1DA1F2 100%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 8px;
-}
-
-.menu-category-icon img {
-    width: 22px;
-    height: 22px;
-    filter: brightness(0) invert(1);
-}
-
-.menu-category-text {
-    font-size: 11px;
-    font-weight: 600;
-    color: #0c4a6e;
-    line-height: 1.3;
-}
-
-/* ❌ media ـەکان سڕاوە بۆ ئەوەی هەمیشە ٣ ریز بمێنێت */
-
+        .menu-categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
         }
+
+        /* هەر کاتیگۆری */
+        .menu-category-item {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 8px;
+            cursor: pointer;
+            border: 1px solid #bae6fd;
+            transition: all 0.3s ease;
+            text-align: center;
+            min-height: 90px;
+        }
+
+        .menu-category-item:hover,
+        .menu-category-item.active {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,191,255,0.2);
+            border-color: #38bdf8;
+            background: #f0f9ff;
+        }
+
+        .menu-category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background: linear-gradient(135deg, #00BFFF 0%, #1DA1F2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .menu-category-icon img {
+            width: 22px;
+            height: 22px;
+            filter: brightness(0) invert(1);
+        }
+
+        .menu-category-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #0c4a6e;
+            line-height: 1.3;
+        }
+.product-card img {
+        cursor: zoom-in; /* نیشاندانی نیشانەی زووم کاتێک ماوس دەچێتە سەر وێنەکە */
+    }
     </style>
 </head>
 <body class="min-h-screen" dir="rtl">
@@ -1168,14 +1130,6 @@
                             <span class="admin-dashboard-text">ڕیکلام</span>
                         </div>
                         
-                        <div class="admin-dashboard-btn" onclick="showApprovalManager()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="admin-dashboard-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            <span class="admin-dashboard-text">پەسەندکردنەکان</span>
-                            <span id="approvalBadge" class="notification-badge" style="position: static; margin-top: 5px; display: none;">0</span>
-                        </div>
-                        
                         <div class="admin-dashboard-btn" onclick="showSellerProductsView()">
                             <svg xmlns="http://www.w3.org/2000/svg" class="admin-dashboard-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -1190,13 +1144,6 @@
                             </svg>
                             <span class="admin-dashboard-text">داواکاری کڕیار</span>
                             <span id="customerRequestsBadge" class="notification-badge" style="position: static; margin-top: 5px; display: none;">0</span>
-                        </div>
-                        
-                        <div class="admin-dashboard-btn" onclick="showOrdersManager()">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="admin-dashboard-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                            </svg>
-                            <span class="admin-dashboard-text">داواکاریەکان</span>
                         </div>
                         
                         <div class="admin-dashboard-btn" onclick="logoutAdmin()">
@@ -1276,7 +1223,7 @@
                         <!-- FIB-->
                         <div class="horizontal-icon-item" onclick="document.getElementById('fibModal').style.display='flex'">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=oNjlPNGrDJnS&format=png&color=000000"FIB">
+                                <img src="https://img.icons8.com/?size=100&id=oNjlPNGrDJnS&format=png&color=000000" alt="FIB">
                             </div>
                             <span class="text-xs font-medium mt-1">FIB</span>
                         </div>
@@ -1298,8 +1245,15 @@
                         </button>
                     </div>
                     
-                    <!-- وێنەی ڕیکلام -->
-                    <img id="promoBannerImage" src="" alt="بانەری ڕیکلام" class="promo-banner-image" style="display: none;">
+                    <!-- وێنەکانی بانەر (سلایدەر فرە وێنەیی) -->
+                    <div class="promo-images-container" id="promoImagesContainer">
+                        <!-- وێنەکان بە شێوەی داینامیکی زیاد دەکرێن -->
+                    </div>
+                    
+                    <!-- نیشاندەرەکانی سلایدەر -->
+                    <div class="promo-slideshow-indicators" id="promoIndicators">
+                        <!-- نیشاندەرەکان بە شێوەی داینامیکی زیاد دەکرێن -->
+                    </div>
                     
                     <!-- ناوەڕۆکی ڕیکلام -->
                     <div class="promo-banner-content">
@@ -1368,7 +1322,7 @@
 
             <!-- فۆرمی دانانی کالا (بۆ فرۆشیاران) -->
             <div class="request-form-container" id="sellerProductFormSection" style="display: none;">
-                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">دانانی کالا (فرۆشیار)</h3>
+                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">مارکێت</h3>
                 <p class="text-gray-600 mb-4 text-center">زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
                 
                 <form id="sellerProductForm">
@@ -1550,9 +1504,9 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="promoImage">وێنەی ڕیکلام:</label>
+                        <label for="promoImage">وێنەی ڕیکلام (فرە وێنە):</label>
                         <div class="file-input-container">
-                            <input type="file" id="promoImage" accept="image/*" class="file-input">
+                            <input type="file" id="promoImage" accept="image/*" class="file-input" multiple>
                             <label for="promoImage" class="file-input-label" id="promoFileInputLabel">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
                                     <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
@@ -1561,30 +1515,16 @@
                                     <circle cx="9" cy="9" r="2"></circle>
                                     <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
                                 </svg>
-                                <span>وێنەی ڕیکلام هەڵبژێرە</span>
+                                <span>وێنەی ڕیکلام هەڵبژێرە (فرە)</span>
                             </label>
                         </div>
                         <div id="promoFileName" class="text-sm text-gray-500 mt-2"></div>
-                        <div id="promoCurrentImage" class="mt-2" style="display: none;">
-                            <img id="promoCurrentImagePreview" src="" alt="وێنەی ئێستا" class="w-40 h-40 object-contain mx-auto">
-                            <p class="text-xs text-gray-500 mt-1 text-center">وێنەی ئێستا</p>
-                        </div>
+                        <div id="promoImagesPreviewContainer" class="mt-3" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;"></div>
                     </div>
                     
                     <div class="form-group">
                         <label for="promoTextColor">ڕەنگی دەق:</label>
                         <input type="color" id="promoTextColor" value="#ffffff" class="w-full h-12">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="promoBackground">باکگراوند:</label>
-                        <select id="promoBackground">
-                            <option value="gradient-blue">گرادیانی شین</option>
-                            <option value="gradient-red">گرادیانی سور</option>
-                            <option value="gradient-green">گرادیانی سەوز</option>
-                            <option value="gradient-purple">گرادیانی مۆر</option>
-                            <option value="custom">وێنەی تایبەت</option>
-                        </select>
                     </div>
                     
                     <button type="submit" class="submit-btn" id="submitPromoBtn">
@@ -1663,13 +1603,13 @@
                 <span id="orderTime" class="order-time"></span>
             </div>
             
-            <!-- دانانی کالا -->
+             <!-- مارکێت -->
             <div class="bottom-nav-item" id="bottomAddProductBtn" onclick="showSellerProductPage()">
                 <svg class="bottom-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="12" y1="5" x2="12" y2="19"></line>
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                 </svg>
-                <span class="bottom-nav-text">دانانی کالا</span>
+                <span class="bottom-nav-text">مارکێت</span>
             </div>
             
             <!-- دەربارە -->
@@ -1703,44 +1643,41 @@
         </div>
     </div>
 
- <div id="phoneModal" class="modal">
-    <div class="modal-content">
-        <h3 class="text-xl font-bold text-gray-800 mb-4">پەیوەندی</h3>
-        <p class="text-gray-600 mb-2">ژمارەی مۆبایل:</p>
-        
-        <a href="tel:+9647701922060" class="phone-number" id="phoneNumber" style="text-decoration: none; color: inherit; display: block; margin-bottom: 10px;">
-            964 770 192 2060
-        </a>
-
-        <p class="text-gray-500 text-sm mb-4">ئەم ژمارەیە دەتوانیت ئێستا پەیوەندی بکەیت</p>
-        
-        <div class="action-buttons">
-            <a href="tel:+9647701922060" style="text-decoration: none; flex: 1;">
-                <button id="messageBtn" class="action-button message-btn" style="width: 100%;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 8px;">
-                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-                    </svg>
-                    پەیوەندی
-                </button>
+    <!-- Phone Modal -->
+    <div id="phoneModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">پەیوەندی</h3>
+            <p class="text-gray-600 mb-2">ژمارەی مۆبایل:</p>
+            
+            <a href="tel:+9647701922060" class="phone-number" id="phoneNumber" style="text-decoration: none; color: inherit; display: block; margin-bottom: 10px;">
+                964 770 192 2060
             </a>
 
-            <a href="https://wa.me/9647701922060" target="_blank" style="text-decoration: none; flex: 1;">
-                <button id="whatsappBtn" class="action-button whatsapp-btn" style="width: 100%;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; margin-right: 8px;">
-                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.76.982.998-3.675-.236-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.9 6.994c-.004 5.45-4.438 9.88-9.888 9.88m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.333 .157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.333 11.893-11.893 0-3.18-1.24-6.162-3.495-8.411"/>
-                    </svg>
-                    واتساپ
-                </button>
-            </a>
+            <p class="text-gray-500 text-sm mb-4">ئەم ژمارەیە دەتوانیت ئێستا پەیوەندی بکەیت</p>
+            
+            <div class="action-buttons">
+                <a href="tel:+9647701922060" style="text-decoration: none; flex: 1;">
+                    <button id="messageBtn" class="action-button message-btn" style="width: 100%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: inline-block; margin-right: 8px;">
+                            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                        </svg>
+                        پەیوەندی
+                    </button>
+                </a>
+
+                <a href="https://wa.me/9647701922060" target="_blank" style="text-decoration: none; flex: 1;">
+                    <button id="whatsappBtn" class="action-button whatsapp-btn" style="width: 100%;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; margin-right: 8px;">
+                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.76.982.998-3.675-.236-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.9 6.994c-.004 5.45-4.438 9.88-9.888 9.88m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.333 .157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.333 11.893-11.893 0-3.18-1.24-6.162-3.495-8.411"/>
+                        </svg>
+                        واتساپ
+                    </button>
+                </a>
+            </div>
+            
+            <button id="closeModalBtn" class="close-btn action-button">داخستن</button>
         </div>
-        
-        <button id="closeModalBtn" class="close-btn action-button">داخستن</button>
     </div>
-</div>
-        
-        <button id="closeModalBtn" class="close-btn action-button">داخستن</button>
-    </div>
-</div>
 
     <!-- FIB Payment Modal -->
     <div id="fibModal" class="modal">
@@ -1751,8 +1688,6 @@
             <div class="qrcode-container">
                 <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/LOGO-BARCODEFIBPROMO/fib-barcode-promo.png" alt="QR Code" class="qrcode-img">
             </div>
-            
-           
             
             <button id="copyAccountBtn" class="copy-btn">لەبەرکردنی ژمارەی حساب</button>
             <button id="closeFibModalBtn" class="close-btn action-button mt-2">داخستن</button>
@@ -1810,37 +1745,34 @@
                 </div>
             </div>
             
-          <!-- QR Codes -->
-<div class="bg-white p-4 rounded-lg border">
-    <h4 class="font-bold mb-4 text-gray-700 text-center">
-        QR Code ـەکان
-    </h4>
+            <!-- QR Codes -->
+            <div class="bg-white p-4 rounded-lg border">
+                <h4 class="font-bold mb-4 text-gray-700 text-center">
+                    QR Code ـەکان
+                </h4>
 
-    <div class="grid grid-cols-2 gap-4 text-center">
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <!-- WhatsApp QR -->
+                    <a href="https://wa.me/9647717858787" target="_blank">
+                        <img
+                            src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code-number.png"
+                            alt="QR WhatsApp"
+                            class="w-28 h-28 mx-auto border rounded-lg"
+                        >
+                        <p class="text-sm font-medium mt-2">WhatsApp</p>
+                    </a>
 
-        <!-- WhatsApp QR -->
-        <a href="https://wa.me/9647717858787" target="_blank">
-            <img
-                src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code-number.png"
-                alt="QR WhatsApp"
-                class="w-28 h-28 mx-auto border rounded-lg"
-            >
-            <p class="text-sm font-medium mt-2">WhatsApp</p>
-        </a>
-
-        <!-- PromoHouse Page QR -->
-        <a href="https://www.promohouseeiraq.com" target="_blank">
-            <img
-                src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code%20(logo).png"
-                alt="QR PromoHouse"
-                class="w-28 h-28 mx-auto border rounded-lg"
-            >
-            <p class="text-sm font-medium mt-2">PromoHouse</p>
-        </a>
-
-    </div>
-</div>
-
+                    <!-- PromoHouse Page QR -->
+                    <a href="https://www.promohouseeiraq.com" target="_blank">
+                        <img
+                            src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code%20(logo).png"
+                            alt="QR PromoHouse"
+                            class="w-28 h-28 mx-auto border rounded-lg"
+                        >
+                        <p class="text-sm font-medium mt-2">PromoHouse</p>
+                    </a>
+                </div>
+            </div>
             
             <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
         </div>
@@ -1849,7 +1781,7 @@
     <!-- Orders Page (مینۆ) -->
     <div id="ordersPage" class="modal">
         <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
-            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">مینۆ - ١٢ کاتیگۆرییەکانی کالاکان</h3>
+            <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">جۆری کاڵاکان</h3>
             
             <div class="menu-categories-grid" id="menuCategoriesGrid">
                 <!-- کوپ -->
@@ -2153,6 +2085,18 @@
         </div>
     </div>
 
+    <!-- مۆدالی زۆم کردنی وێنەی کالا -->
+    <div id="imageZoomModal" class="image-zoom-modal">
+        <button class="close-zoom-btn" onclick="closeImageZoom()">×</button>
+        <button class="zoom-nav-btn zoom-prev-btn" onclick="changeZoomImage(-1)">‹</button>
+        <button class="zoom-nav-btn zoom-next-btn" onclick="changeZoomImage(1)">›</button>
+        
+        <div class="zoom-image-container">
+            <img id="zoomedImage" src="" alt="وێنەی زۆمکراو" class="zoom-image">
+            <div class="zoom-image-counter" id="zoomImageCounter">1/1</div>
+        </div>
+    </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // چەککردنی Firebase
@@ -2167,6 +2111,11 @@
             let currentEditingImages = [];
             let menuCurrentCategory = null;
             
+            // فەنکشنەکان بۆ زۆم کردنی وێنەی کالا
+            let zoomImages = [];
+            let currentZoomIndex = 0;
+            let promoSlideInterval;
+
             // چاوەڕوانی بۆ چالاککردنی Firebase
             const checkFirebase = setInterval(() => {
                 if (window.firebase) {
@@ -2255,14 +2204,11 @@
                 }
             }
             
-            // فەنکشنەکانی دوگمەکانی خوارەوە
+            // ========== فەنکشنەکانی دوگمەکانی خوارەوە ==========
             
-            // 1. ماڵ (سەرەکی) - هەموو کالاکان پیشان ئەدات
             window.showHomePage = function() {
-                // چالاککردنی دوگمەی ماڵ
                 updateBottomNavActive('bottomHomeBtn');
                 
-                // نیشاندانی پەڕەی سەرەمی
                 document.getElementById('allProductsSection').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'none';
@@ -2272,23 +2218,19 @@
                 document.getElementById('mainProductsSection').style.display = 'block';
                 document.getElementById('servicesSection').style.display = 'block';
                 
-                // نیشاندانی هەموو کالاکان لە پەڕەی سەرەمی
-                displayProducts(globalProductsData, null);
+               // لە ناو فەنکشنی دروستکردنی کارتەکان، ئەم شێوازە بەکاربهێنە بۆ وێنەکان:
+productImage.onclick = () => openImageModal(productImage.src);
+// یان ئەگەر بە HTML string دەینووسیت:
+// <img src="${url}" onclick="openImageModal(this.src)" class="cursor-pointer" />
                 document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
                 
-                // داخستنی هەموو مۆدالەکان
                 closeAllModals();
-                
-                // گەڕاندنە سەرەوە
                 window.scrollTo(0, 0);
             };
             
-            // 2. داواکاری (فۆرمی کڕیار)
             window.showRequestPage = function() {
-                // چالاککردنی دوگمەی داواکاری
                 updateBottomNavActive('bottomRequestBtn');
                 
-                // نیشاندانی فۆرمی داواکاری
                 document.getElementById('allProductsSection').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'none';
@@ -2298,19 +2240,13 @@
                 document.getElementById('servicesSection').style.display = 'none';
                 document.getElementById('requestFormSection').style.display = 'block';
                 
-                // داخستنی هەموو مۆدالەکان
                 closeAllModals();
-                
-                // گەڕاندنە سەرەوە
                 document.getElementById('requestFormSection').scrollIntoView({ behavior: 'smooth' });
             };
             
-            // 3. دانانی کالا - بۆ فرۆشیاران
             window.showSellerProductPage = function() {
-                // چالاککردنی دوگمەی دانانی کالا
                 updateBottomNavActive('bottomAddProductBtn');
                 
-                // نیشاندانی فۆرمی فرۆشیار
                 document.getElementById('allProductsSection').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'none';
@@ -2320,19 +2256,13 @@
                 document.getElementById('servicesSection').style.display = 'none';
                 document.getElementById('sellerProductFormSection').style.display = 'block';
                 
-                // داخستنی هەموو مۆدالەکان
                 closeAllModals();
-                
-                // گەڕاندنە سەرەوە
                 document.getElementById('sellerProductFormSection').scrollIntoView({ behavior: 'smooth' });
             };
             
-            // 4. مینۆ - هەموو ١٢ کاتیگۆرییەکان پیشان ئەدات
             window.showOrdersPage = function() {
-                // چالاککردنی دوگمەی مینۆ
                 updateBottomNavActive('bottomOrdersBtn');
                 
-                // نیشاندانی کات
                 const orderTimeElement = document.getElementById('orderTime');
                 if (orderTimeElement) {
                     const now = new Date();
@@ -2342,16 +2272,10 @@
                     orderTimeElement.style.display = 'block';
                 }
                 
-                // نیشاندانی پەنجەرەی مینو
                 document.getElementById('ordersPage').style.display = 'flex';
-                
-                // نیشاندانی کاتیگۆرییەکان لە مینو
                 showMenuCategories();
-                
-                // نیشاندانی بەشی داواکاری (تەنها کاتێک کالا هەڵبژێردرێت)
                 document.getElementById('orderFormSection').style.display = 'none';
                 
-                // نیشاندانی بەشی بەڕێوەبەر ئەگەر چووبێتە ژوورەوە
                 const adminSection = document.getElementById('adminOrdersSection');
                 if (adminSection) {
                     if (isAdminLoggedIn) {
@@ -2362,7 +2286,6 @@
                     }
                 }
                 
-                // داخستنی هەموو بەشەکانی تر
                 document.getElementById('allProductsSection').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'none';
@@ -2373,15 +2296,10 @@
                 document.getElementById('servicesSection').style.display = 'none';
             };
             
-            // 5. دەربارە
             window.showAboutPage = function() {
-                // چالاککردنی دوگمەی دەربارە
                 updateBottomNavActive('bottomAboutBtn');
-                
-                // نیشاندانی پەڕەی دەربارە
                 document.getElementById('aboutPage').style.display = 'flex';
                 
-                // داخستنی هەموو بەشەکانی تر
                 document.getElementById('allProductsSection').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'none';
@@ -2392,29 +2310,24 @@
                 document.getElementById('servicesSection').style.display = 'none';
             };
             
-            // فەنکشنی نوێ بۆ کردنەوەی کاتیگۆرییەکان لە مینۆ
             window.openCategoryForm = function(category) {
-                // داخستنی پەنجەرەی مینۆ
                 document.getElementById('ordersPage').style.display = 'none';
-                
-                // گەڕاندن بۆ پەڕەی ماڵ
                 showHomePage();
                 
-                // دوای کەمێک کات، کالاکانی ئەو کاتیگۆرییە پیشان بدە
                 setTimeout(() => {
                     displayProducts(globalProductsData, category);
                     document.getElementById('productsTitle').textContent = `کالاکانی ${category}`;
                 }, 100);
             };
             
-            // فەنکشنەکانی داشبۆردی بەڕێوەبەر
+            // ========== فەنکشنەکانی داشبۆردی بەڕێوەبەر ==========
+            
             function showAdminDashboard() {
                 if (!isAdminLoggedIn) {
                     showLoginModal();
                     return;
                 }
                 
-                // نیشاندانی فۆڕمی زیادکردنی کالا و داشبۆرد
                 document.getElementById('mainProductsSection').style.display = 'none';
                 document.getElementById('servicesSection').style.display = 'none';
                 document.getElementById('requestFormSection').style.display = 'none';
@@ -2425,8 +2338,6 @@
                 document.getElementById('adminDashboard').style.display = 'block';
                 
                 updateBottomNavActive('bottomHomeBtn');
-                
-                // نوێکردنەوەی ڕاپۆرتەکان
                 updateAdminDashboard();
             }
 
@@ -2473,7 +2384,6 @@
                 showAddPromoForm();
             };
             
-            // فەنکشنەکانی نوێ بۆ بینینی کالای فرۆشیار و داواکاری فرۆشیار
             window.showSellerProductsView = function() {
                 if (!isAdminLoggedIn) {
                     showLoginModal();
@@ -2496,7 +2406,6 @@
                 loadCustomerRequestsForView();
             };
             
-            // فەنکشن بۆ کرانەوەی داشبۆردی بەڕێوەبەر
             window.toggleAdminPanel = function() {
                 if (!isAdminLoggedIn) {
                     showLoginModal();
@@ -2509,7 +2418,6 @@
                 }
             };
             
-            // فەنکشن بۆ دەرچوونی بەڕێوەبەر
             window.logoutAdmin = function() {
                 if (confirm("دڵنیایت کە دەتەوێت دەربچیت؟")) {
                     isAdminLoggedIn = false;
@@ -2545,12 +2453,10 @@
             
             // فەنکشن بۆ نوێکردنەوەی چالاکی دوگمەکانی خوارەوە
             function updateBottomNavActive(activeBtnId) {
-                // لادانی چالاکی لە هەموو دوگمەکان
                 document.querySelectorAll('.bottom-nav-item').forEach(item => {
                     item.classList.remove('active');
                 });
                 
-                // زیادکردنی چالاکی بۆ دوگمەی دیاریکراو
                 const activeBtn = document.getElementById(activeBtnId);
                 if (activeBtn) {
                     activeBtn.classList.add('active');
@@ -2599,13 +2505,13 @@
                 });
             }
             
-            // فەنکشنەکانی پەسەندکردن
+            // ========== فەنکشنەکانی پەسەندکردن ==========
+            
             function closeApprovalModal() {
                 document.getElementById('approvalModal').style.display = 'none';
             }
 
             function showTab(tabId) {
-                // لادانی چالاکی لە هەموو تابەکان
                 const tabBtns = document.querySelectorAll('.tab-btn');
                 if (tabBtns) {
                     tabBtns.forEach(btn => {
@@ -2615,7 +2521,6 @@
                     });
                 }
                 
-                // لادانی بینین لە هەموو تابەکان
                 const tabContents = document.querySelectorAll('.tab-content');
                 if (tabContents) {
                     tabContents.forEach(content => {
@@ -2623,13 +2528,11 @@
                     });
                 }
                 
-                // نیشاندانی تابەکەی دیاریکراو
                 const activeTab = document.getElementById(tabId);
                 if (activeTab) {
                     activeTab.style.display = 'block';
                 }
                 
-                // چالاککردنی دوگمەکە
                 const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(
                     btn => btn.onclick && btn.onclick.toString().includes(tabId)
                 );
@@ -2848,7 +2751,7 @@
 
             window.deleteRequest = async function(requestId, type) {
                 if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەbەر دەتوانێت!");
+                    alert("تەنها بەڕێوەبەر دەتوانێت!");
                     return;
                 }
                 
@@ -2880,7 +2783,6 @@
                 }
                 
                 try {
-                    // وەرگرتنی زانیارییەکانی کالا
                     const productRef = firebase.ref(firebase.db, `sellerProducts/${productId}`);
                     const snapshot = await firebase.get(productRef);
                     const product = snapshot.val();
@@ -2890,7 +2792,6 @@
                         return;
                     }
                     
-                    // زیادکردنی کالا بۆ کالاکانی ئەسڵی
                     const productsRef = firebase.ref(firebase.db, 'products');
                     const newProductRef = firebase.push(productsRef);
                     
@@ -2911,7 +2812,6 @@
                     
                     await firebase.set(newProductRef, productData);
                     
-                    // نیشانەکردنی کالای فرۆشیار وەک پەسەندکراو
                     await firebase.update(productRef, {
                         reviewed: true,
                         status: 'approved',
@@ -2922,13 +2822,8 @@
                     
                     alert("✅ کالا پەسەندکرا و زیادکرا بۆ کالاکانی ئەسڵی!");
                     
-                    // نوێکردنەوەی لیستەکان
                     loadSellerProducts();
-                    
-                    // نوێکردنەوەی لیستی کالاکان
                     loadProductsFromFirebase();
-                    
-                    // نوێکردنەوەی ئاگادارکردنەکان
                     updateNotificationBadge();
                     
                 } catch (error) {
@@ -2952,7 +2847,6 @@
                     const snapshot = await firebase.get(productRef);
                     const product = snapshot.val();
                     
-                    // سڕینەوەی وێنەکان لە Storage
                     if (product.images && Array.isArray(product.images)) {
                         for (const imageUrl of product.images) {
                             try {
@@ -2965,7 +2859,6 @@
                         }
                     }
                     
-                    // نیشانەکردنی کالا وەک ڕەتکراوە
                     await firebase.update(productRef, {
                         reviewed: true,
                         status: 'rejected',
@@ -2998,7 +2891,6 @@
                     const snapshot = await firebase.get(productRef);
                     const product = snapshot.val();
                     
-                    // سڕینەوەی وێنەکان لە Storage
                     if (product.images && Array.isArray(product.images)) {
                         for (const imageUrl of product.images) {
                             try {
@@ -3011,7 +2903,6 @@
                         }
                     }
                     
-                    // سڕینەوەی کالا
                     await firebase.remove(productRef);
                     
                     alert("✅ کالا سڕدرایەوە!");
@@ -3024,7 +2915,6 @@
                 }
             };
 
-            // فەنکشنەکانی بەڕێوەبردنی گشتی - چاککراو
             window.approveAllCustomerRequestsInApprovalModal = async function() {
                 if (!isAdminLoggedIn) {
                     alert("تەنها بەڕێوەبەر دەتوانێت!");
@@ -3036,7 +2926,6 @@
                 }
                 
                 try {
-                    // پەسەندکردنی هەموو داواکارییەکانی کڕیار
                     const requestsRef = firebase.ref(firebase.db, 'customerRequests');
                     const requestsSnapshot = await firebase.get(requestsRef);
                     const requests = requestsSnapshot.val();
@@ -3077,7 +2966,6 @@
                 }
                 
                 try {
-                    // سڕینەوەی هەموو داواکارییەکانی کڕیار
                     const requestsRef = firebase.ref(firebase.db, 'customerRequests');
                     const requestsSnapshot = await firebase.get(requestsRef);
                     const requests = requestsSnapshot.val();
@@ -3113,7 +3001,6 @@
                 }
                 
                 try {
-                    // پەسەندکردنی هەموو کالاکانی فرۆشیار
                     const productsRef = firebase.ref(firebase.db, 'sellerProducts');
                     const productsSnapshot = await firebase.get(productsRef);
                     const products = productsSnapshot.val();
@@ -3124,7 +3011,6 @@
                         for (const productId of Object.keys(products)) {
                             const product = products[productId];
                             if (!product.reviewed) {
-                                // زیادکردنی کالا بۆ کالاکانی ئەسڵی
                                 const mainProductsRef = firebase.ref(firebase.db, 'products');
                                 const newProductRef = firebase.push(mainProductsRef);
                                 
@@ -3145,7 +3031,6 @@
                                 
                                 await firebase.set(newProductRef, productData);
                                 
-                                // نیشانەکردنی کالای فرۆشیار وەک پەسەندکراو
                                 await firebase.update(firebase.ref(firebase.db, `sellerProducts/${productId}`), {
                                     reviewed: true,
                                     status: 'approved',
@@ -3186,7 +3071,6 @@
                 }
                 
                 try {
-                    // سڕینەوەی هەموو کالاکانی فرۆشیار
                     const productsRef = firebase.ref(firebase.db, 'sellerProducts');
                     const productsSnapshot = await firebase.get(productsRef);
                     const products = productsSnapshot.val();
@@ -3197,7 +3081,6 @@
                         for (const productId of Object.keys(products)) {
                             const product = products[productId];
                             if (!product.reviewed) {
-                                // سڕینەوەی وێنەکان
                                 if (product.images && Array.isArray(product.images)) {
                                     for (const imageUrl of product.images) {
                                         try {
@@ -3231,14 +3114,172 @@
                 }
             };
             
-            // فەنکشنەکانی کۆن بۆ دەستگا گەورەترەکان
-            window.markAllAsApproved = async function() {
-                await approveAllCustomerRequestsInApprovalModal();
+            // ========== فەنکشنەکانی بانەری ڕیکلام ==========
+            
+            // فەنکشن بۆ نوێکردنەوەی بانەری ڕیکلام بە سلایدەری فرە وێنەیی
+            function updatePromoBanner(promoData) {
+                const promoBanner = document.getElementById('promoBanner');
+                const promoTitle = document.getElementById('promoBannerTitle');
+                const promoSubtitle = document.getElementById('promoBannerSubtitle');
+                const promoDiscount = document.getElementById('promoBannerDiscount');
+                const promoImagesContainer = document.getElementById('promoImagesContainer');
+                const promoIndicators = document.getElementById('promoIndicators');
+                
+                if (!promoData) {
+                    promoTitle.textContent = "ڕێگایەکی سەرنجڕاکێش بۆ کڕین!";
+                    promoSubtitle.textContent = "کاڵا جیاوازەکان بە نرخی خۆش بەردەستن";
+                    promoDiscount.textContent = "داشکاندن هەیە!";
+                    promoBanner.style.background = 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)';
+                    return;
+                }
+                
+                promoTitle.textContent = promoData.title || "ڕێگایەکی سەرنجڕاکێش بۆ کڕین!";
+                promoSubtitle.textContent = promoData.subtitle || "کاڵا جیاوازەکان بە نرخی خۆش بەردەستن";
+                promoDiscount.textContent = promoData.discountText || "داشکاندن هەیە!";
+                
+                if (promoData.textColor) {
+                    promoTitle.style.color = promoData.textColor;
+                    promoSubtitle.style.color = promoData.textColor;
+                    promoDiscount.style.color = promoData.textColor;
+                }
+                
+                // پاککردنەوەی وێنە و نیشاندەرە کۆنەکان
+                promoImagesContainer.innerHTML = '';
+                promoIndicators.innerHTML = '';
+                
+                // وێنەکان بە شێوەی فرە وێنەیی
+                const images = promoData.images || (promoData.imageUrl ? [promoData.imageUrl] : []);
+                
+                if (images.length > 0) {
+                    promoBanner.style.background = 'none';
+                    
+                    images.forEach((imageUrl, index) => {
+                        // زیادکردنی وێنە
+                        const img = document.createElement('img');
+                        img.src = imageUrl;
+                        img.alt = `ڕیکلام ${index + 1}`;
+                        img.className = 'promo-image-slide';
+                        img.id = `promoSlide${index}`;
+                        if (index === 0) img.classList.add('active');
+                        
+                        // زیادکردنی نیشاندەر
+                        const indicator = document.createElement('div');
+                        indicator.className = 'promo-indicator';
+                        indicator.id = `promoIndicator${index}`;
+                        if (index === 0) indicator.classList.add('active');
+                        indicator.onclick = () => showPromoSlide(index);
+                        
+                        promoImagesContainer.appendChild(img);
+                        promoIndicators.appendChild(indicator);
+                    });
+                    
+                    // دەستپێکردنی سلایدەر
+                    startPromoSlideshow(images);
+                } else {
+                    // ئەگەر وێنە نیە، گرادیانت بەکاربهێنە
+                    promoBanner.style.background = 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)';
+                }
+            }
+
+            // فەنکشن بۆ نیشاندانی سلایدی دیاریکراو
+            function showPromoSlide(index) {
+                const slides = document.querySelectorAll('.promo-image-slide');
+                const indicators = document.querySelectorAll('.promo-indicator');
+                
+                slides.forEach(slide => slide.classList.remove('active'));
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                
+                if (slides[index]) slides[index].classList.add('active');
+                if (indicators[index]) indicators[index].classList.add('active');
+            }
+
+            // فەنکشن بۆ دەستپێکردنی سلایدەر
+            function startPromoSlideshow(images) {
+                let currentSlide = 0;
+                
+                if (promoSlideInterval) clearInterval(promoSlideInterval);
+                
+                promoSlideInterval = setInterval(() => {
+                    currentSlide = (currentSlide + 1) % images.length;
+                    showPromoSlide(currentSlide);
+                }, 5000); // ٥ چرکە (٥٠٠٠ میلیچرکە)
+            }
+            
+            // ========== فەنکشنەکانی زۆم کردنی وێنە ==========
+            
+            // فەنکشن بۆ کردنەوەی وێنە بە زۆم
+            window.openImageZoom = function(imageSrc, imagesArray, startIndex = 0) {
+                zoomImages = imagesArray || [imageSrc];
+                currentZoomIndex = startIndex;
+                
+                const zoomModal = document.getElementById('imageZoomModal');
+                const zoomedImage = document.getElementById('zoomedImage');
+                const zoomCounter = document.getElementById('zoomImageCounter');
+                
+                if (zoomImages.length > 0) {
+                    zoomedImage.src = zoomImages[currentZoomIndex];
+                    zoomCounter.textContent = `${currentZoomIndex + 1}/${zoomImages.length}`;
+                    zoomModal.style.display = 'flex';
+                    
+                    // قفڵکردنی هاتوچۆی پەڕەکە
+                    document.body.style.overflow = 'hidden';
+                }
             };
 
-            window.deleteAllPending = async function() {
-                await deleteAllCustomerRequestsInApprovalModal();
+            // فەنکشن بۆ داخستنی زۆم
+            window.closeImageZoom = function() {
+                const zoomModal = document.getElementById('imageZoomModal');
+                zoomModal.style.display = 'none';
+                zoomImages = [];
+                currentZoomIndex = 0;
+                
+                // لادانی قفڵەکە
+                document.body.style.overflow = 'auto';
             };
+
+            // فەنکشن بۆ گۆڕینی وێنە لە زۆم
+            window.changeZoomImage = function(direction) {
+                if (zoomImages.length <= 1) return;
+                
+                currentZoomIndex += direction;
+                
+                if (currentZoomIndex < 0) {
+                    currentZoomIndex = zoomImages.length - 1;
+                } else if (currentZoomIndex >= zoomImages.length) {
+                    currentZoomIndex = 0;
+                }
+                
+                const zoomedImage = document.getElementById('zoomedImage');
+                const zoomCounter = document.getElementById('zoomImageCounter');
+                
+                zoomedImage.src = zoomImages[currentZoomIndex];
+                zoomCounter.textContent = `${currentZoomIndex + 1}/${zoomImages.length}`;
+            };
+
+            // Event Listener بۆ داخستنی زۆم بە کلیک لەسەر Escape
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    closeImageZoom();
+                }
+                
+                // هاتوچۆ بە هاوکاری Arrow Keys
+                if (document.getElementById('imageZoomModal').style.display === 'flex') {
+                    if (event.key === 'ArrowLeft') {
+                        changeZoomImage(-1);
+                    } else if (event.key === 'ArrowRight') {
+                        changeZoomImage(1);
+                    }
+                }
+            });
+
+            // Event Listener بۆ داخستنی زۆم بە کلیک لەسەر باکگراوند
+            document.getElementById('imageZoomModal')?.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeImageZoom();
+                }
+            });
+            
+            // ========== فەنکشنەکانی بارکردنی کالاکان ==========
             
             // فەنکشن بۆ بارکردنی کالاکان لە Firebase
             function loadProductsFromFirebase() {
@@ -3276,54 +3317,6 @@
                     });
                 } catch (error) {
                     console.error("Error loading promo:", error);
-                }
-            }
-            
-            // فەنکشن بۆ نوێکردنەوەی بانەری ڕیکلام
-            function updatePromoBanner(promoData) {
-                const promoBanner = document.getElementById('promoBanner');
-                const promoTitle = document.getElementById('promoBannerTitle');
-                const promoSubtitle = document.getElementById('promoBannerSubtitle');
-                const promoDiscount = document.getElementById('promoBannerDiscount');
-                const promoImage = document.getElementById('promoBannerImage');
-                
-                if (!promoData) {
-                    promoTitle.textContent = "ڕێگایەکی سەرنجڕاکێش بۆ کڕین!";
-                    promoSubtitle.textContent = "کاڵا جیاوازەکان بە نرخی خۆش بەردەستن";
-                    promoDiscount.textContent = "داشکاندن هەیە!";
-                    promoImage.style.display = 'none';
-                    promoBanner.style.background = 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)';
-                    return;
-                }
-                
-                promoTitle.textContent = promoData.title || "ڕێگایەکی سەرنجڕاکێش بۆ کڕین!";
-                promoSubtitle.textContent = promoData.subtitle || "کاڵا جیاوازەکان بە نرخی خۆش بەردەستن";
-                promoDiscount.textContent = promoData.discountText || "داشکاندن هەیە!";
-                
-                if (promoData.textColor) {
-                    promoTitle.style.color = promoData.textColor;
-                    promoSubtitle.style.color = promoData.textColor;
-                    promoDiscount.style.color = promoData.textColor;
-                }
-                
-                if (promoData.imageUrl) {
-                    promoImage.src = promoData.imageUrl;
-                    promoImage.style.display = 'block';
-                    promoBanner.style.background = 'none';
-                } else {
-                    promoImage.style.display = 'none';
-                    if (promoData.background === 'gradient-red') {
-                        promoBanner.style.background = 'linear-gradient(135deg, #dc2626 0%, #b91c1c 100%)';
-                    } else if (promoData.background === 'gradient-green') {
-                        promoBanner.style.background = 'linear-gradient(135deg, #10b981 0%, #059669 100%)';
-                    } else if (promoData.background === 'gradient-purple') {
-                        promoBanner.style.background = 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)';
-                    } else if (promoData.background === 'custom' && promoData.imageUrl) {
-                        promoBanner.style.background = `url('${promoData.imageUrl}') center/cover no-repeat`;
-                        promoImage.style.display = 'none';
-                    } else {
-                        promoBanner.style.background = 'linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%)';
-                    }
                 }
             }
             
@@ -3378,10 +3371,10 @@
                                 <img src="${firstImage}" 
                                      alt="${product.name}" 
                                      class="product-image-clickable"
-                                     onclick="changeImage(this, ${index}, '${images.join('|')}')"
+                                     onclick="openImageZoom(this.src, ${JSON.stringify(images)}, 0)"
                                      onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
                                 ${images.length > 1 ? `
-                                    <div class="image-counter">1/${images.length}</div>
+                                    <div class="image-counter" onclick="openImageZoom('${firstImage}', ${JSON.stringify(images)}, 0); event.stopPropagation();">${images.length} وێنە</div>
                                 ` : ''}
                             </div>
                             <div class="two-column-product-info">
@@ -3397,7 +3390,7 @@
                                 `}
                                 <small class="text-gray-500">نزیکەی $${product.priceUSD}</small>
                                 ${product.category ? `<small class="text-gray-400 block mt-1">${product.category}</small>` : ''}
-                                ${images.length > 1 ? `<small class="text-blue-500 block mt-1">${images.length} وێنە - کلیک بکە بۆ گۆڕین</small>` : ''}
+                                ${images.length > 1 ? `<small class="text-blue-500 block mt-1">کلیک بکە بۆ بینینی گەورەتر</small>` : ''}
                             </div>
                         </div>
                     `;
@@ -3405,34 +3398,7 @@
                 });
             }
             
-            // فەنکشن بۆ گۆڕینی وێنە بە کلیک
-            window.changeImage = function(imgElement, productIndex, imagesString) {
-                const images = imagesString.split('|');
-                if (images.length <= 1) return;
-                
-                const currentSrc = imgElement.src;
-                const currentIndex = images.findIndex(img => img === currentSrc || currentSrc.includes(encodeURIComponent(img)));
-                let nextIndex = (currentIndex + 1) % images.length;
-                
-                if (currentIndex === -1) {
-                    nextIndex = 0;
-                }
-                
-                const nextImage = images[nextIndex];
-                imgElement.src = nextImage;
-                
-                const counter = imgElement.parentElement.querySelector('.image-counter');
-                if (counter) {
-                    counter.textContent = `${nextIndex + 1}/${images.length}`;
-                }
-                
-                imgElement.style.opacity = '0.7';
-                setTimeout(() => {
-                    imgElement.style.opacity = '1';
-                }, 150);
-            };
-            
-            // ========== فەنکشنەکانی مینۆ - چارەسەرکراو ==========
+            // ========== فەنکشنەکانی مینۆ ==========
             
             // نیشاندانی کاتیگۆرییەکان لە مینۆ
             function showMenuCategories() {
@@ -3440,7 +3406,6 @@
                 document.getElementById('orderFormSection').style.display = 'none';
                 document.getElementById('menuCategoriesGrid').style.display = 'grid';
                 
-                // زیادکردنی چالاکی بۆ "هەموو کالاکان"
                 document.querySelectorAll('.menu-category-item').forEach(item => {
                     item.classList.remove('active');
                 });
@@ -3455,12 +3420,10 @@
             window.showProductsForCategoryInMenu = function(category) {
                 menuCurrentCategory = category;
                 
-                // 1. لادانی چالاکی لە هەموو کاتیگۆرییەکان
                 document.querySelectorAll('.menu-category-item').forEach(item => {
                     item.classList.remove('active');
                 });
                 
-                // 2. زیادکردنی چالاکی بۆ کاتیگۆرییەکەی کلیک کراو
                 const allCategoryItems = document.querySelectorAll('.menu-category-item');
                 allCategoryItems.forEach(item => {
                     const categoryText = item.querySelector('.menu-category-text');
@@ -3469,7 +3432,6 @@
                     }
                 });
                 
-                // 3. نیشاندانی کالاکانی ئەو کاتیگۆرییە
                 document.getElementById('menuCategoriesGrid').style.display = 'none';
                 document.getElementById('menuProductsContainer').style.display = 'block';
                 document.getElementById('orderFormSection').style.display = 'none';
@@ -3515,13 +3477,19 @@
                     const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
                     const firstImage = images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop';
                     
+      const imagesJson = JSON.stringify(images).replace(/'/g, "\\'");
+                    
                     const productHTML = `
-                        <div class="two-column-product-card" onclick="selectProductForOrder('${product.name}', ${product.price}, '${product.category || ''}')">
+                        <div class="two-column-product-card" data-product-index="${index}">
                             <div class="product-image-container">
                                 <img src="${firstImage}" 
                                      alt="${product.name}" 
                                      class="product-image-clickable"
+                                     onclick="event.stopPropagation(); openImageZoom('${firstImage}', '${imagesJson}', 0)"
                                      onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
+                                ${images.length > 1 ? `
+                                    <div class="image-counter" onclick="event.stopPropagation(); openImageZoom('${firstImage}', '${imagesJson}', 0);">${images.length} وێنە</div>
+                                ` : ''}
                             </div>
                             <div class="two-column-product-info">
                                 <h4>${product.name}</h4>
@@ -3546,15 +3514,12 @@
             
             // فەنکشن بۆ هەڵبژاردنی کالا لە مینۆ
             window.selectProductForOrder = function(productName, productPrice, category) {
-                // پڕکردنەوەی فۆرم
                 document.getElementById('selectedProductName').value = productName;
                 document.getElementById('selectedProductPrice').value = productPrice;
                 
-                // نیشاندانی بەشی داواکاری
                 document.getElementById('menuProductsContainer').style.display = 'none';
                 document.getElementById('orderFormSection').style.display = 'block';
                 
-                // دانانی ناوی کالا لە هێدی
                 const formTitle = document.getElementById('orderFormTitle');
                 if (formTitle) {
                     formTitle.textContent = `داواکاری: ${productName}`;
@@ -3570,68 +3535,29 @@
                 }
                 document.getElementById('orderFormSection').style.display = 'none';
             };
-            // ========== کۆتایی فەنکشنەکانی مینۆ ==========
             
-            // فەنکشنەکانی بەشەکانی سەرەوە
+            // ========== فەنکشنەکانی خزمەتگوزارییەکان ==========
             
-            // نیشاندانی کالاکانی کاتیگۆرییەک لە پەڕەی سەرەمی
-            window.showProductsForCategory = function(category) {
-                // داخستنی پەنجەرەی مینۆ
-                document.getElementById('ordersPage').style.display = 'none';
-                
-                // گەڕاندن بۆ پەڕەی ماڵ
-                showHomePage();
-                
-                // دوای کەمێک کات، کالاکانی ئەو کاتیگۆرییە پیشان بدە
-                setTimeout(() => {
-                    displayProducts(globalProductsData, category);
-                    document.getElementById('productsTitle').textContent = `کالاکانی ${category}`;
-                }, 100);
-            };
-            
-            // نیشاندانی هەموو کالاکان لە پەڕەی سەرەمی
-            window.showAllProductsForHome = function() {
-                currentCategory = null;
-                displayProducts(globalProductsData, null);
-                
-                document.getElementById('allProductsSection').style.display = 'none';
-                document.getElementById('addProductForm').style.display = 'none';
-                document.getElementById('addPromoForm').style.display = 'none';
-                document.getElementById('requestFormSection').style.display = 'none';
-                document.getElementById('sellerProductFormSection').style.display = 'none';
-                document.getElementById('adminDashboard').style.display = 'none';
-                document.getElementById('mainProductsSection').style.display = 'block';
-                document.getElementById('servicesSection').style.display = 'block';
-                
-                updateBottomNavActive('bottomHomeBtn');
-            };
-            
-            // فەنکشنەکانی نوێ بۆ خزمەتگوزارییەکان
             window.openPricing = function() {
-                // کردنەوەی PDFی نرخەکان
                 const withPriceUrl = "https://drive.google.com/file/d/1oKTUGbKy1ivYps1HRZZK6k4rbhb-hFgc/preview";
                 window.open(withPriceUrl, '_blank');
             };
 
             window.openCatalog = function() {
-                // کردنەوەی PDFی کاتالۆگ
                 const catalogUrl = "https://drive.google.com/file/d/1ctwhTLfIlaz3l_wJq3DO6XGXDs43L3bQ/preview";
                 window.open(catalogUrl, '_blank');
             };
 
             window.openLocation = function() {
-                // کردنەوەی ناونیشان لە گووگڵ مەپس
                 const googleMapsUrl = "https://www.google.com/maps/place/PromoHouse,+Sulaymaniyah,+Sulaymaniyah+Governorate,+46020/@35.5863784,45.4066421,16z/data=!4m6!3m5!1s0x40002d43b52a1ec5:0x4e15bca6a560211!8m2!3d35.5863784!4d45.4066421!16s%2Fg%2F11mrwjfxtf?g_ep=Eg1tbF8yMDI5MTExNV8wIOC7DCoASAJQAg%3D%3D";
                 window.open(googleMapsUrl, '_blank');
             };
 
             window.openContact = function() {
-                // کردنەوەی مۆدالی پەیوەندی
                 document.getElementById('phoneModal').style.display = 'flex';
             };
             
             window.openMessage = function() {
-                // کردنەوەی پەیام لە واتساپ
                 const phoneNumber = "9647701922060";
                 const message = "سڵاو! من لە پرۆمۆ هاوسەوە پەیوەندیم پێوە کردووە.";
                 const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
@@ -3649,6 +3575,8 @@
                 document.getElementById('sellerProductFormSection').style.display = 'none';
                 showHomePage();
             };
+            
+            // ========== فەنکشنەکانی خشتەی کالاکان ==========
             
             // فەنکشن بۆ نیشاندانی هەموو کالاکان لە خشتە
             function displayAllProducts(productsData) {
@@ -3773,7 +3701,6 @@
                     await firebase.remove(productRef);
                     alert("✅ کالا سڕدرایەوە!");
                     
-                    // نوێکردنەوەی لیستەکە
                     if (globalProductsData) {
                         displayAllProducts(globalProductsData);
                     }
@@ -3834,10 +3761,8 @@
                         document.getElementById('submitText').textContent = 'نوێکردنەوەی کالا';
                         document.getElementById('cancelEditBtn').style.display = 'block';
                         
-                        // فایل ئینپوتی ناتەنھێنرێت
                         document.getElementById('productImages').removeAttribute('required');
                         
-                        // نیشاندانی فۆڕمی دەستکاری
                         document.getElementById('allProductsSection').style.display = 'none';
                         document.getElementById('mainProductsSection').style.display = 'none';
                         document.getElementById('servicesSection').style.display = 'none';
@@ -3865,7 +3790,6 @@
                 
                 currentEditingImages.splice(index, 1);
                 
-                // نوێکردنەوەی پیشاندەری وێنەکان
                 const previewContainer = document.getElementById('currentImagesPreview');
                 previewContainer.innerHTML = '';
                 
@@ -3884,7 +3808,8 @@
                 }
             };
             
-            // فەنکشن بۆ نیشاندانی فۆرمی ڕیکلام
+            // ========== فەنکشنەکانی فۆرمی ڕیکلام ==========
+            
             window.showAddPromoForm = function() {
                 if (!isAdminLoggedIn) {
                     alert("تەنها بەڕێوەبەر دەتوانێت ڕیکلام بگۆڕێت!");
@@ -3897,11 +3822,9 @@
                     document.getElementById('promoSubtitle').value = promoData.subtitle || '';
                     document.getElementById('promoDiscountText').value = promoData.discountText || '';
                     document.getElementById('promoTextColor').value = promoData.textColor || '#ffffff';
-                    document.getElementById('promoBackground').value = promoData.background || 'gradient-blue';
                     
-                    if (promoData.imageUrl) {
-                        document.getElementById('promoCurrentImage').style.display = 'block';
-                        document.getElementById('promoCurrentImagePreview').src = promoData.imageUrl;
+                    if (promoData.images && promoData.images.length > 0) {
+                        document.getElementById('promoFileName').textContent = `${promoData.images.length} وێنەی هەیە`;
                     }
                 }
                 
@@ -3915,7 +3838,6 @@
                 document.getElementById('addPromoForm').style.display = 'block';
                 
                 updateBottomNavActive('bottomHomeBtn');
-                
                 document.getElementById('addPromoForm').scrollIntoView({ behavior: 'smooth' });
             };
             
@@ -3929,7 +3851,8 @@
                 }
             };
             
-            // فۆرمی کالا (بۆ بەڕێوەبەر)
+            // ========== فەنکشنەکانی فۆڕمەکان ==========
+            
             const addProductForm = document.getElementById('addProductForm');
             const productForm = document.getElementById('productForm');
             const fileInput = document.getElementById('productImages');
@@ -3941,22 +3864,20 @@
             const submitSpinner = document.getElementById('submitSpinner');
             const cancelEditBtn = document.getElementById('cancelEditBtn');
             
-            // فۆرمی ڕیکلام
             const addPromoForm = document.getElementById('addPromoForm');
             const promoForm = document.getElementById('promoForm');
             const promoFileInput = document.getElementById('promoImage');
             const promoFileInputLabel = document.getElementById('promoFileInputLabel');
             const promoFileName = document.getElementById('promoFileName');
+            const promoImagesPreviewContainer = document.getElementById('promoImagesPreviewContainer');
             const submitPromoBtn = document.getElementById('submitPromoBtn');
             const submitPromoText = document.getElementById('submitPromoText');
             const submitPromoSpinner = document.getElementById('submitPromoSpinner');
             
-            // فۆرمی داواکاری (کڕیار)
             const customerRequestForm = document.getElementById('customerRequestForm');
             const submitRequestText = document.getElementById('submitRequestText');
             const submitRequestSpinner = document.getElementById('submitRequestSpinner');
             
-            // فۆرمی کالا (فرۆشیار)
             const sellerProductForm = document.getElementById('sellerProductForm');
             const sellerFileInput = document.getElementById('sellerProductImages');
             const sellerFileInputLabel = document.getElementById('sellerFileInputLabel');
@@ -4121,31 +4042,46 @@
             // فایل ئینپوتی ڕیکلام
             if (promoFileInput) {
                 promoFileInput.addEventListener('change', function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        promoFileName.textContent = `فایل: ${file.name}`;
+                    const files = Array.from(e.target.files);
+                    
+                    promoImagesPreviewContainer.innerHTML = '';
+                    
+                    if (files.length > 0) {
+                        promoFileName.textContent = `${files.length} فایل هەڵبژێردراوە`;
                         promoFileInputLabel.innerHTML = `
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
                                 <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
                                 <polyline points="22 4 12 14.01 9 11.01"></polyline>
                             </svg>
-                            <span>فایل هەڵبژێردرا</span>
+                            <span>${files.length} فایل هەڵبژێردرا</span>
                         `;
+                        
+                        files.forEach((file, index) => {
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                const div = document.createElement('div');
+                                div.className = "relative group";
+                                div.innerHTML = `
+                                    <img src="${event.target.result}" class="w-full h-24 object-cover rounded-lg border shadow-sm">
+                                    <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer -mt-2 -mr-2" onclick="this.parentElement.remove()">×</div>
+                                `;
+                                promoImagesPreviewContainer.appendChild(div);
+                            };
+                            reader.readAsDataURL(file);
+                        });
                     }
                 });
             }
             
-            // دوگمەی بەڕێوەبەری لە سەرەوە
+            // ========== Event Listeners بۆ Login ==========
+            
             const adminPanelBtn = document.getElementById('adminPanelBtn');
             const loginModal = document.getElementById('loginModal');
             const backToHomeBtn = document.getElementById('backToHomeBtn');
-            
-            // Login Modal elements
             const loginBtn = document.getElementById('loginBtn');
             const cancelLoginBtn = document.getElementById('cancelLoginBtn');
             const passwordInput = document.getElementById('password');
             
-            // فەنکشن بۆ نیشاندانی پەنجەرەی ناونیشانی
             function showLoginModal() {
                 if (loginModal) {
                     loginModal.style.display = 'flex';
@@ -4153,7 +4089,6 @@
                 }
             }
             
-            // کرداری چونە ژوورەوە
             if (loginBtn) {
                 loginBtn.addEventListener('click', function() {
                     const password = passwordInput.value;
@@ -4171,14 +4106,12 @@
                 });
             }
             
-            // هەڵوەشاندنەوەی ناونیشان
             if (cancelLoginBtn) {
                 cancelLoginBtn.addEventListener('click', function() {
                     loginModal.style.display = 'none';
                 });
             }
             
-            // کاتێک کرایەوە بەڕێوەبەری
             if (adminPanelBtn) {
                 adminPanelBtn.addEventListener('click', function() {
                     if (!isAdminLoggedIn) {
@@ -4189,7 +4122,6 @@
                 });
             }
             
-            // دوگمەی گەڕانەوە لە بینینی هەموو کالاکان
             if (backToHomeBtn) {
                 backToHomeBtn.addEventListener('click', function() {
                     if (isAdminLoggedIn) {
@@ -4200,13 +4132,14 @@
                 });
             }
             
-            // فۆرمی کالا (بەڕێوەبەر)
+            // ========== فەنکشنەکانی فۆرمی کالا ==========
+            
             if (productForm) {
                 productForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
                     
                     if (!isAdminLoggedIn) {
-                        alert("تەنها بەڕێوەbەر دەتوانێت کالا زیاد بکات!");
+                        alert("تەنها بەڕێوەبەر دەتوانێت کالا زیاد بکات!");
                         showLoginModal();
                         return;
                     }
@@ -4334,7 +4267,8 @@
                 });
             }
             
-            // فۆرمی داواکاری (کڕیار)
+            // ========== فەنکشنەکانی فۆرمی داواکاری ==========
+            
             if (customerRequestForm) {
                 customerRequestForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -4390,7 +4324,8 @@
                 });
             }
             
-            // فۆرمی کالا (فرۆشیار)
+            // ========== فەنکشنەکانی فۆرمی فرۆشیار ==========
+            
             if (sellerProductForm) {
                 sellerProductForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -4476,7 +4411,8 @@
                 });
             }
             
-            // فۆرمی ڕیکلام
+            // ========== فەنکشنەکانی فۆرمی ڕیکلام ==========
+            
             if (promoForm) {
                 promoForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -4496,31 +4432,37 @@
                     const subtitle = document.getElementById('promoSubtitle').value;
                     const discountText = document.getElementById('promoDiscountText').value;
                     const textColor = document.getElementById('promoTextColor').value;
-                    const background = document.getElementById('promoBackground').value;
-                    const imageFile = document.getElementById('promoImage').files[0];
+                    const imageFiles = document.getElementById('promoImage').files;
                     
                     submitPromoBtn.disabled = true;
                     submitPromoText.textContent = "نوێکردنەوەی ڕیکلام...";
                     submitPromoSpinner.style.display = 'inline-block';
                     
                     try {
-                        let imageUrl = promoData ? promoData.imageUrl : '';
+                        let imageUrls = [];
                         
-                        if (imageFile) {
-                            const storageReference = firebase.storageRef(firebase.storage, 'promo/' + Date.now() + '_' + imageFile.name);
-                            await firebase.uploadBytes(storageReference, imageFile);
-                            
-                            imageUrl = await firebase.getDownloadURL(storageReference);
-                            
-                            if (promoData && promoData.imageUrl) {
+                        // سڕینەوەی وێنە کۆنەکان
+                        if (promoData && promoData.images) {
+                            for (const oldImageUrl of promoData.images) {
                                 try {
-                                    const oldImageUrl = promoData.imageUrl;
                                     const oldImagePath = decodeURIComponent(oldImageUrl.split('/o/')[1].split('?')[0]);
                                     const oldImageRef = firebase.storageRef(firebase.storage, oldImagePath);
                                     await firebase.deleteObject(oldImageRef);
                                 } catch (deleteError) {
                                     console.warn("نەتوانرا وێنەی کۆن بسڕدرێتەوە:", deleteError);
                                 }
+                            }
+                        }
+                        
+                        // بارکردنی وێنە نوێەکان
+                        if (imageFiles.length > 0) {
+                            for (let i = 0; i < imageFiles.length; i++) {
+                                const imageFile = imageFiles[i];
+                                const storageReference = firebase.storageRef(firebase.storage, 'promo/' + Date.now() + '_' + imageFile.name);
+                                await firebase.uploadBytes(storageReference, imageFile);
+                                
+                                const imageUrl = await firebase.getDownloadURL(storageReference);
+                                imageUrls.push(imageUrl);
                             }
                         }
                         
@@ -4531,18 +4473,19 @@
                             subtitle: subtitle,
                             discountText: discountText,
                             textColor: textColor,
-                            background: background,
                             updatedAt: new Date().toISOString()
                         };
                         
-                        if (imageUrl) {
-                            promoDataToSave.imageUrl = imageUrl;
+                        if (imageUrls.length > 0) {
+                            promoDataToSave.images = imageUrls;
+                            promoDataToSave.imageUrl = imageUrls[0]; // وێنەی یەکەم بۆ سازگاری
                         }
                         
                         await firebase.set(promoRef, promoDataToSave);
                         
                         promoForm.reset();
                         promoFileName.textContent = '';
+                        promoImagesPreviewContainer.innerHTML = '';
                         promoFileInputLabel.innerHTML = `
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
                                 <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
@@ -4551,7 +4494,7 @@
                                 <circle cx="9" cy="9" r="2"></circle>
                                 <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
                             </svg>
-                            <span>وێنەی ڕیکلام هەڵبژێرە</span>
+                            <span>وێنەی ڕیکلام هەڵبژێرە (فرە)</span>
                         `;
                         
                         addPromoForm.style.display = 'none';
@@ -4570,21 +4513,18 @@
                 });
             }
             
-            // لینکەکانی تایبەت
+            // ========== Event Listeners بۆ Modalەکان ==========
             
-            // LOCATION - Open Google Maps with provided link
             const locationBtn = document.getElementById('locationBtn');
-            if (locationBtn) {
-                locationBtn.addEventListener('click', function() {
-                    openLocation();
-                });
-            }
-            
-            // FIB - Open FIB Modal
             const fibBtn = document.getElementById('fibBtn');
             const fibModal = document.getElementById('fibModal');
             const closeFibModalBtn = document.getElementById('closeFibModalBtn');
             const copyAccountBtn = document.getElementById('copyAccountBtn');
+            const callNowBtn = document.getElementById('callNowBtn');
+            const phoneModal = document.getElementById('phoneModal');
+            const whatsappBtn = document.getElementById('whatsappBtn');
+            const messageBtn = document.getElementById('messageBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
             
             if (fibBtn && fibModal) {
                 fibBtn.addEventListener('click', function() {
@@ -4598,7 +4538,6 @@
                 });
             }
             
-            // Copy account number
             if (copyAccountBtn) {
                 copyAccountBtn.addEventListener('click', function() {
                     const accountNumber = "1234-5678-9012-3456";
@@ -4607,41 +4546,6 @@
                     });
                 });
             }
-            
-            // WITH PRICE - کردنەوەی راستەوخۆی PDF
-            const withPriceBtn = document.getElementById('withPriceBtn');
-            if (withPriceBtn) {
-                withPriceBtn.addEventListener('click', function() {
-                    openPricing();
-                });
-            }
-
-            // CATALOG - کردنەوەی راستەوخۆی PDF
-            const catalogBtn = document.getElementById('catalogBtn');
-            if (catalogBtn) {
-                catalogBtn.addEventListener('click', function() {
-                    openCatalog();
-                });
-            }
-
-            // SEND MESSAGE - Open WhatsApp
-            const sendMessageBtn = document.getElementById('sendMessageBtn');
-            if (sendMessageBtn) {
-                sendMessageBtn.addEventListener('click', function() {
-                    const phoneNumber = "9647701922060";
-                    const message = "سڵاو! من لە پرۆمۆ هاوسەوە پەیوەندیم پێوە کردووە.";
-                    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-                    window.open(whatsappUrl, '_blank');
-                });
-            }
-            
-            // Phone Modal functionality
-            const callNowBtn = document.getElementById('callNowBtn');
-            const phoneModal = document.getElementById('phoneModal');
-            const whatsappBtn = document.getElementById('whatsappBtn');
-            const messageBtn = document.getElementById('messageBtn');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const phoneNumber = "9647701922060";
             
             if (callNowBtn && phoneModal) {
                 callNowBtn.addEventListener('click', function() {
@@ -4655,7 +4559,6 @@
                 });
             }
             
-            // Close modal when clicking outside
             window.addEventListener('click', function(event) {
                 if (event.target === phoneModal) {
                     phoneModal.style.display = 'none';
@@ -4683,9 +4586,11 @@
                 if (event.target === document.getElementById('customerRequestsView')) {
                     document.getElementById('customerRequestsView').style.display = 'none';
                 }
+                if (event.target === document.getElementById('imageZoomModal')) {
+                    closeImageZoom();
+                }
             });
             
-            // WhatsApp button in modal
             if (whatsappBtn) {
                 whatsappBtn.addEventListener('click', function() {
                     const phoneNumber = "9647701922060";
@@ -4695,7 +4600,6 @@
                 });
             }
             
-            // Message button in modal
             if (messageBtn) {
                 messageBtn.addEventListener('click', function() {
                     const phoneNumber = "9647701922060";
@@ -4705,319 +4609,30 @@
                 });
             }
             
-            // فەنکشنەکان بۆ بەڕێوەبردنی داواکارییەکان
+            // ========== فەنکشنەکانی نوێ بۆ بینینی کالای فرۆشیار ==========
             
-            // بارکردنی داواکارییەکان لە Firebase
-            function loadOrdersFromFirebase() {
-                if (!firebaseInitialized) return;
-                
-                try {
-                    const ordersRef = firebase.ref(firebase.db, 'orders');
-                    firebase.onValue(ordersRef, (snapshot) => {
-                        const ordersData = snapshot.val();
-                        displayOrders(ordersData);
-                    });
-                } catch (error) {
-                    console.error("Error loading orders:", error);
+            window.closeSellerProductsView = function() {
+                const modal = document.getElementById('sellerProductsView');
+                if (modal) {
+                    modal.style.display = 'none';
                 }
-            }
-            
-            // نیشاندانی داواکارییەکان بۆ بەڕێوەبەر
-            function displayOrders(ordersData) {
-                const ordersList = document.getElementById('ordersList');
-                if (!ordersList) return;
-                
-                ordersList.innerHTML = '';
-                
-                if (!ordersData) {
-                    ordersList.innerHTML = '<p class="text-gray-500 text-center py-4">هیچ داواکارییەک نیە</p>';
-                    return;
+            };
+
+            window.closeCustomerRequestsView = function() {
+                const modal = document.getElementById('customerRequestsView');
+                if (modal) {
+                    modal.style.display = 'none';
                 }
-                
-                const orderIds = Object.keys(ordersData);
-                
-                orderIds.forEach(orderId => {
-                    const order = ordersData[orderId];
-                    const orderTime = order.timestamp ? new Date(order.timestamp).toLocaleString('ku') : 'کات نەزانراو';
-                    
-                    const orderHTML = `
-                        <div class="bg-white p-3 rounded-lg mb-2 border ${order.read ? 'border-gray-200' : 'border-blue-300 bg-blue-50'}">
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <strong>${order.productName}</strong>
-                                    <p class="text-sm text-gray-600">ژمارە: ${order.quantity}</p>
-                                    <p class="text-sm text-gray-600">کڕیار: ${order.customerName}</p>
-                                    <p class="text-sm text-gray-600">ژمارە: ${order.phoneNumber}</p>
-                                    ${order.notes ? `<p class="text-sm text-gray-600">تێبینی: ${order.notes}</p>` : ''}
-                                </div>
-                                <div class="text-left">
-                                    <small class="text-gray-500">${orderTime}</small>
-                                    ${!order.read ? '<span class="bg-red-500 text-white text-xs px-2 py-1 rounded-full">نوێ</span>' : ''}
-                                </div>
-                            </div>
-                            <div class="flex gap-2 mt-2">
-                                <button onclick="markOrderAsRead('${orderId}')" class="text-xs bg-blue-500 text-white px-2 py-1 rounded">
-                                    خوێندراوە
-                                </button>
-                                <button onclick="deleteOrder('${orderId}')" class="text-xs bg-red-500 text-white px-2 py-1 rounded">
-                                    سڕینەوە
-                                </button>
-                            </div>
-                        </div>
-                    `;
-                    ordersList.innerHTML += orderHTML;
-                });
-            }
-            
-            // فەنکشن بۆ ناردنی داواکاری لە مینو
-            document.getElementById('orderForm')?.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                if (!firebaseInitialized) {
-                    alert("سیستەم چالاک نیە! تکایە دواتر هەوڵ بدەرەوە.");
-                    return;
+            };
+
+            window.closeApprovalModal = function() {
+                const modal = document.getElementById('approvalModal');
+                if (modal) {
+                    modal.style.display = 'none';
                 }
-                
-                const productName = document.getElementById('selectedProductName').value;
-                const customerName = document.getElementById('orderCustomerName').value;
-                const phoneNumber = document.getElementById('orderPhoneNumber').value;
-                const quantity = document.getElementById('orderQuantity').value;
-                const notes = document.getElementById('orderNotes').value;
-                
-                if (!productName) {
-                    alert("تکایە یەکەم کالا هەڵبژێرە!");
-                    return;
-                }
-                
-                const submitBtn = document.getElementById('submitOrderBtn');
-                const submitText = document.getElementById('submitOrderText');
-                const submitSpinner = document.getElementById('submitOrderSpinner');
-                
-                submitBtn.disabled = true;
-                submitText.textContent = "نێردرێت...";
-                submitSpinner.style.display = 'inline-block';
-                
-                try {
-                    const ordersRef = firebase.ref(firebase.db, 'orders');
-                    const newOrderRef = firebase.push(ordersRef);
-                    
-                    const orderData = {
-                        productName: productName,
-                        quantity: quantity,
-                        customerName: customerName,
-                        phoneNumber: phoneNumber,
-                        notes: notes,
-                        timestamp: new Date().toISOString(),
-                        read: false,
-                        status: 'new'
-                    };
-                    
-                    await firebase.set(newOrderRef, orderData);
-                    
-                    this.reset();
-                    
-                    alert(`✅ سوپاس ${customerName}!\nداواکاریت بۆ ${productName} بە سەرکەوتوویی نێردرا.\nپەیوەندیمان پێوە دەکەینەوە.`);
-                    
-                    backToMenuProducts();
-                    
-                    if (isAdminLoggedIn) {
-                        loadOrdersFromFirebase();
-                        updateNotificationBadge();
-                    }
-                    
-                } catch (error) {
-                    console.error("Error submitting order:", error);
-                    alert("❌ هەڵە لە ناردنی داواکاری!");
-                } finally {
-                    submitBtn.disabled = false;
-                    submitText.textContent = "ناردنی داواکاری";
-                    submitSpinner.style.display = 'none';
-                }
-            });
-            
-            // فەنکشنەکانی دەستکاری داواکاری
-            async function markOrderAsRead(orderId) {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەbەر دەتوانێت!");
-                    return;
-                }
-                
-                try {
-                    const orderRef = firebase.ref(firebase.db, 'orders/' + orderId);
-                    await firebase.update(orderRef, { read: true });
-                    loadOrdersFromFirebase();
-                } catch (error) {
-                    console.error("Error marking order as read:", error);
-                }
-            }
-            
-            async function deleteOrder(orderId) {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                if (!confirm("دڵنیایت کە دەتەوێت ئەم داواکاری بسڕیتەوە؟")) {
-                    return;
-                }
-                
-                try {
-                    const orderRef = firebase.ref(firebase.db, 'orders/' + orderId);
-                    await firebase.remove(orderRef);
-                    loadOrdersFromFirebase();
-                } catch (error) {
-                    console.error("Error deleting order:", error);
-                    alert("❌ هەڵە لە سڕینەوەی داواکاری!");
-                }
-            }
-            
-            async function markAllOrdersAsRead() {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                try {
-                    const ordersRef = firebase.ref(firebase.db, 'orders');
-                    const snapshot = await firebase.get(ordersRef);
-                    const orders = snapshot.val();
-                    
-                    if (orders) {
-                        const updates = {};
-                        Object.keys(orders).forEach(orderId => {
-                            updates[`orders/${orderId}/read`] = true;
-                        });
-                        
-                        await firebase.update(firebase.ref(firebase.db), updates);
-                        alert("✅ هەموو داواکارییەکان نیشانەکران وەک خوێندراوە!");
-                        loadOrdersFromFirebase();
-                    }
-                } catch (error) {
-                    console.error("Error marking all orders as read:", error);
-                    alert("❌ هەڵە لە نیشانەکردنی داواکارییەکان!");
-                }
-            }
-            
-            async function deleteAllOrders() {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکان بسڕیتەوە؟")) {
-                    return;
-                }
-                
-                try {
-                    const ordersRef = firebase.ref(firebase.db, 'orders');
-                    await firebase.remove(ordersRef);
-                    alert("✅ هەموو داواکارییەکان سڕانەوە!");
-                    loadOrdersFromFirebase();
-                } catch (error) {
-                    console.error("Error deleting all orders:", error);
-                    alert("❌ هەڵە لە سڕینەوەی داواکارییەکان!");
-                }
-            }
-            
-            // فەنکشنی نوێ بۆ نوێکردنەوەی ڕاپۆرتەکانی داشبۆرد
-            async function updateAdminDashboard() {
-                if (!isAdminLoggedIn) return;
-                
-                // ژمارەی کۆی کالاکان
-                const totalProducts = globalProductsData ? Object.keys(globalProductsData).length : 0;
-                const totalProductsElement = document.getElementById('totalProducts');
-                if (totalProductsElement) {
-                    totalProductsElement.textContent = totalProducts;
-                }
-                
-                try {
-                    // ژمارەی داواکارییە نوێیەکانی کڕیار
-                    const requestsRef = firebase.ref(firebase.db, 'customerRequests');
-                    const requestsSnapshot = await firebase.get(requestsRef);
-                    const requestsData = requestsSnapshot.val();
-                    
-                    let newRequestsCount = 0;
-                    if (requestsData) {
-                        Object.values(requestsData).forEach(request => {
-                            if (!request.reviewed) newRequestsCount++;
-                        });
-                    }
-                    
-                    const newCustomerRequestsElement = document.getElementById('newCustomerRequestsCount');
-                    const approvalCustomerCount = document.getElementById('approvalNewCustomerRequestsCount');
-                    
-                    if (newCustomerRequestsElement) {
-                        newCustomerRequestsElement.textContent = newRequestsCount;
-                    }
-                    if (approvalCustomerCount) {
-                        approvalCustomerCount.textContent = newRequestsCount;
-                    }
-                    
-                    // ژمارەی کالاکانی فرۆشیار بۆ پەسەندکردن
-                    const sellerRef = firebase.ref(firebase.db, 'sellerProducts');
-                    const sellerSnapshot = await firebase.get(sellerRef);
-                    const sellerData = sellerSnapshot.val();
-                    
-                    let newSellerCount = 0;
-                    if (sellerData) {
-                        Object.values(sellerData).forEach(product => {
-                            if (!product.reviewed) newSellerCount++;
-                        });
-                    }
-                    
-                    const newSellerProductsElement = document.getElementById('newSellerProductsCount');
-                    const approvalSellerCount = document.getElementById('approvalNewSellerProductsCount');
-                    
-                    if (newSellerProductsElement) {
-                        newSellerProductsElement.textContent = newSellerCount;
-                    }
-                    if (approvalSellerCount) {
-                        approvalSellerCount.textContent = newSellerCount;
-                    }
-                    
-                    // ژمارەی داواکارییە نوێیەکان
-                    const ordersRef = firebase.ref(firebase.db, 'orders');
-                    const ordersSnapshot = await firebase.get(ordersRef);
-                    const ordersData = ordersSnapshot.val();
-                    
-                    let newOrdersCount = 0;
-                    if (ordersData) {
-                        Object.values(ordersData).forEach(order => {
-                            if (!order.read) newOrdersCount++;
-                        });
-                    }
-                    
-                    const newOrdersElement = document.getElementById('newOrdersCount');
-                    if (newOrdersElement) {
-                        newOrdersElement.textContent = newOrdersCount;
-                    }
-                    
-                    // نیشاندانی ئاگاداری ئەگەر داواکاری نوێ هەبێت
-                    const adminBtn = document.getElementById('adminPanelBtn');
-                    if (adminBtn && isAdminLoggedIn) {
-                        const totalNewItems = newRequestsCount + newSellerCount;
-                        if (totalNewItems > 0) {
-                            const badge = document.getElementById('notificationBadge');
-                            if (badge) {
-                                badge.textContent = totalNewItems;
-                                badge.style.display = 'flex';
-                            }
-                        }
-                    }
-                    
-                } catch (error) {
-                    console.error("Error updating dashboard:", error);
-                }
-            }
-            
-            // فەنکشنەکانی نوێ بۆ بینینی کالای فرۆشیار
-            
-            function closeSellerProductsView() {
-                document.getElementById('sellerProductsView').style.display = 'none';
-            }
+            };
 
             function showSellerProductsTab(tab) {
-                // لادانی چالاکی لە هەموو تابەکان
                 const tabBtns = document.querySelectorAll('#sellerProductsView .tab-btn');
                 if (tabBtns) {
                     tabBtns.forEach(btn => {
@@ -5026,13 +4641,11 @@
                     });
                 }
                 
-                // لادانی بینین لە هەموو تابەکان
                 const tabContents = ['sellerPendingList', 'sellerApprovedList', 'sellerRejectedList'];
                 tabContents.forEach(content => {
                     document.getElementById(content).style.display = 'none';
                 });
                 
-                // چالاککردنی تابەکەی دیاریکراو
                 let activeBtn = null;
                 if (tab === 'pending') activeBtn = tabBtns[0];
                 else if (tab === 'approved') activeBtn = tabBtns[1];
@@ -5043,7 +4656,6 @@
                     activeBtn.classList.add('border-b-2', 'border-blue-500');
                 }
                 
-                // نیشاندانی تابەکە
                 document.getElementById(`seller${tab.charAt(0).toUpperCase() + tab.slice(1)}List`).style.display = 'block';
             }
 
@@ -5083,10 +4695,8 @@
             }
 
             function updateSellerProductsLists(pending, approved, rejected) {
-                // نوێکردنەوەی ژمارەکان
                 document.getElementById('sellerPendingCount').textContent = pending.length;
                 
-                // دروستکردنی لیستی بۆ پەسەندکردن
                 const pendingList = document.getElementById('sellerPendingList');
                 pendingList.innerHTML = '';
                 
@@ -5138,7 +4748,6 @@
                     });
                 }
                 
-                // دروستکردنی لیستی پەسەندکراوەکان
                 const approvedList = document.getElementById('sellerApprovedList');
                 approvedList.innerHTML = '';
                 
@@ -5182,7 +4791,6 @@
                     });
                 }
                 
-                // دروستکردنی لیستی ڕەتکراوەکان
                 const rejectedList = document.getElementById('sellerRejectedList');
                 rejectedList.innerHTML = '';
                 
@@ -5226,7 +4834,6 @@
                     });
                 }
                 
-                // نوێکردنەوەی بادجەکان
                 const sellerProductsBadge = document.getElementById('sellerProductsBadge');
                 if (sellerProductsBadge) {
                     if (pending.length > 0) {
@@ -5238,14 +4845,9 @@
                 }
             }
             
-            // فەنکشنەکانی نوێ بۆ بینینی داواکاری فرۆشیار
+            // ========== فەنکشنەکانی نوێ بۆ بینینی داواکاری فرۆشیار ==========
             
-            function closeCustomerRequestsView() {
-                document.getElementById('customerRequestsView').style.display = 'none';
-            }
-
             function showCustomerRequestsTab(tab) {
-                // لادانی چالاکی لە هەموو تابەکان
                 const tabBtns = document.querySelectorAll('#customerRequestsView .tab-btn');
                 if (tabBtns) {
                     tabBtns.forEach(btn => {
@@ -5254,13 +4856,11 @@
                     });
                 }
                 
-                // لادانی بینین لە هەموو تابەکان
                 const tabContents = ['customerPendingList', 'customerApprovedList', 'customerRejectedList'];
                 tabContents.forEach(content => {
                     document.getElementById(content).style.display = 'none';
                 });
                 
-                // چالاککردنی تابەکەی دیاریکراو
                 let activeBtn = null;
                 if (tab === 'pending') activeBtn = tabBtns[0];
                 else if (tab === 'approved') activeBtn = tabBtns[1];
@@ -5271,7 +4871,6 @@
                     activeBtn.classList.add('border-b-2', 'border-blue-500');
                 }
                 
-                // نیشاندانی تابەکە
                 document.getElementById(`customer${tab.charAt(0).toUpperCase() + tab.slice(1)}List`).style.display = 'block';
             }
 
@@ -5311,10 +4910,8 @@
             }
 
             function updateCustomerRequestsLists(pending, approved, rejected) {
-                // نوێکردنەوەی ژمارەکان
                 document.getElementById('requestsPendingCount').textContent = pending.length;
                 
-                // دروستکردنی لیستی بۆ پەسەندکردن
                 const pendingList = document.getElementById('customerPendingList');
                 pendingList.innerHTML = '';
                 
@@ -5359,7 +4956,6 @@
                     });
                 }
                 
-                // دروستکردنی لیستی پەسەندکراوەکان
                 const approvedList = document.getElementById('customerApprovedList');
                 approvedList.innerHTML = '';
                 
@@ -5396,7 +4992,6 @@
                     });
                 }
                 
-                // دروستکردنی لیستی ڕەتکراوەکان
                 const rejectedList = document.getElementById('customerRejectedList');
                 rejectedList.innerHTML = '';
                 
@@ -5433,7 +5028,6 @@
                     });
                 }
                 
-                // نوێکردنەوەی بادجەکان
                 const customerRequestsBadge = document.getElementById('customerRequestsBadge');
                 if (customerRequestsBadge) {
                     if (pending.length > 0) {
@@ -5583,7 +5177,95 @@
                 }
             }
             
-            // Load initial data
+            // ========== فەنکشنەکانی نوێکردنەوەی داشبۆرد ==========
+            
+            async function updateAdminDashboard() {
+                if (!isAdminLoggedIn) return;
+                
+                const totalProducts = globalProductsData ? Object.keys(globalProductsData).length : 0;
+                const totalProductsElement = document.getElementById('totalProducts');
+                if (totalProductsElement) {
+                    totalProductsElement.textContent = totalProducts;
+                }
+                
+                try {
+                    const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+                    const requestsSnapshot = await firebase.get(requestsRef);
+                    const requestsData = requestsSnapshot.val();
+                    
+                    let newRequestsCount = 0;
+                    if (requestsData) {
+                        Object.values(requestsData).forEach(request => {
+                            if (!request.reviewed) newRequestsCount++;
+                        });
+                    }
+                    
+                    const newCustomerRequestsElement = document.getElementById('newCustomerRequestsCount');
+                    const approvalCustomerCount = document.getElementById('approvalNewCustomerRequestsCount');
+                    
+                    if (newCustomerRequestsElement) {
+                        newCustomerRequestsElement.textContent = newRequestsCount;
+                    }
+                    if (approvalCustomerCount) {
+                        approvalCustomerCount.textContent = newRequestsCount;
+                    }
+                    
+                    const sellerRef = firebase.ref(firebase.db, 'sellerProducts');
+                    const sellerSnapshot = await firebase.get(sellerRef);
+                    const sellerData = sellerSnapshot.val();
+                    
+                    let newSellerCount = 0;
+                    if (sellerData) {
+                        Object.values(sellerData).forEach(product => {
+                            if (!product.reviewed) newSellerCount++;
+                        });
+                    }
+                    
+                    const newSellerProductsElement = document.getElementById('newSellerProductsCount');
+                    const approvalSellerCount = document.getElementById('approvalNewSellerProductsCount');
+                    
+                    if (newSellerProductsElement) {
+                        newSellerProductsElement.textContent = newSellerCount;
+                    }
+                    if (approvalSellerCount) {
+                        approvalSellerCount.textContent = newSellerCount;
+                    }
+                    
+                    const ordersRef = firebase.ref(firebase.db, 'orders');
+                    const ordersSnapshot = await firebase.get(ordersRef);
+                    const ordersData = ordersSnapshot.val();
+                    
+                    let newOrdersCount = 0;
+                    if (ordersData) {
+                        Object.values(ordersData).forEach(order => {
+                            if (!order.read) newOrdersCount++;
+                        });
+                    }
+                    
+                    const newOrdersElement = document.getElementById('newOrdersCount');
+                    if (newOrdersElement) {
+                        newOrdersElement.textContent = newOrdersCount;
+                    }
+                    
+                    const adminBtn = document.getElementById('adminPanelBtn');
+                    if (adminBtn && isAdminLoggedIn) {
+                        const totalNewItems = newRequestsCount + newSellerCount;
+                        if (totalNewItems > 0) {
+                            const badge = document.getElementById('notificationBadge');
+                            if (badge) {
+                                badge.textContent = totalNewItems;
+                                badge.style.display = 'flex';
+                            }
+                        }
+                    }
+                    
+                } catch (error) {
+                    console.error("Error updating dashboard:", error);
+                }
+            }
+            
+            // ========== بارکردنی داتای سەرەتایی ==========
+            
             setTimeout(() => {
                 if (firebaseInitialized) {
                     loadProductsFromFirebase();
@@ -5651,107 +5333,42 @@
             // چالاککردنی دوگمەی ماڵ بە شێوەی بنەڕەتی
             showHomePage();
         });
-// ========== چاککردنی Event Listener بۆ دوگمەی داخستنی مۆدالەکان ==========
+// فەرمانی کردنەوەی وێنەکە بە گەورەیی
+window.openImageModal = function(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.classList.remove('hidden');
+    modalImg.src = src;
+    document.body.style.overflow = 'hidden'; // بۆ ئەوەی پەیجەکە جوڵەی نەمێنێت لەکاتی زووم
+}
 
-// فەنکشنی داخستنی sellerProductsView
-window.closeSellerProductsView = function() {
-    const modal = document.getElementById('sellerProductsView');
+// فەرمانی داخستنی مۆدێڵەکە
+window.closeImageModal = function() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.add('hidden');
+    document.body.style.overflow = 'auto';
+}
+window.openImageModal = function(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    if (modal && modalImg) {
+        modal.classList.remove('hidden');
+        modalImg.src = src;
+        document.body.style.overflow = 'hidden'; 
+    }
+}
+
+window.closeImageModal = function() {
+    const modal = document.getElementById('imageModal');
     if (modal) {
-        modal.style.display = 'none';
+        modal.classList.add('hidden');
+        document.body.style.overflow = 'auto';
     }
-};
-
-// فەنکشنی داخستنی customerRequestsView
-window.closeCustomerRequestsView = function() {
-    const modal = document.getElementById('customerRequestsView');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-};
-
-// فەنکشنی داخستنی approvalModal
-window.closeApprovalModal = function() {
-    const modal = document.getElementById('approvalModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-};
-
-// Event Listener گشتی بۆ داخستنی مۆدالەکان بە کلیک لەسەر دوگمەی داخستن
-document.addEventListener('click', function(event) {
-    // داخستنی sellerProductsView
-    if (event.target.closest('#sellerProductsView .close-btn')) {
-        closeSellerProductsView();
-        event.preventDefault();
-        event.stopPropagation();
-    }
-    
-    // داخستنی customerRequestsView
-    if (event.target.closest('#customerRequestsView .close-btn')) {
-        closeCustomerRequestsView();
-        event.preventDefault();
-        event.stopPropagation();
-    }
-    
-    // داخستنی approvalModal
-    if (event.target.closest('#approvalModal .close-btn')) {
-        closeApprovalModal();
-        event.preventDefault();
-        event.stopPropagation();
-    }
-});
-
-// Event Listener تایبەت بۆ داخستنی مۆدالەکان کاتێک کلیک لەسەر باکگراوند دەکرێت
-window.addEventListener('click', function(event) {
-    const sellerModal = document.getElementById('sellerProductsView');
-    const customerModal = document.getElementById('customerRequestsView');
-    const approvalModal = document.getElementById('approvalModal');
-    
-    if (sellerModal && event.target === sellerModal) {
-        closeSellerProductsView();
-    }
-    
-    if (customerModal && event.target === customerModal) {
-        closeCustomerRequestsView();
-    }
-    
-    if (approvalModal && event.target === approvalModal) {
-        closeApprovalModal();
-    }
-});
-
-// Event Listener بۆ دوگمەکانی داخستن کاتێک DOM تەواو بار دەکرێت
-document.addEventListener('DOMContentLoaded', function() {
-    // چاککردنی دوگمەی داخستنی sellerProductsView
-    const sellerProductsView = document.getElementById('sellerProductsView');
-    if (sellerProductsView) {
-        const closeBtn = sellerProductsView.querySelector('.close-btn');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeSellerProductsView);
-        }
-    }
-    
-    // چاککردنی دوگمەی داخستنی customerRequestsView
-    const customerRequestsView = document.getElementById('customerRequestsView');
-    if (customerRequestsView) {
-        const closeBtn = customerRequestsView.querySelector('.close-btn');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeCustomerRequestsView);
-        }
-    }
-    
-    // چاککردنی دوگمەی داخستنی approvalModal
-    const approvalModalElement = document.getElementById('approvalModal');
-    if (approvalModalElement) {
-        const closeBtn = approvalModalElement.querySelector('.close-btn');
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeApprovalModal);
-        }
-    }
-});
-
-// ========== کۆتایی چاککردنی Event Listener ==========
+}
     </script>
+<div id="imageModal" class="hidden fixed inset-0 z-[100] bg-black bg-opacity-90 flex items-center justify-center p-4" onclick="closeImageModal()">
+    <button class="absolute top-5 right-5 text-white text-4xl">&times;</button>
+    <img id="modalImage" class="max-w-full max-h-full rounded-lg shadow-2xl transition-transform duration-300" src="" alt="Zoomed view">
+</div>
 </body>
 </html>
-
