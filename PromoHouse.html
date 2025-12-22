@@ -617,6 +617,41 @@
             50% { opacity: 0.7; }
         }
         
+        /* تابەکانی سەرەکی */
+        .main-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .main-tab-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 10px 15px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #6b7280;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .main-tab-btn:hover {
+            background: #f3f4f6;
+            border-color: #d1d5db;
+        }
+
+        .main-tab-btn.active {
+            background: #00BFFF;
+            color: white;
+            border-color: #00BFFF;
+            box-shadow: 0 4px 12px rgba(0, 191, 255, 0.2);
+        }
+        
         /* فۆرمەکان */
         .add-product-form, .add-promo-form, .request-form-container, .request-form {
             background: #f3f4f6;
@@ -800,12 +835,11 @@
             direction: ltr;
             text-align: center;
         }
-        
+
         .action-buttons {
             display: flex;
-            gap: 1rem;
+            gap: 12px;
             justify-content: center;
-            margin-top: 1.5rem;
         }
         
         .action-button {
@@ -1075,6 +1109,37 @@
         .product-card img {
             cursor: zoom-in;
         }
+        
+        /* دوگمەی کۆپی کراوەکان بۆ داشبۆرد */
+        .admin-dashboard-btn-copied {
+            background: linear-gradient(135deg, #fcd34d 0%, #f59e0b 100%);
+            border-color: #f59e0b;
+        }
+        
+        .admin-dashboard-btn-copied:hover {
+            border-color: #d97706;
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+        }
+        
+        .admin-dashboard-btn-copied .admin-dashboard-icon {
+            color: #92400e;
+        }
+        
+        /* بەشی کۆپی کراوەکان */
+        .copied-section {
+            margin-top: 20px;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #6b7280;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
     </style>
 </head>
 <body class="min-h-screen" dir="rtl">
@@ -1108,6 +1173,36 @@
     <!-- Main Content -->
     <div class="main-content">
         <div class="container mx-auto px-3 py-4">
+            
+            <!-- ١. بەشی کۆپی کراوەکان (بۆ کالا پەسەندکراوەکان) -->
+            <div id="copiedProductsSection" style="display: none;">
+                <h3 class="text-xl font-bold mb-3 text-gray-800 text-center">کالاکانی پەسەندکراو</h3>
+                
+                <!-- تابەکان بۆ جیاکردنەوەی کالای فرۆشیار و داواکاری -->
+                <div class="tabs flex mb-4 border-b">
+                    <button class="tab-btn active px-4 py-2 border-b-2 border-blue-500 font-bold" onclick="showCopiedTab('seller')">
+                        کالای فرۆشیار (پەسەندکراو)
+                    </button>
+                    <button class="tab-btn px-4 py-2" onclick="showCopiedTab('customer')">
+                        داواکاری کڕیار (پەسەندکراو)
+                    </button>
+                </div>
+                
+                <!-- لیستی کالای فرۆشیار پەسەندکراو -->
+                <div id="copiedSellerProducts" class="tab-content two-column-products mb-6">
+                    <!-- کالاکان لێرە دێن -->
+                </div>
+                
+                <!-- لیستی داواکاری پەسەندکراو -->
+                <div id="copiedCustomerRequests" class="tab-content two-column-products mb-6" style="display: none;">
+                    <!-- داواکاریەکان لێرە دێن -->
+                </div>
+                
+                <button onclick="backToHomeFromCopied()" class="submit-btn bg-gray-500 hover:bg-gray-600 w-full">
+                    گەڕانەوە بۆ ماڵ
+                </button>
+            </div>
+
             <!-- داشبۆردی بەڕێوەبەر -->
             <div id="adminDashboard" style="display: none;">
                 <div class="bg-white rounded-xl shadow-md p-4 mb-4">
@@ -1149,6 +1244,14 @@
                             </svg>
                             <span class="admin-dashboard-text">داواکاری کڕیار</span>
                             <span id="customerRequestsBadge" class="notification-badge" style="position: static; margin-top: 5px; display: none;">0</span>
+                        </div>
+                        
+                        <!-- دوگمەی نوێ بۆ کۆپی کراوەکان -->
+                        <div class="admin-dashboard-btn admin-dashboard-btn-copied" onclick="showCopiedProductsSection()">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="admin-dashboard-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2H6a2 2 0 01-2-2V9a2 2 0 012-2h2z" />
+                            </svg>
+                            <span class="admin-dashboard-text">کۆپی کراوەکان</span>
                         </div>
                         
                         <div class="admin-dashboard-btn" onclick="logoutAdmin()">
@@ -1269,6 +1372,19 @@
                 </div>
             </div>
 
+            <!-- تابەکانی سەرەکی بۆ جیاکردنەوەی جۆرەکانی کالا -->
+            <div class="main-tabs" id="mainTabs">
+                <button class="main-tab-btn active" onclick="showMainTab('all')">
+                    هەموو کالاکان
+                </button>
+                <button class="main-tab-btn" onclick="showMainTab('seller')">
+                    کالای فرۆشیار (پەسەندکراو)
+                </button>
+                <button class="main-tab-btn" onclick="showMainTab('customer')">
+                    داواکاری کڕیار (پەسەندکراو)
+                </button>
+            </div>
+
             <!-- کالاکان بە دوو سانیە -->
             <div class="mb-4" id="mainProductsSection">
                 <h3 class="text-xl font-bold mb-3 text-gray-800 text-center" id="productsTitle">هەموو کالاکان</h3>
@@ -1284,6 +1400,24 @@
                 <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
                 
                 <form id="customerRequestForm">
+<div class="form-group">
+    <label for="requestImages">وێنەی کالا (ئارەزوومەندە):</label>
+    <div class="file-input-container">
+        <input type="file" id="requestImages" accept="image/*" class="file-input" multiple>
+        <label for="requestImages" class="file-input-label" id="requestFileInputLabel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                <line x1="16" y1="5" x2="22" y2="5"></line>
+                <line x1="19" y1="2" x2="19" y2="8"></line>
+                <circle cx="9" cy="9" r="2"></circle>
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+            <span>وێنەی کالا هەڵبژێرە (فرە)</span>
+        </label>
+    </div>
+    <div id="requestFileName" class="text-sm text-gray-500 mt-2"></div>
+    <div id="requestImagePreviewContainer" class="mt-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(80px, 1fr)); gap: 8px;"></div>
+</div>
                     <div class="form-group">
                         <label for="customerName">ناوی تۆ:</label>
                         <input type="text" id="customerName" placeholder="ناوی تۆ" required>
@@ -1510,19 +1644,19 @@
                     
                     <div class="form-group">
                         <label for="promoImage">وێنەی ڕیکلام (فرە وێنە):</label>
-                        <div class="file-input-container">
-                            <input type="file" id="promoImage" accept="image/*" class="file-input" multiple>
-                            <label for="promoImage" class="file-input-label" id="promoFileInputLabel">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
-                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
-                                    <line x1="16" y1="5" x2="22" y2="5"></line>
-                                    <line x1="19" y1="2" x2="19" y2="8"></line>
-                                    <circle cx="9" cy="9" r="2"></circle>
-                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                                </svg>
-                                <span>وێنەی ڕیکلام هەڵبژێرە (فرە)</span>
-                            </label>
-                        </div>
+                            <div class="file-input-container">
+                                <input type="file" id="promoImage" accept="image/*" class="file-input" multiple>
+                                <label for="promoImage" class="file-input-label" id="promoFileInputLabel">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                                        <line x1="16" y1="5" x2="22" y2="5"></line>
+                                        <line x1="19" y1="2" x2="19" y2="8"></line>
+                                        <circle cx="9" cy="9" r="2"></circle>
+                                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                                    </svg>
+                                    <span>وێنەی ڕیکلام هەڵبژێرە (فرە)</span>
+                                </label>
+                            </div>
                         <div id="promoFileName" class="text-sm text-gray-500 mt-2"></div>
                         <div id="promoImagesPreviewContainer" class="mt-3" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;"></div>
                     </div>
@@ -1584,46 +1718,45 @@
                 </svg>
                 <span class="bottom-nav-text">ماڵ</span>
             </div>
-            
+   
+            <!-- کاڵاکان -->
+            <div class="bottom-nav-item" id="bottomOrdersBtn" onclick="showOrdersPage()">
+                <img
+                    src="https://img.icons8.com/?size=100&id=117466&format=png&color=39C7F7"
+                    alt="کاڵاکان"
+                    class="bottom-nav-icon"
+                >
+                <span class="bottom-nav-text">کاڵاکان</span>
+                <span id="orderTime" class="order-time"></span>
+            </div>
+
             <!-- داواکاری -->
             <div class="bottom-nav-item" id="bottomRequestBtn" onclick="showRequestPage()">
-                <svg class="bottom-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="8" cy="21" r="1"></circle>
-                    <circle cx="19" cy="21" r="1"></circle>
-                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
-                </svg>
+                <img
+                    src="https://img.icons8.com/?size=100&id=K3CUwZKgHxKe&format=png&color=39C7F7"
+                    alt="داواکاری"
+                    class="bottom-nav-icon"
+                >
                 <span class="bottom-nav-text">داواکاری</span>
             </div>
             
-            <!-- مینۆ -->
-            <div class="bottom-nav-item" id="bottomOrdersBtn" onclick="showOrdersPage()">
-                <svg class="bottom-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                    <polyline points="14 2 14 8 20 8"></polyline>
-                    <line x1="16" y1="13" x2="8" y2="13"></line>
-                    <line x1="16" y1="17" x2="8" y2="17"></line>
-                    <polyline points="10 9 9 9 8 9"></polyline>
-                </svg>
-                <span class="bottom-nav-text">مینۆ</span>
-                <span id="orderTime" class="order-time"></span>
-            </div>
-            
-             <!-- مارکێت -->
+            <!-- مارکێت -->
             <div class="bottom-nav-item" id="bottomAddProductBtn" onclick="showSellerProductPage()">
-                <svg class="bottom-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
+                <img 
+                    src="https://img.icons8.com/?size=100&id=18898&format=png&color=39C7F7"
+                    alt="مارکێت"
+                    class="bottom-nav-icon"
+                >
                 <span class="bottom-nav-text">مارکێت</span>
             </div>
             
             <!-- دەربارە -->
             <div class="bottom-nav-item" id="bottomAboutBtn" onclick="showAboutPage()">
-                <svg class="bottom-nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                </svg>
+                <img
+                    src="https://img.icons8.com/?size=100&id=dbA3cqtoMIhB&format=png&color=39C7F7"
+                    alt="دەربارە"
+                    class="bottom-nav-icon"
+                >
                 <span class="bottom-nav-text">دەربارە</span>
             </div>
         </div>
@@ -1640,11 +1773,20 @@
             </div>
             
             <div class="action-buttons">
-                <button id="loginBtn" class="action-button bg-blue-600 hover:bg-blue-700">چونە ژوورەوە</button>
-                <button id="cancelLoginBtn" class="action-button bg-gray-500 hover:bg-gray-600">هەڵوەشاندنەوە</button>
+                <button
+                    id="loginBtn"
+                    class="action-button bg-[#39C7F7] hover:bg-[#2fb8e6]">
+                    چونە ژوورەوە
+                </button>
+
+                <button
+                    id="cancelLoginBtn"
+                    class="action-button bg-red-500 hover:bg-red-600">
+                    هەڵوەشاندنەوە
+                </button>
             </div>
             
-            <p class="text-gray-500 text-sm mt-4">وشەی نهێنی: admin123</p>
+            <p class="text-gray-500 text-sm mt-4">تەنها بەڕێوەبەر دەتوانێت بچێتە ژوورەوە</p>
         </div>
     </div>
 
@@ -1710,70 +1852,69 @@
                          alt="پرۆمۆ هاوس لۆگۆ" 
                          class="w-24 h-24 rounded-full border-4 border-blue-500">
                 </div>
-                
-                <div class="bg-blue-50 p-4 rounded-lg mb-4">
-                    <h4 class="font-bold mb-2 text-blue-700 text-center">زانیاری پەیوەندی</h4>
-                    
-                    <div class="space-y-3">
-                        <div class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mt-0.5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
-                            </svg>
-                            <div>
-                                <p class="font-medium text-gray-800">ژمارەی تەلەفۆن:</p>
-                                <p class="text-gray-600" dir="ltr">07717858787</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mt-0.5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
-                                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
-                            </svg>
-                            <div>
-                                <p class="font-medium text-gray-800">ئیمەیڵ:</p>
-                                <p class="text-gray-600" dir="ltr">info@promohouseeiraq.com</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-blue-600 mt-0.5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                            </svg>
-                            <div>
-                                <p class="font-medium text-gray-800">ناونیشان:</p>
-                                <p class="text-gray-600">سلێمانی - جادەی مزگەوتی رحمان</p>
-                                <p class="text-gray-600 text-sm">خوار سوپەرمارکیتی Shock</p>
-                            </div>
-                        </div>
+         <div class="bg-blue-50 p-4 rounded-lg mb-4">
+    <!-- پەراگرافی سەرەوە -->
+    <p class="mb-4" style="color: #39C7F7;">
+        بە هۆی تێگەیشتنی قوڵمان لە بازاڕی ناوخۆی و پێویستیەکانی کڕیاران، ئێستا خاوەنی کۆگایەکی ئامادەکراوی پڕ لە ئەشیای جۆراو جۆرین لە سلێمانی، کە ئەتوانین پێداویستی کواڵیتی بەرز بە نرخی گونجاو دابین بکەین بۆ چاپخانەکان لە هەموو ناوچەکانی هەرێمی کوردستان. کۆگاکانمان هەموو پێداویستیەکان بە ئامادەکراوی بۆ ئێوە بەردەست کردوە.
+    </p>
+
+    <!-- زانیاری پەیوەندی -->
+    <div class="space-y-3">
+        <!-- ژمارەی تەلەفۆن -->
+        <div class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 ml-2" viewBox="0 0 20 20" fill="#39C7F7">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+            </svg>
+            <div>
+                <p class="font-medium" style="color: #39C7F7;">ژمارەی تەلەفۆن:</p>
+                <p style="color: #39C7F7;" dir="ltr">07701922060</p>
+            </div>
+        </div>
+
+        <!-- ژمارەی مەخزەن -->
+        <div class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 ml-2" viewBox="0 0 20 20" fill="#39C7F7">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+            </svg>
+            <div>
+                <p class="font-medium" style="color: #39C7F7;">ژمارەی مەخزەن:</p>
+                <p style="color: #39C7F7;" dir="ltr">07717858787</p>
+            </div>
+        </div>
+
+        <!-- ئیمەیڵ -->
+        <div class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 ml-2" viewBox="0 0 20 20" fill="#39C7F7">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+            </svg>
+            <div>
+                <p class="font-medium" style="color: #39C7F7;">ئیمەیڵ:</p>
+                <p style="color: #39C7F7;" dir="ltr">info@promohouseeiraq.com</p>
+            </div>
+        </div>
+
+        <!-- ناونیشان -->
+        <div class="flex items-start">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 ml-2" viewBox="0 0 20 20" fill="#39C7F7">
+                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+            </svg>
+            <div>
+                <p class="font-medium" style="color: #39C7F7;">ناونیشان:</p>
+                <p style="color: #39C7F7;">سلێمانی - جادەی مزگەوتی رحمان</p>
+                <p style="color: #39C7F7; font-size: 0.875rem;">خوار سوپەرمارکیتی Shock</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
                     </div>
                 </div>
             </div>
-            
-            <!-- QR Codes -->
-            <div class="bg-white p-4 rounded-lg border">
-                <h4 class="font-bold mb-4 text-gray-700 text-center">
-                    QR Code ـەکان
-                </h4>
+  
 
-                <div class="grid grid-cols-2 gap-4 text-center">
-                    <!-- WhatsApp QR -->
-                    <a href="https://wa.me/9647717858787" target="_blank">
-                        <img
-                            src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code-number.png"
-                            alt="QR WhatsApp"
-                            class="w-28 h-28 mx-auto border rounded-lg"
-                        >
-                        <p class="text-sm font-medium mt-2">WhatsApp</p>
-                    </a>
-
-                    <!-- PromoHouse Page QR -->
-                    <a href="https://www.promohouseeiraq.com" target="_blank">
-                        <img
-                            src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/qr-code%20(logo).png"
-                            alt="QR PromoHouse"
-                            class="w-28 h-28 mx-auto border rounded-lg"
-                        >
+                 
                         <p class="text-sm font-medium mt-2">PromoHouse</p>
                     </a>
                 </div>
@@ -2126,6 +2267,7 @@
             let zoomImages = [];
             let currentZoomIndex = 0;
             let promoSlideInterval;
+            let currentMainTab = 'all';
 
             // چاوەڕوانی بۆ چالاککردنی Firebase
             const checkFirebase = setInterval(() => {
@@ -2162,6 +2304,21 @@
                 firebase.onValue(ordersRef, (snapshot) => {
                     updateAdminDashboard();
                     updateNotificationBadge();
+                });
+                
+                // چاودێری کۆپی کراوەکان
+                const copiedSellerRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+                firebase.onValue(copiedSellerRef, (snapshot) => {
+                    if (currentMainTab === 'seller') {
+                        loadAndShowCopiedSellerProducts();
+                    }
+                });
+                
+                const copiedCustomerRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+                firebase.onValue(copiedCustomerRef, (snapshot) => {
+                    if (currentMainTab === 'customer') {
+                        loadAndShowCopiedCustomerRequests();
+                    }
                 });
             }
             
@@ -2215,6 +2372,379 @@
                 }
             }
             
+            // ========== فەنکشنەکانی نوێ بۆ تابەکانی سەرەکی ==========
+            
+            window.showMainTab = function(tab) {
+                currentMainTab = tab;
+                
+                // نوێکردنەوەی دوگمەکانی تاب
+                document.querySelectorAll('.main-tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                
+                event.target.classList.add('active');
+                
+                // پێشکەشکردنی کالا بەپێی جۆر
+                if (tab === 'all') {
+                    document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
+                    displayProducts(globalProductsData);
+                } else if (tab === 'seller') {
+                    document.getElementById('productsTitle').textContent = 'کالای فرۆشیار (پەسەندکراو)';
+                    loadAndShowCopiedSellerProducts();
+                } else if (tab === 'customer') {
+                    document.getElementById('productsTitle').textContent = 'داواکاری کڕیار (پەسەندکراو)';
+                    loadAndShowCopiedCustomerRequests();
+                }
+            };
+            
+            // فەنکشن بۆ بارکردن و نیشاندانی کالای فرۆشیاری پەسەندکراو لە تابەکانی سەرەکی
+            async function loadAndShowCopiedSellerProducts() {
+                const container = document.getElementById('productsContainer');
+                const title = document.getElementById('productsTitle');
+                
+                if (!container) return;
+                
+                container.innerHTML = '<div class="col-span-2 text-center py-8"><p class="text-gray-500">بارکردنی کالاکان...</p></div>';
+                
+                try {
+                    const productsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+                    const snapshot = await firebase.get(productsRef);
+                    const productsData = snapshot.val();
+                    
+                    container.innerHTML = '';
+                    
+                    if (!productsData) {
+                        container.innerHTML = `
+                            <div class="col-span-2 text-center py-8">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📦</div>
+                                    <p class="text-gray-500 mb-4">هیچ کالای فرۆشیار پەسەندکراو بوونی نیە</p>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    const products = Object.values(productsData);
+                    
+                    if (products.length === 0) {
+                        container.innerHTML = `
+                            <div class="col-span-2 text-center py-8">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📦</div>
+                                    <p class="text-gray-500 mb-4">هیچ کالای فرۆشیار پەسەندکراو بوونی نیە</p>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // نمایشی کالاکان بە شێوەی دوو ستوون
+                    products.forEach((product, index) => {
+                        const hasDiscount = product.originalPrice && product.discount;
+                        const discountPercentage = hasDiscount ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
+                        const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
+                        const firstImage = images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop';
+                        
+                        const productHTML = `
+                            <div class="two-column-product-card" data-product-index="${index}">
+                                <div class="product-image-container">
+                                    <img src="${firstImage}" 
+                                         alt="${product.name}" 
+                                         class="product-image-clickable"
+                                         onclick="openImageModal('${firstImage}')"
+                                         onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
+                             ${images.length > 1 ? `
+    <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded cursor-pointer" 
+         onclick="event.stopPropagation(); openImageZoom('${firstImage}', ${JSON.stringify(images).replace(/"/g, '&quot;')}, 0)">
+        ${images.length} وێنە
+    </div>
+` : ''}
+                                </div>
+                                <div class="two-column-product-info">
+                                    <h4>${product.name}</h4>
+                                    ${hasDiscount ? `
+                                        <div class="flex items-center gap-1">
+                                            <span class="two-column-product-price">${product.price} دینار</span>
+                                            <span class="original-price">${product.originalPrice} دینار</span>
+                                            <span class="discount-label">${discountPercentage}% داشکاندن</span>
+                                        </div>
+                                    ` : `
+                                        <div class="two-column-product-price">${product.price} دینار</div>
+                                    `}
+                                    <small class="text-gray-500">نزیکەی $${product.priceUSD}</small>
+                                    ${product.category ? `<small class="text-gray-400 block mt-1">${product.category}</small>` : ''}
+                                    <small class="text-green-600 block mt-2">🔰 پەسەندکراو لەلایەن بەڕێوەبەرەوە</small>
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += productHTML;
+                    });
+                    
+                } catch (error) {
+                    console.error("Error loading copied seller products:", error);
+                    container.innerHTML = `
+                        <div class="col-span-2 text-center py-8">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">❌</div>
+                                <p class="text-red-500 mb-4">هەڵە لە بارکردنی کالاکان</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // فەنکشن بۆ بارکردن و نیشاندانی داواکاریە پەسەندکراوەکانی کڕیار لە تابەکانی سەرەکی
+            async function loadAndShowCopiedCustomerRequests() {
+                const container = document.getElementById('productsContainer');
+                const title = document.getElementById('productsTitle');
+                
+                if (!container) return;
+                
+                container.innerHTML = '<div class="col-span-2 text-center py-8"><p class="text-gray-500">بارکردنی داواکاریەکان...</p></div>';
+                
+                try {
+                    const requestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+                    const snapshot = await firebase.get(requestsRef);
+                    const requestsData = snapshot.val();
+                    
+                    container.innerHTML = '';
+                    
+                    if (!requestsData) {
+                        container.innerHTML = `
+                            <div class="col-span-2 text-center py-8">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📋</div>
+                                    <p class="text-gray-500 mb-4">هیچ داواکاری پەسەندکراو بوونی نیە</p>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    const requests = Object.values(requestsData);
+                    
+                    if (requests.length === 0) {
+                        container.innerHTML = `
+                            <div class="col-span-2 text-center py-8">
+                                <div class="empty-state">
+                                    <div class="empty-state-icon">📋</div>
+                                    <p class="text-gray-500 mb-4">هیچ داواکاری پەسەندکراو بوونی نیە</p>
+                                </div>
+                            </div>
+                        `;
+                        return;
+                    }
+                    
+                    // نمایشی داواکاریەکان بە شێوەی دوو ستوون
+                    requests.forEach((request, index) => {
+                        const requestHTML = `
+                            <div class="two-column-product-card">
+                                <div class="two-column-product-info p-4">
+                                    <h4>${request.productName || 'ناونەزانراو'}</h4>
+                                    <div class="two-column-product-price">داواکاری پەسەندکراو</div>
+                                    
+                                    <div class="mt-3 space-y-2">
+                                        <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                                        <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                                        ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                                    </div>
+                                    
+                                    <small class="text-green-600 block mt-4">✅ پەسەندکراو لەلایەن بەڕێوەبەرەوە</small>
+                                    <small class="text-gray-500 text-xs block mt-2">${new Date(request.reviewedAt || request.timestamp).toLocaleString('ku')}</small>
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += requestHTML;
+                    });
+                    
+                } catch (error) {
+                    console.error("Error loading copied customer requests:", error);
+                    container.innerHTML = `
+                        <div class="col-span-2 text-center py-8">
+                            <div class="empty-state">
+                                <div class="empty-state-icon">❌</div>
+                                <p class="text-red-500 mb-4">هەڵە لە بارکردنی داواکاریەکان</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+            
+            // ========== فەنکشنەکانی نوێ بۆ کۆپی کراوەکان ==========
+            
+            window.showCopiedProductsSection = function() {
+                if (!isAdminLoggedIn) {
+                    showLoginModal();
+                    return;
+                }
+                
+                // هەموو بەشەکانی تر دەشارینەوە
+                document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('allProductsSection').style.display = 'none';
+                document.getElementById('addProductForm').style.display = 'none';
+                document.getElementById('addPromoForm').style.display = 'none';
+                document.getElementById('requestFormSection').style.display = 'none';
+                document.getElementById('sellerProductFormSection').style.display = 'none';
+                document.getElementById('mainProductsSection').style.display = 'none';
+                document.getElementById('servicesSection').style.display = 'none';
+                
+                // بەشی کۆپی کراوەکان پیشان بدە
+                document.getElementById('copiedProductsSection').style.display = 'block';
+                
+                // بارکردنی کۆپی کراوەکان
+                loadCopiedSellerProducts();
+                loadCopiedCustomerRequests();
+            };
+            
+            // فەنکشن بۆ نیشاندانی تابەکان لە بەشی کۆپی کراوەکان
+            function showCopiedTab(tab) {
+                document.querySelectorAll('#copiedProductsSection .tab-btn').forEach(btn => {
+                    btn.classList.remove('active', 'border-b-2', 'border-blue-500');
+                });
+                
+                document.getElementById('copiedSellerProducts').style.display = 'none';
+                document.getElementById('copiedCustomerRequests').style.display = 'none';
+                
+                if (tab === 'seller') {
+                    document.querySelector('#copiedProductsSection .tab-btn:nth-child(1)').classList.add('active', 'border-b-2', 'border-blue-500');
+                    document.getElementById('copiedSellerProducts').style.display = 'grid';
+                } else if (tab === 'customer') {
+                    document.querySelector('#copiedProductsSection .tab-btn:nth-child(2)').classList.add('active', 'border-b-2', 'border-blue-500');
+                    document.getElementById('copiedCustomerRequests').style.display = 'grid';
+                }
+            }
+            
+            // بارکردنی کالای فرۆشیاری کۆپی کراو
+            async function loadCopiedSellerProducts() {
+                try {
+                    const productsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+                    const snapshot = await firebase.get(productsRef);
+                    const productsData = snapshot.val();
+                    
+                    const container = document.getElementById('copiedSellerProducts');
+                    container.innerHTML = '';
+                    
+                    if (!productsData) {
+                        container.innerHTML = '<p class="text-gray-500 text-center col-span-2 py-8">هیچ کالای فرۆشیار پەسەندکراو نیە</p>';
+                        return;
+                    }
+                    
+                    Object.values(productsData).forEach((product, index) => {
+                        const hasDiscount = product.originalPrice && product.discount;
+                        const discountPercentage = hasDiscount ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
+                        const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
+                        const firstImage = images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop';
+                        
+                        const productHTML = `
+                            <div class="two-column-product-card" data-product-index="${index}">
+                                <div class="product-image-container">
+                                    <img src="${firstImage}" 
+                                         alt="${product.name}" 
+                                         class="product-image-clickable"
+                                         onclick="openImageModal('${firstImage}')"
+                                         onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
+                                    ${images.length > 1 ? `
+                                        <div class="image-counter" onclick="event.stopPropagation(); openImageModal('${firstImage}')">${images.length} وێنە</div>
+                                    ` : ''}
+                                </div>
+                                <div class="two-column-product-info">
+                                    <h4>${product.name}</h4>
+                                    ${hasDiscount ? `
+                                        <div class="flex items-center gap-1">
+                                            <span class="two-column-product-price">${product.price} دینار</span>
+                                            <span class="original-price">${product.originalPrice} دینار</span>
+                                            <span class="discount-label">${discountPercentage}% داشکاندن</span>
+                                        </div>
+                                    ` : `
+                                        <div class="two-column-product-price">${product.price} دینار</div>
+                                    `}
+                                    <small class="text-gray-500">نزیکەی $${product.priceUSD}</small>
+                                    ${product.category ? `<small class="text-gray-400 block mt-1">${product.category}</small>` : ''}
+                                    <small class="text-green-600 block mt-2">🔰 پەسەندکراو لەلایەن بەڕێوەبەرەوە</small>
+                                </div>
+                            </div>
+                        `;
+                        container.innerHTML += productHTML;
+                    });
+                    
+                } catch (error) {
+                    console.error("Error loading copied seller products:", error);
+                }
+            }
+            
+            // بارکردنی داواکاریە کۆپی کراوەکان
+          async function loadCopiedCustomerRequests() {
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+        const snapshot = await firebase.get(requestsRef);
+        const requestsData = snapshot.val();
+        
+        const container = document.getElementById('copiedCustomerRequests');
+        container.innerHTML = '';
+        
+        if (!requestsData) {
+            container.innerHTML = '<p class="text-gray-500 text-center col-span-2 py-8">هیچ داواکاری پەسەندکراو نییە</p>';
+            return;
+        }
+        
+        Object.values(requestsData).forEach((request, index) => {
+            const images = request.images || [];
+            const firstImage = images.length > 0 ? images[0] : '';
+            
+            const requestHTML = `
+                <div class="two-column-product-card">
+                    ${firstImage ? `
+                        <div class="product-image-container">
+                            <img src="${firstImage}" 
+                                 alt="${request.productName || 'کالا'}" 
+                                 class="product-image-clickable"
+                                 onclick="openImageModal('${firstImage}')"
+                                 onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
+                            ${images.length > 1 ? `
+                                <div class="image-counter" onclick="event.stopPropagation(); openImageZoom('${firstImage}', ${JSON.stringify(images).replace(/"/g, '&quot;')}, 0)">
+                                    ${images.length} وێنە
+                                </div>
+                            ` : ''}
+                        </div>
+                    ` : ''}
+                    <div class="two-column-product-info p-4">
+                        <h4>${request.productName || 'ناونەزانراو'}</h4>
+                        <div class="two-column-product-price">داواکاری پەسەندکراو</div>
+                        
+                        <div class="mt-3 space-y-2">
+                            <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                            <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                            <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                            <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                            ${request.productDescription ? `<p class="text-sm text-gray-600"><strong>شێواز:</strong> ${request.productDescription}</p>` : ''}
+                        </div>
+                        
+                        <small class="text-green-600 block mt-4">✅ پەسەندکراو لەلایەن بەڕێوەبەرەوە</small>
+                        <small class="text-gray-500 text-xs block mt-2">${new Date(request.reviewedAt || request.timestamp).toLocaleString('ku')}</small>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += requestHTML;
+        });
+        
+    } catch (error) {
+        console.error("Error loading copied customer requests:", error);
+    }
+}
+            
+            // فەنکشن بۆ گەڕانەوە
+            window.backToHomeFromCopied = function() {
+                document.getElementById('copiedProductsSection').style.display = 'none';
+                if (isAdminLoggedIn) {
+                    showAdminDashboard();
+                } else {
+                    showHomePage();
+                }
+            };
+            
             // ========== فەنکشنەکانی دوگمەکانی خوارەوە ==========
             
             window.showHomePage = function() {
@@ -2226,10 +2756,23 @@
                 document.getElementById('requestFormSection').style.display = 'none';
                 document.getElementById('sellerProductFormSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
                 document.getElementById('mainProductsSection').style.display = 'block';
                 document.getElementById('servicesSection').style.display = 'block';
+                document.getElementById('mainTabs').style.display = 'flex';
                 
+                // نمایشی تابەکانی سەرەکی
                 document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
+                
+                // دەستکاریکردنی تابەکان بۆ ئەوەی "هەموو کالاکان" چالاک بێت
+                document.querySelectorAll('.main-tab-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.main-tab-btn')[0].classList.add('active');
+                
+                // نمایشی هەموو کالاکان
+                currentMainTab = 'all';
+                displayProducts(globalProductsData);
                 
                 closeAllModals();
                 window.scrollTo(0, 0);
@@ -2243,8 +2786,10 @@
                 document.getElementById('addPromoForm').style.display = 'none';
                 document.getElementById('sellerProductFormSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
                 document.getElementById('mainProductsSection').style.display = 'none';
                 document.getElementById('servicesSection').style.display = 'none';
+                document.getElementById('mainTabs').style.display = 'none';
                 document.getElementById('requestFormSection').style.display = 'block';
                 
                 closeAllModals();
@@ -2259,8 +2804,10 @@
                 document.getElementById('addPromoForm').style.display = 'none';
                 document.getElementById('requestFormSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
                 document.getElementById('mainProductsSection').style.display = 'none';
                 document.getElementById('servicesSection').style.display = 'none';
+                document.getElementById('mainTabs').style.display = 'none';
                 document.getElementById('sellerProductFormSection').style.display = 'block';
                 
                 closeAllModals();
@@ -2299,8 +2846,10 @@
                 document.getElementById('requestFormSection').style.display = 'none';
                 document.getElementById('sellerProductFormSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
                 document.getElementById('mainProductsSection').style.display = 'none';
                 document.getElementById('servicesSection').style.display = 'none';
+                document.getElementById('mainTabs').style.display = 'none';
             };
             
             window.showAboutPage = function() {
@@ -2313,8 +2862,10 @@
                 document.getElementById('requestFormSection').style.display = 'none';
                 document.getElementById('sellerProductFormSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
                 document.getElementById('mainProductsSection').style.display = 'none';
                 document.getElementById('servicesSection').style.display = 'none';
+                document.getElementById('mainTabs').style.display = 'none';
             };
             
             window.openCategoryForm = function(category) {
@@ -2342,6 +2893,8 @@
                 document.getElementById('allProductsSection').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
+                document.getElementById('mainTabs').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'block';
                 
                 updateBottomNavActive('bottomHomeBtn');
@@ -2374,6 +2927,8 @@
                 
                 document.getElementById('adminDashboard').style.display = 'none';
                 document.getElementById('addProductForm').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
+                document.getElementById('mainTabs').style.display = 'none';
                 document.getElementById('allProductsSection').style.display = 'block';
                 
                 if (globalProductsData) {
@@ -2591,7 +3146,7 @@
                                         </div>
                                         
                                         <div class="flex flex-col gap-2 ml-4">
-                                            <button onclick="approveRequest('${requestId}', 'customerRequests')" 
+                                            <button onclick="approveCustomerRequestNew('${requestId}')" 
                                                     class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
                                                 پەسەندکردن
                                             </button>
@@ -2676,7 +3231,7 @@
                                     
                                     <div class="flex flex-col gap-2">
                                         ${!product.reviewed ? `
-                                            <button onclick="approveSellerProduct('${productId}')" 
+                                            <button onclick="approveSellerProductNew('${productId}')" 
                                                     class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
                                                 پەسەندکردن
                                             </button>
@@ -2703,28 +3258,124 @@
                 }
             }
 
-            // فەنکشنەکانی پەسەندکردن
-            window.approveRequest = async function(requestId, type) {
+            // فەنکشنەکانی پەسەندکردن (نوێ - بۆ کۆپی کراوەکان)
+         window.approveCustomerRequestNew = async function(requestId) {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    try {
+        const requestRef = firebase.ref(firebase.db, `customerRequests/${requestId}`);
+        const snapshot = await firebase.get(requestRef);
+        const request = snapshot.val();
+        
+        if (!request) {
+            alert("داواکاری نەدۆزرایەوە!");
+            return;
+        }
+        
+        // ١. زیادکردنی کۆپی لە copiedCustomerRequests
+        const copiedRequestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+        const newRequestRef = firebase.push(copiedRequestsRef);
+        
+        // دروستکردنی داتای کۆپی - وێنەکانیش زیاد دەکەین
+        const requestData = {
+            customerName: request.customerName || 'ناونەزانراو',
+            customerPhone: request.customerPhone || 'ناونەزانراو',
+            customerAddress: request.customerAddress || 'ناونەزانراو',
+            productName: request.productName || 'ناونەزانراو',
+            productDescription: request.productDescription || '',
+            quantity: request.quantity || '1',
+            images: request.images || [], // وێنەکان زیاد دەکەین
+            timestamp: request.timestamp || new Date().toISOString(),
+            reviewedAt: new Date().toISOString(),
+            reviewedBy: 'admin',
+            status: 'approved'
+        };
+        
+        console.log('Copying customer request with images:', requestData.images);
+        
+        await firebase.set(newRequestRef, requestData);
+        
+        // ٢. نوێکردنەوەی سەرچاوەکە
+        await firebase.update(requestRef, {
+            reviewed: true,
+            status: 'approved',
+            reviewedAt: new Date().toISOString(),
+            reviewedBy: 'admin'
+        });
+        
+        alert("✅ داواکاری پەسەندکرا و کۆپی کراوە بە بەشە کۆپی کراوەکان!");
+        
+        loadCustomerRequests();
+        updateNotificationBadge();
+        
+    } catch (error) {
+        console.error("Error approving customer request:", error);
+        alert("❌ هەڵە لە پەسەندکردنی داواکاری!");
+    }
+};
+            window.approveSellerProductNew = async function(productId) {
                 if (!isAdminLoggedIn) {
                     alert("تەنها بەڕێوەبەر دەتوانێت!");
                     return;
                 }
                 
+                if (!confirm("دڵنیایت کە دەتەوێت ئەم کالا پەسەند بکەیت و بیکەیتە کۆپی؟")) {
+                    return;
+                }
+                
                 try {
-                    const requestRef = firebase.ref(firebase.db, `${type}/${requestId}`);
-                    await firebase.update(requestRef, {
+                    const productRef = firebase.ref(firebase.db, `sellerProducts/${productId}`);
+                    const snapshot = await firebase.get(productRef);
+                    const product = snapshot.val();
+                    
+                    if (!product) {
+                        alert("کالا نەدۆزرایەوە!");
+                        return;
+                    }
+                    
+                    // ١. زیادکردنی کۆپی لە copiedSellerProducts
+                    const copiedProductsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+                    const newProductRef = firebase.push(copiedProductsRef);
+                    
+                    const productData = {
+                        name: product.name || 'ناونەزانراو',
+                        price: product.price || '0',
+                        priceUSD: product.priceUSD || '0',
+                        category: product.category || 'شتی تر',
+                        description: product.description || '',
+                        images: product.images || [],
+                        imageUrl: product.imageUrl || (product.images && product.images.length > 0 ? product.images[0] : ''),
+                        originalPrice: product.originalPrice || '',
+                        discount: product.discount || '',
+                        createdAt: new Date().toISOString(),
+                        sellerProductId: productId,
+                        reviewedAt: new Date().toISOString(),
+                        reviewedBy: 'admin',
+                        status: 'approved'
+                    };
+                    
+                    await firebase.set(newProductRef, productData);
+                    
+                    // ٢. نوێکردنەوەی سەرچاوەکە
+                    await firebase.update(productRef, {
                         reviewed: true,
                         status: 'approved',
                         reviewedAt: new Date().toISOString(),
-                        reviewedBy: 'admin'
+                        reviewedBy: 'admin',
+                        approvedProductId: newProductRef.key
                     });
                     
-                    alert("✅ داواکاری پەسەندکرا!");
-                    loadCustomerRequests();
+                    alert("✅ کالا پەسەندکرا و کۆپی کراوە بۆ بەشە کۆپی کراوەکان!");
+                    
+                    loadSellerProducts();
                     updateNotificationBadge();
+                    
                 } catch (error) {
-                    console.error("Error approving request:", error);
-                    alert("❌ هەڵە لە پەسەندکردنی داواکاری!");
+                    console.error("Error approving seller product:", error);
+                    alert("❌ هەڵە لە پەسەندکردنی کالا!");
                 }
             };
 
@@ -2779,69 +3430,9 @@
                 }
             };
 
-            window.approveSellerProduct = async function(productId) {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                if (!confirm("دڵنیایت کە دەتەوێت ئەم کالا پەسەند بکەیت و بیکەیتە کالای ئاسایی؟")) {
-                    return;
-                }
-                
-                try {
-                    const productRef = firebase.ref(firebase.db, `sellerProducts/${productId}`);
-                    const snapshot = await firebase.get(productRef);
-                    const product = snapshot.val();
-                    
-                    if (!product) {
-                        alert("کالا نەدۆزرایەوە!");
-                        return;
-                    }
-                    
-                    const productsRef = firebase.ref(firebase.db, 'products');
-                    const newProductRef = firebase.push(productsRef);
-                    
-                    const productData = {
-                        name: product.name || 'ناونەزانراو',
-                        price: product.price || '0',
-                        priceUSD: product.priceUSD || '0',
-                        category: product.category || 'شتی تر',
-                        description: product.description || '',
-                        images: product.images || [],
-                        imageUrl: product.imageUrl || (product.images && product.images.length > 0 ? product.images[0] : ''),
-                        originalPrice: product.originalPrice || '',
-                        discount: product.discount || '',
-                        createdAt: new Date().toISOString(),
-                        approvedFromSeller: true,
-                        sellerProductId: productId
-                    };
-                    
-                    await firebase.set(newProductRef, productData);
-                    
-                    await firebase.update(productRef, {
-                        reviewed: true,
-                        status: 'approved',
-                        reviewedAt: new Date().toISOString(),
-                        reviewedBy: 'admin',
-                        approvedProductId: newProductRef.key
-                    });
-                    
-                    alert("✅ کالا پەسەندکرا و زیادکرا بۆ کالاکانی ئەسڵی!");
-                    
-                    loadSellerProducts();
-                    loadProductsFromFirebase();
-                    updateNotificationBadge();
-                    
-                } catch (error) {
-                    console.error("Error approving seller product:", error);
-                    alert("❌ هەڵە لە پەسەندکردنی کالا!");
-                }
-            };
-
             window.rejectSellerProduct = async function(productId) {
                 if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
+                    alert("تەنھا بەڕێوەبەر دەتوانێت!");
                     return;
                 }
                 
@@ -2922,45 +3513,74 @@
                 }
             };
 
-            window.approveAllCustomerRequestsInApprovalModal = async function() {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکانی کڕیار پەسەند بکەیت؟")) {
-                    return;
-                }
-                
-                try {
-                    const requestsRef = firebase.ref(firebase.db, 'customerRequests');
-                    const requestsSnapshot = await firebase.get(requestsRef);
-                    const requests = requestsSnapshot.val();
+           window.approveAllCustomerRequestsInApprovalModal = async function() {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    if (!confirm("دڵنیایت کە دەتەوێت هەموو داواکارییەکانی کڕیار پەسەند بکەیت؟")) {
+        return;
+    }
+    
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+        const requestsSnapshot = await firebase.get(requestsRef);
+        const requests = requestsSnapshot.val();
+        
+        if (requests) {
+            let approvedCount = 0;
+            
+            for (const requestId of Object.keys(requests)) {
+                const request = requests[requestId];
+                if (!request.reviewed) {
+                    // زیادکردنی کۆپی لە copiedCustomerRequests
+                    const copiedRequestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+                    const newRequestRef = firebase.push(copiedRequestsRef);
                     
-                    if (requests) {
-                        const updates = {};
-                        Object.keys(requests).forEach(requestId => {
-                            if (!requests[requestId].reviewed) {
-                                updates[`customerRequests/${requestId}/reviewed`] = true;
-                                updates[`customerRequests/${requestId}/status`] = 'approved';
-                                updates[`customerRequests/${requestId}/reviewedAt`] = new Date().toISOString();
-                                updates[`customerRequests/${requestId}/reviewedBy`] = 'admin';
-                            }
-                        });
-                        
-                        if (Object.keys(updates).length > 0) {
-                            await firebase.update(firebase.ref(firebase.db), updates);
-                            alert("✅ هەموو داواکارییەکانی کڕیار پەسەندکران!");
-                            loadCustomerRequests();
-                            updateNotificationBadge();
-                        }
-                    }
+                    const requestData = {
+                        customerName: request.customerName,
+                        customerPhone: request.customerPhone,
+                        customerAddress: request.customerAddress,
+                        productName: request.productName,
+                        productDescription: request.productDescription,
+                        quantity: request.quantity,
+                        images: request.images || [], // وێنەکان زیاد دەکەین
+                        timestamp: request.timestamp,
+                        reviewedAt: new Date().toISOString(),
+                        reviewedBy: 'admin',
+                        status: 'approved'
+                    };
                     
-                } catch (error) {
-                    console.error("Error marking all as approved:", error);
-                    alert("❌ هەڵە لە پەسەندکردنی هەموو داواکارییەکان!");
+                    await firebase.set(newRequestRef, requestData);
+                    
+                    // نوێکردنەوەی سەرچاوەکە
+                    await firebase.update(firebase.ref(firebase.db, `customerRequests/${requestId}`), {
+                        reviewed: true,
+                        status: 'approved',
+                        reviewedAt: new Date().toISOString(),
+                        reviewedBy: 'admin'
+                    });
+                    
+                    approvedCount++;
                 }
-            };
+            }
+            
+            if (approvedCount > 0) {
+                alert(`✅ ${approvedCount} داواکاری پەسەندکران و کۆپی کران بۆ بەشە کۆپی کراوەکان!`);
+            } else {
+                alert("هیچ داواکارییەک نیە بۆ پەسەندکردن!");
+            }
+            
+            loadCustomerRequests();
+            updateNotificationBadge();
+        }
+        
+    } catch (error) {
+        console.error("Error marking all as approved:", error);
+        alert("❌ هەڵە لە پەسەندکردنی هەموو داواکارییەکان!");
+    }
+};
 
             window.deleteAllCustomerRequestsInApprovalModal = async function() {
                 if (!isAdminLoggedIn) {
@@ -3018,8 +3638,9 @@
                         for (const productId of Object.keys(products)) {
                             const product = products[productId];
                             if (!product.reviewed) {
-                                const mainProductsRef = firebase.ref(firebase.db, 'products');
-                                const newProductRef = firebase.push(mainProductsRef);
+                                // زیادکردنی کۆپی لە copiedSellerProducts
+                                const copiedProductsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+                                const newProductRef = firebase.push(copiedProductsRef);
                                 
                                 const productData = {
                                     name: product.name || 'ناونەزانراو',
@@ -3032,8 +3653,10 @@
                                     originalPrice: product.originalPrice || '',
                                     discount: product.discount || '',
                                     createdAt: new Date().toISOString(),
-                                    approvedFromSeller: true,
-                                    sellerProductId: productId
+                                    sellerProductId: productId,
+                                    reviewedAt: new Date().toISOString(),
+                                    reviewedBy: 'admin',
+                                    status: 'approved'
                                 };
                                 
                                 await firebase.set(newProductRef, productData);
@@ -3051,13 +3674,12 @@
                         }
                         
                         if (approvedCount > 0) {
-                            alert(`✅ ${approvedCount} کالا پەسەندکران و زیادکران بۆ کالاکانی ئەسڵی!`);
+                            alert(`✅ ${approvedCount} کالا پەسەندکران و کۆپی کران بۆ بەشە کۆپی کراوەکان!`);
                         } else {
                             alert("هیچ کالایەک نیە بۆ پەسەندکردن!");
                         }
                         
                         loadSellerProducts();
-                        loadProductsFromFirebase();
                         updateNotificationBadge();
                     }
                     
@@ -3406,11 +4028,16 @@
                                 <img src="${firstImage}" 
                                      alt="${product.name}" 
                                      class="product-image-clickable"
-                                     onclick="openImageModal('${firstImage}')"
-                                     onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
-                                ${images.length > 1 ? `
-                                    <div class="image-counter" onclick="openImageModal('${firstImage}'); event.stopPropagation();">${images.length} وێنە</div>
-                                ` : ''}
+     // یان بە سادەیی کلیک لەسەر هەر وێنەیەک بەم شێوەیە:
+onclick="openImageModal('${firstImage}')"
+
+// بۆ ئەو وێنەیەی کە هەیە:
+// لە loadCopiedCustomerRequests فەنکشندا:
+${images.length > 1 ? `
+    <div class="image-counter" onclick="event.stopPropagation(); openImageZoomModal([${images.map(img => `'${img}'`).join(',')}], 0)">
+        ${images.length} وێنە
+    </div>
+` : ''}
                             </div>
                             <div class="two-column-product-info">
                                 <h4>${product.name}</h4>
@@ -3802,6 +4429,7 @@
                         document.getElementById('requestFormSection').style.display = 'none';
                         document.getElementById('sellerProductFormSection').style.display = 'none';
                         document.getElementById('adminDashboard').style.display = 'none';
+                        document.getElementById('copiedProductsSection').style.display = 'none';
                         document.getElementById('addProductForm').style.display = 'block';
                         document.getElementById('addPromoForm').style.display = 'none';
                         
@@ -3840,7 +4468,27 @@
                     });
                 }
             };
-            
+            // ئەم فەنکشنە زیاد بکە لە سەرەتای بەشی JavaScript
+window.openImageZoomModal = function(imagesArray, startIndex = 0) {
+    zoomImages = imagesArray || [];
+    currentZoomIndex = startIndex;
+    
+    const zoomModal = document.getElementById('imageZoomModal');
+    const zoomedImage = document.getElementById('zoomedImage');
+    const zoomCounter = document.getElementById('zoomImageCounter');
+    
+    if (zoomImages.length > 0 && zoomImages[0]) {
+        zoomedImage.src = zoomImages[currentZoomIndex];
+        zoomCounter.textContent = `${currentZoomIndex + 1}/${zoomImages.length}`;
+        zoomModal.classList.add('active');
+        zoomModal.style.display = 'flex';
+        
+        // قفڵکردنی هاتوچۆی پەڕەکە
+        document.body.style.overflow = 'hidden';
+    } else {
+        alert('هیچ وێنەیەک بەردەست نیە');
+    }
+};
             // ========== فەنکشنەکانی فۆرمی ڕیکلام ==========
             
             window.showAddPromoForm = function() {
@@ -3868,6 +4516,7 @@
                 document.getElementById('sellerProductFormSection').style.display = 'none';
                 document.getElementById('adminDashboard').style.display = 'none';
                 document.getElementById('servicesSection').style.display = 'none';
+                document.getElementById('copiedProductsSection').style.display = 'none';
                 document.getElementById('addPromoForm').style.display = 'block';
                 
                 updateBottomNavActive('bottomHomeBtn');
@@ -4761,7 +5410,7 @@
                                     </div>
                                     
                                     <div class="flex flex-col gap-2">
-                                        <button onclick="approveSellerProduct('${product.id}')" 
+                                        <button onclick="approveSellerProductNew('${product.id}')" 
                                                 class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
                                             پەسەندکردن
                                         </button>
@@ -4969,7 +5618,7 @@
                                     </div>
                                     
                                     <div class="flex flex-col gap-2 ml-4">
-                                        <button onclick="approveCustomerRequest('${request.id}')" 
+                                        <button onclick="approveCustomerRequestNew('${request.id}')" 
                                                 class="text-xs bg-green-500 text-white px-3 py-2 rounded hover:bg-green-600">
                                             پەسەندکردن
                                         </button>
@@ -5164,22 +5813,50 @@
                     const requests = snapshot.val();
                     
                     if (requests) {
-                        const updates = {};
-                        Object.keys(requests).forEach(requestId => {
-                            if (!requests[requestId].reviewed) {
-                                updates[`customerRequests/${requestId}/reviewed`] = true;
-                                updates[`customerRequests/${requestId}/status`] = 'approved';
-                                updates[`customerRequests/${requestId}/reviewedAt`] = new Date().toISOString();
-                                updates[`customerRequests/${requestId}/reviewedBy`] = 'admin';
-                            }
-                        });
+                        let approvedCount = 0;
                         
-                        if (Object.keys(updates).length > 0) {
-                            await firebase.update(firebase.ref(firebase.db), updates);
-                            alert("✅ هەموو داواکارییەکان پەسەندکران!");
-                            loadCustomerRequestsForView();
-                            updateNotificationBadge();
+                        for (const requestId of Object.keys(requests)) {
+                            const request = requests[requestId];
+                            if (!request.reviewed) {
+                                // زیادکردنی کۆپی لە copiedCustomerRequests
+                                const copiedRequestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+                                const newRequestRef = firebase.push(copiedRequestsRef);
+                                
+                                const requestData = {
+                                    customerName: request.customerName,
+                                    customerPhone: request.customerPhone,
+                                    customerAddress: request.customerAddress,
+                                    productName: request.productName,
+                                    productDescription: request.productDescription,
+                                    quantity: request.quantity,
+                                    timestamp: request.timestamp,
+                                    reviewedAt: new Date().toISOString(),
+                                    reviewedBy: 'admin',
+                                    status: 'approved'
+                                };
+                                
+                                await firebase.set(newRequestRef, requestData);
+                                
+                                // نوێکردنەوەی سەرچاوەکە
+                                await firebase.update(firebase.ref(firebase.db, `customerRequests/${requestId}`), {
+                                    reviewed: true,
+                                    status: 'approved',
+                                    reviewedAt: new Date().toISOString(),
+                                    reviewedBy: 'admin'
+                                });
+                                
+                                approvedCount++;
+                            }
                         }
+                        
+                        if (approvedCount > 0) {
+                            alert(`✅ ${approvedCount} داواکاری پەسەندکران و کۆپی کران بۆ بەشە کۆپی کراوەکان!`);
+                        } else {
+                            alert("هیچ داواکارییەک نیە بۆ پەسەندکردن!");
+                        }
+                        
+                        loadCustomerRequestsForView();
+                        updateNotificationBadge();
                     }
                 } catch (error) {
                     console.error("Error approving all customer requests:", error);
@@ -5366,6 +6043,468 @@
             // چالاککردنی دوگمەی ماڵ بە شێوەی بنەڕەتی
             showHomePage();
         });
+// فەرمانی گۆڕینی تابەکان
+function switchMainTab(tabName) {
+    // لابردنی ستایلی ئەکتیڤ لە هەموو دوگمەکان
+    document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
+    // شاردنەوەی ناوەڕۆکی هەموو تابەکان
+    document.querySelectorAll('.tab-content').forEach(content => content.style.display = 'none');
+
+    if (tabName === 'seller-products') {
+        document.getElementById('tab-seller').classList.add('active');
+        document.getElementById('seller-products-content').style.display = 'block';
+        loadSellerProductsForMainTab();
+    } else {
+        document.getElementById('tab-buyer').classList.add('active');
+        document.getElementById('buyer-requests-content').style.display = 'block';
+        loadBuyerRequestsForMainTab();
+    }
+}
+
+// فەرمانی بارکردنی کالای فرۆشیار بۆ تابەکە
+async function loadSellerProductsForMainTab() {
+    const container = document.getElementById('sellerProductsList');
+    if (!container) return;
+    
+    container.innerHTML = '<div class="col-span-2 text-center py-8"><p class="text-gray-500">بارکردنی کالاکان...</p></div>';
+    
+    try {
+        const productsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+        const snapshot = await firebase.get(productsRef);
+        const productsData = snapshot.val();
+        
+        container.innerHTML = '';
+        
+        if (!productsData) {
+            container.innerHTML = `
+                <div class="col-span-2 text-center py-8">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <p class="text-gray-500 mb-4">هیچ کالای فرۆشیار پەسەندکراو بوونی نیە</p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        const products = Object.values(productsData);
+        
+        if (products.length === 0) {
+            container.innerHTML = `
+                <div class="col-span-2 text-center py-8">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <p class="text-gray-500 mb-4">هیچ کالای فرۆشیار پەسەندکراو بوونی نیە</p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        // نمایشی کالاکان بە شێوەی دوو ستوون
+        products.forEach((product, index) => {
+            const hasDiscount = product.originalPrice && product.discount;
+            const discountPercentage = hasDiscount ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100) : 0;
+            const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
+            const firstImage = images.length > 0 ? images[0] : 'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop';
+            
+            const productHTML = `
+                <div class="two-column-product-card" data-product-index="${index}">
+                    <div class="product-image-container">
+                        <img src="${firstImage}" 
+                             alt="${product.name}" 
+                             class="product-image-clickable"
+                             onclick="openImageModal('${firstImage}')"
+                             onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
+                        ${images.length > 1 ? `
+                            <div class="image-counter" onclick="event.stopPropagation(); openImageZoom('${firstImage}', ${JSON.stringify(images)}, 0)">
+                                ${images.length} وێنە
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="two-column-product-info">
+                        <h4>${product.name}</h4>
+                        ${hasDiscount ? `
+                            <div class="flex items-center gap-1">
+                                <span class="two-column-product-price">${product.price} دینار</span>
+                                <span class="original-price">${product.originalPrice} دینار</span>
+                                <span class="discount-label">${discountPercentage}% داشکاندن</span>
+                            </div>
+                        ` : `
+                            <div class="two-column-product-price">${product.price} دینار</div>
+                        `}
+                        <small class="text-gray-500">نزیکەی $${product.priceUSD}</small>
+                        ${product.category ? `<small class="text-gray-400 block mt-1">${product.category}</small>` : ''}
+                        <small class="text-green-600 block mt-2">🔰 پەسەندکراو لەلایەن بەڕێوەبەرەوە</small>
+                        
+                        <!-- دوگمەکانی کردار -->
+                        <div class="mt-3 flex gap-2">
+                            <button onclick="openMarketSection()" class="bg-blue-500 text-white p-2 rounded text-xs flex-1">
+                                مارکێت
+                            </button>
+                            <button onclick="openOrderForm()" class="bg-green-500 text-white p-2 rounded text-xs flex-1">
+                                داواکاری کاڵا
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += productHTML;
+        });
+        
+    } catch (error) {
+        console.error("Error loading seller products:", error);
+        container.innerHTML = `
+            <div class="col-span-2 text-center py-8">
+                <div class="empty-state">
+                    <div class="empty-state-icon">❌</div>
+                    <p class="text-red-500 mb-4">هەڵە لە بارکردنی کالاکان</p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// فەرمانی بارکردنی داواکاریەکانی کڕیار بۆ تابەکە
+// فەرمانی بارکردنی داواکاریەکانی کڕیار بۆ تابەکە (نیشاندانی وێنە)
+// فەرمانی بارکردنی داواکاریەکانی کڕیار بۆ تابەکە (نیشاندانی وێنە)
+async function loadBuyerRequestsForMainTab() {
+    const container = document.getElementById('buyerRequestsList');
+    if (!container) return;
+    
+    container.innerHTML = '<div class="text-center py-8"><p class="text-gray-500">بارکردنی داواکاریەکان...</p></div>';
+    
+    try {
+        const requestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
+        const snapshot = await firebase.get(requestsRef);
+        const requestsData = snapshot.val();
+        
+        container.innerHTML = '';
+        
+        if (!requestsData) {
+            container.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <p class="text-gray-500 mb-4">هیچ داواکاری پەسەندکراو بوونی نیە</p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        // گۆڕینی بۆ لیست و جێگاکردنەوە بە پێی کاتی پەسەندکردن (نوێترین لە سەرەوە)
+        const requests = Object.values(requestsData)
+            .sort((a, b) => new Date(b.reviewedAt || b.timestamp) - new Date(a.reviewedAt || a.timestamp));
+        
+        if (requests.length === 0) {
+            container.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📋</div>
+                        <p class="text-gray-500 mb-4">هیچ داواکاری پەسەندکراو بوونی نیە</p>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+        
+        // نمایشی داواکاریەکان بە شێوەی لیست - ئێستا وێنەیان تێدایە
+        requests.forEach((request, index) => {
+            const images = request.images || [];
+            const firstImage = images.length > 0 ? images[0] : '';
+            
+            const requestHTML = `
+                <div class="bg-white rounded-lg shadow p-4 mb-4">
+                    <div class="flex flex-col md:flex-row gap-4">
+                      ${firstImage ? `
+                            <div class="md:w-1/4">
+                                <div class="relative">
+                                    <img src="${firstImage}" 
+                                         alt="${request.productName || 'کالا'}" 
+                                         class="w-full h-40 object-cover rounded-lg cursor-pointer"
+                                         onclick="openImageModal('${firstImage}')"
+                                         onerror="this.src='https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&h=300&fit=crop'">
+                                    ${images.length > 1 ? `
+                                        <div class="absolute top-2 right-2 bg-black bg-opacity-60 text-white text-xs px-2 py-1 rounded cursor-pointer" 
+                                             onclick="event.stopPropagation(); openImageZoom('${firstImage}', ${JSON.stringify(images).replace(/"/g, '&quot;')}, 0)">
+                                            ${images.length} وێنە
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        ` : `
+                            <div class="md:w-1/4 bg-gray-100 rounded-lg flex items-center justify-center">
+                                <div class="text-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#9ca3af" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                                        <polyline points="21 15 16 10 5 21"></polyline>
+                                    </svg>
+                                    <p class="text-gray-400 text-xs mt-1">هیچ وێنەیەک</p>
+                                </div>
+                            </div>
+                        `}
+                        
+                        <div class="flex-1">
+                            <div class="flex justify-between items-start mb-3">
+                                <div>
+                                    <h4 class="font-bold text-lg mb-1">${request.productName || 'ناونەزانراو'}</h4>
+                                    <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">پەسەندکراو</span>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-500">${new Date(request.reviewedAt || request.timestamp).toLocaleString('ku')}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3">
+                                <div>
+                                    <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
+                                    <p class="text-sm text-gray-600"><strong>ژمارە:</strong> ${request.customerPhone || 'ناونەزانراو'}</p>
+                                </div>
+                                <div>
+                                    <p class="text-sm text-gray-600"><strong>شوێن:</strong> ${request.customerAddress || 'ناونەزانراو'}</p>
+                                    <p class="text-sm text-gray-600"><strong>ژمارەی کالا:</strong> ${request.quantity || '1'}</p>
+                                </div>
+                            </div>
+                            
+                            ${request.productDescription ? `
+                                <div class="mb-3">
+                                    <p class="text-sm text-gray-600"><strong>شێواز/رەنگ:</strong> ${request.productDescription}</p>
+                                </div>
+                            ` : ''}
+                            
+                            <!-- دوگمەکانی کردار -->
+                            <div class="mt-3 flex flex-wrap gap-2">
+                                <button onclick="openMarketSection()" class="bg-blue-500 text-white p-2 rounded text-xs flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                    </svg>
+                                    مارکێت
+                                </button>
+                                <button onclick="openOrderForm()" class="bg-green-500 text-white p-2 rounded text-xs flex items-center gap-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                    </svg>
+                                    داواکاری کاڵا
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            container.innerHTML += requestHTML;
+        });
+        
+    } catch (error) {
+        console.error("Error loading buyer requests:", error);
+        container.innerHTML = `
+            <div class="text-center py-8">
+                <div class="empty-state">
+                    <div class="empty-state-icon">❌</div>
+                    <p class="text-red-500 mb-4">هەڵە لە بارکردنی داواکاریەکان</p>
+                </div>
+            </div>
+        `;
+    }
+}
+
+// بانگکردنی مۆداڵ یان بەشی "مارکێت" لە ناو کالای فرۆشیار
+function openMarketSection() {
+    // لێرە ئەو مۆداڵە یان لاپەڕەیە بانگ بکە کە بۆ مارکێت دانراوە
+    console.log("دوگمەی مارکێت داگیرا");
+    // بۆ نموونە: showModal('marketModal');
+    alert("بەشی مارکێت بەکاردێت!");
+}
+
+// بانگکردنی فۆرمی "داواکاری کاڵا" لە ناو کالای فرۆشیار
+function openOrderForm() {
+    // لێرە فۆرمی داواکردنی کاڵا بۆ کڕیار نیشان بدە
+    console.log("دوگمەی داواکاری کالا داگیرا");
+    // بۆ نموونە: document.getElementById('requestForm').scrollIntoView();
+    alert("فۆرمی داواکاری کالا بەکاردێت!");
+}
+// فەرمانی داواکاری کاڵا بە فرە وێنە
+const requestImagesInput = document.getElementById('requestImages');
+const requestFileInputLabel = document.getElementById('requestFileInputLabel');
+const requestFileName = document.getElementById('requestFileName');
+const requestImagePreviewContainer = document.getElementById('requestImagePreviewContainer');
+let requestSelectedImages = [];
+
+// بەشداریکردنی فایلی وێنە بۆ داواکاری
+if (requestImagesInput) {
+    requestImagesInput.addEventListener('change', function(e) {
+        const files = Array.from(e.target.files);
+        requestSelectedImages = files;
+        
+        if (files.length > 0) {
+            requestFileName.textContent = `${files.length} فایل هەڵبژێردرا`;
+            requestFileInputLabel.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+                <span>${files.length} فایل هەڵبژێردرا</span>
+            `;
+            
+            requestImagePreviewContainer.innerHTML = '';
+            
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const div = document.createElement('div');
+                    div.className = "relative group";
+                    div.innerHTML = `
+                        <img src="${e.target.result}" class="w-full h-20 object-cover rounded-lg border shadow-sm">
+                        <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer -mt-2 -mr-2" onclick="removeRequestImage(${index})">×</div>
+                    `;
+                    requestImagePreviewContainer.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+}
+
+// فەرمان بۆ سڕینەوەی وێنە لە پێشبینیدا (داواکاری)
+window.removeRequestImage = function(index) {
+    if (!confirm("دڵنیایت کە دەتەوێت ئەم وێنە بسڕیتەوە؟")) {
+        return;
+    }
+    
+    requestSelectedImages.splice(index, 1);
+    
+    // نوێکردنەوەی پێشبینەکە
+    requestImagePreviewContainer.innerHTML = '';
+    
+    if (requestSelectedImages.length === 0) {
+        requestFileName.textContent = '';
+        requestFileInputLabel.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                <line x1="16" y1="5" x2="22" y2="5"></line>
+                <line x1="19" y1="2" x2="19" y2="8"></line>
+                <circle cx="9" cy="9" r="2"></circle>
+                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+            </svg>
+            <span>وێنەی کالا هەڵبژێرە (فرە)</span>
+        `;
+    } else {
+        requestFileName.textContent = `${requestSelectedImages.length} فایل هەڵبژێردرا`;
+        
+        requestSelectedImages.forEach((file, idx) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const div = document.createElement('div');
+                div.className = "relative group";
+                div.innerHTML = `
+                    <img src="${e.target.result}" class="w-full h-20 object-cover rounded-lg border shadow-sm">
+                    <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cursor-pointer -mt-2 -mr-2" onclick="removeRequestImage(${idx})">×</div>
+                `;
+                requestImagePreviewContainer.appendChild(div);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+};
+
+// نوێکردنی فەرمانی ناردنی داواکاری بۆ فرە وێنە
+if (customerRequestForm) {
+    customerRequestForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!firebaseInitialized) {
+            alert("سیستەم چالاک نیە! تکایە دواتر هەوڵ بدەرەوە.");
+            return;
+        }
+        
+        const customerName = document.getElementById('customerName').value;
+        const customerPhone = document.getElementById('customerPhone').value;
+        const customerAddress = document.getElementById('customerAddress').value;
+        const requestProduct = document.getElementById('requestProduct').value;
+        const requestDescription = document.getElementById('requestDescription').value;
+        const requestQuantity = document.getElementById('requestQuantity').value;
+        
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>نێردرێت...</span>';
+        
+        try {
+            // بارکردنی وێنەکان بۆ Firebase Storage
+            let imageUrls = [];
+            
+            if (requestSelectedImages.length > 0) {
+                for (const imageFile of requestSelectedImages) {
+                    const storageReference = firebase.storageRef(firebase.storage, 'customerRequests/' + Date.now() + '_' + imageFile.name);
+                    await firebase.uploadBytes(storageReference, imageFile);
+                    
+                    const imageUrl = await firebase.getDownloadURL(storageReference);
+                    imageUrls.push(imageUrl);
+                }
+            }
+            
+            const requestsRef = firebase.ref(firebase.db, 'customerRequests');
+            const newRequestRef = firebase.push(requestsRef);
+            
+            const requestData = {
+                customerName: customerName,
+                customerPhone: customerPhone,
+                customerAddress: customerAddress,
+                productName: requestProduct,
+                productDescription: requestDescription,
+                quantity: requestQuantity,
+                images: imageUrls,
+                timestamp: new Date().toISOString(),
+                status: 'pending',
+                reviewed: false
+            };
+            
+            await firebase.set(newRequestRef, requestData);
+            
+            // پاککردنەوەی فۆرمەکە
+            this.reset();
+            requestFileName.textContent = '';
+            requestSelectedImages = [];
+            requestImagePreviewContainer.innerHTML = '';
+            requestFileInputLabel.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                    <line x1="16" y1="5" x2="22" y2="5"></line>
+                    <line x1="19" y1="2" x2="19" y2="8"></line>
+                    <circle cx="9" cy="9" r="2"></circle>
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                </svg>
+                <span>وێنەی کالا هەڵبژێرە (فرە)</span>
+            `;
+            
+            alert(`✅ سوپاس ${customerName}!\nداواکاریەکەت بۆ "${requestProduct}" بە سەرکەوتوویی نێردرا.\nپەیوەندیمان پێوە دەکەینەوە.`);
+            
+            showHomePage();
+            
+        } catch (error) {
+            console.error("Error submitting request:", error);
+            alert("❌ هەڵە لە ناردنی داواکاری!");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalText;
+        }
+    });
+}
+
+// فەرمانی کرداری دوگمەکان لە تابەکان
+function openMarketSection() {
+    // نیشاندانی بەشی مارکێت
+    showSellerProductPage();
+}
+
+function openOrderForm() {
+    // نیشاندانی فۆرمی داواکاری
+    showRequestPage();
+}
     </script>
 </body>
 </html>
