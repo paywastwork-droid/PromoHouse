@@ -381,17 +381,9 @@
             text-shadow: 0 1px 2px rgba(0,0,0,0.3);
         }
         
-        /* داشکاندن */
-        .discount-badge {
-            display: inline-block;
-            background: #dc2626;
-            color: white;
-            padding: 4px 12px;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 0.9rem;
-            box-shadow: 0 2px 8px rgba(220,38,38,0.4);
-        }
+      .promo-banner-content {
+    display: none !important;
+}
         
         /* مۆدالی زۆم کردنی وێنە */
         .image-zoom-modal {
@@ -661,10 +653,10 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         
-        .request-form-container {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            border: 2px solid #fbbf24;
-        }
+   .request-form-container {
+    background: #39C7F7;
+    border: 2px solid #2fb8e6;
+}
         
         .form-group {
             margin-bottom: 16px;
@@ -1175,6 +1167,18 @@
             font-size: 48px;
             margin-bottom: 16px;
         }
+.request-form-container {
+    background-color: #39C7F7;
+    padding: 20px;
+    border-radius: 16px;
+}
+.promo-logo {
+    border: 1px solid #39C7F7; /* یەک خەتی شینی کال */
+    background: transparent;
+    box-shadow: none;
+    border-radius: 50%; /* ئەگەر دەتەوێت بازنەیی بێت */
+}
+
     </style>
 </head>
 <body class="min-h-screen" dir="rtl">
@@ -1456,7 +1460,7 @@
                     </div>
                     
                     <div class="form-group">
-                        <label for="requestDescription">شێواز/رەنگی کالا:</label>
+                        <label for="requestDescription">تێبینی</label>
                         <textarea id="requestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
                     </div>
                     
@@ -1465,20 +1469,27 @@
                         <input type="number" id="requestQuantity" placeholder="ژمارە" min="1" value="1" required>
                     </div>
                     
-                    <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700">
-                        <span id="submitRequestText">ناردنی داواکاری</span>
-                        <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
-                    </button>
-                    
-                    <button type="button" onclick="backToHomeFromRequestForm()" class="submit-btn bg-gray-500 hover:bg-gray-600 mt-2">
-                        گەڕانەوە
-                    </button>
+                <button type="submit" class="submit-btn submit-primary">
+    <span id="submitRequestText">ناردنی داواکاری</span>
+    <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
+</button>
+
+<button
+    type="button"
+    onclick="backToHomeFromRequestForm()"
+    class="submit-btn submit-secondary mt-2"
+    style="background-color:#ef4444; color:white;"
+>
+    گەڕانەوە
+</button>
+
+
                 </form>
             </div>
 
             <!-- فۆرمی دانانی کالا (بۆ فرۆشیاران) -->
             <div class="request-form-container" id="sellerProductFormSection" style="display: none;">
-                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">مارکێت</h3>
+                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">فرۆشتن</h3>
                 <p class="text-gray-600 mb-4 text-center">زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
                 
                 <form id="sellerProductForm">
@@ -1538,15 +1549,21 @@
                         <label for="sellerProductDescription">ڕونکردنەوەی کالا:</label>
                         <textarea id="sellerProductDescription" placeholder="ڕونکردنەوەی کالا..." rows="3"></textarea>
                     </div>
-                    
-                    <button type="submit" class="submit-btn bg-purple-600 hover:bg-purple-700">
-                        <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
-                        <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
-                    </button>
-                    
-                    <button type="button" onclick="backToHomeFromSellerForm()" class="submit-btn bg-gray-500 hover:bg-gray-600 mt-2">
-                        گەڕانەوە
-                    </button>
+                  <button type="submit" class="submit-btn submit-primary">
+    <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
+    <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
+</button>
+
+<button
+    type="button"
+    onclick="backToHomeFromSellerForm()"
+    class="submit-btn submit-secondary mt-2"
+    style="background-color:#ef4444; color:white;"
+>
+    گەڕانەوە
+</button>
+
+
                 </form>
             </div>
 
@@ -1757,14 +1774,14 @@
                 <span class="bottom-nav-text">داواکاری</span>
             </div>
             
-            <!-- مارکێت -->
+            <!-- فرۆشتن -->
             <div class="bottom-nav-item" id="bottomAddProductBtn" onclick="showSellerProductPage()">
                 <img 
                     src="https://img.icons8.com/?size=100&id=18898&format=png&color=39C7F7"
-                    alt="مارکێت"
+                    alt="فرۆشتن"
                     class="bottom-nav-icon"
                 >
-                <span class="bottom-nav-text">مارکێت</span>
+                <span class="bottom-nav-text">فرۆشتن</span>
             </div>
             
             <!-- دەربارە -->
@@ -1863,15 +1880,18 @@
         <div class="modal-content" style="max-width: 500px;">
             <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">دەربارەی پرۆمۆ هاوس</h3>
             
-            <div class="text-right mb-4">
-                <div class="flex justify-center mb-4">
-                    <img src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg" 
-                         alt="پرۆمۆ هاوس لۆگۆ" 
-                         class="w-24 h-24 rounded-full border-4 border-blue-500">
-                </div>
+       <div class="flex justify-center mb-4">
+    <img
+        src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg"
+        alt="پرۆمۆ هاوس لۆگۆ"
+        class="w-24 h-24 promo-logo"
+    >
+</div>
+
+
          <div class="bg-blue-50 p-4 rounded-lg mb-4">
     <!-- پەراگرافی سەرەوە -->
-    <p class="mb-4" style="color: #39C7F7;">
+    <p class="mb-4" style="color: #615B5B">
         بە هۆی تێگەیشتنی قوڵمان لە بازاڕی ناوخۆی و پێویستیەکانی کڕیاران، ئێستا خاوەنی کۆگایەکی ئامادەکراوی پڕ لە ئەشیای جۆراو جۆرین لە سلێمانی، کە ئەتوانین پێداویستی کواڵیتی بەرز بە نرخی گونجاو دابین بکەین بۆ چاپخانەکان لە هەموو ناوچەکانی هەرێمی کوردستان. کۆگاکانمان هەموو پێداویستیەکان بە ئامادەکراوی بۆ ئێوە بەردەست کردوە.
     </p>
 
@@ -1883,8 +1903,8 @@
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
             <div>
-                <p class="font-medium" style="color: #39C7F7;">ژمارەی تەلەفۆن:</p>
-                <p style="color: #39C7F7;" dir="ltr">07701922060</p>
+                <p class="font-medium" style="color: #615B5B;">ژمارەی تەلەفۆن:</p>
+                <p style="color: #615B5B;" dir="ltr">07701922060</p>
             </div>
         </div>
 
@@ -1894,8 +1914,8 @@
                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
             <div>
-                <p class="font-medium" style="color: #39C7F7;">ژمارەی مەخزەن:</p>
-                <p style="color: #39C7F7;" dir="ltr">07717858787</p>
+                <p class="font-medium" style="color: #615B5B";">ژمارەی مەخزەن:</p>
+                <p style="color: #615B5B;" dir="ltr">07717858787</p>
             </div>
         </div>
 
@@ -1906,20 +1926,20 @@
                 <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
             </svg>
             <div>
-                <p class="font-medium" style="color: #39C7F7;">ئیمەیڵ:</p>
-                <p style="color: #39C7F7;" dir="ltr">info@promohouseeiraq.com</p>
+                <p class="font-medium" style="color: #615B5B;">ئیمەیڵ:</p>
+                <p style="color: #615B5B;" dir="ltr">info@promohouseeiraq.com</p>
             </div>
         </div>
 
         <!-- ناونیشان -->
         <div class="flex items-start">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 ml-2" viewBox="0 0 20 20" fill="#39C7F7">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mt-0.5 ml-2" viewBox="0 0 20 20" fill="#39C7F7"">
                 <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
             </svg>
             <div>
-                <p class="font-medium" style="color: #39C7F7;">ناونیشان:</p>
-                <p style="color: #39C7F7;">سلێمانی - جادەی مزگەوتی رحمان</p>
-                <p style="color: #39C7F7; font-size: 0.875rem;">خوار سوپەرمارکیتی Shock</p>
+                <p class="font-medium" style="color: #615B5B;">ناونیشان:</p>
+                <p style="color: #615B5B";">سلێمانی - جادەی مزگەوتی رحمان</p>
+                <p style="color: #615B5B"; font-size: 0.875rem;">خوار سوپەرمارکیتی Shock</p>
             </div>
         </div>
     </div>
@@ -1940,6 +1960,12 @@
             <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
         </div>
     </div>
+<div class="modal-header flex justify-between items-center p-2 border-b border-gray-200">
+    <h3 class="text-lg font-bold">دەربارەی پرۆمۆ هاوس</h3>
+    <button id="aboutBackBtn" class="text-white bg-red-500 px-3 py-1 rounded">
+        گەڕانەوە
+    </button>
+</div>
 
     <!-- Orders Page (مینۆ) -->
     <div id="ordersPage" class="modal">
@@ -6010,6 +6036,7 @@
             // چالاککردنی دوگمەی ماڵ بە شێوەی بنەڕەتی
             showHomePage();
         });
+
     </script>
 </body>
 </html>
