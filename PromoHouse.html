@@ -975,39 +975,62 @@
             color: white;
         }
         
-        /* تابەکانی پەسەندکردن */
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid #e5e7eb;
-            flex-wrap: wrap;
-        }
+      /* تابەکانی پەسەندکردن */
+.tabs {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid #e5e7eb;
+    overflow-x: auto;              /* بۆ مۆبایل */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;         /* Firefox */
+}
 
-        .tab-btn {
-            background: none;
-            border: none;
-            padding: 10px 16px;
-            cursor: pointer;
-            font-size: 14px;
-            color: #6b7280;
-            transition: all 0.3s ease;
-            border-bottom: 2px solid transparent;
-            white-space: nowrap;
-        }
+.tabs::-webkit-scrollbar {
+    display: none;                 /* Chrome */
+}
 
-        .tab-btn:hover {
-            color: #374151;
-            background-color: #f9fafb;
-        }
+/* دوگمەی تاب */
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 6px 10px;             /* بچوکتر */
+    cursor: pointer;
+    font-size: 12px;               /* فۆنت بچوک */
+    color: #6b7280;
+    transition: all 0.2s ease;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    border-radius: 8px 8px 0 0;
+}
 
-        .tab-btn.active {
-            color: #2563eb;
-            font-weight: 600;
-            border-bottom-color: #2563eb;
-        }
+/* hover */
+.tab-btn:hover {
+    color: #374151;
+    background-color: #f1f5f9;
+}
 
-        .tab-content {
-            display: block;
-        }
+/* active */
+.tab-btn.active {
+    color: #2563eb;
+    font-weight: 600;
+    border-bottom-color: #2563eb;
+    background-color: #eff6ff;
+}
+
+/* ناوەڕۆک */
+.tab-content {
+    display: block;
+}
+
+/* 📱 مۆبایل */
+@media (max-width: 640px) {
+    .tab-btn {
+        padding: 5px 8px;
+        font-size: 11px;
+    }
+}
+
         
         /* لۆگۆ */
         .logo {
@@ -1378,10 +1401,10 @@
                     هەموو کالاکان
                 </button>
                 <button class="main-tab-btn" onclick="showMainTab('seller')">
-                    کالای فرۆشیار (پەسەندکراو)
+                     فرۆشیار
                 </button>
                 <button class="main-tab-btn" onclick="showMainTab('customer')">
-                    داواکاری کڕیار (پەسەندکراو)
+                     داواکاری
                 </button>
             </div>
 
@@ -2389,10 +2412,10 @@
                     document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
                     displayProducts(globalProductsData);
                 } else if (tab === 'seller') {
-                    document.getElementById('productsTitle').textContent = 'کالای فرۆشیار (پەسەندکراو)';
+                    document.getElementById('productsTitle').textContent = ' فرۆشیار)';
                     loadAndShowCopiedSellerProducts();
                 } else if (tab === 'customer') {
-                    document.getElementById('productsTitle').textContent = 'داواکاری کڕیار (پەسەندکراو)';
+                    document.getElementById('productsTitle').textContent = ' کڕیار ';
                     loadAndShowCopiedCustomerRequests();
                 }
             };
@@ -4626,7 +4649,7 @@ window.openImageZoomModal = function(imagesArray, startIndex = 0) {
                         `;
                         
                         imagePreviewContainer.innerHTML = '';
-                        files.forEach((file, index) => {
+                        requestSelectedImages.forEach((file, index) => {
                             const reader = new FileReader();
                             reader.onload = function(e) {
                                 const preview = document.createElement('div');
