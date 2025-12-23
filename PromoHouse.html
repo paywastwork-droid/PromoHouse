@@ -1261,10 +1261,7 @@
                 <div id="copiedCustomerRequests" class="tab-content two-column-products mb-6" style="display: none;">
                     <!-- داواکاریەکان لێرە دێن -->
                 </div>
-                
-                <button onclick="backToHomeFromCopied()" class="submit-btn bg-gray-500 hover:bg-gray-600 w-full">
-                    گەڕانەوە بۆ ماڵ
-                </button>
+         
             </div>
 
             <!-- داشبۆردی بەڕێوەبەر -->
@@ -1347,10 +1344,7 @@
                             </div>
                         </div>
                     </div>
-                    
-                    <button onclick="showHomePage()" class="submit-btn bg-gray-500 hover:bg-gray-600 w-full mt-3">
-                        گەڕانەوە بۆ ماڵ
-                    </button>
+               
                 </div>
             </div>
 
@@ -1435,10 +1429,7 @@
                     </div>
                 </div>
             </div>
-<div class="mb-4" id="promoBannerContainer">
-    <div class="promo-banner-section" id="promoBanner">
-        <!-- ... کۆدی بانەر ... -->
-    </div>
+
 </div>
             <!-- تابەکانی سەرەکی بۆ جیاکردنەوەی جۆرەکانی کالا -->
             <div class="main-tabs" id="mainTabs">
@@ -1463,7 +1454,9 @@
             </div>
 
           <div class="request-form-container" id="requestFormSection" style="display: none;">
+
     <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">داواکاری کاڵا</h3>
+
     <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
     
     <form id="customerRequestForm">
@@ -1512,8 +1505,6 @@
        
     </form>
 </div>
-
-
 
                 </form>
             </div>
@@ -1737,9 +1728,7 @@
             <div id="allProductsSection" style="display: none;">
                 <div class="flex justify-between items-center mb-4">
                     <h3 class="text-2xl font-bold text-gray-800">هەموو کالاکان</h3>
-                    <button id="backToHomeBtn" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">
-                        گەڕانەوە بۆ داشبۆرد
-                    </button>
+                   
                 </div>
                 
                 <div class="overflow-x-auto">
@@ -1817,7 +1806,7 @@
             </div>
         </div>
     </div>
-<button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
+
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -1979,7 +1968,7 @@
                 </div>
             </div>
             
-      <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
+  
         </div>
     </div>
 <div class="modal-header flex justify-between items-center p-2 border-b border-gray-200">
@@ -4601,7 +4590,7 @@
             const submitRequestText = document.getElementById('submitRequestText');
             const submitRequestSpinner = document.getElementById('submitRequestSpinner');
             
-            const sellerProductForm = document.getElementById('sellerProductForm');
+         const sellerProductForm = document.getElementById('sellerProductForm');
             const sellerFileInput = document.getElementById('sellerProductImages');
             const sellerFileInputLabel = document.getElementById('sellerFileInputLabel');
             const sellerFileName = document.getElementById('sellerFileName');
@@ -4609,6 +4598,11 @@
             const submitSellerProductText = document.getElementById('submitSellerProductText');
             const submitSellerProductSpinner = document.getElementById('submitSellerProductSpinner');
             let sellerSelectedImages = [];
+            
+            // فایڵ ئینپوتی وێنەی داواکاری کڕیار
+            const requestImagesInput = document.getElementById('requestImages');
+            const requestImagePreviewContainer = document.getElementById('requestImagePreviewContainer');
+            let requestSelectedImages = [];
             
             // فەنکشن بۆ دووبارە دانانەوەی فۆرمی کالا (بەڕێوەبەر)
             function resetProductForm() {
