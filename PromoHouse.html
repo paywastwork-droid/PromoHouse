@@ -1178,6 +1178,31 @@
     box-shadow: none;
     border-radius: 50%; /* ئەگەر دەتەوێت بازنەیی بێت */
 }
+#customerRequestForm {
+    background-color: #39C7F7; /* رەنگی پشتی فۆرم */
+    padding: 20px;             /* فاصلە لە ناو فۆرم */
+    border-radius: 8px;        /* گۆڕینی گوشەکان بۆ ڕووند */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* سايهی نرمی پشت فۆرم */
+}
+#customerRequestForm input,
+#customerRequestForm textarea {
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-top: 5px;
+}
+#customerRequestForm button[type="submit"] {
+    background-color: #007acc;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+#customerRequestForm button[type="submit"]:hover {
+    background-color: #005fa3;
+}
 
     </style>
 </head>
@@ -1410,7 +1435,11 @@
                     </div>
                 </div>
             </div>
-
+<div class="mb-4" id="promoBannerContainer">
+    <div class="promo-banner-section" id="promoBanner">
+        <!-- ... کۆدی بانەر ... -->
+    </div>
+</div>
             <!-- تابەکانی سەرەکی بۆ جیاکردنەوەی جۆرەکانی کالا -->
             <div class="main-tabs" id="mainTabs">
                 <button class="main-tab-btn active" onclick="showMainTab('all')">
@@ -1433,55 +1462,59 @@
                 </div>
             </div>
 
-            <!-- فۆرمی داواکاری (بۆ کڕیارەکان) -->
-            <div class="request-form-container" id="requestFormSection" style="display: none;">
-                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">داواکاری کاڵا</h3>
-                <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
-                
-                <form id="customerRequestForm">
-                    <div class="form-group">
-                        <label for="customerName">ناوی تۆ:</label>
-                        <input type="text" id="customerName" placeholder="ناوی تۆ" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customerPhone">ژمارەی مۆبایل:</label>
-                        <input type="tel" id="customerPhone" placeholder="0770" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="customerAddress">شوێنی نیشتەجێبوون:</label>
-                        <input type="text" id="customerAddress" placeholder="سلێمانی، جادەی..." required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="requestProduct">ناوی کالا:</label>
-                        <input type="text" id="requestProduct" placeholder="ناوی کالای داواکراو" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="requestDescription">تێبینی</label>
-                        <textarea id="requestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="requestQuantity">ژمارەی کالا:</label>
-                        <input type="number" id="requestQuantity" placeholder="ژمارە" min="1" value="1" required>
-                    </div>
-                    
-                <button type="submit" class="submit-btn submit-primary">
-    <span id="submitRequestText">ناردنی داواکاری</span>
-    <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
-</button>
+          <div class="request-form-container" id="requestFormSection" style="display: none;">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">داواکاری کاڵا</h3>
+    <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
+    
+    <form id="customerRequestForm">
+        <div class="form-group">
+            <label for="customerName">ناوی تۆ:</label>
+            <input type="text" id="customerName" placeholder="ناوی تۆ" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="customerPhone">ژمارەی مۆبایل:</label>
+            <input type="tel" id="customerPhone" placeholder="0770..." required>
+        </div>
+        
+        <div class="form-group">
+            <label for="customerAddress">شوێنی نیشتەجێبوون:</label>
+            <input type="text" id="customerAddress" placeholder="سلێمانی، جادەی..." required>
+        </div>
+        
+        <div class="form-group">
+            <label for="requestProduct">ناوی کالا:</label>
+            <input type="text" id="requestProduct" placeholder="ناوی کالای داواکراو" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="requestDescription">تێبینی:</label>
+            <textarea id="requestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="requestQuantity">ژمارەی کالا:</label>
+            <input type="number" id="requestQuantity" placeholder="ژمارە" min="1" value="1" required>
+        </div>
 
-<button
-    type="button"
-    onclick="backToHomeFromRequestForm()"
-    class="submit-btn submit-secondary mt-2"
-    style="background-color:#ef4444; color:white;"
->
-    گەڕانەوە
-</button>
+        <!-- وێنە زیادکردن -->
+        <div class="form-group">
+            <label for="requestImages">وێنەکانی کالا:</label>
+            <input type="file" id="requestImages" accept="image/*" multiple>
+            <div id="requestImagePreviewContainer" class="image-preview-container mt-2 flex flex-wrap gap-2"></div>
+        </div>
+        
+        <button type="submit" class="submit-btn submit-primary">
+            <span id="submitRequestText">ناردنی داواکاری</span>
+            <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
+        </button>
+
+        <button type="button" onclick="backToHomeFromRequestForm()" class="submit-btn submit-secondary mt-2" style="background-color:#39C7F7; color:white;">
+            گەڕانەوە
+        </button>
+    </form>
+</div>
+
 
 
                 </form>
@@ -1795,7 +1828,7 @@
             </div>
         </div>
     </div>
-
+<button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
     <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
@@ -1957,7 +1990,7 @@
                 </div>
             </div>
             
-            <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
+      <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
         </div>
     </div>
 <div class="modal-header flex justify-between items-center p-2 border-b border-gray-200">
@@ -2417,28 +2450,40 @@
             
             // ========== فەنکشنەکانی نوێ بۆ تابەکانی سەرەکی ==========
             
-            window.showMainTab = function(tab) {
-                currentMainTab = tab;
-                
-                // نوێکردنەوەی دوگمەکانی تاب
-                document.querySelectorAll('.main-tab-btn').forEach(btn => {
-                    btn.classList.remove('active');
-                });
-                
-                event.target.classList.add('active');
-                
-                // پێشکەشکردنی کالا بەپێی جۆر
-                if (tab === 'all') {
-                    document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
-                    displayProducts(globalProductsData);
-                } else if (tab === 'seller') {
-                    document.getElementById('productsTitle').textContent = 'کالای فرۆشیار (پەسەندکراو)';
-                    loadAndShowCopiedSellerProducts();
-                } else if (tab === 'customer') {
-                    document.getElementById('productsTitle').textContent = 'داواکاری کڕیار (پەسەندکراو)';
-                    loadAndShowCopiedCustomerRequests();
-                }
-            };
+          window.showMainTab = function(tab) {
+    currentMainTab = tab;
+    
+    // نیشاندانی یان شاردنەوەی بانەر بەپێی تاب
+    const promoBanner = document.getElementById('promoBanner');
+    const promoBannerContainer = document.getElementById('promoBannerContainer');
+    
+    if (tab === 'all') {
+        // بانەر نیشان بدە
+        if (promoBanner) promoBanner.style.display = 'block';
+        if (promoBannerContainer) promoBannerContainer.style.display = 'block';
+        document.getElementById('productsTitle').textContent = 'هەموو کالاکان';
+        displayProducts(globalProductsData);
+    } else {
+        // بانەر بشارەوە
+        if (promoBanner) promoBanner.style.display = 'none';
+        if (promoBannerContainer) promoBannerContainer.style.display = 'none';
+        
+        if (tab === 'seller') {
+            document.getElementById('productsTitle').textContent = 'کالای فرۆشیار (پەسەندکراو)';
+            loadAndShowCopiedSellerProducts();
+        } else if (tab === 'customer') {
+            document.getElementById('productsTitle').textContent = 'داواکاری کڕیار (پەسەندکراو)';
+            loadAndShowCopiedCustomerRequests();
+        }
+    }
+    
+    // نوێکردنەوەی دوگمەکانی تاب
+    document.querySelectorAll('.main-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    event.target.classList.add('active');
+};
             
             // فەنکشن بۆ بارکردن و نیشاندانی کالای فرۆشیاری پەسەندکراو لە تابەکانی سەرەکی
             async function loadAndShowCopiedSellerProducts() {
@@ -2761,14 +2806,21 @@
             }
             
             // فەنکشن بۆ گەڕانەوە
-            window.backToHomeFromCopied = function() {
-                document.getElementById('copiedProductsSection').style.display = 'none';
-                if (isAdminLoggedIn) {
-                    showAdminDashboard();
-                } else {
-                    showHomePage();
-                }
-            };
+           window.backToHomeFromCopied = function() {
+    document.getElementById('copiedProductsSection').style.display = 'none';
+    
+    // ✅ بانەر نیشان بدە ئەگەر بگەڕێیتەوە بۆ سەرەمی
+    const promoBannerContainer = document.getElementById('promoBannerContainer');
+    if (promoBannerContainer) {
+        promoBannerContainer.style.display = 'block';
+    }
+    
+    if (isAdminLoggedIn) {
+        showAdminDashboard();
+    } else {
+        showHomePage();
+    }
+};
             
             // ========== فەنکشنەکانی دوگمەکانی خوارەوە ==========
             
@@ -4517,14 +4569,21 @@
             };
             
             // فەنکشن بۆ گەڕانەوە بۆ پەڕەی سەرەمی
-            window.backToMain = function() {
-                document.getElementById('addPromoForm').style.display = 'none';
-                if (isAdminLoggedIn) {
-                    showAdminDashboard();
-                } else {
-                    showHomePage();
-                }
-            };
+        window.backToMain = function() {
+    document.getElementById('addPromoForm').style.display = 'none';
+    
+    // ✅ بانەر نیشان بدە ئەگەر بگەڕێیتەوە بۆ سەرەمی
+    const promoBannerContainer = document.getElementById('promoBannerContainer');
+    if (promoBannerContainer) {
+        promoBannerContainer.style.display = 'block';
+    }
+    
+    if (isAdminLoggedIn) {
+        showAdminDashboard();
+    } else {
+        showHomePage();
+    }
+};
             
             // ========== فەنکشنەکانی فۆڕمەکان ==========
             
@@ -4985,7 +5044,7 @@
                         
                         this.reset();
                         
-                        alert(`✅ سوپاس ${customerName}!\nداواکاریەکەت بۆ "${requestProduct}" بە سەرکەوتوویی نێردرا.\nپەیوەندیمان پێوە دەکەینەوە.`);
+                        alert(`✅ سوپاس ${customerName}!\nداواکاریەکەت بۆ "${requestProduct}" بە سەرکەوتوویی نێردرا.\nپەیوەندیتانن پێوە دەکەینەوە.`);
                         
                         showHomePage();
                         
@@ -6036,7 +6095,12 @@
             // چالاککردنی دوگمەی ماڵ بە شێوەی بنەڕەتی
             showHomePage();
         });
-
+window.addEventListener('click', function(event) {
+    if (event.target === document.getElementById('aboutPage')) {
+        document.getElementById('aboutPage').style.display = 'none';
+        showHomePage();
+    }
+});
     </script>
 </body>
 </html>
