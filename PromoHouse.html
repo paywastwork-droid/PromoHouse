@@ -2084,7 +2084,6 @@
     </div>
 </div>
 
-
     <!-- Orders Page (مینۆ) -->
     <div id="ordersPage" class="modal">
         <div class="modal-content" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
@@ -6551,5 +6550,12 @@ window.showAboutPage = function() {
         aboutPage.style.display = "flex"; // چونکە مۆداڵە باشترە فڵێکس بێت
     }
 }
+// ئەمە بەکاربهێنە بۆ ئەوەی دڵنیابیت هیچ شتێک ڕێگری لێ ناکات
+document.addEventListener('click', function(event) {
+    if (event.target.getAttribute('onclick') === 'closeAboutPage()') {
+        document.getElementById("aboutPage").style.display = "none";
+    }
+});
+</script>
 </body>
 </html>
