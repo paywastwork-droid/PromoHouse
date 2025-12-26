@@ -723,27 +723,28 @@
             background: #eff6ff;
         }
         
-        .submit-btn {
-            background: #00BFFF;
-            color: white;
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.3s;
-        }
-        
-        .submit-btn:hover {
-            background: #1DA1F2;
-        }
-        
-        .submit-btn:disabled {
-            background: #9ca3af;
-            cursor: not-allowed;
-        }
+     .submit-btn {
+    background: #16a34a; /* سەوز */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+}
+
+.submit-btn:hover {
+    background: #15803d; /* سەوزی تۆختر */
+}
+
+.submit-btn:disabled {
+    background: #9ca3af;
+    cursor: not-allowed;
+}
+
         
         .loading-spinner {
             display: inline-block;
@@ -1193,16 +1194,18 @@
     margin-top: 5px;
 }
 #customerRequestForm button[type="submit"] {
-    background-color: #007acc;
+    background-color: #16a34a; /* سەوز */
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
+
 #customerRequestForm button[type="submit"]:hover {
-    background-color: #005fa3;
+    background-color: #15803d; /* سەوزی تۆختر */
 }
+
 
     </style>
 </head>
@@ -1600,24 +1603,25 @@
                         <label for="requestQuantity">ژمارەی کالا:</label>
                         <input type="number" id="requestQuantity" placeholder="ژمارە" min="1" value="1" required>
                     </div>
-                    
-                    <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700">
-                        <span id="submitRequestText">ناردنی داواکاری</span>
-                        <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
-                    </button>
-                    <button
+             <button type="submit"
+    class="submit-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition active:scale-95 text-lg">
+    <span id="submitRequestText">ناردنی داواکاری</span>
+    <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
+</button>
+
+      <button
     type="button"
     onclick="backToHomeFromRequestForm()"
     class="submit-btn bg-red-500 hover:bg-red-600 mt-2 text-white font-bold">
     گەڕانەوە
 </button>
-
                 </form>
             </div>
+
 <div class="request-form-container" id="sellerProductFormSection" 
      style="display: none; max-height: 90vh; overflow-y: auto; padding: 20px; border-radius: 12px; background: white;">
     
-    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">مارکێت</h3>
+    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">فرۆشتن</h3>
     <p class="text-gray-600 mb-4 text-center">زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
     
     <form id="sellerProductForm" style="display: flex; flex-direction: column; gap: 15px;">
@@ -1669,12 +1673,13 @@
             <textarea id="sellerProductDescription" class="w-full p-2 border rounded" placeholder="ڕونکردنەوەی کالا..." rows="2"></textarea>
         </div>
         
-        <button type="submit"
-    class="w-full py-3 bg-[#39C7F7] text-white rounded-lg font-bold
-           hover:bg-[#2fb8e6] transition">
+      <button type="submit"
+    class="w-full py-3 bg-green-500 text-white rounded-lg font-bold
+           hover:bg-green-600 transition">
     <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
     <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
 </button>
+
 <button
     type="button"
     onclick="backToHomeFromSellerForm()"
@@ -1994,16 +1999,13 @@
         </div>
     </div>
 
- <!-- About Page -->
-<div id="aboutPage" class="modal">
-    <div class="modal-content flex flex-col" style="max-width:500px; max-height:85vh;">
+ <div id="aboutPage" class="modal" dir="rtl">
+    <div class="modal-content flex flex-col" style="max-width:500px; max-height:85vh; text-align: right;">
 
-        <!-- ناونیشان -->
         <h3 class="text-xl font-bold text-gray-800 text-center mb-4">
             دەربارەی پرۆمۆ هاوس
         </h3>
 
-        <!-- لۆگۆ -->
         <div class="flex justify-center mb-4">
             <img
                 src="https://raw.githubusercontent.com/paywastwork-droid/PromoHouse/main/logo/photo_2025-11-26_10-42-27.jpg"
@@ -2012,54 +2014,50 @@
             >
         </div>
 
-        <!-- ناوەڕۆک -->
-        <div class="flex-1 overflow-y-auto bg-blue-50 p-4 rounded-lg space-y-4">
+        <div class="flex-1 overflow-y-auto bg-blue-50 p-4 rounded-lg space-y-4 text-right">
 
-            <!-- دەربارە -->
-            <p class="text-gray-600 leading-relaxed">
+            <p class="text-gray-600 leading-relaxed text-justify">
                 بە هۆی تێگەیشتنی قوڵمان لە بازاڕی ناوخۆی و پێویستیەکانی کڕیاران،
                 ئێستا خاوەنی کۆگایەکی ئامادەکراوی پڕ لە ئەشیای جۆراو جۆرین لە سلێمانی،
                 کە ئەتوانین پێداویستی کواڵیتی بەرز بە نرخی گونجاو دابین بکەین بۆ
                 چاپخانەکان لە هەموو ناوچەکانی هەرێمی کوردستان.
             </p>
 
-            <!-- ژمارەی تەلەفۆن -->
-            <div class="flex items-start gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1" fill="#39C7F7" viewBox="0 0 20 20">
+            <hr class="border-blue-100">
+
+            <div class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1 shrink-0" fill="#39C7F7" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.15a1 1 0 01.99.84l.74 4.43a1 1 0 01-.54 1.06l-1.55.77a11 11 0 006.11 6.11l.77-1.55a1 1 0 011.06-.54l4.43.74a1 1 0 01.84.99V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                 </svg>
                 <div>
                     <p class="font-semibold text-gray-700">ژمارەی تەلەفۆن</p>
-                    <p dir="ltr" class="text-gray-600">07701922060</p>
+                    <p dir="ltr" class="text-gray-600 text-right">0770 192 2060</p>
                 </div>
             </div>
 
-            <!-- ژمارەی مەخزەن -->
-            <div class="flex items-start gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1" fill="#39C7F7" viewBox="0 0 20 20">
+            <div class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1 shrink-0" fill="#39C7F7" viewBox="0 0 20 20">
                     <path d="M2 3a1 1 0 011-1h2.15a1 1 0 01.99.84l.74 4.43a1 1 0 01-.54 1.06l-1.55.77a11 11 0 006.11 6.11l.77-1.55a1 1 0 011.06-.54l4.43.74a1 1 0 01.84.99V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
                 </svg>
                 <div>
                     <p class="font-semibold text-gray-700">ژمارەی مەخزەن</p>
-                    <p dir="ltr" class="text-gray-600">07717858787</p>
+                    <p dir="ltr" class="text-gray-600 text-right">0771 785 8787</p>
                 </div>
             </div>
 
-            <!-- ئیمەیڵ -->
-            <div class="flex items-start gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1" fill="#39C7F7" viewBox="0 0 20 20">
+            <div class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1 shrink-0" fill="#39C7F7" viewBox="0 0 20 20">
                     <path d="M2 5.88L10 9.88l8-4A2 2 0 0016 4H4a2 2 0 00-2 1.88z"/>
                     <path d="M18 8.12l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.12z"/>
                 </svg>
                 <div>
                     <p class="font-semibold text-gray-700">ئیمەیڵ</p>
-                    <p dir="ltr" class="text-gray-600">info@promohouseeiraq.com</p>
+                    <p dir="ltr" class="text-gray-600 text-right">info@promohouseeiraq.com</p>
                 </div>
             </div>
 
-            <!-- ناونیشان -->
-            <div class="flex items-start gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1" fill="#39C7F7" viewBox="0 0 20 20">
+            <div class="flex items-start gap-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mt-1 shrink-0" fill="#39C7F7" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
                 </svg>
                 <div>
@@ -2071,16 +2069,14 @@
 
         </div>
 
-        <!-- دوگمەی دەرچوون -->
         <button
             onclick="closeAboutPage()"
-            class="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg w-full">
+            class="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg w-full font-bold">
             گەڕانەوە
         </button>
 
     </div>
 </div>
-
 
     <!-- Orders Page (مینۆ) -->
     <div id="ordersPage" class="modal">
