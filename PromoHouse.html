@@ -1259,10 +1259,10 @@
                 <!-- تابەکان بۆ جیاکردنەوەی کالای فرۆشیار و داواکاری -->
                 <div class="tabs flex mb-4 border-b">
                     <button class="tab-btn active px-4 py-2 border-b-2 border-blue-500 font-bold" onclick="showCopiedTab('seller')">
-                        کالای فرۆشیار 
+                        کالای فرۆشیار (پەسەندکراو)
                     </button>
                     <button class="tab-btn px-4 py-2" onclick="showCopiedTab('customer')">
-                        داواکاری کڕیار 
+                        داواکاری کڕیار (پەسەندکراو)
                     </button>
                 </div>
                 
@@ -2548,10 +2548,10 @@ document.addEventListener('click', function(e) {
         if (promoBannerContainer) promoBannerContainer.style.display = 'none';
         
         if (tab === 'seller') {
-            document.getElementById('productsTitle').textContent = 'کالای فرۆشیار ';
+            document.getElementById('productsTitle').textContent = 'کالای فرۆشیار (پەسەندکراو)';
             loadAndShowCopiedSellerProducts();
         } else if (tab === 'customer') {
-            document.getElementById('productsTitle').textContent = 'داواکاری کڕیار ';
+            document.getElementById('productsTitle').textContent = 'داواکاری کڕیار (پەسەندکراو)';
             loadAndShowCopiedCustomerRequests();
         }
     }
@@ -3556,8 +3556,8 @@ async function loadCopiedCustomerRequests() {
                 }
             }
 
-            // فەنکشنەکانی پەسەندکردن (نوێ - بۆ کۆپی کراوەکان)
-           window.approveCustomerRequestNew = async function(requestId) {
+      // فەنکشنەکانی پەسەندکردن (نوێ - بۆ کۆپی کراوەکان)
+      window.approveCustomerRequestNew = async function(requestId) {
     if (!isAdminLoggedIn) {
         alert("تەنها بەڕێوەبەر دەتوانێت!");
         return;
@@ -6708,8 +6708,73 @@ window.showAdminDashboard = function() {
     window.isAdminLoggedIn = true;
     if (originalShowAdminDashboard) originalShowAdminDashboard();
 };
+window.approveSellerProductNew = async function(productId) {
+    if (!isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    try {
+        const productRef = firebase.ref(firebase.db, `sellerProducts/${productId}`);
+        const snapshot = await firebase.get(productRef);
+        const product = snapshot.val();
+        
+        if (!product) {
+            alert("کالا نەدۆزرایەوە!");
+            return;
+        }
+        
+        // ١. زیادکردنی کۆپی لە copiedSellerProducts
+        const copiedProductsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
+        const newProductRef = firebase.push(copiedProductsRef);
+        
+        const productData = {
+            name: product.name || 'ناونەزانراو',
+            price: product.price || '0',
+            priceUSD: product.priceUSD || '0',
+            category: product.category || 'شتی تر',
+            description: product.description || '',
+            images: product.images || [],
+            imageUrl: product.imageUrl || (product.images && product.images.length > 0 ? product.images[0] : ''),
+            originalPrice: product.originalPrice || '',
+            discount: product.discount || '',
+            createdAt: product.createdAt || new Date().toISOString(),
+            sellerProductId: productId,
+            reviewedAt: new Date().toISOString(),
+            reviewedBy: 'admin',
+            status: 'approved'
+        };
+        
+        await firebase.set(newProductRef, productData);
+        
+        // ٢. نوێکردنەوەی سەرچاوەکە (گرنگترین بەش: دەستکاری دۆخەکە)
+        await firebase.update(productRef, {
+            reviewed: true,
+            status: 'approved',
+            reviewedAt: new Date().toISOString(),
+            reviewedBy: 'admin',
+            approvedProductId: newProductRef.key // تۆمارکردنی ئایدی نوێیەکە
+        });
+        
+        alert("✅ کالا پەسەندکرا و کۆپی کراوە بۆ بەشە کۆپی کراوەکان!");
+        
+        // ٣. نوێکردنەوەی لیستەکان
+        if (typeof loadSellerProducts === 'function') loadSellerProducts();
+        if (typeof loadSellerProductsForView === 'function') loadSellerProductsForView();
+        if (typeof updateNotificationBadge === 'function') updateNotificationBadge();
+        
+        // ٤. ئەگەر لە تابەکانی سەرەمی بینیمان، نوێی بکەرەوە
+        if (currentMainTab === 'seller') {
+            if (typeof loadAndShowCopiedSellerProducts === 'function') {
+                loadAndShowCopiedSellerProducts();
+            }
+        }
+        
+    } catch (error) {
+        console.error("Error approving seller product:", error);
+        alert("❌ هەڵە لە پەسەندکردنی کالا!");
+    }
+};
     </script>
 </body>
 </html>
-
-
