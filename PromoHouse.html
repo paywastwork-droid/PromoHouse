@@ -653,22 +653,78 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         }
         
+  /* ڕێکخستنی فۆرمی داواکاری */
 .request-form-container {
-    background-color: #62BAF5 !important; /* شینی پاک - بێ سەوزی */
-    border: 2px solid #48a6e6;           /* بۆردەری شینی گونجاو */
-    border-radius: 15px;
+    background: #39C7F7 !important; /* ڕەنگی شینە دیاریکراوەکەت */
+    border: 2px solid #2fb8e6;
+    border-radius: 20px;
     padding: 25px;
-    direction: rtl;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin: 20px auto 100px auto; /* بۆشایی 100px لە خوارەوە بۆ ئەوەی دوگمەکە دەرکەوێت */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    max-width: 550px;
+    width: 92%;
+    color: white;
+    position: relative;
+    overflow: visible; /* دڵنیابوون لەوەی شتەکانی ناوی نابڕدرێن */
 }
 
-.request-form-container label {
-    color: #ffffff; /* نوسینی سپی لەسەر شینەکە زۆر جوانترە */
+.request-form-container h2 {
+    font-size: 22px;
     font-weight: bold;
-    margin-bottom: 5px;
-    display: block;
+    margin-bottom: 20px;
+    text-align: center;
+    color: white;
 }
-        
+
+/* ڕێکخستنی خانەکانی ناو فۆرمەکە */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: white;
+}
+
+.form-group input, .form-group textarea, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: white;
+    color: #333;
+    font-size: 16px;
+}
+
+/* دوگمەی ناردن و گەڕانەوە */
+.form-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.submit-btn {
+    background-color: #059669; /* ڕەنگی سەوز */
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #ef4444; /* ڕەنگی سوور */
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+} 
         .form-group {
             margin-bottom: 16px;
         }
@@ -734,28 +790,27 @@
             background: #eff6ff;
         }
         
-     .submit-btn {
-    background: #16a34a; /* سەوز */
-    color: white;
-    padding: 12px 24px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: background 0.3s;
-}
-
-.submit-btn:hover {
-    background: #15803d; /* سەوزی تۆختر */
-}
-
-.submit-btn:disabled {
-    background: #9ca3af;
-    cursor: not-allowed;
-}
-
+        .submit-btn {
+            background: #00BFFF;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: background 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background: #1DA1F2;
+        }
+        
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
         
         .loading-spinner {
             display: inline-block;
@@ -1205,18 +1260,16 @@
     margin-top: 5px;
 }
 #customerRequestForm button[type="submit"] {
-    background-color: #16a34a; /* سەوز */
+    background-color: #007acc;
     color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
-
 #customerRequestForm button[type="submit"]:hover {
-    background-color: #15803d; /* سەوزی تۆختر */
+    background-color: #005fa3;
 }
-
 
     </style>
 </head>
@@ -1277,7 +1330,115 @@
                 </div>
          
             </div>
+<!-- فۆرمی دەستکاری کالای فرۆشیاری کۆپی کراو -->
+<div class="request-form-container" id="editSellerProductFormSection" style="display: none;">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">دەستکاری کالای فرۆشیار</h3>
+    
+    <form id="editSellerProductForm" onsubmit="updateCopiedSellerProduct(event)">
+        <input type="hidden" id="editSellerProductId" value="">
+        
+        <div class="form-group">
+            <label for="editSellerProductName">ناوی کالا:</label>
+            <input type="text" id="editSellerProductName" placeholder="ناوی کالا" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editSellerProductPrice">نرخ (دینار):</label>
+            <input type="number" id="editSellerProductPrice" placeholder="نرخ بە دینار" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editSellerProductPriceUSD">نرخ ($):</label>
+            <input type="number" step="0.01" id="editSellerProductPriceUSD" placeholder="نرخ بە دۆلار" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editSellerProductCategory">جۆری کالا:</label>
+            <select id="editSellerProductCategory" required>
+                <option value="">جۆری کالا هەڵبژێرە</option>
+                <option value="کوپ">کوپ</option>
+                <option value="جانتا">جانتا</option>
+                <option value="پێنووس">پێنووس</option>
+                <option value="دەفتەر">دەفتەر</option>
+                <option value="جل">جل</option>
+                <option value="کڵاو">کڵاو</option>
+                <option value="جوانکاری">جوانکاری</option>
+                <option value="کەل و پەل">کەل و پەل</option>
+                <option value="تەرمۆزە">تەرمۆزە</option>
+                <option value="کرێکار">کرێکار</option>
+                <option value="شتی تر">شتی تر</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label for="editSellerProductOriginalPrice">نرخە ڕاستەقینە (دینار):</label>
+            <input type="number" id="editSellerProductOriginalPrice" placeholder="نرخە ڕاستەقینە">
+        </div>
+        
+        <div class="form-group">
+            <label for="editSellerProductDiscount">ڕێژەی داشکاندن (%):</label>
+            <input type="number" id="editSellerProductDiscount" placeholder="ڕێژەی داشکاندن" min="0" max="100">
+        </div>
+        
+        <div class="form-group">
+            <label for="editSellerProductDescription">ڕونکردنەوەی کالا:</label>
+            <textarea id="editSellerProductDescription" placeholder="ڕونکردنەوەی کالا..." rows="3"></textarea>
+        </div>
+        
+        <div class="flex gap-2">
+            <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 flex-1">
+                نوێکردنەوەی کالا
+            </button>
+            <button type="button" onclick="backToCopiedFromEdit()" class="submit-btn bg-gray-500 hover:bg-gray-600">
+                گەڕانەوە
+            </button>
+        </div>
+    </form>
+</div>
 
+<!-- فۆرمی دەستکاری داواکاری کۆپی کراو -->
+<div class="request-form-container" id="editCustomerRequestFormSection" style="display: none;">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">دەستکاری داواکاری کڕیار</h3>
+    
+    <form id="editCustomerRequestForm" onsubmit="updateCopiedCustomerRequest(event)">
+        <input type="hidden" id="editCustomerRequestId" value="">
+        
+        <div class="form-group">
+            <label for="editCustomerName">ناوی کڕیار:</label>
+            <input type="text" id="editCustomerName" placeholder="ناوی کڕیار" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editCustomerPhone">ژمارەی مۆبایل:</label>
+            <input type="tel" id="editCustomerPhone" placeholder="0770..." required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editCustomerAddress">شوێنی نیشتەجێبوون:</label>
+            <input type="text" id="editCustomerAddress" placeholder="سلێمانی، جادەی..." required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editRequestProduct">ناوی کالا:</label>
+            <input type="text" id="editRequestProduct" placeholder="ناوی کالای داواکراو" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="editRequestDescription">تێبینی:</label>
+            <textarea id="editRequestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="editRequestQuantity">ژمارەی کالا:</label>
+            <input type="number" id="editRequestQuantity" placeholder="ژمارە" min="1" value="1" required>
+        </div>
+        
+        <div class="flex gap-2">
+            <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 flex-1">
+                نوێکردنەوەی داواکاری
+               </div>
+    </form>
+</div>
             <!-- داشبۆردی بەڕێوەبەر -->
             <div id="adminDashboard" style="display: none;">
                 <div class="bg-white rounded-xl shadow-md p-4 mb-4">
@@ -1371,7 +1532,7 @@
                         <!-- پەیوەندی -->
                         <div class="horizontal-icon-item" onclick="openContact()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/?size=100&id=9659&format=png&color=000000" alt="پەیوەندی">
+                                <img src="https://img.icons8.com/color/96/000000/phone.png" alt="پەیوەندی">
                             </div>
                             <span class="text-xs font-medium mt-1">پەیوەندی</span>
                         </div>
@@ -1568,7 +1729,7 @@
             <label for="editRequestQuantity">ژمارەی کالا:</label>
             <input type="number" id="editRequestQuantity" placeholder="ژمارە" min="1" value="1" required>
         </div>
-  
+        
         <div class="flex gap-2">
             <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 flex-1">
                 نوێکردنەوەی داواکاری
@@ -1577,150 +1738,143 @@
                 گەڕانەوە
             </button>
         </div>
-    </form>
+    </form>
 </div>
-        <div class="request-form-container" id="requestFormSection" 
-     style="display: none; background-color: #99F2E4; padding: 20px; border-radius: 15px; direction: rtl;">
-    
+          <div class="request-form-container" id="requestFormSection" style="display: none;">
+
     <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">داواکاری کاڵا</h3>
-    <p class="text-gray-700 mb-4 text-center font-medium">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
+
+    <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
     
-    <form id="customerRequestForm" class="space-y-4 text-right">
+    <form id="customerRequestForm">
         <div class="form-group">
-            <label for="customerName" class="block font-bold mb-1">ناوی تۆ:</label>
-            <input type="text" id="customerName" class="w-full p-2 rounded border" placeholder="ناوی تۆ" required>
+            <label for="customerName">ناوی تۆ:</label>
+            <input type="text" id="customerName" placeholder="ناوی تۆ" required>
         </div>
         
         <div class="form-group">
-            <label for="customerPhone" class="block font-bold mb-1">ژمارەی مۆبایل:</label>
-            <input type="tel" id="customerPhone" class="w-full p-2 rounded border" placeholder="0770" dir="ltr" required>
+            <label for="customerPhone">ژمارەی مۆبایل:</label>
+            <input type="tel" id="customerPhone" placeholder="0770..." required>
         </div>
         
         <div class="form-group">
-            <label for="customerAddress" class="block font-bold mb-1">شوێنی نیشتەجێبوون:</label>
-            <input type="text" id="customerAddress" class="w-full p-2 rounded border" placeholder="سلێمانی، جادەی..." required>
+            <label for="customerAddress">شوێنی نیشتەجێبوون:</label>
+            <input type="text" id="customerAddress" placeholder="سلێمانی، جادەی..." required>
         </div>
         
         <div class="form-group">
-            <label for="requestProduct" class="block font-bold mb-1">ناوی کالا:</label>
-            <input type="text" id="requestProduct" class="w-full p-2 rounded border" placeholder="ناوی کالای داواکراو" required>
+            <label for="requestProduct">ناوی کالا:</label>
+            <input type="text" id="requestProduct" placeholder="ناوی کالای داواکراو" required>
         </div>
         
         <div class="form-group">
-            <label for="requestDescription" class="block font-bold mb-1">شێواز/رەنگی کالا:</label>
-            <textarea id="requestDescription" class="w-full p-2 rounded border" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
+            <label for="requestDescription">تێبینی:</label>
+            <textarea id="requestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
         </div>
         
         <div class="form-group">
-            <label for="requestQuantity" class="block font-bold mb-1">ژمارەی کالا:</label>
-            <input type="number" id="requestQuantity" class="w-full p-2 rounded border" placeholder="ژمارە" min="1" value="1" required>
+            <label for="requestQuantity">ژمارەی کالا:</label>
+            <input type="number" id="requestQuantity" placeholder="ژمارە" min="1" value="1" required>
         </div>
-         <!-- وێنە زیادکردن -->
+
+        <!-- وێنە زیادکردن -->
         <div class="form-group">
             <label for="requestImages">وێنەکانی کالا:</label>
             <input type="file" id="requestImages" accept="image/*" multiple>
             <div id="requestImagePreviewContainer" class="image-preview-container mt-2 flex flex-wrap gap-2"></div>
         </div>
-        <div class="flex flex-col gap-2 mt-6">
-            <button type="submit"
-                class="submit-btn bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition active:scale-95 text-lg w-full">
-                <span id="submitRequestText">ناردنی داواکاری</span>
-                <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
-            </button>
-
-            <button
+        
+        <button type="submit" class="submit-btn submit-primary">
+            <span id="submitRequestText">ناردنی داواکاری</span>
+            <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
+        </button>
+   <button
                 type="button"
                 onclick="backToHomeFromRequestForm()"
                 class="submit-btn bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg w-full">
                 گەڕانەوە
             </button>
-        </div>
+</button>
+       
     </form>
 </div>
 
-<div class="request-form-container" id="sellerProductFormSection" 
-     style="display: none; max-height: 90vh; overflow-y: auto; padding: 20px; border-radius: 12px; background: white; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-    
-    <h3 class="text-xl font-bold mb-2 text-gray-800 text-center">فرۆشتنی کالا</h3>
-    <p class="text-gray-600 mb-6 text-center text-sm">زانیارییەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
-    
-    <form id="sellerProductForm" style="display: flex; flex-direction: column; gap: 18px;">
-        
-        <div class="form-group">
-            <label for="sellerProductName" class="block mb-1 font-medium text-gray-700">ناوی کالا:</label>
-            <input type="text" id="sellerProductName" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none" placeholder="ناوی کالا بنووسە" required>
-        </div>
-        
-        <div class="form-group">
-            <label class="block mb-1 font-medium text-gray-700">نرخی کالا:</label>
-            <div style="display: flex; direction: ltr;"> <select id="currencyType" 
-                        class="p-2 border border-r-0 bg-gray-50 cursor-pointer" 
-                        style="border-radius: 8px 0 0 8px; outline: none; min-width: 80px;">
-                    <option value="IQD">دینار</option>
-                    <option value="USD">دۆلار ($)</option>
-                </select>
-                <input type="number" step="any" id="sellerProductPrice" 
-                       class="w-full p-2 border focus:ring-2 focus:ring-green-400 outline-none" 
-                       style="border-radius: 0 8px 8px 0;" 
-                       placeholder="0.00" required>
-            </div>
-        </div>
-        
-        <div class="form-group">
-            <label for="sellerProductCategory" class="block mb-1 font-medium text-gray-700">جۆری کالا:</label>
-            <select id="sellerProductCategory" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none" required>
-                <option value="">هەڵبژێرە...</option>
-                <option value="کوپ">کوپ</option>
-                <option value="جانتا">جانتا</option>
-                <option value="پێنووس">پێنووس</option>
-                <option value="دەفتەر">دەفتەر</option>
-                <option value="جل">جل</option>
-                <option value="کڵاو">کڵاو</option>
-                <option value="جوانکاری">جوانکاری</option>
-                <option value="کەل و پەل">کەل و پەل</option>
-                <option value="تەرمۆزە">تەرمۆزە</option>
-                <option value="شتی تر">شتی تر</option>
-            </select>
-        </div>
-        
-        <div class="form-group">
-         <label class="block mb-1 font-medium text-white">وێنەی کالا:</label>
-            <div class="file-input-container border-2 border-dashed border-gray-300 p-4 text-center rounded-lg hover:border-green-500 transition cursor-pointer" 
-                 onclick="document.getElementById('sellerProductImages').click();">
-                <input type="file" id="sellerProductImages" accept="image/*" class="hidden" multiple 
-                       onchange="handleImagePreview(event)">
-                <div class="text-gray-500">
-                    <i class="fas fa-cloud-upload-alt text-2xl mb-2"></i>
-            <div style="color: white;"> <p>وێنەکان لێرە دابنێ یان کلیک بکە</p>
-                </div>
-            </div>
-            <div id="sellerImagePreviewContainer" class="flex flex-wrap gap-2 mt-2"></div>
-        </div>
-        
-        <div class="form-group">
-            <label for="sellerProductDescription" class="block mb-1 font-medium text-gray-700">ڕوونکردنەوەی کالا:</label>
-            <textarea id="sellerProductDescription" class="w-full p-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none" placeholder="کورتیەک لەسەر کالا بنووسە..." rows="3"></textarea>
-        </div>
-        
-        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 10px;">
-            <button type="submit" class="w-full py-3 bg-green-500 text-white rounded-lg font-bold hover:bg-green-600 transition flex items-center justify-center gap-2">
-                <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
-                <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none; width: 20px; height: 20px; border: 3px solid white; border-top: 3px solid transparent; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            </button>
             
-            <button type="button" onclick="backToHomeFromSellerForm()" 
+
+            <!-- فۆرمی دانانی کالا (بۆ فرۆشیاران) -->
+            <div class="request-form-container" id="sellerProductFormSection" style="display: none;">
+                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">فرۆشتن</h3>
+                <p class="text-gray-600 mb-4 text-center">زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
+                
+                <form id="sellerProductForm">
+                    <div class="form-group">
+                        <label for="sellerProductName">ناوی کالا:</label>
+                        <input type="text" id="sellerProductName" placeholder="ناوی کالا" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellerProductPrice">نرخ (دینار):</label>
+                        <input type="number" id="sellerProductPrice" placeholder="نرخ بە دینار" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellerProductPriceUSD">نرخ ($):</label>
+                        <input type="number" step="0.01" id="sellerProductPriceUSD" placeholder="نرخ بە دۆلار" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellerProductCategory">جۆری کالا:</label>
+                        <select id="sellerProductCategory" required>
+                            <option value="">جۆری کالا هەڵبژێرە</option>
+                            <option value="کوپ">کوپ</option>
+                            <option value="جانتا">جانتا</option>
+                            <option value="پێنووس">پێنووس</option>
+                            <option value="دەفتەر">دەفتەر</option>
+                            <option value="جل">جل</option>
+                            <option value="کڵاو">کڵاو</option>
+                            <option value="جوانکاری">جوانکاری</option>
+                            <option value="کەل و پەل">کەل و پەل</option>
+                            <option value="تەرمۆزە">تەرمۆزە</option>
+                            <option value="کرێکار">کرێکار</option>
+                            <option value="شتی تر">شتی تر</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellerProductImages">وێنەی کالا:</label>
+                        <div class="file-input-container">
+                            <input type="file" id="sellerProductImages" accept="image/*" class="file-input" multiple>
+                            <label for="sellerProductImages" class="file-input-label" id="sellerFileInputLabel">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                                    <line x1="16" y1="5" x2="22" y2="5"></line>
+                                    <line x1="19" y1="2" x2="19" y2="8"></line>
+                                    <circle cx="9" cy="9" r="2"></circle>
+                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                                </svg>
+                                <span>وێنەی کالا هەڵبژێرە (فرە)</span>
+                            </label>
+                        </div>
+                        <div id="sellerFileName" class="text-sm text-gray-500 mt-2"></div>
+                        <div id="sellerImagePreviewContainer" class="image-preview-container mt-2"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="sellerProductDescription">ڕونکردنەوەی کالا:</label>
+                        <textarea id="sellerProductDescription" placeholder="ڕونکردنەوەی کالا..." rows="3"></textarea>
+                    </div>
+                  <button type="submit" class="submit-btn submit-primary">
+    <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
+    <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
+</button>
+                 <button type="button" onclick="backToHomeFromSellerForm()" 
                     class="w-full py-3 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600 transition">
                 گەڕانەوە
             </button>
-        </div>
-    </form>
-</div>
 
-<style>
-@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-.hidden { display: none; }
-</style>
-           <!-- فۆرمی زیادکردنی کالا (تەنها بۆ بەڕێوەبەر) -->
+                </form>
+            </div>
+            <!-- فۆرمی زیادکردنی کالا (تەنها بۆ بەڕێوەبەر) -->
             <div class="add-product-form" id="addProductForm" style="display: none;">
                 <h3 class="text-xl font-bold mb-4 text-gray-800 text-center" id="formTitle">زیادکردنی کالای نوێ (بەڕێوەبەر)</h3>
                 
@@ -2023,7 +2177,7 @@
         </div>
     </div>
 
- <div id="aboutPage" class="modal" dir="rtl">
+  <div id="aboutPage" class="modal" dir="rtl">
     <div class="modal-content flex flex-col" style="max-width:500px; max-height:85vh; text-align: right;">
 
         <h3 class="text-xl font-bold text-gray-800 text-center mb-4">
@@ -2093,11 +2247,11 @@
 
         </div>
 
-        <button
-            onclick="closeAboutPage()"
-            class="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg w-full font-bold">
-            گەڕانەوە
-        </button>
+      <button 
+    onclick="document.getElementById('aboutPage').style.display='none'" 
+    class="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg w-full font-bold">
+    گەڕانەوە
+</button>
 
     </div>
 </div>
@@ -2216,7 +2370,47 @@
                 </button>
             </div>
             
-           
+            <!-- فۆرمی داواکاری -->
+            <div id="orderFormSection" style="display: none;">
+                <h4 class="font-bold mb-3 text-gray-700" id="orderFormTitle">داواکاری کالا</h4>
+                <form id="orderForm" class="mb-4">
+                    <input type="hidden" id="selectedProductName" value="">
+                    <input type="hidden" id="selectedProductPrice" value="">
+                    
+                    <div class="form-group">
+                        <label for="orderCustomerName">ناوی کڕیار:</label>
+                        <input type="text" id="orderCustomerName" placeholder="ناوەکەت بنووسە" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orderPhoneNumber">ژمارەی تەلەفۆن:</label>
+                        <input type="tel" id="orderPhoneNumber" placeholder="٠٧٧٠ ١٩٢ ٢٠٦٠" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orderQuantity">ژمارەی کالا:</label>
+                        <input type="number" id="orderQuantity" placeholder="ژمارە" min="1" value="1" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="orderNotes">تێبینی:</label>
+                        <textarea id="orderNotes" placeholder="تێبینییەکانی تر..." rows="2"></textarea>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 flex-1" id="submitOrderBtn">
+                            <span id="submitOrderText">ناردنی داواکاری</span>
+                            <div id="submitOrderSpinner" class="loading-spinner" style="display: none;"></div>
+                     
+            <button
+                type="button"
+                onclick="backToHomeFromRequestForm()"
+                class="submit-btn bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg w-full">
+                گەڕانەوە
+            </button>
+                    </div>
+                </form>
+            </div>
             
             <!-- بەشی بینینی داواکارییەکان (تەنها بۆ بەڕێوەبەر) -->
             <div id="adminOrdersSection" style="display: none; margin-top: 20px;">
@@ -2403,21 +2597,7 @@
             let selectedImages = [];
             let currentEditingImages = [];
             let menuCurrentCategory = null;
-            // Event Listener بۆ دوگمەی زیادکردنی کالا لە داشبۆردەوە
-document.addEventListener('click', function(e) {
-    // چەک کردنی ئەگەر کلیک لەسەر دوگمەی "زیادکردنی کالا" بێت
-    if (e.target.closest('.admin-dashboard-btn')) {
-        const clickedBtn = e.target.closest('.admin-dashboard-btn');
-        const btnText = clickedBtn.querySelector('.admin-dashboard-text');
-        
-        if (btnText && btnText.textContent.includes('زیادکردنی کالا')) {
-            e.preventDefault();
-            showAddProductFormFromDashboard();
-        }
-    }
-});
-
-
+            
             // فەنکشنەکان بۆ زۆم کردنی وێنەی کالا
             let zoomImages = [];
             let currentZoomIndex = 0;
@@ -2660,6 +2840,7 @@ document.addEventListener('click', function(e) {
                 }
             }
             
+            
            // فەنکشن بۆ بارکردن و نیشاندانی داواکاریە پەسەندکراوەکانی کڕیار لە تابەکانی سەرەمی
 async function loadAndShowCopiedCustomerRequests() {
     const container = document.getElementById('productsContainer');
@@ -2724,7 +2905,7 @@ async function loadAndShowCopiedCustomerRequests() {
                     </div>
                     <div class="two-column-product-info p-4">
                         <h4>${request.productName || 'ناونەزانراو'}</h4>
-                        <div class="two-column-product-price"></div>
+                        <div class="two-column-product-price">داواکاری پەسەندکراو</div>
                         
                         <div class="mt-3 space-y-2">
                             <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
@@ -2868,11 +3049,12 @@ async function loadCopiedSellerProducts() {
             `;
             
             // زیادکردنی event listeners
-      const editBtn = productCard.querySelector('.edit-seller-btn');
-const deleteBtn = productCard.querySelector('.delete-seller-btn');
-
-editBtn.addEventListener('click', () => editCopiedSellerProduct(productId, product));
-deleteBtn.addEventListener('click', () => deleteCopiedSellerProduct(productId));
+            const editBtn = productCard.querySelector('.edit-seller-btn');
+            const deleteBtn = productCard.querySelector('.delete-seller-btn');
+            
+            editBtn.addEventListener('click', () => editCopiedSellerProduct(productId, product));
+            deleteBtn.addEventListener('click', () => deleteCopiedSellerProduct(productId));
+            
             container.appendChild(productCard);
         });
         
@@ -2916,7 +3098,7 @@ async function loadCopiedCustomerRequests() {
                 </div>
                 <div class="two-column-product-info p-4">
                     <h4>${request.productName || 'ناونەزانراو'}</h4>
-                    <div class="two-column-product-price"></div>
+                    <div class="two-column-product-price">داواکاری پەسەندکراو</div>
                     
                     <div class="mt-3 space-y-2">
                         <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
@@ -3556,8 +3738,8 @@ async function loadCopiedCustomerRequests() {
                 }
             }
 
-      // فەنکشنەکانی پەسەندکردن (نوێ - بۆ کۆپی کراوەکان)
-      window.approveCustomerRequestNew = async function(requestId) {
+            // فەنکشنەکانی پەسەندکردن (نوێ - بۆ کۆپی کراوەکان)
+           window.approveCustomerRequestNew = async function(requestId) {
     if (!isAdminLoggedIn) {
         alert("تەنها بەڕێوەبەر دەتوانێت!");
         return;
@@ -3644,29 +3826,25 @@ async function loadCopiedCustomerRequests() {
                 }
             };
 
-            window.deleteRequest = async function(requestId, type) {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                if (!confirm("دڵنیایت کە دەتەوێت ئەم داواکاری بسڕیتەوە؟")) {
-                    return;
-                }
-                
-                try {
-                    const requestRef = firebase.ref(firebase.db, `${type}/${requestId}`);
-                    await firebase.remove(requestRef);
-                    
-                    alert("✅ داواکاری سڕدرایەوە!");
-                    loadCustomerRequests();
-                    updateNotificationBadge();
-                } catch (error) {
-                    console.error("Error deleting request:", error);
-                    alert("❌ هەڵە لە سڕینەوەی داواکاری!");
-                }
-            };
-
+          window.deleteCustomerRequest = async function(requestId) {
+    if (!confirm("ئایا دڵنیایت لە سڕینەوەی ئەم داواکارییە؟")) return;
+    try {
+        const requestRef = firebase.ref(firebase.db, `copiedCustomerRequests/${requestId}`);
+        await firebase.remove(requestRef);
+        alert("✅ داواکارییەکە سڕایەوە");
+        
+        // بانگکردنەوەی لیستەکە بۆ ئەوەی سڕینەوەکە دەستبەجێ دیار بێت
+        if (typeof showCustomerRequests === 'function') {
+            showCustomerRequests();
+        } else {
+            // ئەگەر فانکشنەکە نەبوو، کرتە لە دوگمەی لیستەکە بکە خۆکارانە
+            document.querySelector('button[onclick*="showCustomerRequests"]').click();
+        }
+    } catch (error) {
+        console.error(error);
+        alert("❌ هەڵە ڕوویدا");
+    }
+};
             window.rejectSellerProduct = async function(productId) {
                 if (!isAdminLoggedIn) {
                     alert("تەنھا بەڕێوەبەر دەتوانێت!");
@@ -3711,44 +3889,25 @@ async function loadCopiedCustomerRequests() {
                 }
             };
 
-            window.deleteSellerProduct = async function(productId) {
-                if (!isAdminLoggedIn) {
-                    alert("تەنها بەڕێوەبەر دەتوانێت!");
-                    return;
-                }
-                
-                if (!confirm("دڵنیایت کە دەتەوێت ئەم کالا بسڕیتەوە؟")) {
-                    return;
-                }
-                
-                try {
-                    const productRef = firebase.ref(firebase.db, `sellerProducts/${productId}`);
-                    const snapshot = await firebase.get(productRef);
-                    const product = snapshot.val();
-                    
-                    if (product.images && Array.isArray(product.images)) {
-                        for (const imageUrl of product.images) {
-                            try {
-                                const imagePath = decodeURIComponent(imageUrl.split('/o/')[1].split('?')[0]);
-                                const imageRef = firebase.storageRef(firebase.storage, imagePath);
-                                await firebase.deleteObject(imageRef);
-                            } catch (storageError) {
-                                console.warn("نەتوانرا وێنە بسڕدرێتەوە:", storageError);
-                            }
-                        }
-                    }
-                    
-                    await firebase.remove(productRef);
-                    
-                    alert("✅ کالا سڕدرایەوە!");
-                    loadSellerProducts();
-                    updateNotificationBadge();
-                    
-                } catch (error) {
-                    console.error("Error deleting seller product:", error);
-                    alert("❌ هەڵە لە سڕینەوەی کالا!");
-                }
-            };
+         window.deleteSellerProduct = async function(productId) {
+    if (!confirm("ئایا دڵنیایت لە سڕینەوەی ئەم کاڵایە؟")) return;
+    try {
+        const productRef = firebase.ref(firebase.db, `copiedProducts/${productId}`);
+        await firebase.remove(productRef);
+        alert("✅ کاڵاکە سڕایەوە");
+        
+        // بانگکردنەوەی لیستی کاڵاکان بۆ ئەوەی ون بێت بەبێ ڕیفرێش
+        if (typeof showSellerProducts === 'function') {
+            showSellerProducts();
+        } else {
+            // ئەگەر فانکشنەکە نەبوو، ئەمە بەکاربێنە بۆ نوێکردنەوەی بەشەکە
+            document.querySelector('button[onclick*="showSellerProducts"]').click();
+        }
+    } catch (error) {
+        console.error(error);
+        alert("❌ هەڵە ڕوویدا");
+    }
+};
 
             window.approveAllCustomerRequestsInApprovalModal = async function() {
                 if (!isAdminLoggedIn) {
@@ -4560,35 +4719,50 @@ async function loadCopiedCustomerRequests() {
             
             // فەنکشن بۆ سڕینەوەی کالا لە خشتە
             window.deleteProductFromTable = async function(productId) {
-    if (!isAdminLoggedIn) {
-        alert("تەنها بەڕێوەبەر دەتوانێت کالا بسڕێتەوە!");
-        return;
-    }
-    
-    if (!confirm("دڵنیایت کە دەتەوێت ئەم کالا بسڕیتەوە؟")) return;
-    
-    try {
-        const productRef = firebase.ref(firebase.db, 'products/' + productId);
-        
-        // یەکەم: سڕینەوە لە داتابەیس
-        await firebase.remove(productRef);
-        alert("✅ کالا بە سەرکەوتوویی سڕدرایەوە!");
-
-        // دووەم: نوێکردنەوەی خشتەکە بەبێ ڕێفرێش (Reload)
-        // ئەمە وادەکات لە داشبۆردەکە نەییتە دەرەوە
-        if (typeof fetchProductsForAdmin === 'function') {
-            fetchProductsForAdmin(); 
-        } else {
-            // ئەگەر فەرمانی سەرەوەت نییە، تەنها دێڕەکە لە خشتەکەدا لادە
-            const row = document.querySelector(`button[onclick*="${productId}"]`).closest('tr');
-            if (row) row.remove();
-        }
-
-    } catch (error) {
-        console.error("Error deleting product:", error);
-        alert("❌ هەڵە لە سڕینەوەی کالا!");
-    }
-};
+                if (!isAdminLoggedIn) {
+                    alert("تەنها بەڕێوەبەر دەتوانێت کالا بسڕێتەوە!");
+                    return;
+                }
+                
+                if (!confirm("دڵنیایت کە دەتەوێت ئەم کالا بسڕیتەوە؟")) {
+                    return;
+                }
+                
+                if (!firebaseInitialized) {
+                    alert("Firebase چالاک نەکراوە!");
+                    return;
+                }
+                
+                try {
+                    const productRef = firebase.ref(firebase.db, 'products/' + productId);
+                    const snapshot = await firebase.get(productRef);
+                    const product = snapshot.val();
+                    
+                    const images = product.images || (product.imageUrl ? [product.imageUrl] : []);
+                    
+                    for (const imageUrl of images) {
+                        try {
+                            const imagePath = decodeURIComponent(imageUrl.split('/o/')[1].split('?')[0]);
+                            const imageRef = firebase.storageRef(firebase.storage, imagePath);
+                            await firebase.deleteObject(imageRef);
+                        } catch (storageError) {
+                            console.warn("نەتوانرا وێنە بسڕدرێتەوە لە Storage:", storageError);
+                        }
+                    }
+                    
+                    await firebase.remove(productRef);
+                    alert("✅ کالا سڕدرایەوە!");
+                    
+                    if (globalProductsData) {
+                        displayAllProducts(globalProductsData);
+                    }
+                    
+                } catch (error) {
+                    console.error("Error deleting product:", error);
+                    alert("❌ هەڵە لە سڕینەوەی کالا!");
+                }
+            };
+            
             // فەنکشن بۆ دەستکاری کالا لە خشتە
             window.editProductFromTable = function(productId) {
                 if (!isAdminLoggedIn) {
@@ -4902,50 +5076,31 @@ async function loadCopiedCustomerRequests() {
             }
             
             // فەنکشن بۆ دووبارە دانانەوەی فۆرمی کالا (بەڕێوەبەر)
-      // فەنکشن بۆ دووبارە دانانەوەی فۆرمی کالا (بەڕێوەبەر) - چاککراو
-function resetProductForm() {
-    const formElement = document.getElementById('productForm'); // لێرەدا بە ID بانگی دەکەین
-    
-    if (document.getElementById('productId')) document.getElementById('productId').value = '';
-    if (document.getElementById('formTitle')) document.getElementById('formTitle').textContent = 'زیادکردنی کالای نوێ (بەڕێوەبەر)';
-    if (document.getElementById('submitText')) document.getElementById('submitText').textContent = 'زیادکردنی کالا';
-    if (document.getElementById('cancelEditBtn')) document.getElementById('cancelEditBtn').style.display = 'none';
-    if (document.getElementById('currentImages')) document.getElementById('currentImages').style.display = 'none';
-    
-    const productImagesInput = document.getElementById('productImages');
-    if (productImagesInput) {
-        productImagesInput.setAttribute('required', 'required');
-        productImagesInput.value = ''; // پاککردنەوەی فایلە هەڵبژێردراوەکان
-    }
-
-    if (formElement) {
-        formElement.reset(); // لێرەدا هەڵەکە چیتر ڕوونادات
-    }
-
-    if (document.getElementById('fileName')) document.getElementById('fileName').textContent = '';
-    
-    // پاککردنەوەی گۆڕاوەکان
-    window.selectedImages = [];
-    window.currentEditingImages = [];
-    
-    if (document.getElementById('imagePreviewContainer')) document.getElementById('imagePreviewContainer').innerHTML = '';
-    if (document.getElementById('currentImagesPreview')) document.getElementById('currentImagesPreview').innerHTML = '';
-    
-    const label = document.getElementById('fileInputLabel');
-    if (label) {
-        label.innerHTML = `
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
-                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
-                <line x1="16" y1="5" x2="22" y2="5"></line>
-                <line x1="19" y1="2" x2="19" y2="8"></line>
-                <circle cx="9" cy="9" r="2"></circle>
-                <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-            </svg>
-            <span>وێنەکانی کالا هەڵبژێرە (فرە)</span>
-        `;
-    }
-    window.currentEditingProductId = null;
-}
+            function resetProductForm() {
+                document.getElementById('productId').value = '';
+                document.getElementById('formTitle').textContent = 'زیادکردنی کالای نوێ (بەڕێوەبەر)';
+                document.getElementById('submitText').textContent = 'زیادکردنی کالا';
+                document.getElementById('cancelEditBtn').style.display = 'none';
+                document.getElementById('currentImages').style.display = 'none';
+                document.getElementById('productImages').setAttribute('required', 'required');
+                productForm.reset();
+                fileName.textContent = '';
+                selectedImages = [];
+                currentEditingImages = [];
+                imagePreviewContainer.innerHTML = '';
+                document.getElementById('currentImagesPreview').innerHTML = '';
+                fileInputLabel.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                        <line x1="16" y1="5" x2="22" y2="5"></line>
+                        <line x1="19" y1="2" x2="19" y2="8"></line>
+                        <circle cx="9" cy="9" r="2"></circle>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                    </svg>
+                    <span>وێنەکانی کالا هەڵبژێرە (فرە)</span>
+                `;
+                currentEditingProductId = null;
+            }
             
             // دوگمەی هەڵوەشاندنەوەی دەستکاری کالا
             if (cancelEditBtn) {
@@ -6585,196 +6740,17 @@ window.updateCopiedCustomerRequest = async function(event) {
         alert("❌ هەڵە لە نوێکردنەوەی داواکاری!");
     }
 };
-
-function closeAboutPage() {
-    document.getElementById("aboutPage").style.display = "none";
-}
-
-function deleteAllSellerProductsInApprovalModal() {
-    const items = document.querySelectorAll('#sellerProductsList .delete-btn');
-
-    items.forEach(btn => btn.click());
-
-    alert('هەموو کالاکانی فرۆشیار سڕانەوە');
-}
-// ١. چارەسەری کێشەی isAdminLoggedIn کە لە کۆنسۆڵەکەتدا هەبوو
-window.isAdminLoggedIn = true; 
-
-// ٢. فەرمانی سەرەکی زیادکردنی کاڵا
-window.addProduct = async function() {
-    const form = document.getElementById('addProductForm');
-    if (!form) {
-        console.error("فۆرمەکە نەدۆزرایەوە! دڵنیابەرەوە ID فۆرمەکە addProductForm بێت");
-        return;
-    }
-
-    const name = document.getElementById('productName').value;
-    const price = document.getElementById('productPrice').value;
-    const category = document.getElementById('productCategory').value;
-    const imageFiles = document.getElementById('productImages').files;
-
-    if (!name || !price || !category) {
-        alert("تکایە هەموو خانەکان پڕ بکەرەوە");
-        return;
-    }
-
-    const submitBtn = document.getElementById('submitBtn');
-    submitBtn.disabled = true;
-    submitBtn.innerText = "خەریکی بارکردنە...";
-
-    try {
-        let imageUrls = [];
-        // ئەپلۆدکردنی وێنەکان
-        for (let i = 0; i < imageFiles.length; i++) {
-            const file = imageFiles[i];
-            const storagePath = `products/${Date.now()}_${file.name}`;
-            const sRef = firebase.storageRef(firebase.storage, storagePath);
-            const snapshot = await firebase.uploadBytes(sRef, file);
-            const url = await firebase.getDownloadURL(snapshot.ref);
-            imageUrls.push(url);
-        }
-
-        // پاشەکەوتکردن لە داتابەیس
-        const newProductRef = firebase.push(firebase.ref(firebase.db, 'products'));
-        await firebase.set(newProductRef, {
-            name: name,
-            price: parseFloat(price),
-            category: category,
-            images: imageUrls,
-            timestamp: Date.now()
-        });
-
-        alert("✅ کاڵاکە بە سەرکەوتوویی زیادکرا");
-        form.reset(); // ئێستا ئەمە کار دەکات
-        location.reload(); 
-    } catch (error) {
-        console.error("Error:", error);
-        alert("هەڵەیەک ڕووidا: " + error.message);
-    } finally {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "زیادکردنی کالا";
-    }
-};
-// ئەمە بۆ ئەوەیە هەموو فەرمانەکانی سڕینەوە بزانن تۆ دەسەڵاتی ئەدمینت هەیە
-window.isAdminLoggedIn = true;
-// چارەسەری سڕینەوەی کاڵا کۆپیکراوەکان
-window.deleteCopiedSellerProduct = async function(productId) {
-    try {
-        const productRef = firebase.ref(firebase.db, `copiedSellerProducts/${productId}`);
-        await firebase.remove(productRef);
-        alert("✅ سڕایەوە!");
-        location.reload();
-    } catch (error) {
-        alert("❌ هەڵە ڕوویدا");
-    }
-};
-
-// چارەسەری سڕینەوەی داواکاری کڕیاران
-window.deleteCopiedCustomerRequest = async function(requestId) {
-    try {
-        const requestRef = firebase.ref(firebase.db, `copiedCustomerRequests/${requestId}`);
-        await firebase.remove(requestRef);
-        alert("✅ داواکارییەکە سڕایەوە!");
-        location.reload();
-    } catch (error) {
-        alert("❌ هەڵە ڕوویدا");
-    }
-};
-localStorage.setItem('adminAuthenticated', 'true');
 document.addEventListener('DOMContentLoaded', function() {
-    if (localStorage.getItem('adminAuthenticated') === 'true') {
-        window.isAdminLoggedIn = true;
-        // ئەگەر فەرمانی پیشاندانی داشبۆردت هەیە بانگی بکە
-        if (typeof showAdminDashboard === 'function') {
-            showAdminDashboard();
-        }
-    }
-});
-// ئەم کۆدە دۆخی ئەدمین دەپارێزێت تەنانەت ئەگەر لاپەڕەکە ڕێفرێش ببێتەوە
-document.addEventListener('DOMContentLoaded', function() {
-    // ئەگەر پێشتر چوویتە ژوورەوە، با بە ئەدمین بمێنیتەوە
     if (localStorage.getItem('adminLoggedIn') === 'true') {
         window.isAdminLoggedIn = true;
-        if (typeof showAdminDashboard === 'function') {
-            showAdminDashboard();
+        // ئەگەر پێشتر لە داشبۆرد بوویت، با هەر لەوێ بیت
+        const contentDiv = document.getElementById('mainContent');
+        if (contentDiv) {
+            // لێرەدا دەتوانیت بانگی داشبۆرد بکەیت یان دوگمەیەک بدۆزیتەوە
+            console.log("Admin is still logged in");
         }
     }
 });
-
-// ئەمەش بۆ ئەوەی کاتێک وشەی نهێنی ڕاست دەنووسیت، سیستمەکە بیرت نەکات
-const originalShowAdminDashboard = window.showAdminDashboard;
-window.showAdminDashboard = function() {
-    localStorage.setItem('adminLoggedIn', 'true');
-    window.isAdminLoggedIn = true;
-    if (originalShowAdminDashboard) originalShowAdminDashboard();
-};
-window.approveSellerProductNew = async function(productId) {
-    if (!isAdminLoggedIn) {
-        alert("تەنها بەڕێوەبەر دەتوانێت!");
-        return;
-    }
-    
-    try {
-        const productRef = firebase.ref(firebase.db, `sellerProducts/${productId}`);
-        const snapshot = await firebase.get(productRef);
-        const product = snapshot.val();
-        
-        if (!product) {
-            alert("کالا نەدۆزرایەوە!");
-            return;
-        }
-        
-        // ١. زیادکردنی کۆپی لە copiedSellerProducts
-        const copiedProductsRef = firebase.ref(firebase.db, 'copiedSellerProducts');
-        const newProductRef = firebase.push(copiedProductsRef);
-        
-        const productData = {
-            name: product.name || 'ناونەزانراو',
-            price: product.price || '0',
-            priceUSD: product.priceUSD || '0',
-            category: product.category || 'شتی تر',
-            description: product.description || '',
-            images: product.images || [],
-            imageUrl: product.imageUrl || (product.images && product.images.length > 0 ? product.images[0] : ''),
-            originalPrice: product.originalPrice || '',
-            discount: product.discount || '',
-            createdAt: product.createdAt || new Date().toISOString(),
-            sellerProductId: productId,
-            reviewedAt: new Date().toISOString(),
-            reviewedBy: 'admin',
-            status: 'approved'
-        };
-        
-        await firebase.set(newProductRef, productData);
-        
-        // ٢. نوێکردنەوەی سەرچاوەکە (گرنگترین بەش: دەستکاری دۆخەکە)
-        await firebase.update(productRef, {
-            reviewed: true,
-            status: 'approved',
-            reviewedAt: new Date().toISOString(),
-            reviewedBy: 'admin',
-            approvedProductId: newProductRef.key // تۆمارکردنی ئایدی نوێیەکە
-        });
-        
-        alert("✅ کالا پەسەندکرا و کۆپی کراوە بۆ بەشە کۆپی کراوەکان!");
-        
-        // ٣. نوێکردنەوەی لیستەکان
-        if (typeof loadSellerProducts === 'function') loadSellerProducts();
-        if (typeof loadSellerProductsForView === 'function') loadSellerProductsForView();
-        if (typeof updateNotificationBadge === 'function') updateNotificationBadge();
-        
-        // ٤. ئەگەر لە تابەکانی سەرەمی بینیمان، نوێی بکەرەوە
-        if (currentMainTab === 'seller') {
-            if (typeof loadAndShowCopiedSellerProducts === 'function') {
-                loadAndShowCopiedSellerProducts();
-            }
-        }
-        
-    } catch (error) {
-        console.error("Error approving seller product:", error);
-        alert("❌ هەڵە لە پەسەندکردنی کالا!");
-    }
-};
     </script>
 </body>
 </html>
