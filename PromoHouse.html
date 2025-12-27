@@ -1235,7 +1235,7 @@
             margin-bottom: 16px;
         }
 .request-form-container {
-    background-color: #39C7F7;
+    background-color: #78D2F5;
     padding: 20px;
     border-radius: 16px;
 }
@@ -1246,7 +1246,7 @@
     border-radius: 50%; /* ئەگەر دەتەوێت بازنەیی بێت */
 }
 #customerRequestForm {
-    background-color: #39C7F7; /* رەنگی پشتی فۆرم */
+    background-color: #78D2F5; /* رەنگی پشتی فۆرم */
     padding: 20px;             /* فاصلە لە ناو فۆرم */
     border-radius: 8px;        /* گۆڕینی گوشەکان بۆ ڕووند */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* سايهی نرمی پشت فۆرم */
@@ -1806,100 +1806,139 @@
             <input type="file" id="requestImages" accept="image/*" multiple>
             <div id="requestImagePreviewContainer" class="image-preview-container mt-2 flex flex-wrap gap-2"></div>
         </div>
-        
-     <button type="submit" class="submit-btn submit-primary">
-    <span id="submitRequestText">ناردنی داواکاری</span>
-    <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
-</button>
+    <!-- دوگمەکان -->
+<div class="flex gap-3 mt-4">
+    
+    <!-- ناردن -->
+    <button type="submit"
+            class="submit-btn submit-primary flex-1">
+        <span id="submitRequestText">ناردنی داواکاری</span>
+        <div id="submitRequestSpinner"
+             class="loading-spinner"
+             style="display:none;"></div>
+    </button>
 
+    <!-- گەڕانەوە -->
+    <button type="button"
+            onclick="backToHomeFromRequestForm()"
+            class="submit-btn bg-red-500 hover:bg-red-600 text-white flex-1">
+        گەڕانەوە
+    </button>
 
-   <button
-                type="button"
-                onclick="backToHomeFromRequestForm()"
-                class="submit-btn bg-red-500 hover:bg-red-600 text-white font-bold py-3 rounded-lg w-full">
-                گەڕانەوە
-            </button>
-</button>
+</div>
+
        
     </form>
 </div>
 
             
-       <!-- فۆرمی دانانی کالا (بۆ فرۆشیاران) -->
-            <div class="request-form-container" id="sellerProductFormSection" style="display: none;">
-                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">مارکێت</h3>
-                <p class="text-gray-600 mb-4 text-center">زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
-                
-                <form id="sellerProductForm">
-                    <div class="form-group">
-                        <label for="sellerProductName">ناوی کالا:</label>
-                        <input type="text" id="sellerProductName" placeholder="ناوی کالا" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sellerProductPrice">نرخ (دینار):</label>
-                        <input type="number" id="sellerProductPrice" placeholder="نرخ بە دینار" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sellerProductPriceUSD">نرخ ($):</label>
-                        <input type="number" step="0.01" id="sellerProductPriceUSD" placeholder="نرخ بە دۆلار" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sellerProductCategory">جۆری کالا:</label>
-                        <select id="sellerProductCategory" required>
-                            <option value="">جۆری کالا هەڵبژێرە</option>
-                            <option value="کوپ">کوپ</option>
-                            <option value="جانتا">جانتا</option>
-                            <option value="پێنووس">پێنووس</option>
-                            <option value="دەفتەر">دەفتەر</option>
-                            <option value="جل">جل</option>
-                            <option value="کڵاو">کڵاو</option>
-                            <option value="جوانکاری">جوانکاری</option>
-                            <option value="کەل و پەل">کەل و پەل</option>
-                            <option value="تەرمۆزە">تەرمۆزە</option>
-                            <option value="کرێکار">کرێکار</option>
-                            <option value="شتی تر">شتی تر</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sellerProductImages">وێنەی کالا:</label>
-                        <div class="file-input-container">
-                            <input type="file" id="sellerProductImages" accept="image/*" class="file-input" multiple>
-                            <label for="sellerProductImages" class="file-input-label" id="sellerFileInputLabel">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
-                                    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
-                                    <line x1="16" y1="5" x2="22" y2="5"></line>
-                                    <line x1="19" y1="2" x2="19" y2="8"></line>
-                                    <circle cx="9" cy="9" r="2"></circle>
-                                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
-                                </svg>
-                                <span>وێنەی کالا هەڵبژێرە (فرە)</span>
-                            </label>
-                        </div>
-                        <div id="sellerFileName" class="text-sm text-gray-500 mt-2"></div>
-                        <div id="sellerImagePreviewContainer" class="image-preview-container mt-2"></div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="sellerProductDescription">ڕونکردنەوەی کالا:</label>
-                        <textarea id="sellerProductDescription" placeholder="ڕونکردنەوەی کالا..." rows="3"></textarea>
-                    </div>
-                  <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 text-white">
-    <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
-    <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
-</button>
+    <div class="request-form-container" 
+     id="sellerProductFormSection" 
+     style="display: none; background-color: #78D2F5; padding: 20px; border-radius: 12px;">
+    
+    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">
+        فرۆشتن
+    </h3>
+    
+    <p class="text-gray-600 mb-4 text-center">
+        زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.
+    </p>
 
-                                 <button type="button"
-        onclick="backToHomeFromSellerForm()"
-        class="submit-btn bg-red-600 hover:bg-red-700 text-white mt-2">
-    گەڕانەوە
-</button>
+    <form id="sellerProductForm">
 
-                </form>
+        <!-- ناوی کالا -->
+        <div class="form-group">
+            <label for="sellerProductName">ناوی کالا:</label>
+            <input type="text" id="sellerProductName" placeholder="ناوی کالا" required>
+        </div>
+
+        <!-- نرخ + جۆری دراو -->
+        <div class="form-group">
+            <label>نرخ:</label>
+            <div style="display:flex; gap:10px;">
+                <select id="sellerProductCurrency" required>
+                    <option value="IQD">دینار (IQD)</option>
+                    <option value="USD">دۆلار ($)</option>
+                </select>
+
+                <input type="number"
+                       id="sellerProductPrice"
+                       placeholder="نرخ بە دینار"
+                       step="1"
+                       required>
             </div>
+        </div>
+
+        <!-- جۆری کالا -->
+        <div class="form-group">
+            <label for="sellerProductCategory">جۆری کالا:</label>
+            <select id="sellerProductCategory" required>
+                <option value="">جۆری کالا هەڵبژێرە</option>
+                <option value="کوپ">کوپ</option>
+                <option value="جانتا">جانتا</option>
+                <option value="پێنووس">پێنووس</option>
+                <option value="دەفتەر">دەفتەر</option>
+                <option value="جل">جل</option>
+                <option value="کڵاو">کڵاو</option>
+                <option value="جوانکاری">جوانکاری</option>
+                <option value="کەل و پەل">کەل و پەل</option>
+                <option value="تەرمۆزە">تەرمۆزە</option>
+                <option value="کرێکار">کرێکار</option>
+                <option value="شتی تر">شتی تر</option>
+            </select>
+        </div>
+
+        <!-- وێنەی کالا -->
+        <div class="form-group">
+            <label for="sellerProductImages">وێنەی کالا:</label>
+            <div class="file-input-container">
+                <input type="file"
+                       id="sellerProductImages"
+                       accept="image/*"
+                       class="file-input"
+                       multiple>
+
+                <label for="sellerProductImages" class="file-input-label">
+                    <span>وێنەی کالا هەڵبژێرە (فرە)</span>
+                </label>
+            </div>
+
+            <div id="sellerFileName" class="text-sm text-gray-500 mt-2"></div>
+            <div id="sellerImagePreviewContainer" class="image-preview-container mt-2"></div>
+        </div>
+
+        <!-- ڕونکردنەوە -->
+        <div class="form-group">
+            <label for="sellerProductDescription">ڕونکردنەوەی کالا:</label>
+            <textarea id="sellerProductDescription"
+                      placeholder="ڕونکردنەوەی کالا..."
+                      rows="3"></textarea>
+        </div>
+
+        <!-- دوگمەکان -->
+        <div class="flex gap-3 mt-4">
+
+            <!-- ناردن -->
+            <button type="submit"
+                    class="submit-btn bg-green-600 hover:bg-green-700 text-white flex-1">
+                <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
+                <div id="submitSellerProductSpinner"
+                     class="loading-spinner"
+                     style="display:none;"></div>
+            </button>
+
+            <!-- گەڕانەوە -->
+            <button type="button"
+                    onclick="backToHomeFromSellerForm()"
+                    class="submit-btn bg-red-600 hover:bg-red-700 text-white flex-1">
+                گەڕانەوە
+            </button>
+
+        </div>
+
+    </form>
+</div>
+
             <!-- فۆرمی زیادکردنی کالا (تەنها بۆ بەڕێوەبەر) -->
             <div class="add-product-form" id="addProductForm" style="display: none;">
                 <h3 class="text-xl font-bold mb-4 text-gray-800 text-center" id="formTitle">زیادکردنی کالای نوێ (بەڕێوەبەر)</h3>
@@ -2089,7 +2128,7 @@
                     class="bottom-nav-icon"
                 >
                 <span class="bottom-nav-text">کاڵاکان</span>
-                <span id="orderTime" class="order-time"></span>
+               
             </div>
 
             <!-- داواکاری -->
@@ -2129,24 +2168,33 @@
         <div class="modal-content">
             <h3 class="text-xl font-bold text-gray-800 mb-4 text-center">چونە ژوورەوەی بەڕێوەبەر</h3>
             
-            <div class="form-group">
-                <label for="password">وشەی نهێنی:</label>
-                <input type="password" id="password" placeholder="وشەی نهێنی بنووسە" class="w-full p-3 border border-gray-300 rounded-lg">
-            </div>
-            
-            <div class="action-buttons">
-                <button
-                    id="loginBtn"
-                    class="action-button bg-[#39C7F7] hover:bg-[#2fb8e6]">
-                    چونە ژوورەوە
-                </button>
+        <div class="form-group">
+   <label for="password" class="text-gray-400 block mb-1">
+    وشەی نهێنی:
+</label>
 
-                <button
-                    id="cancelLoginBtn"
-                    class="action-button bg-red-500 hover:bg-red-600">
-                    هەڵوەشاندنەوە
-                </button>
-            </div>
+    <input type="password"
+           id="password"
+           placeholder="وشەی نهێنی بنووسە"
+           class="w-full p-3 border border-gray-300 rounded-lg
+                  bg-white text-gray-800">
+</div>
+
+            
+        <div class="action-buttons">
+    <button
+        id="loginBtn"
+        class="action-button bg-[#39C7F7] hover:bg-[#2fb8e6] text-white">
+        چونە ژوورەوە
+    </button>
+
+    <button
+        id="cancelLoginBtn"
+        class="action-button bg-red-500 hover:bg-red-600 text-white">
+        هەڵوەشاندنەوە
+    </button>
+</div>
+
             
             <p class="text-gray-500 text-sm mt-4">تەنها بەڕێوەبەر دەتوانێت بچێتە ژوورەوە</p>
         </div>
@@ -2162,7 +2210,7 @@
                 964 770 192 2060
             </a>
 
-            <p class="text-gray-500 text-sm mb-4">ئێستا ئەتوانی پەیوەندی بکەیت</p>
+            <p class="text-gray-500 text-sm mb-4">ئیستا ئەتوانی پەیوەندی بکەیت</p>
             
             <div class="action-buttons">
                 <a href="tel:+9647701922060" style="text-decoration: none; flex: 1;">
@@ -2174,7 +2222,7 @@
                     </button>
                 </a>
 
-                <a href="https://wa.me/+9647701922060" target="_blank" style="text-decoration: none; flex: 1;">
+                <a href="https://wa.me/9647701922060" target="_blank" style="text-decoration: none; flex: 1;">
                     <button id="whatsappBtn" class="action-button whatsapp-btn" style="width: 100%;">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="display: inline-block; margin-right: 8px;">
                             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.76.982.998-3.675-.236-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.9 6.994c-.004 5.45-4.438 9.88-9.888 9.88m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.333 .157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.333 11.893-11.893 0-3.18-1.24-6.162-3.495-8.411"/>
@@ -2273,11 +2321,7 @@
 
         </div>
 
-      <button 
-    onclick="document.getElementById('aboutPage').style.display='none'" 
-    class="mt-4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-lg w-full font-bold">
-    گەڕانەوە
-</button>
+    <button id="closeAboutBtn" class="close-btn action-button w-full mt-3">گەڕانەوە</button>
 
     </div>
 </div>
@@ -6774,6 +6818,41 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Admin is still logged in");
         }
     }
+});
+const imageInput = document.getElementById("sellerProductImages");
+const previewContainer = document.getElementById("sellerImagePreviewContainer");
+const fileNameText = document.getElementById("sellerFileName");
+
+imageInput.addEventListener("change", () => {
+    previewContainer.innerHTML = "";
+    fileNameText.textContent = "";
+
+    const files = imageInput.files;
+
+    if (files.length === 0) return;
+
+    fileNameText.textContent = files.length + " وێنە هەڵبژێردرا";
+
+    Array.from(files).forEach(file => {
+        if (!file.type.startsWith("image/")) return;
+
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const img = document.createElement("img");
+            img.src = e.target.result;
+            img.style.width = "80px";
+            img.style.height = "80px";
+            img.style.objectFit = "cover";
+            img.style.borderRadius = "8px";
+            img.style.margin = "5px";
+            img.style.border = "1px solid #ddd";
+
+            previewContainer.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+    });
 });
     </script>
 </body>
