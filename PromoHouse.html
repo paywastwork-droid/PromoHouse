@@ -1682,7 +1682,7 @@
         </div>
         
         <div class="form-group">
-            <label for="requestDescription">شێواز/رەنگی کاڵا:</label>
+            <label for="requestDescription">تێبینی</label>
             <textarea id="requestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
         </div>
         
@@ -3155,7 +3155,7 @@ async function loadCopiedCustomerRequests() {
                 </div>
                 <div class="two-column-product-info p-4">
                     <h4>${request.productName || 'ناونەزانراو'}</h4>
-                    <div class="two-column-product-price"></div>
+                    <div class="two-column-product-price">داواکاری پەسەندکراو</div>
                     
                     <div class="mt-3 space-y-2">
                         <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
@@ -3166,7 +3166,7 @@ async function loadCopiedCustomerRequests() {
                     </div>
                     
                     ${images.length > 0 ? `<small class="text-blue-500 block mt-2">${images.length} وێنەی هەیە</small>` : ''}
-                    <small class="text-green-600 block mt-4">✅ پەسەندکراو </small>
+                    <small class="text-green-600 block mt-4">✅ پەسەندکراو لەلایەن بەڕێوەبەرەوە</small>
                     <small class="text-gray-500 text-xs block mt-2">${new Date(request.reviewedAt || request.timestamp).toLocaleString('ku')}</small>
                     
                     <div class="mt-3 flex gap-2">
@@ -6920,7 +6920,47 @@ if (sellerProductForm) {
         }
     });
 }
+// دڵنیابەرەوە ئەم کۆدە لەناو تاگی <script type="module"> دایە
+
+window.approveSellerProductNew = async function(id) {
+    if (!confirm('ئایا دڵنیایت لە پەسەندکردنی ئەم کاڵایە؟')) return;
+
+    try {
+        // 1. وەرگرتنی زانیاری کاڵاکە لە لیستی چاوەڕوانی (sellerRequests)
+        const pendingRef = ref(db, `sellerRequests/${id}`);
+        const snapshot = await get(pendingRef);
+
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+
+            // 2. ناردنی بۆ لیستی محصولات (products) بۆ ئەوەی لە لاپەڕەی سەرەکی نیشان بدرێت
+            const productsRef = ref(db, 'products');
+            const newProductRef = push(productsRef);
+            
+            await set(newProductRef, {
+                ...data,
+                status: 'approved',
+                isApproved: true,
+                approvedAt: new Date().toISOString()
+            });
+
+            // 3. سڕینەوەی لە لیستی چاوەڕوانی
+            await remove(pendingRef);
+
+            alert('✅ کاڵاکە بە سەرکەوتوویی پەسەند کرا و بڵاوکرایەوە.');
+            
+            // ئەگەر فەنکشنی بارکردنەوەی لیستەکەت هەیە، لێرە بانگی بکە
+            if (typeof loadSellerRequests === 'function') {
+                loadSellerRequests();
+            }
+        } else {
+            alert('❌ داتا نەدۆزرایەوە.');
+        }
+    } catch (error) {
+        console.error("Error approving product:", error);
+        alert('❌ هەڵەیەک ڕوویدا: ' + error.message);
+    }
+};
     </script>
 </body>
 </html>
-
