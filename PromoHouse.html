@@ -1763,11 +1763,10 @@
         </div>
     </form>
 </div>
-          <div class="request-form-container" id="requestFormSection" style="display: none;">
-
+     <!-- فۆرمی داواکاری (بۆ کڕیارەکان) -->
+<div class="request-form-container" id="requestFormSection" style="display: none;">
     <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">داواکاری کاڵا</h3>
-
-    <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کالا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
+    <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە و داواکاری کاڵا بکە. داواکاریەکە بۆ بەڕێوەبەر دەنێردرێت.</p>
     
     <form id="customerRequestForm">
         <div class="form-group">
@@ -1777,7 +1776,7 @@
         
         <div class="form-group">
             <label for="customerPhone">ژمارەی مۆبایل:</label>
-            <input type="tel" id="customerPhone" placeholder="0770..." required>
+            <input type="tel" id="customerPhone" placeholder="0770" required>
         </div>
         
         <div class="form-group">
@@ -1786,155 +1785,254 @@
         </div>
         
         <div class="form-group">
-            <label for="requestProduct">ناوی کالا:</label>
-            <input type="text" id="requestProduct" placeholder="ناوی کالای داواکراو" required>
+            <label for="requestProduct">ناوی کاڵا:</label>
+            <input type="text" id="requestProduct" placeholder="ناوی کاڵای داواکراو" required>
         </div>
         
         <div class="form-group">
-            <label for="requestDescription">تێبینی:</label>
+            <label for="requestDescription">شێواز/رەنگی کاڵا:</label>
             <textarea id="requestDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
         </div>
         
         <div class="form-group">
-            <label for="requestQuantity">ژمارەی کالا:</label>
+            <label for="requestQuantity">ژمارەی کاڵا:</label>
             <input type="number" id="requestQuantity" placeholder="ژمارە" min="1" value="1" required>
         </div>
-
-        <!-- وێنە زیادکردن -->
+        
         <div class="form-group">
-            <label for="requestImages">وێنەکانی کالا:</label>
-            <input type="file" id="requestImages" accept="image/*" multiple>
-            <div id="requestImagePreviewContainer" class="image-preview-container mt-2 flex flex-wrap gap-2"></div>
+            <label for="customerProductImages">وێنەی کاڵا:</label>
+            <div class="file-input-container">
+                <input type="file" id="customerProductImages" accept="image/*" class="file-input" multiple>
+                <label for="customerProductImages" class="file-input-label" id="customerFileInputLabel">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                        <line x1="16" y1="5" x2="22" y2="5"></line>
+                        <line x1="19" y1="2" x2="19" y2="8"></line>
+                        <circle cx="9" cy="9" r="2"></circle>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                    </svg>
+                    <span>وێنەی کاڵا هەڵبژێرە (فرە)</span>
+                </label>
+            </div>
+            <div id="customerFileName" class="text-sm text-gray-500 mt-2"></div>
+            <div id="customerImagePreviewContainer" class="image-preview-container mt-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;"></div>
         </div>
-    <!-- دوگمەکان -->
-<div class="flex gap-3 mt-4">
-    
-    <!-- ناردن -->
-    <button type="submit"
-            class="submit-btn submit-primary flex-1">
-        <span id="submitRequestText">ناردنی داواکاری</span>
-        <div id="submitRequestSpinner"
-             class="loading-spinner"
-             style="display:none;"></div>
-    </button>
+        
+        <style>
+            .image-preview-item {
+                position: relative;
+                width: 100%;
+                padding-bottom: 100%;
+                border-radius: 8px;
+                overflow: hidden;
+                border: 2px solid #e5e7eb;
+            }
+            .image-preview-item img {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+            .image-preview-item .remove-image {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                background: rgba(239, 68, 68, 0.9);
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 25px;
+                height: 25px;
+                cursor: pointer;
+                font-size: 16px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+            }
+            .image-preview-item .remove-image:hover {
+                background: rgba(220, 38, 38, 1);
+            }
+        </style>
+        
+        <script>
+            document.getElementById('customerProductImages').addEventListener('change', function(e) {
+                const container = document.getElementById('customerImagePreviewContainer');
+                const fileNameDiv = document.getElementById('customerFileName');
+                const files = Array.from(e.target.files);
+                
+                if (files.length > 0) {
+                    fileNameDiv.textContent = files.length + ' وێنە هەڵبژێردراوە';
+                    container.innerHTML = '';
+                    
+                    files.forEach((file, index) => {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const div = document.createElement('div');
+                            div.className = 'image-preview-item';
+                            div.innerHTML = `
+                                <img src="${event.target.result}" alt="وێنە ${index + 1}">
+                                <button type="button" class="remove-image" onclick="removeCustomerImage(${index})">×</button>
+                            `;
+                            container.appendChild(div);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                } else {
+                    fileNameDiv.textContent = '';
+                    container.innerHTML = '';
+                }
+            });
+            
+            function removeCustomerImage(index) {
+                const input = document.getElementById('customerProductImages');
+                const dt = new DataTransfer();
+                const files = Array.from(input.files);
+                
+                files.forEach((file, i) => {
+                    if (i !== index) dt.items.add(file);
+                });
+                
+                input.files = dt.files;
+                input.dispatchEvent(new Event('change'));
+            }
+        </script>
+        
+        <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700">
+            <span id="submitRequestText">ناردنی داواکاری</span>
+            <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
+        </button>
+        
+        <button type="button"
+        onclick="backToHomeFromRequestForm()"
+        class="submit-btn bg-red-600 hover:bg-red-700 text-white mt-2">
+    گەڕانەوە
+</button>
 
-    <!-- گەڕانەوە -->
-    <button type="button"
-            onclick="backToHomeFromRequestForm()"
-            class="submit-btn bg-red-500 hover:bg-red-600 text-white flex-1">
-        گەڕانەوە
-    </button>
-
-</div>
-
-       
     </form>
 </div>
 
-            
-    <div class="request-form-container" 
-     id="sellerProductFormSection" 
-     style="display: none; background-color: #78D2F5; padding: 20px; border-radius: 12px;">
+<!-- فۆرمی دانانی کاڵا (بۆ فرۆشیاران) -->
+<div class="request-form-container" id="sellerProductFormSection" style="display: none;">
+    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">فرۆشتن</h3>
+    <p class="text-gray-600 mb-4 text-center">زانیاریەکانی خۆت بنووسە .</p>
     
-    <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">
-        فرۆشتن
-    </h3>
-    
-    <p class="text-gray-600 mb-4 text-center">
-        زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.
-    </p>
-
     <form id="sellerProductForm">
-
-        <!-- ناوی کالا -->
         <div class="form-group">
-            <label for="sellerProductName">ناوی کالا:</label>
-            <input type="text" id="sellerProductName" placeholder="ناوی کالا" required>
+            <label for="sellerProductName">ناوی تۆ:</label>
+            <input type="text" id="sellerProductName" placeholder="ناوی تۆ" required>
         </div>
-
-        <!-- نرخ + جۆری دراو -->
+        
         <div class="form-group">
-            <label>نرخ:</label>
-            <div style="display:flex; gap:10px;">
-                <select id="sellerProductCurrency" required>
-                    <option value="IQD">دینار (IQD)</option>
+            <label for="sellerPhone">ژمارەی مۆبایل:</label>
+            <input type="tel" id="sellerPhone" placeholder="0770" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="sellerAddress">شوێنی نیشتەجێبوون:</label>
+            <input type="text" id="sellerAddress" placeholder="سلێمانی، جادەی..." required>
+        </div>
+        
+        <div class="form-group">
+            <label for="sellerProductTitle">ناوی کاڵا:</label>
+            <input type="text" id="sellerProductTitle" placeholder="ناوی کاڵای داواکراو" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="sellerProductDescription">شێواز/رەنگی کاڵا:</label>
+            <textarea id="sellerProductDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
+        </div>
+        
+        <div class="form-group">
+            <label for="sellerProductQuantity">ژمارەی کاڵا:</label>
+            <input type="number" id="sellerProductQuantity" placeholder="ژمارە" min="1" value="1" required>
+        </div>
+        
+        <div class="form-group">
+            <label for="sellerProductPrice">نرخ:</label>
+            <div style="display: flex; gap: 10px;">
+                <input type="number" id="sellerProductPrice" placeholder="نرخ" style="flex: 1;" required>
+                <select id="sellerPriceCurrency" style="width: 100px; padding: 10px; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px;">
+                    <option value="IQD">دینار</option>
                     <option value="USD">دۆلار ($)</option>
                 </select>
-
-                <input type="number"
-                       id="sellerProductPrice"
-                       placeholder="نرخ بە دینار"
-                       step="1"
-                       required>
             </div>
         </div>
-
-        <!-- جۆری کالا -->
+        
         <div class="form-group">
-            <label for="sellerProductCategory">جۆری کالا:</label>
-            <select id="sellerProductCategory" required>
-                <option value="">جۆری کالا هەڵبژێرە</option>
-                <option value="کوپ">کوپ</option>
-                <option value="جانتا">جانتا</option>
-                <option value="پێنووس">پێنووس</option>
-                <option value="دەفتەر">دەفتەر</option>
-                <option value="جل">جل</option>
-                <option value="کڵاو">کڵاو</option>
-                <option value="جوانکاری">جوانکاری</option>
-                <option value="کەل و پەل">کەل و پەل</option>
-                <option value="تەرمۆزە">تەرمۆزە</option>
-                <option value="کرێکار">کرێکار</option>
-                <option value="شتی تر">شتی تر</option>
-            </select>
-        </div>
-
-        <!-- وێنەی کالا -->
-        <div class="form-group">
-            <label for="sellerProductImages">وێنەی کالا:</label>
+            <label for="sellerProductImages">وێنەی کاڵا:</label>
             <div class="file-input-container">
-                <input type="file"
-                       id="sellerProductImages"
-                       accept="image/*"
-                       class="file-input"
-                       multiple>
-
-                <label for="sellerProductImages" class="file-input-label">
-                    <span>وێنەی کالا هەڵبژێرە (فرە)</span>
+                <input type="file" id="sellerProductImages" accept="image/*" class="file-input" multiple>
+                <label for="sellerProductImages" class="file-input-label" id="sellerFileInputLabel">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6b7280" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 8px;">
+                        <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7"></path>
+                        <line x1="16" y1="5" x2="22" y2="5"></line>
+                        <line x1="19" y1="2" x2="19" y2="8"></line>
+                        <circle cx="9" cy="9" r="2"></circle>
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"></path>
+                    </svg>
+                    <span>وێنەی کاڵا هەڵبژێرە (فرە)</span>
                 </label>
             </div>
-
             <div id="sellerFileName" class="text-sm text-gray-500 mt-2"></div>
-            <div id="sellerImagePreviewContainer" class="image-preview-container mt-2"></div>
+            <div id="sellerImagePreviewContainer" class="image-preview-container mt-2" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 10px;"></div>
         </div>
-
-        <!-- ڕونکردنەوە -->
-        <div class="form-group">
-            <label for="sellerProductDescription">ڕونکردنەوەی کالا:</label>
-            <textarea id="sellerProductDescription"
-                      placeholder="ڕونکردنەوەی کالا..."
-                      rows="3"></textarea>
-        </div>
-
-        <!-- دوگمەکان -->
-        <div class="flex gap-3 mt-4">
-
-            <!-- ناردن -->
-            <button type="submit"
-                    class="submit-btn bg-green-600 hover:bg-green-700 text-white flex-1">
-                <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
-                <div id="submitSellerProductSpinner"
-                     class="loading-spinner"
-                     style="display:none;"></div>
-            </button>
-
-            <!-- گەڕانەوە -->
-            <button type="button"
-                    onclick="backToHomeFromSellerForm()"
-                    class="submit-btn bg-red-600 hover:bg-red-700 text-white flex-1">
-                گەڕانەوە
-            </button>
-
-        </div>
+        
+        <script>
+            document.getElementById('sellerProductImages').addEventListener('change', function(e) {
+                const container = document.getElementById('sellerImagePreviewContainer');
+                const fileNameDiv = document.getElementById('sellerFileName');
+                const files = Array.from(e.target.files);
+                
+                if (files.length > 0) {
+                    fileNameDiv.textContent = files.length + ' وێنە هەڵبژێردراوە';
+                    container.innerHTML = '';
+                    
+                    files.forEach((file, index) => {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            const div = document.createElement('div');
+                            div.className = 'image-preview-item';
+                            div.innerHTML = `
+                                <img src="${event.target.result}" alt="وێنە ${index + 1}">
+                                <button type="button" class="remove-image" onclick="removeSellerImage(${index})">×</button>
+                            `;
+                            container.appendChild(div);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                } else {
+                    fileNameDiv.textContent = '';
+                    container.innerHTML = '';
+                }
+            });
+            
+            function removeSellerImage(index) {
+                const input = document.getElementById('sellerProductImages');
+                const dt = new DataTransfer();
+                const files = Array.from(input.files);
+                
+                files.forEach((file, i) => {
+                    if (i !== index) dt.items.add(file);
+                });
+                
+                input.files = dt.files;
+                input.dispatchEvent(new Event('change'));
+            }
+        </script>
+        
+        <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700">
+            <span id="submitSellerProductText">ناردنی داواکاری</span>
+            <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
+        </button>
+        
+        <button type="button"
+        onclick="backToHomeFromSellerForm()"
+        class="submit-btn bg-red-600 hover:bg-red-700 text-white mt-2">
+    گەڕانەوە
+</button>
 
     </form>
 </div>
@@ -2207,7 +2305,7 @@
             <p class="text-gray-600 mb-2">ژمارەی مۆبایل:</p>
             
             <a href="tel:+9647701922060" class="phone-number" id="phoneNumber" style="text-decoration: none; color: inherit; display: block; margin-bottom: 10px;">
-                +964 770 192 2060
+                964 770 192 2060
             </a>
 
             <p class="text-gray-500 text-sm mb-4">ئیستا ئەتوانی پەیوەندی بکەیت</p>
@@ -2489,15 +2587,7 @@
                     <!-- داواکارییەکان دێنە ئێرە -->
                 </div>
                 
-                <div class="flex gap-2 mt-3">
-                    <button onclick="markAllOrdersAsRead()" class="submit-btn bg-blue-600 hover:bg-blue-700 flex-1">
-                        نیشانەکردن وەک خوێندراوە
-                    </button>
-                    <button onclick="deleteAllOrders()" class="submit-btn bg-red-600 hover:bg-red-700 flex-1">
-                        سڕینەوەی هەموو
-                    </button>
-                </div>
-            </div>
+             
             
             <button id="closeOrdersBtn" class="close-btn action-button w-full mt-4">گەڕانەوە</button>
         </div>
@@ -3807,7 +3897,7 @@ async function loadCopiedCustomerRequests() {
             }
 
             // فەنکشنەکانی پەسەندکردن (نوێ - بۆ کۆپی کراوەکان)
-           window.approveCustomerRequestNew = async function(requestId) {
+       window.approveCustomerRequestNew = async function(requestId) {
     if (!isAdminLoggedIn) {
         alert("تەنها بەڕێوەبەر دەتوانێت!");
         return;
@@ -3823,7 +3913,7 @@ async function loadCopiedCustomerRequests() {
             return;
         }
         
-        // ١. زیادکردنی کۆپی لە copiedCustomerRequests (لەگەڵ وێنەکان)
+        // کۆپی کردن بۆ copiedCustomerRequests
         const copiedRequestsRef = firebase.ref(firebase.db, 'copiedCustomerRequests');
         const newRequestRef = firebase.push(copiedRequestsRef);
         
@@ -3834,7 +3924,7 @@ async function loadCopiedCustomerRequests() {
             productName: request.productName,
             productDescription: request.productDescription,
             quantity: request.quantity,
-            images: request.images || [], // وێنەکان کۆپی دەکرێن
+            images: request.images || [],
             timestamp: request.timestamp,
             reviewedAt: new Date().toISOString(),
             reviewedBy: 'admin',
@@ -3843,7 +3933,7 @@ async function loadCopiedCustomerRequests() {
         
         await firebase.set(newRequestRef, requestData);
         
-        // ٢. نوێکردنەوەی سەرچاوەکە
+        // نوێکردنەوەی سەرچاوەکە
         await firebase.update(requestRef, {
             reviewed: true,
             status: 'approved',
@@ -3851,12 +3941,11 @@ async function loadCopiedCustomerRequests() {
             reviewedBy: 'admin'
         });
         
-        alert("✅ داواکاری پەسەندکرا و کۆپی کراوە بۆ بەشە کۆپی کراوەکان!");
+        alert("✅ داواکاری پەسەندکرا!");
         
         loadCustomerRequests();
         updateNotificationBadge();
         
-        // ٣. نوێکردنەوەی پیشاندانی کۆپی کراوەکان ئەگەر تابەکە چالاکە
         if (currentMainTab === 'customer') {
             loadAndShowCopiedCustomerRequests();
         }
@@ -5060,89 +5149,167 @@ async function loadCopiedCustomerRequests() {
             
             // ========== Event Listener بۆ فۆرمی داواکاری کڕیار ==========
             
-            if (customerRequestForm) {
-                customerRequestForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    if (!firebaseInitialized) {
-                        alert("Firebase چالاک نەکراوە!");
-                        return;
-                    }
-                    
-                    // وەرگرتنی زانیارییەکان
-                    const customerName = document.getElementById('customerName').value.trim();
-                    const customerPhone = document.getElementById('customerPhone').value.trim();
-                    const customerAddress = document.getElementById('customerAddress').value.trim();
-                    const productName = document.getElementById('requestProduct').value.trim();
-                    const productDescription = document.getElementById('requestDescription').value.trim();
-                    const quantity = document.getElementById('requestQuantity').value;
-                    
-                    // پشکنینی خانە پڕەکان
-                    if (!customerName || !customerPhone || !customerAddress || !productName || !quantity) {
-                        alert("تکایە هەموو خانە پڕەکان پڕ بکەرەوە!");
-                        return;
-                    }
-                    
-                    // نیشاندانی ئایکۆنی بارکردن
-                    submitRequestText.style.display = 'none';
-                    submitRequestSpinner.style.display = 'inline-block';
-                    customerRequestForm.querySelector('button[type="submit"]').disabled = true;
-                    
-                    try {
-                        let imageUrls = [];
-                        
-                        // هەڵگرتنی وێنەکان ئەگەر هەیە
-                        if (requestSelectedImages.length > 0) {
-                            for (let i = 0; i < requestSelectedImages.length; i++) {
-                                const file = requestSelectedImages[i];
-                                const storagePath = `customerRequests/${Date.now()}_${i}_${file.name}`;
-                                const storageReference = firebase.storageRef(firebase.storage, storagePath);
-                                
-                                await firebase.uploadBytes(storageReference, file);
-                                const downloadURL = await firebase.getDownloadURL(storageReference);
-                                imageUrls.push(downloadURL);
-                            }
-                        }
-                        
-                        // دروستکردنی تۆمارەکە لە Firebase
-                        const requestData = {
-                            customerName,
-                            customerPhone,
-                            customerAddress,
-                            productName,
-                            productDescription,
-                            quantity: parseInt(quantity),
-                            images: imageUrls,
-                            timestamp: new Date().toISOString(),
-                            reviewed: false,
-                            status: 'pending'
-                        };
-                        
-                        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
-                        const newRequestRef = firebase.push(requestsRef);
-                        await firebase.set(newRequestRef, requestData);
-                        
-                        // سەرکەوتوویی
-                        alert("✅ داواکاریەکەت بە سەرکەوتوویی نێردرا!");
-                        
-                        // پاککردنەوەی فۆرم
-                        customerRequestForm.reset();
-                        requestSelectedImages = [];
-                        requestImagePreviewContainer.innerHTML = '';
-                        requestImagesInput.value = '';
-                        
-                    } catch (error) {
-                        console.error("Error submitting request:", error);
-                        alert("❌ هەڵە لە ناردنی داواکاری!");
-                    } finally {
-                        // گەڕاندنەوەی دوگمە
-                        submitRequestText.style.display = 'inline';
-                        submitRequestSpinner.style.display = 'none';
-                        customerRequestForm.querySelector('button[type="submit"]').disabled = false;
-                    }
+         // ========== فۆرمی داواکاری کڕیار (چاککراو) ==========
+if (customerRequestForm) {
+    // Event listener بۆ وێنەکان
+    const customerImagesInput = document.getElementById('customerProductImages');
+    let customerSelectedImages = [];
+    
+    if (customerImagesInput) {
+        customerImagesInput.addEventListener('change', function(e) {
+            const container = document.getElementById('customerImagePreviewContainer');
+            const fileNameDiv = document.getElementById('customerFileName');
+            const files = Array.from(e.target.files);
+            
+            customerSelectedImages = files; // هەڵگرتنی فایلەکان
+            
+            if (files.length > 0) {
+                fileNameDiv.textContent = files.length + ' وێنە هەڵبژێردراوە';
+                container.innerHTML = '';
+                
+                files.forEach((file, index) => {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const div = document.createElement('div');
+                        div.className = 'image-preview-item';
+                        div.innerHTML = `
+                            <img src="${event.target.result}" alt="وێنە ${index + 1}">
+                            <button type="button" class="remove-image" onclick="removeCustomerImageByIndex(${index})">×</button>
+                        `;
+                        container.appendChild(div);
+                    };
+                    reader.readAsDataURL(file);
                 });
+            } else {
+                fileNameDiv.textContent = '';
+                container.innerHTML = '';
+            }
+        });
+    }
+    
+    // فەنکشنی سڕینەوەی وێنە
+    window.removeCustomerImageByIndex = function(index) {
+        const input = document.getElementById('customerProductImages');
+        const dt = new DataTransfer();
+        
+        customerSelectedImages.forEach((file, i) => {
+            if (i !== index) dt.items.add(file);
+        });
+        
+        customerSelectedImages = Array.from(dt.files);
+        input.files = dt.files;
+        input.dispatchEvent(new Event('change'));
+    };
+    
+    // Event listener بۆ ناردنی فۆرم
+    customerRequestForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!firebaseInitialized) {
+            alert("Firebase چالاک نەکراوە!");
+            return;
+        }
+        
+        // وەرگرتنی زانیارییەکان
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const customerAddress = document.getElementById('customerAddress').value.trim();
+        const productName = document.getElementById('requestProduct').value.trim();
+        const productDescription = document.getElementById('requestDescription').value.trim();
+        const quantity = document.getElementById('requestQuantity').value;
+        
+        // پشکنینی خانە پڕەکان
+        if (!customerName || !customerPhone || !customerAddress || !productName || !quantity) {
+            alert("تکایە هەموو خانە پڕەکان پڕ بکەرەوە!");
+            return;
+        }
+        
+        // نیشاندانی ئایکۆنی بارکردن
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const submitText = document.getElementById('submitRequestText');
+        const submitSpinner = document.getElementById('submitRequestSpinner');
+        
+        if (submitText && submitSpinner) {
+            submitText.style.display = 'none';
+            submitSpinner.style.display = 'inline-block';
+        }
+        submitBtn.disabled = true;
+        
+        try {
+            let imageUrls = [];
+            
+            // بارکردنی وێنەکان ئەگەر هەن
+            if (customerSelectedImages && customerSelectedImages.length > 0) {
+                console.log(`بارکردنی ${customerSelectedImages.length} وێنە...`);
+                
+                for (let i = 0; i < customerSelectedImages.length; i++) {
+                    const file = customerSelectedImages[i];
+                    const storagePath = `customerRequests/${Date.now()}_${i}_${file.name}`;
+                    const storageReference = window.firebase.storageRef(window.firebase.storage, storagePath);
+                    
+                    console.log(`بارکردنی وێنەی ${i + 1}...`);
+                    await window.firebase.uploadBytes(storageReference, file);
+                    const downloadURL = await window.firebase.getDownloadURL(storageReference);
+                    imageUrls.push(downloadURL);
+                    console.log(`وێنەی ${i + 1} بار کرا: ${downloadURL}`);
+                }
             }
             
+            console.log(`کۆی وێنەکان: ${imageUrls.length}`);
+            
+            // دروستکردنی تۆمارەکە لە Firebase
+            const requestData = {
+                customerName,
+                customerPhone,
+                customerAddress,
+                productName,
+                productDescription,
+                quantity: parseInt(quantity),
+                images: imageUrls,
+                timestamp: new Date().toISOString(),
+                reviewed: false,
+                status: 'pending'
+            };
+            
+            const requestsRef = window.firebase.ref(window.firebase.db, 'customerRequests');
+            const newRequestRef = window.firebase.push(requestsRef);
+            await window.firebase.set(newRequestRef, requestData);
+            
+            // سەرکەوتوویی
+            alert(`✅ سوپاس ${customerName}!\nداواکاریەکەت بۆ "${productName}" بە سەرکەوتوویی نێردرا.\n${imageUrls.length} وێنە بارکرا.`);
+            
+            // پاککردنەوەی فۆرم
+            this.reset();
+            customerSelectedImages = [];
+            
+            const container = document.getElementById('customerImagePreviewContainer');
+            const fileNameDiv = document.getElementById('customerFileName');
+            if (container) container.innerHTML = '';
+            if (fileNameDiv) fileNameDiv.textContent = '';
+            
+            const imageInput = document.getElementById('customerProductImages');
+            if (imageInput) imageInput.value = '';
+            
+            // گەڕانەوە بۆ ماڵەوە
+            setTimeout(() => {
+                if (typeof showHomePage === 'function') {
+                    showHomePage();
+                }
+            }, 1000);
+            
+        } catch (error) {
+            console.error("Error submitting request:", error);
+            alert("❌ هەڵە لە ناردنی داواکاری: " + error.message);
+        } finally {
+            // گەڕاندنەوەی دوگمە
+            if (submitText && submitSpinner) {
+                submitText.style.display = 'inline';
+                submitSpinner.style.display = 'none';
+            }
+            submitBtn.disabled = false;
+        }
+    });
+}
             // فەنکشن بۆ دووبارە دانانەوەی فۆرمی کالا (بەڕێوەبەر)
             function resetProductForm() {
                 document.getElementById('productId').value = '';
@@ -6854,7 +7021,253 @@ imageInput.addEventListener("change", () => {
         reader.readAsDataURL(file);
     });
 });
+// Event listener بۆ فۆرمی فرۆشیار
+document.getElementById('sellerProductForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const submitBtn = document.getElementById('submitSellerProductText');
+    const spinner = document.getElementById('submitSellerProductSpinner');
+    
+    // پیشاندانی spinner
+    submitBtn.style.display = 'none';
+    spinner.style.display = 'inline-block';
+    
+    try {
+        // وەرگرتنی زانیاریەکان لە فۆرم
+        const formData = {
+            name: document.getElementById('sellerProductName').value,
+            phone: document.getElementById('sellerPhone').value,
+            address: document.getElementById('sellerAddress').value,
+            productName: document.getElementById('sellerProductTitle').value,
+            description: document.getElementById('sellerProductDescription').value,
+            quantity: document.getElementById('sellerProductQuantity').value,
+            price: document.getElementById('sellerProductPrice').value,
+            currency: document.getElementById('sellerPriceCurrency').value,
+            images: [] // وێنەکان دەتوانیت لێرە پرۆسێس بکەیت
+        };
+        
+        // ناردنی داتا بۆ سێرڤەر
+        // await fetch('your-api-endpoint', {
+        //     method: 'POST',
+        //     body: JSON.stringify(formData)
+        // });
+        
+        // پیشاندانی نامەی سەرکەوتوویی
+        alert('داواکاریەکەت بە سەرکەوتوویی نێردرا!');
+        
+        // پاککردنەوەی فۆرم
+        this.reset();
+        document.getElementById('sellerImagePreviewContainer').innerHTML = '';
+        document.getElementById('sellerFileName').textContent = '';
+        
+    } catch (error) {
+        alert('هەڵەیەک ڕوویدا، تکایە دووبارە هەوڵبدەرەوە');
+        console.error(error);
+    } finally {
+        // شاردنەوەی spinner
+        submitBtn.style.display = 'inline';
+        spinner.style.display = 'none';
+    }
+});
+// ========== فەنکشنەکانی پەسەندکردن (گلۆبال) ==========
+
+window.approveSellerProductNew = async function(productId) {
+    if (!window.isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    try {
+        const productRef = window.firebase.ref(window.firebase.db, `sellerProducts/${productId}`);
+        const snapshot = await window.firebase.get(productRef);
+        const product = snapshot.val();
+        
+        if (!product) {
+            alert("کالا نەدۆزرایەوە!");
+            return;
+        }
+        
+        // زیادکردن بۆ copiedSellerProducts
+        const copiedRef = window.firebase.ref(window.firebase.db, 'copiedSellerProducts');
+        const newCopiedRef = window.firebase.push(copiedRef);
+        
+        await window.firebase.set(newCopiedRef, {
+            name: product.name,
+            price: product.price,
+            priceUSD: product.priceUSD,
+            category: product.category,
+            description: product.description || '',
+            images: product.images || [],
+            imageUrl: (product.images && product.images[0]) || '',
+            originalPrice: product.originalPrice || '',
+            discount: product.discount || '',
+            reviewedAt: new Date().toISOString(),
+            status: 'approved'
+        });
+        
+        // نوێکردنەوەی سەرچاوەکە
+        await window.firebase.update(productRef, {
+            reviewed: true,
+            status: 'approved',
+            reviewedAt: new Date().toISOString()
+        });
+        
+        alert("✅ کالا پەسەندکرا!");
+        location.reload(); // ڕیفرێشی پەیج
+        
+    } catch (error) {
+        console.error("Error:", error);
+        alert("❌ هەڵە: " + error.message);
+    }
+};
+
+window.approveCustomerRequestNew = async function(requestId) {
+    if (!window.isAdminLoggedIn) {
+        alert("تەنها بەڕێوەبەر دەتوانێت!");
+        return;
+    }
+    
+    try {
+        const requestRef = window.firebase.ref(window.firebase.db, `customerRequests/${requestId}`);
+        const snapshot = await window.firebase.get(requestRef);
+        const request = snapshot.val();
+        
+        if (!request) {
+            alert("داواکاری نەدۆزرایەوە!");
+            return;
+        }
+        
+        // کۆپی کردن
+        const copiedRef = window.firebase.ref(window.firebase.db, 'copiedCustomerRequests');
+        const newRef = window.firebase.push(copiedRef);
+        
+        await window.firebase.set(newRef, {
+            customerName: request.customerName,
+            customerPhone: request.customerPhone,
+            customerAddress: request.customerAddress,
+            productName: request.productName,
+            productDescription: request.productDescription,
+            quantity: request.quantity,
+            images: request.images || [],
+            timestamp: request.timestamp,
+            reviewedAt: new Date().toISOString(),
+            status: 'approved'
+        });
+        
+        // نوێکردنەوە
+        await window.firebase.update(requestRef, {
+            reviewed: true,
+            status: 'approved',
+            reviewedAt: new Date().toISOString()
+        });
+        
+        alert("✅ داواکاری پەسەندکرا!");
+        location.reload();
+        
+    } catch (error) {
+        console.error("Error:", error);
+        alert("❌ هەڵە: " + error.message);
+    }
+};
+
+window.loadCopiedSellerProducts = async function() {
+    try {
+        const ref = window.firebase.ref(window.firebase.db, 'copiedSellerProducts');
+        const snapshot = await window.firebase.get(ref);
+        const data = snapshot.val();
+        
+        const container = document.getElementById('copiedSellerProducts');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (!data) {
+            container.innerHTML = '<p class="col-span-2 text-center py-8 text-gray-500">هیچ کالایەک نیە</p>';
+            return;
+        }
+        
+        Object.entries(data).forEach(([id, product]) => {
+            const img = (product.images && product.images[0]) || 'https://via.placeholder.com/150';
+            container.innerHTML += `
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <img src="${img}" alt="${product.name}" class="w-full h-32 object-cover rounded mb-2" onerror="this.src='https://via.placeholder.com/150'">
+                    <h4 class="font-bold">${product.name}</h4>
+                    <p class="text-blue-600">${product.price} دینار</p>
+                    <div class="mt-2 flex gap-2">
+                        <button onclick="deleteCopiedSellerProduct('${id}')" class="text-xs bg-red-500 text-white px-3 py-1 rounded">سڕینەوە</button>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Error loading:", error);
+    }
+};
+
+window.loadCopiedCustomerRequests = async function() {
+    try {
+        const ref = window.firebase.ref(window.firebase.db, 'copiedCustomerRequests');
+        const snapshot = await window.firebase.get(ref);
+        const data = snapshot.val();
+        
+        const container = document.getElementById('copiedCustomerRequests');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        if (!data) {
+            container.innerHTML = '<p class="col-span-2 text-center py-8 text-gray-500">هیچ داواکارییەک نیە</p>';
+            return;
+        }
+        
+        Object.entries(data).forEach(([id, req]) => {
+            container.innerHTML += `
+                <div class="bg-white p-4 rounded-lg shadow">
+                    <h4 class="font-bold">${req.productName}</h4>
+                    <p class="text-sm">کڕیار: ${req.customerName}</p>
+                    <p class="text-sm">ژمارە: ${req.customerPhone}</p>
+                    <div class="mt-2">
+                        <button onclick="deleteCopiedCustomerRequest('${id}')" class="text-xs bg-red-500 text-white px-3 py-1 rounded">سڕینەوە</button>
+                    </div>
+                </div>
+            `;
+        });
+    } catch (error) {
+        console.error("Error loading:", error);
+    }
+};
+
+window.deleteCopiedSellerProduct = async function(id) {
+    if (!confirm("دڵنیایت؟")) return;
+    try {
+        await window.firebase.remove(window.firebase.ref(window.firebase.db, `copiedSellerProducts/${id}`));
+        alert("✅ سڕایەوە!");
+        loadCopiedSellerProducts();
+    } catch (error) {
+        alert("❌ هەڵە: " + error.message);
+    }
+};
+
+window.deleteCopiedCustomerRequest = async function(id) {
+    if (!confirm("دڵنیایت؟")) return;
+    try {
+        await window.firebase.remove(window.firebase.ref(window.firebase.db, `copiedCustomerRequests/${id}`));
+        alert("✅ سڕایەوە!");
+        loadCopiedCustomerRequests();
+    } catch (error) {
+        alert("❌ هەڵە: " + error.message);
+    }
+};
+
+window.backToCopiedFromEdit = function() {
+    document.getElementById('editSellerProductFormSection').style.display = 'none';
+    document.getElementById('editCustomerRequestFormSection').style.display = 'none';
+    document.getElementById('copiedProductsSection').style.display = 'block';
+    loadCopiedSellerProducts();
+    loadCopiedCustomerRequests();
+};
+
+console.log("✅ All functions loaded successfully!");
     </script>
 </body>
 </html>
-
