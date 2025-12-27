@@ -1259,17 +1259,40 @@
     width: 100%;
     margin-top: 5px;
 }
+
+/* دوگمەی ناردن */
 #customerRequestForm button[type="submit"] {
-    background-color: #007acc;
-    color: white;
+    background-color: #22c55e; /* سەوز */
+    color: #ffffff;           /* نوسین سپی */
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-weight: bold;
 }
+
+/* کاتێک موس بۆسەردا هات */
 #customerRequestForm button[type="submit"]:hover {
-    background-color: #005fa3;
+    background-color: #16a34a; /* سەوزی تۆختر */
 }
+.submit-primary {
+    background-color: #22c55e; /* سەوز */
+    color: #ffffff;           /* نوسین سپی */
+    padding: 10px 20px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submit-primary:hover {
+    background-color: #16a34a; /* سەوزی تۆختر */
+}
+
 
     </style>
 </head>
@@ -1532,7 +1555,7 @@
                         <!-- پەیوەندی -->
                         <div class="horizontal-icon-item" onclick="openContact()">
                             <div class="icon-container mb-1">
-                                <img src="https://img.icons8.com/color/96/000000/phone.png" alt="پەیوەندی">
+                                <img src="https://img.icons8.com/?size=100&id=9659&format=png&color=000000" alt="پەیوەندی">
                             </div>
                             <span class="text-xs font-medium mt-1">پەیوەندی</span>
                         </div>
@@ -1784,10 +1807,12 @@
             <div id="requestImagePreviewContainer" class="image-preview-container mt-2 flex flex-wrap gap-2"></div>
         </div>
         
-        <button type="submit" class="submit-btn submit-primary">
-            <span id="submitRequestText">ناردنی داواکاری</span>
-            <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
-        </button>
+     <button type="submit" class="submit-btn submit-primary">
+    <span id="submitRequestText">ناردنی داواکاری</span>
+    <div id="submitRequestSpinner" class="loading-spinner" style="display: none;"></div>
+</button>
+
+
    <button
                 type="button"
                 onclick="backToHomeFromRequestForm()"
@@ -1800,10 +1825,9 @@
 </div>
 
             
-
-            <!-- فۆرمی دانانی کالا (بۆ فرۆشیاران) -->
+       <!-- فۆرمی دانانی کالا (بۆ فرۆشیاران) -->
             <div class="request-form-container" id="sellerProductFormSection" style="display: none;">
-                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">فرۆشتن</h3>
+                <h3 class="text-xl font-bold mb-4 text-gray-800 text-center">مارکێت</h3>
                 <p class="text-gray-600 mb-4 text-center">زانیاریەکانی کالا بنووسە. کالاکە پێویستی بە پەسەندی بەڕێوەبەرە.</p>
                 
                 <form id="sellerProductForm">
@@ -1863,14 +1887,18 @@
                         <label for="sellerProductDescription">ڕونکردنەوەی کالا:</label>
                         <textarea id="sellerProductDescription" placeholder="ڕونکردنەوەی کالا..." rows="3"></textarea>
                     </div>
-                  <button type="submit" class="submit-btn submit-primary">
+                    
+                   <button type="submit" class="submit-btn bg-green-600 hover:bg-green-700 text-white">
     <span id="submitSellerProductText">ناردنی کالا بۆ پەسەند</span>
     <div id="submitSellerProductSpinner" class="loading-spinner" style="display: none;"></div>
 </button>
-                 <button type="button" onclick="backToHomeFromSellerForm()" 
-                    class="w-full py-3 bg-red-500 text-white rounded-lg font-bold hover:bg-red-600 transition">
-                گەڕانەوە
-            </button>
+
+                    
+              <button type="button"
+        onclick="backToHomeFromSellerForm()"
+        class="submit-btn bg-red-600 hover:bg-red-700 text-white mt-2">
+    گەڕانەوە
+</button>
 
                 </form>
             </div>
@@ -2962,8 +2990,6 @@ async function loadAndShowCopiedCustomerRequests() {
     // تابی یەکەم چالاک بکە
     showCopiedTab('seller');
 };
-            
-            // فەنکشن بۆ نیشاندانی تابەکان لە بەشی کۆپی کراوەکان
            // فەنکشن بۆ نیشاندانی تابەکان لە بەشی کۆپی کراوەکان
 window.showCopiedTab = function(tab) {
     const tabBtns = document.querySelectorAll('#copiedProductsSection .tab-btn');
