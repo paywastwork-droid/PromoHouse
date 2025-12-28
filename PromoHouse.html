@@ -1335,10 +1335,10 @@
                 <!-- تابەکان بۆ جیاکردنەوەی کالای فرۆشیار و داواکاری -->
                 <div class="tabs flex mb-4 border-b">
                     <button class="tab-btn active px-4 py-2 border-b-2 border-blue-500 font-bold" onclick="showCopiedTab('seller')">
-                        کالای فرۆشیار (پەسەندکراو)
+                        کالای فرۆشیار
                     </button>
                     <button class="tab-btn px-4 py-2" onclick="showCopiedTab('customer')">
-                        داواکاری کڕیار (پەسەندکراو)
+                        داواکاری کڕیار 
                     </button>
                 </div>
                 
@@ -1833,7 +1833,7 @@
         </div>
         
         <div class="form-group">
-            <label for="sellerProductDescription">شێواز/رەنگی کاڵا:</label>
+            <label for="sellerProductDescription">تێبینی:</label>
             <textarea id="sellerProductDescription" placeholder="شێواز، رەنگ، جۆر..." rows="3"></textarea>
         </div>
         
@@ -2196,10 +2196,10 @@
             <p class="text-gray-600 mb-2">ژمارەی مۆبایل:</p>
             
             <a href="tel:+9647701922060" class="phone-number" id="phoneNumber" style="text-decoration: none; color: inherit; display: block; margin-bottom: 10px;">
-                964 770 192 2060
+                +964 770 192 2060
             </a>
 
-            <p class="text-gray-500 text-sm mb-4">ئەم ژمارەیە دەتوانیت ئێستا پەیوەندی بکەیت</p>
+            <p class="text-gray-500 text-sm mb-4">ئێستا ئەتوانیت پەیوەندی بکەیت</p>
             
             <div class="action-buttons">
                 <a href="tel:+9647701922060" style="text-decoration: none; flex: 1;">
@@ -2964,7 +2964,7 @@ async function loadAndShowCopiedCustomerRequests() {
                     </div>
                     <div class="two-column-product-info p-4">
                         <h4>${request.productName || 'ناونەزانراو'}</h4>
-                        <div class="two-column-product-price">داواکاری پەسەندکراو</div>
+                        <div class="two-column-product-price"></div>
                         
                         <div class="mt-3 space-y-2">
                             <p class="text-sm text-gray-600"><strong>کڕیار:</strong> ${request.customerName || 'ناونەزانراو'}</p>
@@ -6964,3 +6964,4 @@ window.approveSellerProductNew = async function(id) {
     </script>
 </body>
 </html>
+
