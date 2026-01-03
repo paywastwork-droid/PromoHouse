@@ -5169,92 +5169,134 @@ window.deleteAllSellerProductsInApprovalModal = async function() {
             
             // ========== Event Listener بۆ فۆرمی داواکاری کڕیار ==========
             
-            if (customerRequestForm) {
-                customerRequestForm.addEventListener('submit', async function(e) {
-                    e.preventDefault();
-                    
-                    if (!firebaseInitialized) {
-                        alert("Firebase چالاک نەکراوە!");
-                        return;
-                    }
-                    
-                    // وەرگرتنی زانیارییەکان
-                    const customerName = document.getElementById('customerName').value.trim();
-                    const customerPhone = document.getElementById('customerPhone').value.trim();
-                    const customerAddress = document.getElementById('customerAddress').value.trim();
-                    const productName = document.getElementById('requestProduct').value.trim();
-                    const productDescription = document.getElementById('requestDescription').value.trim();
-                    const quantity = document.getElementById('requestQuantity').value;
-                    
-                    // پشکنینی خانە پڕەکان
-                    if (!customerName || !customerPhone || !customerAddress || !productName || !quantity) {
-                        alert("تکایە هەموو خانە پڕەکان پڕ بکەرەوە!");
-                        return;
-                    }
-                    
-                    // نیشاندانی ئایکۆنی بارکردن
-                    submitRequestText.style.display = 'none';
-                    submitRequestSpinner.style.display = 'inline-block';
-                    customerRequestForm.querySelector('button[type="submit"]').disabled = true;
-                    
-                    try {
-                        let imageUrls = [];
-                        
-                        // هەڵگرتنی وێنەکان ئەگەر هەیە
-                        if (requestSelectedImages.length > 0) {
-                            for (let i = 0; i < requestSelectedImages.length; i++) {
-                                const file = requestSelectedImages[i];
-                                const storagePath = `customerRequests/${Date.now()}_${i}_${file.name}`;
-                                const storageReference = firebase.storageRef(firebase.storage, storagePath);
-                                
-                                await firebase.uploadBytes(storageReference, file);
-                                const downloadURL = await firebase.getDownloadURL(storageReference);
-                                imageUrls.push(downloadURL);
-                            }
-                        }
-                        
-                        // دروستکردنی تۆمارەکە لە Firebase
-                        const requestData = {
-                            customerName,
-                            customerPhone,
-                            customerAddress,
-                            productName,
-                            productDescription,
-                            quantity: parseInt(quantity),
-                            images: imageUrls,
-                            timestamp: new Date().toISOString(),
-                            reviewed: false,
-                            status: 'pending'
-                        };
-                        
-                        const requestsRef = firebase.ref(firebase.db, 'customerRequests');
-                        const newRequestRef = firebase.push(requestsRef);
-                        await firebase.set(newRequestRef, requestData);
-                        
-                        // سەرکەوتوویی
-                        alert("✅ داواکاریەکەت بە سەرکەوتوویی نێردرا!");
-                        
-                        // پاککردنەوەی فۆرم
-                        customerRequestForm.reset();
-                        requestSelectedImages = [];
-                        requestImagePreviewContainer.innerHTML = '';
-                        requestImagesInput.value = '';
-                 // لێرەدا گۆڕانکاری بکە لە ناو Event Listener ی کڕیارەکە
-} catch (error) {
-    console.error("Error submitting request:", error);
-    alert("❌ هەڵە لە ناردنی داواکاری!");
-} finally {
-    // دڵنیابە ئەم IDیانە لە HTML هەمان شێوەن
-    const btnText = document.getElementById('submitRequestText');
-    const spinner = document.getElementById('submitRequestSpinner');
-    
-    if(btnText) btnText.style.display = 'inline';
-    if(spinner) spinner.style.display = 'none';
-    
-    customerRequestForm.querySelector('button[type="submit"]').disabled = false;
-}
-                });
+            // Event Listener بۆ فۆرمی داواکاری کڕیار
+if (customerRequestForm) {
+    customerRequestForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!firebaseInitialized) {
+            alert("Firebase چالاک نەکراوە!");
+            return;
+        }
+        
+        // وەرگرتنی زانیارییەکان
+        const customerName = document.getElementById('customerName').value.trim();
+        const customerPhone = document.getElementById('customerPhone').value.trim();
+        const customerAddress = document.getElementById('customerAddress').value.trim();
+        const requestProduct = document.getElementById('requestProduct').value.trim();
+        const requestDescription = document.getElementById('requestDescription').value.trim();
+        const requestQuantity = document.getElementById('requestQuantity').value;
+        
+        // پشکنینی خانە پڕەکان
+        if (!customerName || !customerPhone || !customerAddress || !requestProduct || !requestQuantity) {
+            alert("تکایە هەموو خانە پڕەکان پڕ بکەرەوە!");
+            return;
+        }
+        
+        // وەرگرتنی وێنەکان
+        const imageInput = document.getElementById('customerProductImages');
+        const imageFiles = imageInput.files;
+        
+        if (imageFiles.length === 0) {
+            alert("تکایە لانیکەم یەک وێنەی کالا هەڵبژێرە!");
+            return;
+        }
+        
+        // دەستکاریکردنی دەمەکان
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const submitBtnText = document.getElementById('submitRequestText');
+        const submitSpinner = document.getElementById('submitRequestSpinner');
+        
+        submitBtn.disabled = true;
+        submitBtnText.style.display = 'none';
+        submitSpinner.style.display = 'inline-block';
+        
+        try {
+            let imageUrls = [];
+            
+            // بارکردنی وێنەکان بۆ Firebase Storage
+            for (let i = 0; i < imageFiles.length; i++) {
+                const file = imageFiles[i];
+                
+                // پشکنینی جۆری فایل
+                if (!file.type.startsWith('image/')) {
+                    alert(`فایل "${file.name}" وێنە نییە! تکایە تەنها وێنە هەڵبژێرە.`);
+                    continue;
+                }
+                
+                // پشکنینی قەبارەی فایل (لەتە 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`وێنەی "${file.name}" زۆر گەورەیە! قەبارەکە دەبێت لە 5MB کەمتر بێت.`);
+                    continue;
+                }
+                
+                // بارکردنی وێنە بۆ Storage
+                const storagePath = `customerRequests/${Date.now()}_${customerPhone}_${i}_${file.name}`;
+                const storageReference = ref(storage, storagePath);
+                await uploadBytes(storageReference, file);
+                
+                // وەرگرتنی لینکی وێنە
+                const imageUrl = await getDownloadURL(storageReference);
+                imageUrls.push(imageUrl);
             }
+            
+            if (imageUrls.length === 0) {
+                alert("تکایە لانیکەم یەک وێنەی دروست هەڵبژێرە!");
+                return;
+            }
+            
+            // دروستکردنی داتای داواکاری
+            const requestData = {
+                customerName: customerName,
+                customerPhone: customerPhone,
+                customerAddress: customerAddress,
+                productName: requestProduct,
+                productDescription: requestDescription || "",
+                quantity: parseInt(requestQuantity) || 1,
+                images: imageUrls,
+                timestamp: new Date().toISOString(),
+                reviewed: false,
+                status: 'pending',
+                type: 'customer'
+            };
+            
+            // پاشەکەوتکردن لە Firebase Database
+            const requestsRef = ref(db, 'customerRequests');
+            const newRequestRef = push(requestsRef);
+            await set(newRequestRef, requestData);
+            
+            // سەرکەوتوویی
+            alert("✅ داواکاریەکەت بە سەرکەوتوویی نێردرا! بەڕێوەبەر سەیری دەکات.");
+            
+            // پاککردنەوەی فۆرم
+            this.reset();
+            document.getElementById('customerFileName').textContent = '';
+            document.getElementById('customerImagePreviewContainer').innerHTML = '';
+            
+        } catch (error) {
+            console.error("Error submitting customer request:", error);
+            
+            // پەیامی هەڵەی وردتر
+            let errorMessage = "❌ هەڵە لە ناردنی داواکاری!";
+            if (error.code === 'storage/unauthorized') {
+                errorMessage += "\nدەسەڵاتت نییە بۆ ئەم کارە.";
+            } else if (error.code === 'storage/quota-exceeded') {
+                errorMessage += "\nبۆشایی کۆگە پڕە.";
+            } else if (error.message.includes('network')) {
+                errorMessage += "\کێشەی تۆڕە. تکایە پەیوەندیت بچێتەوە.";
+            } else {
+                errorMessage += "\n" + error.message;
+            }
+            
+            alert(errorMessage);
+        } finally {
+            // گەڕاندنەوەی دەمەکان
+            submitBtn.disabled = false;
+            submitBtnText.style.display = 'inline';
+            submitSpinner.style.display = 'none';
+        }
+    });
+}
             
             // فەنکشن بۆ دووبارە دانانەوەی فۆرمی کالا (بەڕێوەبەر)
             function resetProductForm() {
@@ -5501,8 +5543,9 @@ window.deleteAllSellerProductsInApprovalModal = async function() {
                 });
             }
             
-            // ========== فەنکشنەکانی فۆرمی کالا ==========
-            
+        // ========== فەنکشنەکانی فۆرمی کالا (بەڕێوەبەر) ==========
+
+ 
             if (productForm) {
                 productForm.addEventListener('submit', async function(e) {
                     e.preventDefault();
@@ -5543,27 +5586,17 @@ window.deleteAllSellerProductsInApprovalModal = async function() {
                     submitText.textContent = productId ? "نوێکردنەوەی کالا..." : "کالا زیاد دەکرێت...";
                     submitSpinner.style.display = 'inline-block';
                     
-                try {
-    let imageUrls = [];
-    
-    // لێرەدا دەبێت وێنەکان لە ئینپوتەکەوە وەربگریت نەک لە گۆڕدراوێکی نادیار
-    const imageInput = document.getElementById('customerProductImages');
-    const filesToUpload = imageInput.files;
-
-    if (filesToUpload.length > 0) {
-        for (let i = 0; i < filesToUpload.length; i++) {
-            const file = filesToUpload[i];
-            // دروستکردنی ناوێکی بێهاوتا بۆ وێنەکە تا تێکەڵ نەبێت
-            const storagePath = `customerRequests/${Date.now()}_customer_${i}_${file.name}`;
-            const storageReference = firebase.storageRef(firebase.storage, storagePath);
-            
-            await firebase.uploadBytes(storageReference, file);
-            const downloadURL = await firebase.getDownloadURL(storageReference);
-            imageUrls.push(downloadURL);
-        }
-    
-    
-    // بەردەوام بە لەسەر دروستکردنی requestData...
+                    try {
+                        let imageUrls = [];
+                        
+                        if (hasNewImages) {
+                            for (const imageFile of selectedImages) {
+                                const storageReference = firebase.storageRef(firebase.storage, 'products/' + Date.now() + '_' + imageFile.name);
+                                await firebase.uploadBytes(storageReference, imageFile);
+                                
+                                const imageUrl = await firebase.getDownloadURL(storageReference);
+                                imageUrls.push(imageUrl);
+                            }
                             
                             if (productId && hasExistingImages) {
                                 for (const oldImageUrl of currentEditingImages) {
@@ -7142,3 +7175,4 @@ console.log("Product data:", productData);
     </script>
 </body>
 </html>
+
